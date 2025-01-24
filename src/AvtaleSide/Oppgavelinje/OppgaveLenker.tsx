@@ -8,7 +8,9 @@ import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnh
 import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/forlengAvtale/ForlengAvtale';
 import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { missmatchAvtaler } from '@/messages';
 import React, { useContext } from 'react';
+import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import OppdaterOppfølgingEnhet from '../OppdaterOppfølgingsenhet/OppdaterOppfølgingsenhet';
 import SendTilbakeTilBeslutterUendret from '../SendTilbakeTilBeslutterUendret/SendTilbakeTilBeslutterUendret';
 import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreKontaktInfo/EndreKontaktInformasjon';
@@ -16,13 +18,10 @@ import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
-import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { arbeidstreningReadonly } = useFeatureToggles();
 
     const harØkonomi =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
@@ -42,7 +41,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
     }
     return (
         <>
-            {(!erArbeidstrening || (erArbeidstrening && !arbeidstreningReadonly)) && (
+            {!missmatchAvtaler.includes(avtale.id) && (
                 <div className={'modelLenker'}>
                     <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
                     <AnnullerAvtalen />

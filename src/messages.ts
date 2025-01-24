@@ -1,9 +1,9 @@
 import {
-    Returårsaker,
     Avtaleinnhold,
     AvtaleStatus,
     AvtaleVersjon,
     InkluderingstilskuddsutgiftType,
+    Returårsaker,
     Stillingstype,
     TilskuddPeriodeRefusjonStatus,
     TilskuddPeriodeStatus,
@@ -168,3 +168,22 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
             return '';
     }
 };
+
+export const missmatchAvtaler = [
+    '21436c5c-2184-4e72-a7d0-be69c7fc6706',
+    '75674528-86cb-4986-9eb4-e665b1a51e34',
+    'd42946b4-c138-483e-98d5-85b3e09b94fc',
+    'a6740d94-833d-4145-b015-0efd80460321',
+    '33a3ed28-414c-4b60-b594-3e28eeb9dddd',
+    '865fee00-1a31-459d-9eea-f2e788f6b0b4',
+    '39e9a216-35e5-441c-b965-bc60d60a5e6e',
+    '5f0280e4-aa18-4569-9e05-5a828d529aee',
+    'f5d96d8e-3c7d-44ac-910d-74031e0fbc81',
+    'f29a571c-797e-4eff-a38e-bfb20985d50a',
+    '1b6df2b0-cdc0-48e1-8118-9f9910083963',
+    '3f1c8118-0b8e-434c-a847-fcfd261e2363',
+    '3f3e82ee-c811-4707-9c49-cd59aa72de92',
+    'bca128c6-67ea-429e-8dc2-e151e8b06e4b',
+    '2b2b4961-d93a-4194-a8b8-1964b1d47619',
+    'ebcd1f09-458e-4435-a46d-6f1f442aff69',
+];
