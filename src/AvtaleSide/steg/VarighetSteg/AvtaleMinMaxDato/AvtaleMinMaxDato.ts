@@ -32,14 +32,29 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
     const { rolle } = useContext(InnloggetBrukerContext);
     const erVeileder = rolle === 'VEILEDER';
 
-    const startdatoPluss = (duration: Duration): any =>
-        format(add(addDays(avtale.gjeldendeInnhold.startDato!, -1), duration), 'yyyy-MM-dd');
+    const startdatoPluss = (duration: Duration): string | undefined => {
+        try {
+            return format(add(addDays(avtale.gjeldendeInnhold.startDato!, -1), duration), 'yyyy-MM-dd');
+        } catch (e) {
+            return undefined;
+        }
+    };
 
-    const startdatoFraAvtalensSluttDato = (duration: Duration): any =>
-        format(sub(addDays(avtale.gjeldendeInnhold.sluttDato!, 1), duration), 'yyyy-MM-dd');
+    const startdatoFraAvtalensSluttDato = (duration: Duration): string | undefined => {
+        try {
+            return format(sub(addDays(avtale.gjeldendeInnhold.sluttDato!, 1), duration), 'yyyy-MM-dd');
+        } catch (e) {
+            return undefined;
+        }
+    };
 
-    const sluttDatoFraDagensDato = (duration: Duration): any =>
-        format(add(addDays(new Date(), -1), duration), 'yyyy-MM-dd');
+    const sluttDatoFraDagensDato = (duration: Duration): string | undefined => {
+        try {
+            format(add(addDays(new Date(), -1), duration), 'yyyy-MM-dd');
+        } catch (e) {
+            return undefined;
+        }
+    };
 
     const settdatoBegrensningTiltakstype = (tiltakstype: TiltaksType) => {
         switch (tiltakstype) {
