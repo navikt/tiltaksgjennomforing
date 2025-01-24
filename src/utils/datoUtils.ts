@@ -69,11 +69,14 @@ export const visPeriodeForTiltak = (fra?: string, til?: string): string => {
     return 'ikke satt';
 };
 
-export const formaterDatoHvisDefinert = (dato?: string | null, format: string = NORSK_DATO_FORMAT) => {
-    if (!dato) return '-';
+export const formaterDatoHvisDefinert = (
+    dato?: string | null,
+    format: string = NORSK_DATO_FORMAT,
+): string | undefined => {
+    if (!dato) return undefined;
     const formatertDato = formaterDato(dato, format);
     if (formatertDato === 'Ugyldig dato') {
-        return dato;
+        return undefined;
     }
     return formatertDato;
 };

@@ -64,8 +64,8 @@ const AvtalekortMobil: FunctionComponent<{
                                         <Ingress>{avtale.bedriftNavn}</Ingress>
                                         <VerticalSpacer rem={0.5} />
                                         <BodyShort size="small">
-                                            Startdato {formaterDatoHvisDefinert(avtale.startDato)}, sluttdato{' '}
-                                            {formaterDatoHvisDefinert(avtale.sluttDato)}
+                                            Startdato {formaterDatoHvisDefinert(avtale.startDato) || '-'}, sluttdato{' '}
+                                            {formaterDatoHvisDefinert(avtale.sluttDato) || '-'}
                                         </BodyShort>
                                         <div className={cls.element('status')}>
                                             <StatusIkon status={avtale.status} />

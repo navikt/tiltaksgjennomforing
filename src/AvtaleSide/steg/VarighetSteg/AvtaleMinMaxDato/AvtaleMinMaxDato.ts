@@ -127,11 +127,13 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
             }
             if (startDatePicker) {
                 if (avtale.gjeldendeInnhold.sluttDato) {
+                    const minsteStartdatoBasertPåSluttdato = startdatoFraAvtalensSluttDato({ years: mengde });
+                    if (minsteStartdatoBasertPåSluttdato === undefined) return EN_UKE_SIDEN;
                     if (mengde) {
-                        if (startdatoFraAvtalensSluttDato({ years: mengde }) < EN_UKE_SIDEN) {
+                        if (minsteStartdatoBasertPåSluttdato < EN_UKE_SIDEN) {
                             return EN_UKE_SIDEN;
                         } else {
-                            return startdatoFraAvtalensSluttDato({ years: mengde });
+                            return minsteStartdatoBasertPåSluttdato;
                         }
                     }
                 }
