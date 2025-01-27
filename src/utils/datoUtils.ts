@@ -1,4 +1,13 @@
-import { differenceInDays, format, isBefore, formatDistanceToNowStrict, Duration, intervalToDuration } from 'date-fns';
+import {
+    differenceInDays,
+    format,
+    isBefore,
+    formatDistanceToNowStrict,
+    Duration,
+    intervalToDuration,
+    differenceInHours,
+    isAfter,
+} from 'date-fns';
 import { nb } from 'date-fns/locale';
 
 const units: Array<{ unit: keyof Duration; single: string; plural: string }> = [
@@ -25,6 +34,8 @@ export const formaterVarighet = (dato1: Date | string, dato2: Date | string): st
  * `format(new Date('2025-01-10', NORSK_DATO_OG_TID_FORMAT_FULL, {locale: nb}))` => '10. januar 2025 kl. 01:00'
  */
 export const NORSK_DATO_OG_TID_FORMAT_FULL = 'PPPp';
+
+export const NORSK_DATO_OG_TID_FORMAT = 'dd.MM.yyyy HH:mm';
 
 /**
  * Eksempel:
@@ -87,6 +98,24 @@ export const formaterDatoHvisDefinert = (
  * `tidSidenTidspunkt(addHours(new Date(), -5))` => '5 timer'
  * `tidSidenTidspunkt(addYears(new Date(), -5))` => '5 år'
  */
-export const tidSidenTidspunkt = (tidspunkt: string) => {
+export const tidSidenTidspunkt = (tidspunkt: string | Date) => {
     return formatDistanceToNowStrict(tidspunkt, { locale: nb });
+};
+
+/**
+ * Eksempler (gitt at nåværende tidspunkt er '2025-01-27 15:00:00'):
+ * `tidSidenTidspunktEllerDato('2025-01-27')` => '27.01.2025 01:00'
+ * `tidSidenTidspunktEllerDato('2025-01-27 12:00:00')` => '3 timer siden'
+ * `tidSidenTidspunktEllerDato('2025-01-28')` => 'om 10 timer'
+ */
+export const tidSidenTidspunktEllerDato = (tidspunkt: string | Date): string => {
+    const now = new Date();
+    const hoursSince = differenceInHours(tidspunkt, now);
+    const inFuture = isAfter(tidspunkt, now);
+    if (Math.abs(hoursSince) > 12) {
+        return formaterDato(tidspunkt, NORSK_DATO_OG_TID_FORMAT);
+    } else if (inFuture) {
+        return 'om ' + tidSidenTidspunkt(tidspunkt);
+    }
+    return tidSidenTidspunkt(tidspunkt) + ' siden';
 };

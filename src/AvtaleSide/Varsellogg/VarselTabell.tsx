@@ -1,6 +1,6 @@
 import HendelseIkon from '@/komponenter/HendelseIkon';
 import { Varsel } from '@/types/varsel';
-import { tidSidenTidspunkt, formaterDato } from '@/utils/datoUtils';
+import { formaterDato, tidSidenTidspunktEllerDato } from '@/utils/datoUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { Table } from '@navikt/ds-react';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
@@ -75,7 +75,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                             <Table.Row key={varsel.id} role="row">
                                 <Table.DataCell role="cell" aria-labelledby="tidspunkt">
                                     <UtgråetTekst title={formaterDato(varsel.tidspunkt)} grå={varsel.skjules}>
-                                        {tidSidenTidspunkt(varsel.tidspunkt)} siden
+                                        {tidSidenTidspunktEllerDato(varsel.tidspunkt)}
                                     </UtgråetTekst>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell">
