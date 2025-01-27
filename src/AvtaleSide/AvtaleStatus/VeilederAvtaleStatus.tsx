@@ -354,28 +354,59 @@ function VeilederAvtaleStatus(props: Props) {
                     );
             }
         }
-        case 'KLAR_FOR_OPPSTART':
-            return ['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtale.tiltakstype) ? (
-                <StatusPanel
-                    header="Avtalen er ferdig utfylt og godkjent"
-                    body={
-                        <>
-                            <BodyShort size="small">
-                                Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.
-                                Tiltaket starter{' '}
-                                {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
-                            </BodyShort>
-                            <VerticalSpacer rem={1} />
-                            <BodyShort size="small">
-                                Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får nå
-                                et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
-                                refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du skal
-                                ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk i Gosys.
-                            </BodyShort>
-                        </>
-                    }
-                />
-            ) : (
+        case 'KLAR_FOR_OPPSTART': {
+            if (['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtale.tiltakstype)) {
+                return (
+                    <StatusPanel
+                        header="Avtalen er ferdig utfylt og godkjent"
+                        body={
+                            <>
+                                <BodyShort size="small">
+                                    Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.
+                                    Tiltaket starter{' '}
+                                    {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
+                                </BodyShort>
+                                <VerticalSpacer rem={1} />
+                                <BodyShort size="small">
+                                    Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får
+                                    nå et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
+                                    refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du skal
+                                    ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk i
+                                    Gosys.
+                                </BodyShort>
+                            </>
+                        }
+                    />
+                );
+            }
+
+            if ('ARBEIDSTRENING' === avtale.tiltakstype) {
+                return (
+                    <StatusPanel
+                        header="Avtalen er ferdig utfylt og godkjent"
+                        body={
+                            <>
+                                <BodyShort size="small">
+                                    Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.{' '}
+                                    Tiltaket starter{' '}
+                                    {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
+                                </BodyShort>
+                                <VerticalSpacer rem={1} />
+                                <BodyShort size="small">
+                                    Alle parter har nå godkjent avtalen.{' '}
+                                    {avtale.opphav !== 'ARENA' && (
+                                        <>Deltaker får nå et vedtaksbrev på min side Personbruker.{' '}</>
+                                    )}
+                                    Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres
+                                    automatisk i Gosys.
+                                </BodyShort>
+                            </>
+                        }
+                    />
+                );
+            }
+
+            return (
                 <StatusPanel
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
@@ -394,6 +425,7 @@ function VeilederAvtaleStatus(props: Props) {
                     }
                 />
             );
+        }
         case 'GJENNOMFØRES':
             return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
         case 'AVSLUTTET':
