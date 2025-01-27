@@ -1,37 +1,36 @@
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { Alert, omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-import './AvtaleOversikt.less';
-import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
+import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
 import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
 import Avtaler from '@/AvtaleOversikt/Avtaler';
-import BEMHelper from '@/utils/bem';
+import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFiltrering';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
+import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
+import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
-import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
-import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
-import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
-import { Avtale, PageableAvtale } from '@/types/avtale';
-import { FiltreringContext } from './Filtrering/FiltreringProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
 import { Path } from '@/Router';
-import { Status } from '@/types/nettressurs';
-import { Varsel } from '@/types/varsel';
-import { litenForbokstav } from '@/utils/stringUtils';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import {
     hentAvtalerForInnloggetBrukerMedPost,
     hentAvtalerForInnloggetBrukerMedSokId,
     hentUlesteVarsler,
 } from '@/services/rest-service';
+import { Avtale, PageableAvtale } from '@/types/avtale';
+import { Status } from '@/types/nettressurs';
+import { Varsel } from '@/types/varsel';
+import BEMHelper from '@/utils/bem';
+import { litenForbokstav } from '@/utils/stringUtils';
 import { fjernTommeFelterFraObjekt } from '@/utils/utils';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import './AvtaleOversikt.less';
+import { FiltreringContext } from './Filtrering/FiltreringProvider';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
@@ -207,6 +206,13 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+                {innloggetBruker.rolle === 'DELTAKER' && (
+                    <Alert variant={'warning'}>
+                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for deg som
+                        har avtale om arbeidstrening. Hvis du opplever at noe ikke stemmer, så ta kontakt med din
+                        veileder.
+                    </Alert>
+                )}
                 {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                     <Alert variant={'warning'}>
                         Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som
