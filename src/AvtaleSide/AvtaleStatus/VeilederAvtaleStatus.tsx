@@ -395,7 +395,7 @@ function VeilederAvtaleStatus(props: Props) {
                                 <BodyShort size="small">
                                     Alle parter har nå godkjent avtalen.{' '}
                                     {avtale.opphav !== 'ARENA' && (
-                                        <>Deltaker får nå et vedtaksbrev på min side Personbruker.{' '}</>
+                                        <>Deltaker får nå et vedtaksbrev på min side Personbruker. </>
                                     )}
                                     Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres
                                     automatisk i Gosys.
