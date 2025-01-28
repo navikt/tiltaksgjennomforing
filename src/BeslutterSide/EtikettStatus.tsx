@@ -21,8 +21,6 @@ const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
 };
 
 const EtikettStatus: FunctionComponent<Props> = (props) => {
-    //const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && !isBefore(new Date(), avtale.kreverOppfolgingFom);
-
     if (props.refusjonStatus === 'UTBETALT') {
         return <Tag variant={'success'}>Utbetalt</Tag>;
     } else {
