@@ -1,8 +1,8 @@
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formatterDato, NORSK_DATO_FORMAT, sisteDatoIFristMåned } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 interface Props {
     avtaleInngått?: string;
@@ -25,8 +25,7 @@ const OppfolgingKreves: FunctionComponent<Props> = ({ gjeldendeTilskuddsPeriodeS
             <VerticalSpacer rem={1} />
             <Alert variant="warning" /*className={cls.element('alert')}*/>
                 <Label size="small">
-                    Oppfølging kreves innen{' '}
-                    {formatterDato(sisteDatoIFristMåned(gjeldendeTilskuddsPeriodeSluttdato!), NORSK_DATO_FORMAT)}
+                    Oppfølging kreves innen {formaterDato(gjeldendeTilskuddsPeriodeSluttdato!, NORSK_DATO_FORMAT)}
                 </Label>
                 <VerticalSpacer rem={0.5} />
                 <BodyShort size="small">
