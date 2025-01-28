@@ -1,18 +1,19 @@
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 interface Props {
-    avtaleInngått?: string;
-    startDato?: string;
+    startDato: string;
 }
 
-const KlarForOppstart: FunctionComponent<Props> = ({ avtaleInngått, startDato }) => {
+const KlarForOppstart: FunctionComponent<Props> = ({ startDato }) => {
     return (
         <StatusPanel
             header="Avtalen er ferdig utfylt og godkjent av NAV"
-            body={<BodyShort size="small">Tiltaket starter {formatterDato(startDato!, NORSK_DATO_FORMAT)}.</BodyShort>}
+            body={
+                <BodyShort size="small">Tiltaket starter {formaterDato(startDato, NORSK_DATO_FORMAT_FULL)}.</BodyShort>
+            }
         />
     );
 };

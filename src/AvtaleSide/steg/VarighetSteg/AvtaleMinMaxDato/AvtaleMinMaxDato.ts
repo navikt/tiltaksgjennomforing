@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { TiltaksType } from '@/types/avtale';
-import moment, { DurationInputArg2 } from 'moment';
+import { add, addDays, Duration, format, sub } from 'date-fns';
 import { useContext } from 'react';
 
 export declare type ISODateString = string;
@@ -32,16 +32,28 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
     const { rolle } = useContext(InnloggetBrukerContext);
     const erVeileder = rolle === 'VEILEDER';
 
-    const startdatoPluss = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        return moment(avtale.gjeldendeInnhold.startDato).subtract(1, 'days').add(megde, tidsEnhet).format('YYYY-MM-DD');
+    const startdatoPluss = (duration: Duration): string | undefined => {
+        try {
+            return format(add(addDays(avtale.gjeldendeInnhold.startDato!, -1), duration), 'yyyy-MM-dd');
+        } catch (e) {
+            return undefined;
+        }
     };
 
-    const startdatoFraAvtalensSluttDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        return moment(avtale.gjeldendeInnhold.sluttDato).add(1, 'days').subtract(megde, tidsEnhet).format('YYYY-MM-DD');
+    const startdatoFraAvtalensSluttDato = (duration: Duration): string | undefined => {
+        try {
+            return format(sub(addDays(avtale.gjeldendeInnhold.sluttDato!, 1), duration), 'yyyy-MM-dd');
+        } catch (e) {
+            return undefined;
+        }
     };
 
-    const sluttDatoFraDagensDato = (megde: number, tidsEnhet: DurationInputArg2): any => {
-        return moment(new Date()).add(megde, tidsEnhet).subtract(1, 'days').format('YYYY-MM-DD');
+    const sluttDatoFraDagensDato = (duration: Duration): string | undefined => {
+        try {
+            format(add(addDays(new Date(), -1), duration), 'yyyy-MM-dd');
+        } catch (e) {
+            return undefined;
+        }
     };
 
     const settdatoBegrensningTiltakstype = (tiltakstype: TiltaksType) => {
@@ -55,8 +67,8 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 }
                 if (avtale.gjeldendeInnhold.startDato) {
                     return {
-                        minDate: startdatoPluss(1, 'days'),
-                        maxDate: startdatoPluss(28, 'days'),
+                        minDate: startdatoPluss({ days: 1 }),
+                        maxDate: startdatoPluss({ days: 28 }),
                     };
                 }
                 return {
@@ -74,13 +86,13 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 }
                 if (avtale.gjeldendeInnhold.startDato) {
                     return {
-                        minDate: startdatoPluss(1, 'days'),
-                        maxDate: startdatoPluss(18, 'months'),
+                        minDate: startdatoPluss({ days: 1 }),
+                        maxDate: startdatoPluss({ months: 18 }),
                     };
                 }
                 return {
                     minDate: sjekkMuligMinDato(),
-                    maxDate: sluttDatoFraDagensDato(18, 'months'),
+                    maxDate: sluttDatoFraDagensDato({ months: 18 }),
                 };
 
             case 'MENTOR':
@@ -89,18 +101,18 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 if (startDatePicker === true) {
                     return {
                         minDate: sjekkMuligMinDato(),
-                        maxDate: sluttDatoFraDagensDato(1, 'years'),
+                        maxDate: sluttDatoFraDagensDato({ years: 1 }),
                     };
                 }
                 if (avtale.gjeldendeInnhold.startDato) {
                     return {
                         minDate: avtale.gjeldendeInnhold.startDato,
-                        maxDate: startdatoPluss(1, 'years'),
+                        maxDate: startdatoPluss({ years: 1 }),
                     };
                 } else {
                     return {
                         minDate: sjekkMuligMinDato(),
-                        maxDate: sluttDatoFraDagensDato(1, 'years'),
+                        maxDate: sluttDatoFraDagensDato({ years: 1 }),
                     };
                 }
             case 'VTAO':
@@ -115,11 +127,13 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
             }
             if (startDatePicker) {
                 if (avtale.gjeldendeInnhold.sluttDato) {
+                    const minsteStartdatoBasertPåSluttdato = startdatoFraAvtalensSluttDato({ years: mengde });
+                    if (minsteStartdatoBasertPåSluttdato === undefined) return EN_UKE_SIDEN;
                     if (mengde) {
-                        if (startdatoFraAvtalensSluttDato(mengde, 'years') < EN_UKE_SIDEN) {
+                        if (minsteStartdatoBasertPåSluttdato < EN_UKE_SIDEN) {
                             return EN_UKE_SIDEN;
                         } else {
-                            return startdatoFraAvtalensSluttDato(mengde, 'years');
+                            return minsteStartdatoBasertPåSluttdato;
                         }
                     }
                 }
@@ -141,18 +155,18 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
         if (startDatePicker) {
             return {
                 minDate: sjekkMuligMinDato(maksDato),
-                maxDate: sluttDatoFraDagensDato(maksDato, 'years'),
+                maxDate: sluttDatoFraDagensDato({ years: maksDato }),
             };
         }
         if (avtale.gjeldendeInnhold.startDato) {
             return {
                 minDate: sjekkMuligMinDato(maksDato),
-                maxDate: startdatoPluss(maksDato, 'years'),
+                maxDate: startdatoPluss({ years: maksDato }),
             };
         }
         return {
             minDate: sjekkMuligMinDato(maksDato),
-            maxDate: sluttDatoFraDagensDato(maksDato, 'years'),
+            maxDate: sluttDatoFraDagensDato({ years: maksDato }),
         };
     };
 

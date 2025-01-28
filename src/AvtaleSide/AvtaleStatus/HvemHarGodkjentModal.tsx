@@ -2,8 +2,8 @@ import CheckIkon from '@/assets/ikoner/check.svg?react';
 import VarselIkon from '@/assets/ikoner/varsel.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { TiltaksType } from '@/types/avtale';
-import { formatterDato } from '@/utils/datoUtils';
-import { BodyLong, BodyShort, Button, Label, Modal } from '@navikt/ds-react';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
+import { BodyShort, Button, Label, Modal } from '@navikt/ds-react';
 import { FunctionComponent, useContext, useState } from 'react';
 import './HvemHarGodkjentModal.less';
 
@@ -70,7 +70,7 @@ const GodkjenningRad: React.FunctionComponent<GodkjenningRadProps> = (props: God
     const måGodkjenneTekst = props.tiltakstype === 'MENTOR' ? 'Må signere' : 'Må godkjenne';
 
     const godkjentStatus: string = props.godkjentAvtale
-        ? harGodkjentTekst + ' ' + formatterDato(props.godkjentAvtale)
+        ? harGodkjentTekst + ' ' + formaterDato(props.godkjentAvtale, NORSK_DATO_FORMAT_FULL)
         : måGodkjenneTekst;
 
     const navn = props.navn;

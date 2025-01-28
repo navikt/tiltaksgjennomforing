@@ -3,7 +3,7 @@ import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { formatterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils/PengeUtils';
 import { BodyShort, Button, Select } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
 
@@ -91,7 +91,7 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                             </BodyShort>
                         </td>
                         <td>
-                            <BodyShort size="small">{formatterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
+                            <BodyShort size="small">{formaterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
                         </td>
                         <td>
                             {kanUtgiftSlettes() && (

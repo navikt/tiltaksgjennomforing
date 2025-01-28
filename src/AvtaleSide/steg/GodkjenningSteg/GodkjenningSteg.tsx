@@ -2,11 +2,11 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
+import { missmatchAvtaler } from '@/messages';
 import { Avtaleinnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
@@ -22,10 +22,9 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const { arbeidstreningReadonly } = useFeatureToggles();
 
     const skalViseGodkjenning =
-        !(arbeidstreningReadonly && avtale.tiltakstype === 'ARBEIDSTRENING') &&
+        !missmatchAvtaler.includes(avtale.id) &&
         !avtale.erAnnullertEllerAvbrutt &&
         (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 

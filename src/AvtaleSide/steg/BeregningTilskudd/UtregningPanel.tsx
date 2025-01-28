@@ -11,12 +11,13 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { formatterPenger } from '@/utils/PengeUtils';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterPenger } from '@/utils/PengeUtils';
 import { Accordion, Label } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import './UtregningPanel.less';
 import Utregningsrad from './Utregningsrad';
+import { formaterNorskeTall } from '@/utils';
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
@@ -45,7 +46,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             labelIkon={<StillingsprosentIkon />}
                             labelTekst="Stillingsprosent"
                             verdiOperator={<ProsentTegn />}
-                            verdi={props.stillingprosent || 0}
+                            verdi={props.stillingprosent ? formaterNorskeTall(props.stillingprosent) : 0}
                             ikkePenger
                         />
                         <Utregningsrad
@@ -85,7 +86,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             labelTekst={props.datoForRedusertProsent ? `Tilskuddsprosent frem til` : 'Tilskuddsprosent'}
                             midtrekkeTekst={
                                 props.datoForRedusertProsent
-                                    ? formatterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)
+                                    ? formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)
                                     : null
                             }
                             labelIkon={<GraphRefusjonAvLonnIkon />}
@@ -96,13 +97,13 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                         <Utregningsrad
                             labelTekst="Sum tilskudd for en måned"
                             tekstType="element"
-                            verdi={`Inntil ${formatterPenger(props.sumLonnstilskudd || 0)}`}
+                            verdi={`Inntil ${formaterPenger(props.sumLonnstilskudd || 0)}`}
                         />
                         {props.datoForRedusertProsent && (
                             <>
                                 <Utregningsrad
                                     labelTekst={`Tilskuddsprosent fra og med`}
-                                    midtrekkeTekst={formatterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}
+                                    midtrekkeTekst={formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}
                                     labelIkon={<GraphRefusjonAvLonnIkon />}
                                     ikkePenger
                                     verdiOperator={<ProsentTegn />}
@@ -115,7 +116,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                                 <Utregningsrad
                                     labelTekst="Sum tilskudd for en måned"
                                     tekstType="element"
-                                    verdi={`Inntil ${formatterPenger(props.sumLønnstilskuddRedusert || 0)}`}
+                                    verdi={`Inntil ${formaterPenger(props.sumLønnstilskuddRedusert || 0)}`}
                                 />
                             </>
                         )}

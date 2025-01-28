@@ -4,9 +4,9 @@ import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale, Avtaleinnhold } from '@/types/avtale';
-import { formatterDato } from '@/utils/datoUtils';
+import { formaterDato } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 interface Props {
     avtale: Pick<
@@ -31,7 +31,7 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
+                            Veileder har annullert avtalen {formaterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
                             {avtale.annullertGrunn}.
                         </BodyShort>
                     }
@@ -43,7 +43,7 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     header="Avtalen er avbrutt"
                     body={
                         <BodyShort size="small">
-                            Veileder har avbrutt avtalen {formatterDato(avtale.avbruttDato!)}. Årsak:{' '}
+                            Veileder har avbrutt avtalen {formaterDato(avtale.avbruttDato!)}. Årsak:{' '}
                             {avtale.avbruttGrunn}.
                         </BodyShort>
                     }
@@ -92,9 +92,7 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                 />
             );
         case 'KLAR_FOR_OPPSTART':
-            return (
-                <KlarForOppstart avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />
-            );
+            return <KlarForOppstart startDato={avtale.gjeldendeInnhold.startDato!} />;
         case 'GJENNOMFØRES':
             return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
         case 'AVSLUTTET':

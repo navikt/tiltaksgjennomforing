@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { BodyShort, Label } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formatterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils/PengeUtils';
 import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -55,10 +55,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                 borderTop: nyProsent ? '2px solid gray' : 'undefined',
                             }}
                         >
-                            <BodyShort size="small">
-                                {formatterDato(periode.startDato, NORSK_DATO_FORMAT)} -{' '}
-                                {formatterDato(periode.sluttDato, NORSK_DATO_FORMAT)}
-                            </BodyShort>
+                            <BodyShort size="small">{formaterPeriode(periode.startDato, periode.sluttDato)}</BodyShort>
                             {innloggetBruker.erNavAnsatt && (
                                 <BodyShort>
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
@@ -71,7 +68,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                     avtale.tiltakstype === 'SOMMERJOBB') && <>{periode.lonnstilskuddProsent}%</>}
                             </BodyShort>
                             <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                                {formatterPenger(periode.beløp)}
+                                {formaterPenger(periode.beløp)}
                             </BodyShort>
                         </div>
                     );

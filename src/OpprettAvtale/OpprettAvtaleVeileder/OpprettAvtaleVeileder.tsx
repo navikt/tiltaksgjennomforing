@@ -1,4 +1,4 @@
-import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Alert, Heading } from '@navikt/ds-react';
 import { useNavigate, generatePath } from 'react-router-dom';
 
@@ -50,8 +50,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
-    const { arbeidstreningReadonly } = useFeatureToggles();
-    const visVarsel = useContext(FeilVarselContext);
 
     const navigate = useNavigate();
 
@@ -187,15 +185,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             <Heading size="large" className={cls.element('innholdstittel')}>
                 Opprett avtale
             </Heading>
-            {arbeidstreningReadonly && (
-                <>
-                    <Alert variant={'warning'}>
-                        Migrering fra Arena pågår. Avtale om arbeidstrening kan ikke opprettes mens migrering pågår.
-                        Forsøk igjen om et par timer.
-                    </Alert>
-                    <VerticalSpacer rem={1} />
-                </>
-            )}
             <InformasjonsboksTopVeilederOppretterAvtale />
             <TiltaksTypeRadioPanel
                 className={cls.className}

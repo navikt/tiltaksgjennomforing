@@ -45,17 +45,22 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
             bekreftelseTekst="Annuller avtale"
             avbrytelseTekst="Behold avtale"
         >
-            <div>
-                <p>
-                    <Alert variant="info" inline>
-                        Annullering brukes for tilfeller der tiltaket aldri ble noe av.
-                    </Alert>
-                </p>
-                <BodyShort size="small" style={{ maxWidth: '34rem' }}>
-                    Når du annullerer avtalen, blir innholdet låst, og den blir markert som "annullert" i din oversikt.
-                    Du kan ikke redigere eller gjenopprette den etterpå.
+            <>
+                <BodyShort>
+                    Annullering brukes for tilfeller der tiltaket aldri ble noe av. Når du annullerer avtalen, blir
+                    innholdet låst, og den blir markert som "annullert" i din oversikt. Du kan ikke redigere eller
+                    gjenopprette den etterpå.
                 </BodyShort>
                 <VerticalSpacer rem={1} />
+                {avtaleContext.avtale.opphav === 'ARENA' && (
+                    <>
+                        <Alert variant="warning">
+                            Annullering av denne avtalen kan generere en vurder konsekvens for ytelse oppgave, som du må
+                            følge opp.
+                        </Alert>
+                        <VerticalSpacer rem={1} />
+                    </>
+                )}
                 <div role="menu">
                     <VerticalSpacer rem={1.25} />
                     <RadioGroup
@@ -81,7 +86,11 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                                 }}
                                 role="menuitemradio"
                             >
-                                {label}
+                                {label === 'Feilregistrering' ? (
+                                    <>{label} (avtalen vil bli skjult for alle avtaleparter)</>
+                                ) : (
+                                    label
+                                )}
                             </Radio>
                         ))}
                     </RadioGroup>
@@ -98,12 +107,7 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                         )}
                     </div>
                 </div>
-                {annullertGrunn === 'Feilregistrering' && (
-                    <Alert variant="warning" inline>
-                        Ved årsak <em>Feilregistrering</em> blir avtalen skjult for alle avtaleparter
-                    </Alert>
-                )}
-            </div>
+            </>
         </BekreftelseModal>
     );
 };

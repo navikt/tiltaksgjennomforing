@@ -1,7 +1,7 @@
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 interface Props {
     startDato?: string;
@@ -14,8 +14,8 @@ const Avsluttet: FunctionComponent<Props> = ({ startDato, sluttDato }) => {
             header="Tiltaket er avsluttet"
             body={
                 <BodyShort size="small">
-                    Tiltaket varte fra {formatterDato(startDato!, NORSK_DATO_FORMAT)} til{' '}
-                    {formatterDato(sluttDato!, NORSK_DATO_FORMAT)}.
+                    Tiltaket varte fra {formaterDato(startDato!, NORSK_DATO_FORMAT_FULL)} til{' '}
+                    {formaterDato(sluttDato!, NORSK_DATO_FORMAT_FULL)}.
                 </BodyShort>
             }
         />

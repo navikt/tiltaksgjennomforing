@@ -23,7 +23,7 @@ const VarighetTilbakeTidAlert: React.FC<Props> = ({
         <div className={cls.element('rad')}>
             {sommerjobbDeltakerOver30VedStartdato && (
                 <Alert variant="warning" className={cls.element('sommerjobb-deltaker-over30-alert')}>
-                    Deltaker kan ikke ha fylt 30år før startdatoen. Det vil ikke være mulig å starte opp avtalen.
+                    Deltaker kan ikke ha fylt 30 år før startdatoen. Det vil ikke være mulig å starte opp avtalen.
                 </Alert>
             )}
             {(erDatoTilbakeITid(startDato) || erDatoTilbakeITid(sluttDato)) && (

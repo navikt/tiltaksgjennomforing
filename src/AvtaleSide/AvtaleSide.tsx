@@ -16,6 +16,8 @@ import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { Alert } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('avtaleside');
 
@@ -50,15 +52,13 @@ const AvtaleSide: FunctionComponent = () => {
 
     const erDesktop = windowSize > 768;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
-    const { arbeidstreningReadonly } = useFeatureToggles();
 
     const erAvtaleLaast =
         godkjentAvVeileder ||
         avtale.avbrutt ||
         avtale.annullertTidspunkt ||
         innloggetBruker.rolle === 'DELTAKER' ||
-        innloggetBruker.rolle === 'MENTOR' ||
-        (arbeidstreningReadonly && avtale.tiltakstype === 'ARBEIDSTRENING');
+        innloggetBruker.rolle === 'MENTOR';
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);
@@ -91,27 +91,60 @@ const AvtaleSide: FunctionComponent = () => {
                 }}
                 tekst={sideTittel}
             />
+
             <div className="avtaleside" role="main">
-                {erAvtaleLaast && (
-                    <div className={cls.element('innhold')}>
-                        <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
-                        <OppgaveLinje />
-                        {aktivtSteg.komponent}
+                {
+                    <div className={erAvtaleLaast ? cls.element('innhold') : cls.element('')}>
+                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Alert variant={'warning'}>
+                                    Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer
+                                    for de som har avtaler om arbeidstrening.
+                                    <br />
+                                    Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på
+                                    telefonen: <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
+                                </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
+                        {innloggetBruker.rolle === 'VEILEDER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Alert variant={'warning'}>
+                                    På grunn av overføring av data på arbeidstrening fra Arena, så kan det forekomme
+                                    endringer i Tiltaksgjennomføring. Avtaler som ikke er fullført i Arena kan ha blitt
+                                    annullert som følge av migreringen og må derfor opprettes på nytt.
+                                </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
+                        {erAvtaleLaast && (
+                            <div className={cls.element('innhold')}>
+                                <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
+                                <OppgaveLinje />
+                                {aktivtSteg.komponent}
+                            </div>
+                        )}
+                        {!erAvtaleLaast && erDesktop && (
+                            <DesktopAvtaleSide
+                                sidetittel={sideTittel}
+                                avtaleSteg={avtaleSteg}
+                                aktivtSteg={aktivtSteg}
+                                rolle={innloggetBruker.rolle}
+                                avtale={avtale}
+                            />
+                        )}
+                        {!erAvtaleLaast && !erDesktop && (
+                            <MobilAvtaleSide
+                                avtaleId={avtale.id}
+                                avtaleSteg={avtaleSteg}
+                                rolle={innloggetBruker.rolle}
+                            />
+                        )}
+                        <Dialog id={avtale.id} />
                     </div>
-                )}
-                {!erAvtaleLaast && erDesktop && (
-                    <DesktopAvtaleSide
-                        sidetittel={sideTittel}
-                        avtaleSteg={avtaleSteg}
-                        aktivtSteg={aktivtSteg}
-                        rolle={innloggetBruker.rolle}
-                        avtale={avtale}
-                    />
-                )}
-                {!erAvtaleLaast && !erDesktop && (
-                    <MobilAvtaleSide avtaleId={avtale.id} avtaleSteg={avtaleSteg} rolle={innloggetBruker.rolle} />
-                )}
-                <Dialog id={avtale.id} />
+                }
             </div>
         </>
     ) : null;

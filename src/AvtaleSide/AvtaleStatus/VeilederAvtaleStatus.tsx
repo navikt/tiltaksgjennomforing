@@ -1,5 +1,4 @@
 import { BodyShort } from '@navikt/ds-react';
-import moment from 'moment';
 import React, { useContext } from 'react';
 
 import { AvtaleContext } from '@/AvtaleProvider';
@@ -9,12 +8,13 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderReturnert from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderReturnert';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formaterTid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { tidSidenTidspunkt, formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { erNil } from '@/utils/predicates';
-import { addMonths, isBefore } from 'date-fns';
+import { isBefore } from 'date-fns';
 import OppfolgingKreves from './OppfolgingKreves';
+
 interface Props {
     avtale: Avtale;
 }
@@ -77,32 +77,6 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
-    const { arbeidstreningReadonly } = useFeatureToggles();
-
-    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && !isBefore(new Date(), avtale.kreverOppfolgingFom);
-
-    const tidSidenDeltakerFikkVarsling = () => {
-        if (avtale.godkjentAvArbeidsgiver !== undefined) {
-            if (moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days') > 0) {
-                return `${moment(avtale.godkjentAvArbeidsgiver).diff(moment().toString(), 'days')} dager siden.`;
-            }
-            return `${formaterTid(avtale.godkjentAvArbeidsgiver)}`;
-        }
-    };
-
-    if (avtale.tiltakstype === 'ARBEIDSTRENING' && arbeidstreningReadonly) {
-        return (
-            <StatusPanel
-                header="Oppgradering av fagsystemet"
-                body={
-                    <BodyShort size="small" align="center">
-                        Migrering fra Arena pågår. Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk igjen
-                        om et par timer.
-                    </BodyShort>
-                }
-            />
-        );
-    }
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
@@ -154,10 +128,13 @@ function VeilederAvtaleStatus(props: Props) {
                 <StatusPanel
                     header="Avtalen er annullert"
                     body={
-                        <BodyShort size="small">
-                            Du eller en annen veileder har annullert avtalen {formatterDato(avtale.annullertTidspunkt!)}
-                            . Årsak: {avtale.annullertGrunn}.
-                        </BodyShort>
+                        <>
+                            <BodyShort size="small">
+                                Du eller en annen veileder har annullert avtalen{' '}
+                                {formaterDato(avtale.annullertTidspunkt!)}.
+                            </BodyShort>
+                            <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                        </>
                     }
                 />
             );
@@ -293,9 +270,14 @@ function VeilederAvtaleStatus(props: Props) {
                             header="Venter på godkjenning av avtalen fra deltaker og signering av mentor"
                             body={
                                 <BodyShort size="small">
-                                    Avtalen må godkjennes av deltaker Deltaker fikk en varsling på min side Personbruker
-                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()} Mentor må signere
-                                    taushetserklæringen før du kan godkjenne avtalen.
+                                    Avtalen må godkjennes av deltaker.{' '}
+                                    {avtale.godkjentAvArbeidsgiver && (
+                                        <>
+                                            Deltaker fikk en varsling på min side Personbruker om å godkjenne avtalen
+                                            for {tidSidenTidspunkt(avtale.godkjentAvArbeidsgiver)} siden.
+                                        </>
+                                    )}{' '}
+                                    Mentor må signere taushetserklæringen før du kan godkjenne avtalen.
                                 </BodyShort>
                             }
                         />
@@ -321,8 +303,13 @@ function VeilederAvtaleStatus(props: Props) {
                             header="Venter på godkjenning av avtalen fra deltaker"
                             body={
                                 <BodyShort size="small">
-                                    Avtalen må godkjennes av deltaker. Deltaker fikk en varsling på min side på NAV.no
-                                    om å godkjenne avtalen for {tidSidenDeltakerFikkVarsling()}
+                                    Avtalen må godkjennes av deltaker.
+                                    {avtale.godkjentAvArbeidsgiver && (
+                                        <>
+                                            Deltaker fikk en varsling på min side på NAV.no om å godkjenne avtalen for{' '}
+                                            {tidSidenTidspunkt(avtale.godkjentAvArbeidsgiver)} siden
+                                        </>
+                                    )}
                                 </BodyShort>
                             }
                         />
@@ -371,34 +358,67 @@ function VeilederAvtaleStatus(props: Props) {
                     );
             }
         }
-        case 'KLAR_FOR_OPPSTART':
-            return ['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtale.tiltakstype) ? (
+        case 'KLAR_FOR_OPPSTART': {
+            if (['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtale.tiltakstype)) {
+                return (
+                    <StatusPanel
+                        header="Avtalen er ferdig utfylt og godkjent"
+                        body={
+                            <>
+                                <BodyShort size="small">
+                                    Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.
+                                    Tiltaket starter{' '}
+                                    {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
+                                </BodyShort>
+                                <VerticalSpacer rem={1} />
+                                <BodyShort size="small">
+                                    Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får
+                                    nå et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
+                                    refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du skal
+                                    ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk i
+                                    Gosys.
+                                </BodyShort>
+                            </>
+                        }
+                    />
+                );
+            }
+
+            if ('ARBEIDSTRENING' === avtale.tiltakstype) {
+                return (
+                    <StatusPanel
+                        header="Avtalen er ferdig utfylt og godkjent"
+                        body={
+                            <>
+                                <BodyShort size="small">
+                                    Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.{' '}
+                                    Tiltaket starter{' '}
+                                    {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
+                                </BodyShort>
+                                <VerticalSpacer rem={1} />
+                                <BodyShort size="small">
+                                    Alle parter har nå godkjent avtalen.{' '}
+                                    {avtale.opphav !== 'ARENA' && (
+                                        <>Deltaker får nå et vedtaksbrev på min side Personbruker. </>
+                                    )}
+                                    Du skal ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres
+                                    automatisk i Gosys.
+                                </BodyShort>
+                            </>
+                        }
+                    />
+                );
+            }
+
+            return (
                 <StatusPanel
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
                             <BodyShort size="small">
-                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
-                            </BodyShort>
-                            <VerticalSpacer rem={1} />
-                            <BodyShort size="small">
-                                Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får nå
-                                et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
-                                refusjon vil nå motta automatisk varsling på SMS for å sende inn refusjoner. Du skal
-                                ikke registrere tiltaksgjennomføringen i Arena. Avtalen journalføres automatisk i Gosys.
-                            </BodyShort>
-                        </>
-                    }
-                />
-            ) : (
-                <StatusPanel
-                    header="Avtalen er ferdig utfylt og godkjent"
-                    body={
-                        <>
-                            <BodyShort size="small">
-                                Avtale ble inngått {formatterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT)}. Tiltaket
-                                starter {formatterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT)}.
+                                Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.{' '}
+                                Tiltaket starter{' '}
+                                {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
                             </BodyShort>
                             <VerticalSpacer rem={1} />
                             <BodyShort size="small">
@@ -409,6 +429,7 @@ function VeilederAvtaleStatus(props: Props) {
                     }
                 />
             );
+        }
         case 'GJENNOMFØRES': {
             if (kreverOppfølging) {
                 return <OppfolgingKreves gjeldendeTilskuddsPeriodeSluttdato={avtale.kreverOppfølgingFrist} />;

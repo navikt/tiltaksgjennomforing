@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { Varighet } from '@/types/avtale';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Label } from '@navikt/ds-react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
@@ -8,7 +8,7 @@ import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import VarighetIkon from '../varighet/VarighetIkon';
 
 const StartOgSluttdatoOppsummering: FunctionComponent<Varighet> = (props) => {
-    const harDato = (dato?: string): string => (dato ? formatterDato(dato, NORSK_DATO_FORMAT) : '');
+    const harDato = (dato?: string): string => (dato ? formaterDato(dato, NORSK_DATO_FORMAT) : '');
 
     return (
         <Stegoppsummering ikon={<VarighetIkon />} tittel="Varighet">

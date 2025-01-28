@@ -26,6 +26,7 @@ export type Feilkode =
     | 'ENHET_ER_JURIDISK'
     | 'ENHET_ER_ORGLEDD'
     | 'ENHET_FINNES_IKKE'
+    | 'ENHET_ER_SLETTET'
     | 'IKKE_TILGANG_TIL_DELTAKER'
     | 'KAN_IKKE_GODKJENNE_AVTALE_KODE6'
     | 'KAN_IKKE_OPPRETTE_AVTALE_KODE6'
@@ -113,6 +114,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_ER_JURIDISK: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke den juridiske enheten.',
     ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke organisasjonsleddet.',
     ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
+    ENHET_ER_SLETTET: 'Enheten er slettet',
     IKKE_TILGANG_TIL_DELTAKER: 'Du har ikke tilgang til deltaker',
     ALTINN_FEIL: 'Feil ved oppslag mot altinn',
     GOSYS_FEIL: '',
@@ -154,10 +156,12 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     MANGLER_AD_GRUPPE_BESLUTTER:
         'Kan ikke logge inn som beslutter fordi du mangler gruppe 0000-GA-TILTAK-tilskudd-beslutter',
     MANGLER_VEILEDER_PÅ_AVTALE: 'Avtalen trenger en veileder før du kan godkjenne',
-    KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
-    KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL: 'Deltaker kvalifiserer ikke til dette tiltaket',
+    KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL:
+        'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
+    KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL:
+        'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     KVALIFISERINGSGRUPPE_IKKE_RETTIGHET:
-        'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale.',
+        'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale. Ved endringer i kvalifiseringsgruppe kan det ta opptil 5 min før det er oppdatert.',
     FORMIDLINGSGRUPPE_IKKE_RETTIGHET:
         'Deltakeren er registrert med en formidlingsgruppe som ikke kvalifiserer til dette tiltaket.',
     HENTING_AV_INNSATSBEHOV_FEILET: 'Feil ved henting av innsatsbehov',

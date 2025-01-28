@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { TilskuddPeriodeStatus } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 
 const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
     const cls = BEMHelper('beslutter-panel');
@@ -25,7 +25,7 @@ const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
             <Heading level="2" size="small">
                 {tittel[avtale.gjeldendeTilskuddsperiode.status]}
             </Heading>
-            <BodyShort size="small">{formatterDato(avtale.opprettetTidspunkt, NORSK_DATO_FORMAT)}</BodyShort>
+            <BodyShort size="small">{formaterDato(avtale.opprettetTidspunkt, NORSK_DATO_FORMAT)}</BodyShort>
         </div>
     );
 };

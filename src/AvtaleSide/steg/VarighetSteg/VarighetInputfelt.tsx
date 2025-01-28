@@ -1,12 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import InfoBoks from '@/AvtaleSide/steg/VarighetSteg/InfoBoks/InfoBoks';
-import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
+import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import BEMHelper from '@/utils/bem';
-import { accurateHumanize } from '@/utils/datoUtils';
-import moment from 'moment';
+import { formaterVarighet } from '@/utils/datoUtils';
 import React, { useContext } from 'react';
+import AntallDagerInput from '@/AvtaleSide/steg/VarighetSteg/AntallDagerInput';
+import { addDays } from 'date-fns';
 
 interface Props {
     className: string;
@@ -22,8 +22,10 @@ const VarighetInputfelt: React.FC<Props> = ({ className }: Props) => {
     const timerIUka = Number(((37.5 * (avtale.gjeldendeInnhold.stillingprosent || 0)) / 100).toFixed(2));
     const dagerIUka = Number(((timerIUka / 37.5) * 5).toFixed(2));
 
-    const duration = moment(avtale.gjeldendeInnhold.sluttDato).diff(avtale.gjeldendeInnhold.startDato, 'days') + 1;
-    const avtaleDuration = duration ? accurateHumanize(moment.duration(duration, 'days'), 3) : undefined;
+    const avtaleDuration =
+        avtale.gjeldendeInnhold.startDato && avtale.gjeldendeInnhold.sluttDato
+            ? formaterVarighet(avtale.gjeldendeInnhold.startDato, addDays(avtale.gjeldendeInnhold.sluttDato, 1))
+            : '';
 
     const cls = BEMHelper(className);
     return (
@@ -40,20 +42,11 @@ const VarighetInputfelt: React.FC<Props> = ({ className }: Props) => {
                     </div>
                 </Column>
                 <Column md="6">
-                    <PakrevdInput
-                        size="medium"
+                    <AntallDagerInput
                         label="Antall dager per uke"
-                        type="number"
-                        max={7}
                         verdi={avtale.gjeldendeInnhold.antallDagerPerUke}
-                        settVerdi={(eventVerdi) => {
-                            const verdi = parseInt(eventVerdi, 10);
-                            if (verdi > 0 && verdi < 8) {
-                                settAvtaleInnholdVerdi('antallDagerPerUke', verdi);
-                            } else {
-                                settAvtaleInnholdVerdi('antallDagerPerUke', undefined);
-                            }
-                        }}
+                        size="medium"
+                        settVerdi={(verdi) => settAvtaleInnholdVerdi('antallDagerPerUke', verdi)}
                     />
                 </Column>
             </Row>

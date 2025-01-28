@@ -1,7 +1,7 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
-import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT, sisteDatoIFristMåned } from '@/utils/datoUtils';
+import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT_FULL, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
-import { formatterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext, useRef, useState, useEffect } from 'react';
 import EtikettStatus from '../EtikettStatus';
 import BEMHelper from '@/utils/bem';
@@ -13,7 +13,6 @@ import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide'
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
-import moment from 'moment';
 
 interface Props {
     startAnimering: () => void;
@@ -54,7 +53,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                 Tilskuddsperioden ble returnert av
                 <span className={cls.element('bold')}>{' ' + periode.avslåttAvNavIdent + ' '}</span> den
                 <span className={cls.element('bold')}>
-                    {' ' + formatterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT) + ' '}
+                    {' ' + formaterDato(periode.avslåttTidspunkt ?? '', NORSK_DATO_FORMAT_FULL) + ' '}
                 </span>
                 med følgende årsak(er):
                 <span className={cls.element('bold')}>{' ' + hentReturÅrsaker(periode) + ' '}</span>
@@ -138,11 +137,11 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td
                                             aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}
                                         >
-                                            {formatterPeriode(periode.startDato, periode.sluttDato, 'DD.MM.YY')}
+                                            {formaterPeriode(periode.startDato, periode.sluttDato, 'dd.MM.yy')}
                                         </td>
-                                        <td>{formatterPenger(periode.beløp)}</td>
+                                        <td>{formaterPenger(periode.beløp)}</td>
                                         <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
-                                        <td>{formatterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
+                                        <td>{formaterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         <td>
                                             <EtikettStatus
