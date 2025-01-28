@@ -2,7 +2,7 @@ import { Express } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 export const setup = (app: Express) => {
-    const apiUrl = 'http://tiltaksgjennomforing-api-labs:8080';
+    const apiUrl = 'http://tiltaksgjennomforing-api-labs';
 
     app.get('/tiltaksgjennomforing/fakelogin/aad', async (req, res) => {
         try {
