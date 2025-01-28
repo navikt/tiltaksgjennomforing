@@ -58,7 +58,6 @@ export type AvtaleMinimalListeVisning = {
     kreverOppfolgingFom: string;
     opprettetTidspunkt: string;
     sistEndret: string;
-    tilskuddPeriode: TilskuddsPeriode[];
 };
 
 export type AvtaleMinimalForBeslutter = {
