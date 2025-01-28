@@ -17,6 +17,7 @@ const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
     GODKJENT: 'success',
     UBEHANDLET: 'info',
     BEHANDLET_I_ARENA: 'info',
+    OPPFØLGING_KREVES: 'warning',
 };
 
 const EtikettStatus: FunctionComponent<Props> = (props) => {

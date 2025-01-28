@@ -18,6 +18,7 @@ import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
+import OppfølgingGjennomført from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/OppfølgingGjennomført/OppfølgingGjennomført';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -57,7 +58,8 @@ const OppgaveLenker: React.FunctionComponent = () => {
                             {harØkonomi && <EndreTilskuddsberegning />}
                             {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                             {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
-                            {<OppdaterOppfølgingEnhet />}
+                            {avtale.tiltakstype === 'VTAO' && <OppfølgingGjennomført />}
+                            <OppdaterOppfølgingEnhet />
                         </>
                     )}
                     {avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' && <SendTilbakeTilBeslutterUendret />}

@@ -10,6 +10,10 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { tidSidenTidspunkt, formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { erNil } from '@/utils/predicates';
+import { isBefore } from 'date-fns';
+import OppfolgingKreves from './OppfolgingKreves';
 
 interface Props {
     avtale: Avtale;
@@ -73,6 +77,8 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
+
+    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && isBefore(avtale.kreverOppfolgingFom, new Date());
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
@@ -426,8 +432,15 @@ function VeilederAvtaleStatus(props: Props) {
                 />
             );
         }
-        case 'GJENNOMFØRES':
-            return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
+        case 'GJENNOMFØRES': {
+            if (kreverOppfølging) {
+                return <OppfolgingKreves oppfølgingsFrist={avtale.kreverOppfolgingFrist} />;
+            } else {
+                return (
+                    <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.sluttDato} />
+                );
+            }
+        }
         case 'AVSLUTTET':
             return (
                 <Avsluttet

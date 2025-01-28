@@ -110,6 +110,7 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
     UBEHANDLET: 'Ubehandlet',
     ANNULLERT: 'Annullert',
     BEHANDLET_I_ARENA: 'Behandlet i Arena',
+    OPPFØLGING_KREVES: 'Oppfølging kreves',
 };
 
 export const tilskuddsperiodeRefusjonStatusText: { [key in TilskuddPeriodeRefusjonStatus]: string } = {
@@ -126,6 +127,7 @@ export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
     KLAR_FOR_OPPSTART: 'Klar for oppstart',
     GJENNOMFØRES: 'Gjennomføres',
     AVSLUTTET: 'Avsluttet',
+    OPPFØLGING_KREVES: 'Oppfølging kreves',
 };
 
 export const tilskuddsperiodeReturÅrsakTekst: { [key in Returårsaker]: string } = {

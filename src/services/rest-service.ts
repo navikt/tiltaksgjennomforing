@@ -433,6 +433,19 @@ export const oppdatereKontaktInformasjon = async (
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
+export const oppdatereOppfølgingAvAvtale = async (avtale: Avtale): Promise<void> => {
+    await api.post(
+        `/avtaler/${avtale.id}/oppfolging-av-avtale`,
+        { ...avtale },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        },
+    );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
+};
+
 export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
     avtale: Avtale,
     endreOppfølgingOgTilretteleggingInfo: EndreOppfølgingOgTilretteleggingInfo,

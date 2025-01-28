@@ -55,6 +55,7 @@ export type AvtaleMinimalListeVisning = {
     tiltakstype: TiltaksType;
     erGodkjentTaushetserklæringAvMentor: boolean;
     gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus;
+    kreverOppfolgingFom: string;
     opprettetTidspunkt: string;
     sistEndret: string;
 };
@@ -142,7 +143,13 @@ export type TiltaksType =
     | 'SOMMERJOBB'
     | 'VTAO';
 
-export type TilskuddPeriodeStatus = 'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'BEHANDLET_I_ARENA';
+export type TilskuddPeriodeStatus =
+    | 'UBEHANDLET'
+    | 'GODKJENT'
+    | 'AVSLÅTT'
+    | 'ANNULLERT'
+    | 'BEHANDLET_I_ARENA'
+    | 'OPPFØLGING_KREVES';
 export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV';
 export type AvbrytelseGrunn =
     | 'Feilregistrering'
@@ -162,7 +169,8 @@ export type AvtaleStatus =
     | 'MANGLER_GODKJENNING'
     | 'KLAR_FOR_OPPSTART'
     | 'GJENNOMFØRES'
-    | 'AVSLUTTET';
+    | 'AVSLUTTET'
+    | 'OPPFØLGING_KREVES';
 
 export type Avtaleopphav = 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
 
@@ -184,6 +192,8 @@ export interface AvtaleMetadata {
     formidlingsgruppe: Formidlingsgruppe;
     godkjentForEtterregistrering: boolean;
     opphav: Avtaleopphav;
+    kreverOppfolgingFom?: string;
+    kreverOppfolgingFrist?: string;
 }
 
 export interface RefusjonKontaktperson {

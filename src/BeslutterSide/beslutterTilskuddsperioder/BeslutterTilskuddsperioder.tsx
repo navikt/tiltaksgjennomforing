@@ -13,6 +13,7 @@ import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide'
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
+import { addMonths } from 'date-fns';
 
 interface Props {
     startAnimering: () => void;
@@ -25,14 +26,13 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
 
+    const [firstStartdato, setFirstStartdato] = useState<any>('');
+    const [lastStartdato, setLastStartdato] = useState<any>('');
+
     const cls = BEMHelper('beslutter-tilskuddsperioder');
+
     useEffect(() => {
-        if (gjeldendeTilskuddsperiodeRef.current) {
-            gjeldendeTilskuddsperiodeRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-            });
-        }
+        loadingFilter();
     }, []);
 
     if (avtale.tilskuddPeriode.length < 1) return null;
@@ -64,6 +64,47 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         );
     };
 
+    const loadingFilter = () => {
+        let filter;
+        if (!gjeldendeTilskuddsperiode) return [];
+        const gjeldendeStartDato = formaterDato(gjeldendeTilskuddsperiode.startDato, 'yyyy-MM-dd');
+        const datoSeksMånederFremITid = formaterDato(addMonths(new Date(), 6), 'yyyy-MM-dd');
+        const godkjentlist = avtale.tilskuddPeriode.filter((tilskuddPeriode) => tilskuddPeriode.status === 'GODKJENT');
+        if (godkjentlist.length > 0) {
+            const sisteGodkjente = godkjentlist[godkjentlist.length - 1].startDato;
+            filter = avtale.tilskuddPeriode.filter(
+                (tilskuddPeriode) =>
+                    formaterDato(addMonths(tilskuddPeriode.startDato, 1), 'yyyy-MM-dd') >= gjeldendeStartDato &&
+                    tilskuddPeriode.startDato <= formaterDato(addMonths(sisteGodkjente, 6), 'yyyy-MM-dd'),
+            );
+            setFirstStartdato(formaterDato(filter[0].startDato, 'yyyy-MM-dd'));
+            setLastStartdato(filter[filter.length - 1].startDato);
+            return filter;
+        }
+        setFirstStartdato(gjeldendeStartDato);
+        setLastStartdato(formaterDato(addMonths(gjeldendeTilskuddsperiode.startDato, 6), 'yyyy-MM-dd'));
+        filter = avtale.tilskuddPeriode.filter(
+            (tilskuddPeriode) =>
+                formaterDato(addMonths(tilskuddPeriode.startDato, 6), 'yyyy-MM-dd') >= gjeldendeStartDato &&
+                tilskuddPeriode.startDato <= datoSeksMånederFremITid,
+        );
+        return filter;
+    };
+
+    const currentFilter = () => {
+        if (!gjeldendeTilskuddsperiode) return [];
+        return avtale.tilskuddPeriode.filter(
+            (tilskuddPeriode) =>
+                tilskuddPeriode.startDato >= firstStartdato && tilskuddPeriode.startDato <= lastStartdato,
+        );
+    };
+
+    const statusPåNesteTilskuddsperiode = (periode: TilskuddsPeriode) =>
+        formaterDato(periode?.sluttDato, 'yyyy-MM-dd') ===
+        formaterDato(addMonths(avtale.kreverOppfolgingFrist!, 1), 'yyyy-MM-dd')
+            ? true
+            : false;
+
     return (
         <div className={cls.className}>
             <Heading level="2" size="small" className={cls.element('tittel')}>
@@ -83,7 +124,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {avtale.tilskuddPeriode.map((periode) => {
+                        {currentFilter().map((periode) => {
                             const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
                             return (
                                 <React.Fragment key={periode.id}>
@@ -105,12 +146,34 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         <td>
                                             <EtikettStatus
-                                                tilskuddsperiodestatus={periode.status}
+                                                tilskuddsperiodestatus={
+                                                    statusPåNesteTilskuddsperiode(periode)
+                                                        ? 'OPPFØLGING_KREVES'
+                                                        : periode.status
+                                                }
                                                 refusjonStatus={periode.refusjonStatus}
                                                 godkjentAv={periode.godkjentAvNavIdent}
                                             />
                                         </td>
                                     </tr>
+                                    {statusPåNesteTilskuddsperiode(periode) && (
+                                        <tr className={cls.element('knapp-row')}>
+                                            <td
+                                                colSpan={7}
+                                                className={cls.element('knapp-data', settStylingForTabellrad(periode))}
+                                            >
+                                                {/*Dagens dato*/}
+                                                Tilskuddsperioden ble stanset av Systemet den{' '}
+                                                {formaterDato(
+                                                    gjeldendeTilskuddsperiode!.sluttDato!,
+                                                    NORSK_DATO_FORMAT,
+                                                )}{' '}
+                                                med følgende årsak: Veileder må følge opp tiltaket før de neste
+                                                tilskuddene kan behandles.
+                                            </td>
+                                        </tr>
+                                    )}
+
                                     {!gjeldende && periode.status === 'AVSLÅTT' && (
                                         <tr className={cls.element('knapp-row')}>
                                             <td
@@ -159,6 +222,26 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                         })}
                     </tbody>
                 </table>
+                <div style={{ display: 'flex', justifyContent: 'space-around', gap: '30px' }}>
+                    <Button
+                        variant="secondary"
+                        onClick={() => {
+                            currentFilter();
+                            setFirstStartdato(formaterDato(addMonths(firstStartdato, -3), 'yyyy-MM-dd'));
+                        }}
+                    >
+                        Se tilskudd tilbake i tid
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        onClick={() => {
+                            setLastStartdato(formaterDato(addMonths(lastStartdato, 3), 'yyyy-MM-dd'));
+                            currentFilter();
+                        }}
+                    >
+                        Se tilskudd frem i tid
+                    </Button>
+                </div>
             </div>
             <TilskuddsperiodeReturModal tiltakstype={avtale.tiltakstype} />
             <BekreftelseModal
