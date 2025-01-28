@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { oppdatereOppfølgingAvDeltaker } from '@/services/rest-service';
+import { oppdatereOppfølgingAvAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
@@ -19,7 +19,7 @@ const OppfølgingGjennomført: FunctionComponent = () => {
         type === 'MIDLERTIDIG_LONNSTILSKUDD' || type === 'VARIG_LONNSTILSKUDD' || type === 'SOMMERJOBB';
 
     const bekrefterOppgfølgingAvDeltaker = async (): Promise<void> => {
-        await oppdatereOppfølgingAvDeltaker(avtale);
+        await oppdatereOppfølgingAvAvtale(avtale);
         setModalApen(false);
         await hentAvtale(avtale.id);
     };

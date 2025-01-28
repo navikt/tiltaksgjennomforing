@@ -101,7 +101,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
 
     const statusPåNesteTilskuddsperiode = (periode: TilskuddsPeriode) =>
         formaterDato(periode?.sluttDato, 'yyyy-MM-dd') ===
-        formaterDato(addMonths(avtale.kreverOppfølgingFrist!, 1), 'yyyy-MM-dd')
+        formaterDato(addMonths(avtale.kreverOppfolgingFrist!, 1), 'yyyy-MM-dd')
             ? true
             : false;
 

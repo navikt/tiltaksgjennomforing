@@ -194,7 +194,7 @@ export interface AvtaleMetadata {
     godkjentForEtterregistrering: boolean;
     opphav: Avtaleopphav;
     kreverOppfolgingFom?: string;
-    kreverOppfølgingFrist?: string;
+    kreverOppfolgingFrist?: string;
 }
 
 export interface RefusjonKontaktperson {

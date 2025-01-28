@@ -78,6 +78,8 @@ function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
 
+    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && !isBefore(avtale.kreverOppfolgingFom, new Date());
+
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
         !avtale.erAnnullertEllerAvbrutt &&
@@ -432,7 +434,7 @@ function VeilederAvtaleStatus(props: Props) {
         }
         case 'GJENNOMFØRES': {
             if (kreverOppfølging) {
-                return <OppfolgingKreves oppfølgingsFrist={avtale.kreverOppfølgingFrist} />;
+                return <OppfolgingKreves oppfølgingsFrist={avtale.kreverOppfolgingFrist} />;
             } else {
                 return (
                     <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.sluttDato} />

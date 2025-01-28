@@ -433,9 +433,9 @@ export const oppdatereKontaktInformasjon = async (
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
-export const oppdatereOppfølgingAvDeltaker = async (avtale: Avtale): Promise<void> => {
+export const oppdatereOppfølgingAvAvtale = async (avtale: Avtale): Promise<void> => {
     await api.post(
-        `/avtaler/${avtale.id}/oppfolging-av-deltaker`,
+        `/avtaler/${avtale.id}/oppfolging-av-avtale`,
         { ...avtale },
         {
             headers: {
