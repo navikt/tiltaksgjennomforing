@@ -1,5 +1,5 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
-import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formatterDato, formatterPeriode, NORSK_DATO_FORMAT, sisteDatoIFristMåned } from '@/utils/datoUtils';
 import { formatterProsent } from '@/utils/formatterProsent';
 import { formatterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext, useRef, useState, useEffect } from 'react';
@@ -99,6 +99,12 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         );
     };
 
+    const statusPåNesteTilskuddsperiode = (periode: TilskuddsPeriode) =>
+        moment(periode?.sluttDato).format('YYYY-MM-DD') ===
+        moment(avtale.kreverOppfølgingFrist!).add(1, 'month').format('YYYY-MM-DD')
+            ? true
+            : false;
+
     return (
         <div className={cls.className}>
             <Heading level="2" size="small" className={cls.element('tittel')}>
@@ -140,12 +146,34 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         <td>
                                             <EtikettStatus
-                                                tilskuddsperiodestatus={periode.status}
+                                                tilskuddsperiodestatus={
+                                                    statusPåNesteTilskuddsperiode(periode)
+                                                        ? 'OPPFØLGING_KREVES'
+                                                        : periode.status
+                                                }
                                                 refusjonStatus={periode.refusjonStatus}
                                                 godkjentAv={periode.godkjentAvNavIdent}
                                             />
                                         </td>
                                     </tr>
+                                    {statusPåNesteTilskuddsperiode(periode) && (
+                                        <tr className={cls.element('knapp-row')}>
+                                            <td
+                                                colSpan={7}
+                                                className={cls.element('knapp-data', settStylingForTabellrad(periode))}
+                                            >
+                                                {/*Dagens dato*/}
+                                                Tilskuddsperioden ble stanset av Systemet den{' '}
+                                                {formatterDato(
+                                                    sisteDatoIFristMåned(gjeldendeTilskuddsperiode!.sluttDato!),
+                                                    NORSK_DATO_FORMAT,
+                                                )}{' '}
+                                                med følgende årsak: Veileder må følge opp tiltaket før de neste
+                                                tilskuddene kan behandles.
+                                            </td>
+                                        </tr>
+                                    )}
+
                                     {!gjeldende && periode.status === 'AVSLÅTT' && (
                                         <tr className={cls.element('knapp-row')}>
                                             <td

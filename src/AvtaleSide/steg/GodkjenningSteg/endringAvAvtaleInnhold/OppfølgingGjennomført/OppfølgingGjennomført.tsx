@@ -1,15 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { oppdatereKontaktInformasjon } from '@/services/rest-service';
-import { EndreKontaktInfo, TiltaksType, VTAO } from '@/types/avtale';
+import { oppdatereOppfølgingAvDeltaker } from '@/services/rest-service';
+import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
-import { BodyShort, Checkbox, Heading, Link } from '@navikt/ds-react';
+import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
-
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const OppfølgingGjennomført: FunctionComponent = () => {
     const cls = BEMHelper('endreKontaktInformasjon');
@@ -22,8 +18,8 @@ const OppfølgingGjennomført: FunctionComponent = () => {
     const endreRefusjonInfo: boolean =
         type === 'MIDLERTIDIG_LONNSTILSKUDD' || type === 'VARIG_LONNSTILSKUDD' || type === 'SOMMERJOBB';
 
-    const endreKontaktInformasjon = async (): Promise<void> => {
-        //await oppdatereKontaktInformasjon(avtale, kontaktInfo);
+    const bekrefterOppgfølgingAvDeltaker = async (): Promise<void> => {
+        await oppdatereOppfølgingAvDeltaker(avtale);
         setModalApen(false);
         await hentAvtale(avtale.id);
     };
@@ -49,7 +45,7 @@ const OppfølgingGjennomført: FunctionComponent = () => {
                 bekreftelseTekst="Fortsett"
                 oversiktTekst="Oppfølging VTA-O Gjennomført"
                 modalIsOpen={modalApen}
-                bekreftOnClick={endreKontaktInformasjon}
+                bekreftOnClick={bekrefterOppgfølgingAvDeltaker}
                 lukkModal={() => setModalApen(false)}
             >
                 <BodyShort size="small">

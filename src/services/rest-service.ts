@@ -410,7 +410,6 @@ export const returnerTilskuddsperiode = async (
         avslagsårsaker: Array.from(avslagsårsaker),
         avslagsforklaring,
     });
-    console.log('retur');
 };
 
 export const slettemerkAvtale = async (avtaleId: string) => {
@@ -425,6 +424,19 @@ export const oppdatereKontaktInformasjon = async (
     await api.post(
         `/avtaler/${avtale.id}/endre-kontaktinfo`,
         { ...endreKontaktInfo },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        },
+    );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
+};
+
+export const oppdatereOppfølgingAvDeltaker = async (avtale: Avtale): Promise<void> => {
+    await api.post(
+        `/avtaler/${avtale.id}/oppfolging-av-deltaker`,
+        { ...avtale },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,

@@ -1,6 +1,7 @@
 import moment from 'moment';
 import 'moment/dist/locale/nb';
 moment.locale('nb');
+import { isBefore } from 'date-fns';
 
 export const datoIkkeTilbakeITid = (dato: Date) => {
     return moment().isSameOrBefore(dato, 'date');
@@ -41,6 +42,16 @@ export const formatterDato = (dato: string, format: string = NORSK_DATO_OG_TID_F
         return !formattertDato.includes('NaN') ? formattertDato : dato;
     } catch (e) {
         return dato;
+    }
+};
+
+export const sisteDatoIFristMåned = (gjeldendeTilskuddsPeriodeSluttdato: string): string => {
+    if (!isBefore(new Date(), gjeldendeTilskuddsPeriodeSluttdato)) {
+        return new Date().toDateString();
+    } else {
+        const dato = new Date(gjeldendeTilskuddsPeriodeSluttdato);
+        const lastDay = new Date(dato.getFullYear(), dato.getMonth() + 1, 0);
+        return lastDay.toDateString();
     }
 };
 

@@ -15,19 +15,14 @@ import { Path } from '@/Router';
 import { Varsel } from '@/types/varsel';
 import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
 import { kunStorForbokstav } from '@/utils/stringUtils';
+import { isBefore } from 'date-fns';
+import { erNil } from '@/utils/predicates';
 
 const cls = BEMHelper('avtaletabell');
 
 const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
     const erGjeldendeTilskuddsperiodeReturnert = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
-    const erGjeldendeTilskuddsperiodeOppfølgingKreves = avtale.gjeldendeTilskuddsperiodeStatus === 'OPPFØLGING_KREVES';
-
-    console.log('gjeldendeTilskuddsperiodeStatus', avtale.gjeldendeTilskuddsperiodeStatus);
-    console.log('erGjeldendeTilskuddsperiodeReturnert', erGjeldendeTilskuddsperiodeReturnert);
-
-    console.log('Avtale', avtale);
-    console.log('Gjeldene avtale status', avtale.gjeldendeTilskuddsperiodeStatus);
-    console.log('Avtale tilskuddsperioder', avtale.tilskuddPeriode);
+    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && !isBefore(new Date(), avtale.kreverOppfolgingFom);
 
     return (
         <>
@@ -38,7 +33,7 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
                 <BodyShort size="small">
                     {erNavAnsatt && erGjeldendeTilskuddsperiodeReturnert
                         ? 'Tilskuddsperiode returnert'
-                        : erGjeldendeTilskuddsperiodeOppfølgingKreves
+                        : kreverOppfølging
                           ? 'Oppfølging kreves'
                           : avtaleStatusTekst[avtale.status]}
                 </BodyShort>
@@ -139,6 +134,7 @@ const AvtaleTabell: FunctionComponent<{
                                         </BodyShort>
                                     </Table.DataCell>
                                 </MediaQuery>
+
                                 {hentAvtaleStatus(avtale, innloggetBruker.erNavAnsatt)}
                                 <Table.DataCell>
                                     <ChevronRightIcon

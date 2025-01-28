@@ -12,7 +12,9 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formaterTid, formatterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
-
+import { erNil } from '@/utils/predicates';
+import { addMonths, isBefore } from 'date-fns';
+import OppfolgingKreves from './OppfolgingKreves';
 interface Props {
     avtale: Avtale;
 }
@@ -76,6 +78,8 @@ function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
     const { arbeidstreningReadonly } = useFeatureToggles();
+
+    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && !isBefore(new Date(), avtale.kreverOppfolgingFom);
 
     const tidSidenDeltakerFikkVarsling = () => {
         if (avtale.godkjentAvArbeidsgiver !== undefined) {
@@ -405,8 +409,15 @@ function VeilederAvtaleStatus(props: Props) {
                     }
                 />
             );
-        case 'GJENNOMFØRES':
-            return <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />;
+        case 'GJENNOMFØRES': {
+            if (kreverOppfølging) {
+                return <OppfolgingKreves gjeldendeTilskuddsPeriodeSluttdato={avtale.kreverOppfølgingFrist} />;
+            } else {
+                return (
+                    <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.sluttDato} />
+                );
+            }
+        }
         case 'AVSLUTTET':
             return (
                 <Avsluttet
