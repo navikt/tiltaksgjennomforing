@@ -78,7 +78,7 @@ function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
 
-    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && !isBefore(avtale.kreverOppfolgingFom, new Date());
+    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && isBefore(avtale.kreverOppfolgingFom, new Date());
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
