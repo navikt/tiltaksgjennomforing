@@ -1,24 +1,18 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdatereOppfølgingAvAvtale } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import { FunctionComponent, useContext, useState } from 'react';
 
 const OppfølgingGjennomført: FunctionComponent = () => {
     const cls = BEMHelper('endreKontaktInformasjon');
-    const { avtale, hentAvtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
-    const vtao = avtale.gjeldendeInnhold.vtao;
+    const { avtale, hentAvtale } = useContext(AvtaleContext);
 
     const [modalApen, setModalApen] = useState(false);
 
-    const type: TiltaksType = avtale.tiltakstype;
-    const endreRefusjonInfo: boolean =
-        type === 'MIDLERTIDIG_LONNSTILSKUDD' || type === 'VARIG_LONNSTILSKUDD' || type === 'SOMMERJOBB';
-
-    const bekrefterOppgfølgingAvDeltaker = async (): Promise<void> => {
+    const bekrefterOppgfølgingAvAvtale = async (): Promise<void> => {
         await oppdatereOppfølgingAvAvtale(avtale);
         setModalApen(false);
         await hentAvtale(avtale.id);
@@ -38,19 +32,18 @@ const OppfølgingGjennomført: FunctionComponent = () => {
                 <div aria-hidden={true}>
                     <Neutral className={cls.element('ikon')} />
                 </div>
-                Oppfølging VTA-O Gjennomført
+                Oppfølging VTA-O gjennomført
             </Link>
             <BekreftelseModal
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Fortsett"
-                oversiktTekst="Oppfølging VTA-O Gjennomført"
+                oversiktTekst="Oppfølging VTA-O gjennomført"
                 modalIsOpen={modalApen}
-                bekreftOnClick={bekrefterOppgfølgingAvDeltaker}
+                bekreftOnClick={bekrefterOppgfølgingAvAvtale}
                 lukkModal={() => setModalApen(false)}
             >
                 <BodyShort size="small">
-                    Jeg bekrefter at det har blitt foretatt oppfølging av deltaker og vurdert at tiltaket skal
-                    fortsette.
+                    Jeg bekrefter at det har blitt foretatt oppfølging av avtalen og vurdert at tiltaket skal fortsette.
                 </BodyShort>
             </BekreftelseModal>
         </>
