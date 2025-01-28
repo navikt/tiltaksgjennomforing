@@ -432,7 +432,7 @@ function VeilederAvtaleStatus(props: Props) {
         }
         case 'GJENNOMFØRES': {
             if (kreverOppfølging) {
-                return <OppfolgingKreves gjeldendeTilskuddsPeriodeSluttdato={avtale.kreverOppfølgingFrist} />;
+                return <OppfolgingKreves oppfølgingsFrist={avtale.kreverOppfølgingFrist} />;
             } else {
                 return (
                     <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.sluttDato} />

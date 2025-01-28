@@ -5,12 +5,10 @@ import { Alert, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 
 interface Props {
-    avtaleInngått?: string;
-    startDato?: string;
-    gjeldendeTilskuddsPeriodeSluttdato?: string;
+    oppfølgingsFrist?: string;
 }
 
-const OppfolgingKreves: FunctionComponent<Props> = ({ gjeldendeTilskuddsPeriodeSluttdato }) => {
+const OppfolgingKreves: FunctionComponent<Props> = ({ oppfølgingsFrist }) => {
     return (
         <Innholdsboks /* ariaLabel={header} style={{ backgroundColor: '#FFECCC' }} */>
             <Heading level="2" size="medium">
@@ -24,9 +22,7 @@ const OppfolgingKreves: FunctionComponent<Props> = ({ gjeldendeTilskuddsPeriodeS
             </BodyShort>
             <VerticalSpacer rem={1} />
             <Alert variant="warning" /*className={cls.element('alert')}*/>
-                <Label size="small">
-                    Oppfølging kreves innen {formaterDato(gjeldendeTilskuddsPeriodeSluttdato!, NORSK_DATO_FORMAT)}
-                </Label>
+                <Label size="small">Oppfølging kreves innen {formaterDato(oppfølgingsFrist!, NORSK_DATO_FORMAT)}</Label>
                 <VerticalSpacer rem={0.5} />
                 <BodyShort size="small">
                     Hvis tiltaket skal avsluttes så må avtalen avsluttes. Hvis oppfølging av tiltaket har blitt

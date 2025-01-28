@@ -13,6 +13,7 @@ import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide'
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
+import { addMonths } from 'date-fns';
 
 interface Props {
     startAnimering: () => void;
@@ -67,7 +68,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         let filter;
         if (!gjeldendeTilskuddsperiode) return [];
         const gjeldendeStartDato = moment(gjeldendeTilskuddsperiode.startDato).format('YYYY-MM-DD');
-        const datoSeksMånederFremITid = moment(new Date()).add(6, 'months').format('YYYY-MM-DD');
+        const datoSeksMånederFremITid = formaterDato(addMonths(new Date(), 6), 'yyyy-MM-dd');
         const godkjentlist = avtale.tilskuddPeriode.filter((tilskuddPeriode) => tilskuddPeriode.status === 'GODKJENT');
         if (godkjentlist.length > 0) {
             const sisteGodkjente = godkjentlist[godkjentlist.length - 1].startDato;
