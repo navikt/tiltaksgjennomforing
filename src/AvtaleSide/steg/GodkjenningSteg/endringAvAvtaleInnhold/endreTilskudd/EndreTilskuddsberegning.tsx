@@ -13,6 +13,7 @@ import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreTilskuddsberegning.less';
+import { formaterNorskeTall } from '@/utils';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
@@ -24,7 +25,7 @@ const FERIE_SATSER: FerieSatser[] = [0, 0.12, 0.143, 0.102, 0.125];
 
 function getAvgiftsatserForRadioValg(satser: number[]): Array<{ label: string; value: string }> {
     return satser.map((sats: number) => ({
-        label: (sats * 100).toFixed(1) + ' %',
+        label: formaterNorskeTall(sats * 100) + ' %',
         value: sats.toString(),
     }));
 }
@@ -123,7 +124,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                         autoComplete={'off'}
                         value={
                             nyBeregning.otpSats !== undefined && nyBeregning.otpSats !== null
-                                ? (nyBeregning.otpSats * 100).toFixed(0)
+                                ? formaterNorskeTall(nyBeregning.otpSats * 100)
                                 : ''
                         }
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

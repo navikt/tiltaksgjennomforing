@@ -2,7 +2,7 @@ import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { TilskuddsPeriode } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formaterPeriode } from '@/utils/datoUtils';
-import { formatterProsent } from '@/utils/formatterProsent';
+import { formaterProsent } from '@/utils/formaterProsent';
 import { formaterPenger } from '@/utils/PengeUtils';
 import { FunctionComponent } from 'react';
 import './tilskuddsPerioder.less';
@@ -36,7 +36,7 @@ const TilskuddsPerioderVeileder: FunctionComponent<Props> = (props) => {
                                 <td aria-label={`Startdato ${periode.startDato} og sluttdato ${periode.sluttDato}`}>
                                     {formaterPeriode(periode.startDato, periode.sluttDato)}
                                 </td>
-                                <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
+                                <td>{formaterProsent(periode.lonnstilskuddProsent)}</td>
                                 <td>{formaterPenger(periode.beløp)}</td>
                                 <td>
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />

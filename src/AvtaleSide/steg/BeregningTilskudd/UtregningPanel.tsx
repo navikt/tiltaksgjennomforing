@@ -46,7 +46,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             labelIkon={<StillingsprosentIkon />}
                             labelTekst="Stillingsprosent"
                             verdiOperator={<ProsentTegn />}
-                            verdi={props.stillingprosent ? formaterNorskeTall(props.stillingprosent) : 0}
+                            verdi={formaterNorskeTall(props.stillingprosent) || 0}
                             ikkePenger
                         />
                         <Utregningsrad

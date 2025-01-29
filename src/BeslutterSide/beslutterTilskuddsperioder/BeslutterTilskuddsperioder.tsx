@@ -1,6 +1,6 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
 import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT_FULL, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { formatterProsent } from '@/utils/formatterProsent';
+import { formaterProsent } from '@/utils/formaterProsent';
 import { formaterPenger } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext, useRef, useState, useEffect } from 'react';
 import EtikettStatus from '../EtikettStatus';
@@ -141,7 +141,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                             {formaterPeriode(periode.startDato, periode.sluttDato, 'dd.MM.yy')}
                                         </td>
                                         <td>{formaterPenger(periode.beløp)}</td>
-                                        <td>{formatterProsent(periode.lonnstilskuddProsent)}</td>
+                                        <td>{formaterProsent(periode.lonnstilskuddProsent)}</td>
                                         <td>{formaterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         <td>
