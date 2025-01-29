@@ -1,5 +1,4 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import InfoArenaOppryddingAlert from '@/AvtaleSide/steg/VarighetSteg/InfoArenaOppryddingAlert';
 import VarighetInfoVeileder from '@/AvtaleSide/steg/VarighetSteg/VarighetInfoVeileder';
 import VarighetIngress from '@/AvtaleSide/steg/VarighetSteg/VarighetIngress';
 import VarighetInputfelt from '@/AvtaleSide/steg/VarighetSteg/VarighetInputfelt';
@@ -20,7 +19,7 @@ import { addYears, differenceInDays } from 'date-fns';
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { deltakerFnr, tiltakstype, erRyddeAvtale } = avtale;
+    const { deltakerFnr, tiltakstype } = avtale;
     const { startDato, sluttDato } = avtale.gjeldendeInnhold;
     const cls = BEMHelper('varighetsteg');
 
@@ -53,17 +52,6 @@ const VarighetSteg: FunctionComponent = () => {
 
                     <VarighetInfoVeileder erNavAnsatt={innloggetBruker.erNavAnsatt} className={cls.className} />
                     <Row className={cls.element('rad')}>
-                        <Column md="12">
-                            {startDato !== undefined && (
-                                <InfoArenaOppryddingAlert
-                                    tiltakstype={tiltakstype}
-                                    startDato={startDato}
-                                    erRyddeAvtale={erRyddeAvtale}
-                                    erNavAnsatt={innloggetBruker.erNavAnsatt}
-                                    className={cls.className}
-                                />
-                            )}
-                        </Column>
                         <Column md="6">
                             <Datovelger datoFelt="startDato" label="Startdato" />
                         </Column>
