@@ -437,7 +437,7 @@ function VeilederAvtaleStatus(props: Props) {
                 return <OppfolgingKreves oppfølgingsFrist={avtale.kreverOppfolgingFrist} />;
             } else {
                 return (
-                    <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.sluttDato} />
+                    <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />
                 );
             }
         }
