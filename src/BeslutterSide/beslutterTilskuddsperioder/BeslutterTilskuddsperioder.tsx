@@ -13,7 +13,8 @@ import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide'
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
-import { addMonths } from 'date-fns';
+import { addDays, addMonths, isWithinInterval } from 'date-fns';
+import { erNil } from '@/utils/predicates';
 
 interface Props {
     startAnimering: () => void;
@@ -99,11 +100,13 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         );
     };
 
-    const statusPåNesteTilskuddsperiode = (periode: TilskuddsPeriode) =>
-        formaterDato(periode?.sluttDato, 'yyyy-MM-dd') ===
-        formaterDato(addMonths(avtale.kreverOppfolgingFrist!, 1), 'yyyy-MM-dd')
-            ? true
-            : false;
+    const periodeKreverOppfølging = (periode: TilskuddsPeriode) => {
+        if (erNil(avtale.kreverOppfolgingFrist)) return false;
+        return isWithinInterval(addDays(avtale.kreverOppfolgingFrist, 1), {
+            start: periode.startDato,
+            end: periode.sluttDato,
+        });
+    };
 
     return (
         <div className={cls.className}>
@@ -126,6 +129,9 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     <tbody>
                         {currentFilter().map((periode) => {
                             const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
+                            const etterGjeldende =
+                                periode.løpenummer === (gjeldendeTilskuddsperiode?.løpenummer || -100) + 1;
+                            const kreverOppfølging = periodeKreverOppfølging(periode);
                             return (
                                 <React.Fragment key={periode.id}>
                                     <tr
@@ -147,29 +153,22 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         <td>
                                             <EtikettStatus
                                                 tilskuddsperiodestatus={
-                                                    statusPåNesteTilskuddsperiode(periode)
-                                                        ? 'OPPFØLGING_KREVES'
-                                                        : periode.status
+                                                    kreverOppfølging ? 'OPPFØLGING_KREVES' : periode.status
                                                 }
                                                 refusjonStatus={periode.refusjonStatus}
                                                 godkjentAv={periode.godkjentAvNavIdent}
                                             />
                                         </td>
                                     </tr>
-                                    {statusPåNesteTilskuddsperiode(periode) && (
+                                    {kreverOppfølging && etterGjeldende && (
                                         <tr className={cls.element('knapp-row')}>
                                             <td
                                                 colSpan={7}
                                                 className={cls.element('knapp-data', settStylingForTabellrad(periode))}
                                             >
                                                 {/*Dagens dato*/}
-                                                Tilskuddsperioden ble stanset av Systemet den{' '}
-                                                {formaterDato(
-                                                    gjeldendeTilskuddsperiode!.sluttDato!,
-                                                    NORSK_DATO_FORMAT,
-                                                )}{' '}
-                                                med følgende årsak: Veileder må følge opp tiltaket før de neste
-                                                tilskuddene kan behandles.
+                                                Tilskuddsperioden ble stanset av systemet med følgende årsak: Veileder
+                                                må følge opp tiltaket før de neste tilskuddene kan behandles.
                                             </td>
                                         </tr>
                                     )}

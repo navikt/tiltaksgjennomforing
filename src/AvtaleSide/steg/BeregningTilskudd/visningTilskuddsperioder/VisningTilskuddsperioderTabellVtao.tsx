@@ -8,7 +8,7 @@ import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visn
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { getYear, addDays } from 'date-fns';
+import { getYear, addDays, isWithinInterval } from 'date-fns';
 import {
     antallAktiveTilskuddsperioder,
     getIndexVisningForTilskuddsperiode,
@@ -24,17 +24,26 @@ const tilskuddsperiodeRad = ({
     avtaleOpprettet,
     erNavAnsatt,
     periode,
+    kreverOppfølgingDato,
 }: {
     key?: number;
     cls: any;
     avtaleOpprettet: Date;
     erNavAnsatt: boolean;
     periode: TilskuddsPeriode;
+    kreverOppfølgingDato?: Date;
 }) => {
     const periodeAar = getYear(new Date(periode.startDato));
     // Hvis tilskuddsperioden gjelder for et tidligere år enn når avtalen er opprettet,
     // så vil vi vise en liten notis om at VTAO-satsen er basert på et lavere beløp
     const erITidligereAar = periodeAar < getYear(avtaleOpprettet);
+
+    const periodeStatus =
+        kreverOppfølgingDato &&
+        isWithinInterval(kreverOppfølgingDato, { start: periode.startDato, end: periode.sluttDato })
+            ? 'OPPFØLGING_KREVES'
+            : periode.status;
+
     return (
         <div key={key} className={cls.element('tabell-innslag')}>
             <div>
@@ -47,7 +56,7 @@ const tilskuddsperiodeRad = ({
             </div>
             {erNavAnsatt && (
                 <BodyShort>
-                    <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
+                    <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
                 </BodyShort>
             )}
             <BodyShort size="small" style={{ minWidth: '4rem' }}>
@@ -73,6 +82,11 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
     const avtaleOpprettet = new Date(avtale.opprettetTidspunkt);
     const erNavAnsatt = innloggetBruker.erNavAnsatt;
 
+    const kreverOppfølgingDato =
+        avtale.kreverOppfolgingFrist !== undefined || avtale.kreverOppfolgingFrist === ''
+            ? addDays(avtale.kreverOppfolgingFrist, 1)
+            : undefined;
+
     return (
         <div className={cls.element('tabell')}>
             <div className={cls.element('tabell-ingress')}>
@@ -91,6 +105,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                         avtaleOpprettet,
                         cls,
                         erNavAnsatt,
+                        kreverOppfølgingDato,
                     });
                 })}
             {!visAllePerioder && sistePeriode && (
@@ -98,7 +113,13 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                     <div key={1} className={cls.element('tabell-innslag')}>
                         ...
                     </div>
-                    {tilskuddsperiodeRad({ cls, erNavAnsatt, avtaleOpprettet, periode: sistePeriode })}
+                    {tilskuddsperiodeRad({
+                        cls,
+                        erNavAnsatt,
+                        avtaleOpprettet,
+                        periode: sistePeriode,
+                        kreverOppfølgingDato,
+                    })}
                 </div>
             )}
             <InfoRundtTilskuddsperioder
