@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import useSWR from 'swr';
 
-import { ApiError, AutentiseringError, FeilkodeError } from '@/types/errors';
+import { ApiError, AutentiseringError, FeilkodeError, IkkeTilgangError } from '@/types/errors';
 import { AvtaleVersjon } from '@/types/avtale';
 import { Enhet } from '@/types/enhet';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
@@ -17,12 +17,15 @@ const api = axios.create({
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401 || error.response?.status === 403) {
+        if (error.response?.status === 401) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
                 window.location.pathname.replace(basename, '') + window.location.search,
             );
             throw new AutentiseringError('Er ikke logget inn.');
+        }
+        if (error.response?.status === 403) {
+            throw new IkkeTilgangError('Bruker har ikke tilgang til resursen.');
         }
         if (error.response?.status === 400 && error.response?.headers.feilkode) {
             throw new FeilkodeError(error.response?.headers.feilkode);

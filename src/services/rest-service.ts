@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { mutate } from 'swr';
 
-import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError } from '@/types/errors';
+import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError, IkkeTilgangError } from '@/types/errors';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
@@ -45,12 +45,15 @@ axiosRetry(api, { retries: 3 });
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401 || error.response?.status === 403) {
+        if (error.response?.status === 401) {
             sessionStorage.setItem(
                 SIDE_FOER_INNLOGGING,
                 window.location.pathname.replace(basename, '') + window.location.search,
             );
             throw new AutentiseringError('Er ikke logget inn.');
+        }
+        if (error.response?.status === 403) {
+            throw new IkkeTilgangError('Bruker har ikke tilgang til resursen.');
         }
         if (error.response?.status === 400 && error.response?.headers.feilkode) {
             throw new FeilkodeError(error.response?.headers.feilkode);
