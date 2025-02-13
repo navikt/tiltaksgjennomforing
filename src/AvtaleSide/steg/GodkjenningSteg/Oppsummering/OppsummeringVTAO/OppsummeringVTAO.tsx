@@ -1,6 +1,6 @@
 import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import { Avtaleinnhold } from '@/types/avtale';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
@@ -11,6 +11,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Label } from '@navikt/ds-react';
 import SjekkOmVerdiEksisterer from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import { stillingstype } from '@/messages';
+import BeregningTilskuddOppsummeringVTAO from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummeringVTAO';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -32,6 +33,7 @@ const OppsummeringVTAO: FunctionComponent<Props> = (props) => (
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
+        <BeregningTilskuddOppsummeringVTAO {...props.avtaleinnhold} />
     </>
 );
 
