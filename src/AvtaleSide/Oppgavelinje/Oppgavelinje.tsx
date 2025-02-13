@@ -5,8 +5,8 @@ import { FeilVarselContext } from '@/FeilVarselProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { ApiError } from '@/types/errors';
 import BEMHelper from '@/utils/bem';
-import { Button } from '@navikt/ds-react';
 import { Expand } from '@navikt/ds-icons';
+import { Button } from '@navikt/ds-react';
 
 import { Popover } from '@navikt/ds-react';
 import React, { useContext, useState } from 'react';
@@ -45,7 +45,8 @@ const OppgaveLinje: React.FunctionComponent = () => {
         }
     };
 
-    const visKunHendelseslog = avtaleContext.avtale.annullertTidspunkt || innloggetBruker.rolle !== 'VEILEDER';
+    const avtaleAnnullertEllerAvbrutt = avtaleContext.avtale.annullertTidspunkt || avtaleContext.avtale.avbruttDato;
+    const visKunHendelseslog = avtaleAnnullertEllerAvbrutt || innloggetBruker.rolle !== 'VEILEDER';
 
     return (
         <>
