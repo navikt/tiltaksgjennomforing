@@ -49,43 +49,41 @@ const OppgaveLinje: React.FunctionComponent = () => {
     const visKunHendelseslog = avtaleAnnullertEllerAvbrutt || innloggetBruker.rolle !== 'VEILEDER';
 
     return (
-        <>
-            <div className={cls.element('meny-wrapper')}>
-                <TilbakeTilOversiktLenke onClick={lagreEndringer} />
-                {visKunHendelseslog && (
-                    <div>
-                        <Varsellogg />
-                    </div>
-                )}
-                {!visKunHendelseslog && (
-                    <>
-                        <Button
-                            icon={<Expand />}
-                            iconPosition="right"
-                            variant="secondary"
-                            className={cls.element('popover-knapp')}
-                            id="menyKnapp"
-                            onClick={(e) => toggleMenu(e)}
-                            aria-expanded={dropdown !== undefined}
-                            aria-controls={'menyvalg'}
-                            aria-haspopup="menu"
-                        >
-                            Meny
-                        </Button>
-                        <Popover
-                            placement="bottom-end"
-                            open={erÅpnet}
-                            anchorEl={dropdown}
-                            onClose={() => setDropdown(null)}
-                        >
-                            <Popover.Content>
-                                <OppgaveLenker />
-                            </Popover.Content>
-                        </Popover>
-                    </>
-                )}
-            </div>
-        </>
+        <div className={cls.element('meny-wrapper')}>
+            <TilbakeTilOversiktLenke onClick={lagreEndringer} />
+            {visKunHendelseslog && (
+                <div>
+                    <Varsellogg />
+                </div>
+            )}
+            {!visKunHendelseslog && (
+                <>
+                    <Button
+                        icon={<Expand />}
+                        iconPosition="right"
+                        variant="secondary"
+                        className={cls.element('popover-knapp')}
+                        id="menyKnapp"
+                        onClick={(e) => toggleMenu(e)}
+                        aria-expanded={dropdown !== undefined}
+                        aria-controls={'menyvalg'}
+                        aria-haspopup="menu"
+                    >
+                        Meny
+                    </Button>
+                    <Popover
+                        placement="bottom-end"
+                        open={erÅpnet}
+                        anchorEl={dropdown}
+                        onClose={() => setDropdown(null)}
+                    >
+                        <Popover.Content>
+                            <OppgaveLenker />
+                        </Popover.Content>
+                    </Popover>
+                </>
+            )}
+        </div>
     );
 };
 
