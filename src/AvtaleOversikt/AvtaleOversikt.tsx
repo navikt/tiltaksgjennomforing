@@ -78,30 +78,34 @@ const AvtaleOversikt: FunctionComponent = () => {
         setNettressursCtx({ status: Status.LasterInn });
         if (!erFiltreLikeNettressursFiltre) {
             // Filteret er endret - Nytt POST-søk
-            hentAvtalerForInnloggetBrukerMedPost(filtre, 10, filterPage - 1).then((pagableAvtale: PageableAvtale) => {
-                if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
-                    // Håndtering valg i bedriftsmyen som arbeidsgiver
-                    setSearchParams(
-                        fjernTommeFelterFraObjekt({
-                            sokId: pagableAvtale.sokId,
-                            page: '' + (pagableAvtale.currentPage + 1),
-                            sorteringskolonne: filtre.sorteringskolonne,
-                            bedrift: pagableAvtale.sokeParametere.bedriftNr,
-                            sorteringOrder: filtre.sorteringOrder,
-                        }),
-                    );
-                } else {
-                    setSearchParams(
-                        fjernTommeFelterFraObjekt({
-                            sokId: pagableAvtale.sokId,
-                            page: '' + (pagableAvtale.currentPage + 1),
-                            sorteringskolonne: filtre.sorteringskolonne,
-                            sorteringOrder: filtre.sorteringOrder,
-                        }),
-                    );
-                }
-                setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
-            });
+            hentAvtalerForInnloggetBrukerMedPost(filtre, 10, filterPage - 1)
+                .then((pagableAvtale: PageableAvtale) => {
+                    if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
+                        // Håndtering valg i bedriftsmyen som arbeidsgiver
+                        setSearchParams(
+                            fjernTommeFelterFraObjekt({
+                                sokId: pagableAvtale.sokId,
+                                page: '' + (pagableAvtale.currentPage + 1),
+                                sorteringskolonne: filtre.sorteringskolonne,
+                                bedrift: pagableAvtale.sokeParametere.bedriftNr,
+                                sorteringOrder: filtre.sorteringOrder,
+                            }),
+                        );
+                    } else {
+                        setSearchParams(
+                            fjernTommeFelterFraObjekt({
+                                sokId: pagableAvtale.sokId,
+                                page: '' + (pagableAvtale.currentPage + 1),
+                                sorteringskolonne: filtre.sorteringskolonne,
+                                sorteringOrder: filtre.sorteringOrder,
+                            }),
+                        );
+                    }
+                    setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                })
+                .catch((error) => {
+                    setNettressursCtx({ status: Status.Feil, error });
+                });
         } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter || !sammeSorteringOrderIDataOgFilter) {
             // page/sortering er endret - Nytt GET-søk
             hentAvtalerForInnloggetBrukerMedSokId(

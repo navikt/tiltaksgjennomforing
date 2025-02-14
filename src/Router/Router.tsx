@@ -21,6 +21,7 @@ import { NotifikasjonWidgetProvider } from '@/NotifikasjonWidgetProvider';
 import { VarselOmNedetid } from '@/InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from '@/komponenter/ErrorBoundary';
 import AvtaleRouteError from '@/Router/AvtaleRouteError';
+import OversiktRouteError from '@/Router/OversiktRouteError';
 
 export const basename = '/tiltaksgjennomforing';
 
@@ -73,6 +74,7 @@ const router = createBrowserRouter(
                             </InnloggingBoundary>
                         </FeilVarselProvider>
                     ),
+                    errorElement: <OversiktRouteError />,
                     children: [
                         {
                             path: Path.OVERSIKT,
