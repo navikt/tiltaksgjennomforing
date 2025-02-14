@@ -7,14 +7,33 @@ import { Rolle } from '@/types/innlogget-bruker';
 
 interface Props {
     rolle?: Rolle;
+    enkelVisning?: boolean;
 }
 
 function IkkeTilgang403(props: Props) {
-    const { rolle = 'INGEN_ROLLE' } = props;
+    const { rolle = 'INGEN_ROLLE', enkelVisning = false } = props;
+
+    if (enkelVisning) {
+        return (
+            <Innholdsboks>
+                <VStack gap="12" align="start">
+                    <div>
+                        <Heading level="1" size="large" spacing>
+                            Ikke tilgang
+                        </Heading>
+                        <BodyShort>
+                            Du har ikke tilgang til denne resursen. Vennligst sjekk tilgangene dine. Eller logg inn som
+                            en annen bruker eller avtalepart.
+                        </BodyShort>
+                    </div>
+                </VStack>
+            </Innholdsboks>
+        );
+    }
 
     return (
         <Page.Block as="main" width="xl" gutters>
-            <Box paddingBlock="20 16" data-aksel-template="404-v2">
+            <Box paddingBlock="20 16">
                 <Innholdsboks>
                     <VStack gap="12" align="start">
                         <div>
