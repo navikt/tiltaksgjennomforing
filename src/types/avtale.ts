@@ -194,6 +194,7 @@ export interface AvtaleMetadata {
     opphav: Avtaleopphav;
     kreverOppfolgingFom?: string;
     kreverOppfolgingFrist?: string;
+    feilregistrert: boolean;
 }
 
 export interface RefusjonKontaktperson {
