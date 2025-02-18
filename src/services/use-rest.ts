@@ -2,8 +2,8 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import useSWR from 'swr';
 
-import { ApiError, AutentiseringError, FeilkodeError, IkkeTilgangError } from '@/types/errors';
-import { AvtaleVersjon } from '@/types/avtale';
+import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError, IkkeTilgangError } from '@/types/errors';
+import { Avtale, AvtaleVersjon } from '@/types/avtale';
 import { Enhet } from '@/types/enhet';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { basename } from '@/Router';
@@ -30,6 +30,9 @@ api.interceptors.response.use(
         if (error.response?.status === 400 && error.response?.headers.feilkode) {
             throw new FeilkodeError(error.response?.headers.feilkode);
         }
+        if (error.response?.status === 404) {
+            throw new IkkeFunnetError('Fant ikke ressursen.');
+        }
         throw new ApiError('Feil ved kontakt mot baksystem.');
     },
 );
@@ -43,9 +46,12 @@ const swrConfig = {
     suspense: true,
 };
 
-export const useHentVersjoner = (avtaleId: string) => {
-    const { data } = useSWR<AvtaleVersjon[]>(`/avtaler/${avtaleId}/versjoner`, swrConfig);
-    return data!; // nosonar
+export const useHentVersjoner = (avtale: Avtale) => {
+    const { data } = useSWR<AvtaleVersjon[]>(
+        !avtale.feilregistrert ? `/avtaler/${avtale.id}/versjoner` : null,
+        swrConfig,
+    );
+    return data || [];
 };
 
 export const useHentEnhet = (enhetsnummer?: string) => {

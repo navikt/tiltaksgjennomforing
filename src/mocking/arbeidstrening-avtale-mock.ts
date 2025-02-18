@@ -102,6 +102,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     erAvtaleInngått: false,
     erRyddeAvtale: false,
     opphav: 'VEILEDER',
+    feilregistrert: false,
 };
 
 export default arbeidstreningAvtaleMock;

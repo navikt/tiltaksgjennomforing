@@ -57,10 +57,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     <TilskuddsPerioderOppsummering />
                 </Innholdsboks>
             )}
-
-            <Suspense fallback={null}>
-                <VersjoneringKomponent avtale={avtale} rolle={innloggetBruker.rolle} />
-            </Suspense>
+            <VersjoneringKomponent avtale={avtale} />
         </div>
     );
 };
