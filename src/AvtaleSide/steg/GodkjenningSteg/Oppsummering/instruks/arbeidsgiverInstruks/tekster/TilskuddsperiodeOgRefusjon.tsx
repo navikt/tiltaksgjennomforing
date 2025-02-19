@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Money } from '@navikt/ds-icons';
 import { Link } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
+import { WalletIcon } from '@navikt/aksel-icons';
 
 interface Props {
     tiltakstype: TiltaksType;
@@ -22,7 +22,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
     if (tiltakstype === 'VTAO') {
         return (
             <IkonTekstRad
-                svgIkon={<Money width="2.25rem" height="2.25rem" />}
+                svgIkon={<WalletIcon title="Tilskuddsperiode og refusjon" />}
                 headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
             >
                 <p>
@@ -45,7 +45,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
     }
     return (
         <IkonTekstRad
-            svgIkon={<Money width="2.25rem" height="2.25rem" />}
+            svgIkon={<WalletIcon title="Tilskuddsperiode og refusjon" />}
             headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
         >
             <p>
