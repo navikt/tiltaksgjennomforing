@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Law } from '@navikt/ds-icons';
+import { GavelSoundBlockIcon } from '@navikt/aksel-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
 
@@ -31,7 +31,7 @@ const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
 
     return (
         <IkonTekstRad
-            svgIkon={<Law width="2.25rem" height="2.25rem" />}
+            svgIkon={<GavelSoundBlockIcon title="Arbeidsmiljøloven" />}
             headerTekst={{ tekst: 'Arbeidsmiljøloven', headingType: 'small' }}
         >
             {tiltakstype === 'ARBEIDSTRENING' && (

@@ -6,7 +6,7 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 const Taushetsplikt: FunctionComponent = () => {
     return (
         <IkonTekstRad
-            svgIkon={<ChatExclamationmarkIcon title="Taushetsplikt" fontSize="1.5rem" />}
+            svgIkon={<ChatExclamationmarkIcon title="Taushetsplikt" />}
             headerTekst={{ tekst: 'Taushetsplikt', headingType: 'small' }}
         >
             <p>
