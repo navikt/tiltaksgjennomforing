@@ -27,7 +27,8 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
             >
                 <p>
                     Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra NAV og kan avvike fra
-                    avtalt periode for tiltaksgjennomføringen.
+                    avtalt periode for tiltaksgjennomføringen. Ved endring i deltakelsen underveis i tiltaket som kan
+                    påvirker utbetalingen, så må du gi umiddelbar beskjed til NAV.
                 </p>
                 <p>
                     Tilskudd for varig tilrettelagt arbeid i ordinær virksomhet baseres på en fast sats som settes årlig
