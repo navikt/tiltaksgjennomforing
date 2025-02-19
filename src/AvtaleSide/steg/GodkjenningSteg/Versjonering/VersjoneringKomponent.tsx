@@ -11,7 +11,7 @@ interface Props {
 
 const VersjoneringKomponent = (props: Props) => {
     const { avtale } = props;
-    const versjoner = useHentVersjoner(avtale);
+    const versjoner = useHentVersjoner(!avtale.feilregistrert ? avtale.id : undefined);
 
     if (versjoner.length <= 1) {
         return null;

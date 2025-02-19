@@ -22,6 +22,7 @@ import { VarselOmNedetid } from '@/InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from '@/komponenter/ErrorBoundary';
 import AvtaleRouteError from '@/Router/AvtaleRouteError';
 import OversiktRouteError from '@/Router/OversiktRouteError';
+import AvtaleKontroll from '@/AvtaleSide/AvtaleKontroll';
 
 export const basename = '/tiltaksgjennomforing';
 
@@ -92,9 +93,11 @@ const router = createBrowserRouter(
                             path: Path.AVTALE,
                             element: (
                                 <AvtaleProvider>
-                                    <AvtaleFetcher>
-                                        <Outlet />
-                                    </AvtaleFetcher>
+                                    <AvtaleKontroll>
+                                        <AvtaleFetcher>
+                                            <Outlet />
+                                        </AvtaleFetcher>
+                                    </AvtaleKontroll>
                                 </AvtaleProvider>
                             ),
                             errorElement: <AvtaleRouteError />,

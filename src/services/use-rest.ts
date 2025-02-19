@@ -46,11 +46,8 @@ const swrConfig = {
     suspense: true,
 };
 
-export const useHentVersjoner = (avtale: Avtale) => {
-    const { data } = useSWR<AvtaleVersjon[]>(
-        !avtale.feilregistrert ? `/avtaler/${avtale.id}/versjoner` : null,
-        swrConfig,
-    );
+export const useHentVersjoner = (avtaleId?: string) => {
+    const { data } = useSWR<AvtaleVersjon[]>(avtaleId ? `/avtaler/${avtaleId}/versjoner` : undefined, swrConfig);
     return data || [];
 };
 
@@ -59,6 +56,13 @@ export const useHentEnhet = (enhetsnummer?: string) => {
         ...swrConfig,
         suspense: false,
         shouldRetryOnError: false,
+        revalidateOnFocus: false,
+    });
+};
+
+export const useAvtaleKreverAktsomhet = (avtaleId?: string) => {
+    return useSWR<boolean>(avtaleId ? `/avtaler/${avtaleId}/krever-aktsomhet` : undefined, {
+        ...swrConfig,
         revalidateOnFocus: false,
     });
 };
