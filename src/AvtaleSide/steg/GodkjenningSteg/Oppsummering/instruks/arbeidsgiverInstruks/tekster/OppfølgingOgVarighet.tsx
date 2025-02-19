@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Calender } from '@navikt/ds-icons';
+import { CalendarIcon } from '@navikt/aksel-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
 
@@ -15,7 +15,7 @@ const OppfolgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLe
     }
     return (
         <IkonTekstRad
-            svgIkon={<Calender width="2.25rem" height="2.25rem" />}
+            svgIkon={<CalendarIcon title="Oppfølging og varighet" />}
             headerTekst={{ tekst: 'Oppfølging og varighet', headingType: 'small' }}
         >
             {tiltakstype !== 'VTAO' && (

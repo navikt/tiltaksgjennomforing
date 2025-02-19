@@ -1,6 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Law } from '@navikt/ds-icons';
+import { GavelSoundBlockIcon } from '@navikt/aksel-icons';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import BEMHelper from '@/utils/bem';
 import { TiltaksType } from '@/types/avtale';
@@ -14,7 +14,7 @@ const HvaSierRegelverket: FunctionComponent<PropsWithChildren<Props>> = ({ tilta
     const cls = BEMHelper('instruks');
     return (
         <IkonTekstRad
-            svgIkon={<Law width="2.25rem" height="2.25rem" />}
+            svgIkon={<GavelSoundBlockIcon title="Hva sier regelverket?" />}
             headerTekst={{ tekst: 'Hva sier regelverket?', headingType: 'small' }}
         >
             <div className={cls.element('kravomrefusjonlinker')}>

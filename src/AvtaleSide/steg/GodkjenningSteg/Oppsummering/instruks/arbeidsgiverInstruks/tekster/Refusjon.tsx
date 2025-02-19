@@ -1,7 +1,7 @@
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { TiltaksType } from '@/types/avtale';
-import { Money } from '@navikt/ds-icons';
+import { WalletIcon } from '@navikt/aksel-icons';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
@@ -14,7 +14,7 @@ const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
     }
     return (
         <IkonTekstRad
-            svgIkon={<Money width="2.25rem" height="2.25rem" />}
+            svgIkon={<WalletIcon title="Refusjon" />}
             headerTekst={{ tekst: 'Refusjon', headingType: 'small' }}
         >
             <p>

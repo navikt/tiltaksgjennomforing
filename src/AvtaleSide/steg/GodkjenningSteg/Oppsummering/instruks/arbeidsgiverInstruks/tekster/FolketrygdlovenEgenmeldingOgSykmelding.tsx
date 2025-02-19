@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Bandage } from '@navikt/ds-icons';
+import { BandageIcon } from '@navikt/aksel-icons';
 import { TiltaksType } from '@/types/avtale';
 
 interface Props {
@@ -17,7 +17,7 @@ const FolketrygdlovenEgenmeldingOgSykmelding: FunctionComponent<Props> = ({ tilt
     }
     return (
         <IkonTekstRad
-            svgIkon={<Bandage width="2.25rem" height="2.25rem" />}
+            svgIkon={<BandageIcon title="Folketrygdloven: egenmelding og sykmelding" />}
             headerTekst={{
                 tekst: 'Folketrygdloven: egenmelding og sykmelding',
                 headingType: 'small',
