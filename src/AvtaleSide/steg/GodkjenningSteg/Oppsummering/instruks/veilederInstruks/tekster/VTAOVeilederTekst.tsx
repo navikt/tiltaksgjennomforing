@@ -30,6 +30,11 @@ const VTAOVeilederTekst: FunctionComponent<Props> = (props) => {
                         tilsagnsbrevet er innarbeidet i avtalen til arbeidsgiver.
                     </BodyShort>
                 </li>
+                <li className={cls.element('list-element')}>
+                    <BodyShort size="small">
+                        Det går automatisk melding til NAV Arbeid og ytelser med beskjed om innvilget tiltaksplass.
+                    </BodyShort>
+                </li>
                 <li>
                     <BodyShort size="small">Avtalen blir automatisk journalført i Gosys.</BodyShort>
                 </li>
