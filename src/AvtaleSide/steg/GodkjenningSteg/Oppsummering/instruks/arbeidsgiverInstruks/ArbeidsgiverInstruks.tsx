@@ -13,6 +13,7 @@ import BehandlingAvPersonopplysninger from '@/AvtaleSide/steg/GodkjenningSteg/Op
 import TilskuddsperiodeOgRefusjon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/TilskuddsperiodeOgRefusjon';
 import Refusjon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Refusjon';
 import HvaSierRegelverket from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/HvaSierRegelverket';
+import Taushetsplikt from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Taushetsplikt';
 
 const cls = BEMHelper('instruks');
 interface Props {
@@ -49,6 +50,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                     <BehandlingAvPersonopplysninger />
                     <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
                     <Refusjon tiltakstype={tiltakstype} />
+                    <Taushetsplikt />
                     <HvaSierRegelverket tiltakstype={tiltakstype} href={oppfolgingLenker[props.tiltakstype]} />
                 </div>
             </VeilederpanelMedUtklippstavle>
