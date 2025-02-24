@@ -1,6 +1,6 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
-import { Alert, Heading, Modal } from '@navikt/ds-react';
+import { Alert, Button, Heading, Modal } from '@navikt/ds-react';
 import React, { CSSProperties, ReactNode, useRef, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import VarselTegnForModal from './VarselTegnForModal';
@@ -10,7 +10,7 @@ const cls = BEMHelper('bekreftelseModal');
 
 interface Props {
     modalIsOpen: boolean;
-    bekreftOnClick: () => Promise<any>;
+    bekreftOnClick?: () => Promise<any>;
     lukkModal: () => void;
     children?: ReactNode;
     oversiktTekst: string;
@@ -26,6 +26,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const ref = useRef<HTMLDialogElement>(null);
 
     const bekreftKlikk = async () => {
+        if (props.bekreftOnClick === undefined) return;
         setFeilmelding(undefined);
         try {
             setLaster(true);
@@ -75,14 +76,25 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <LagreOgAvbrytKnapp
-                        disabled={laster}
-                        lagreFunksjon={() => bekreftKlikk()}
-                        lagretekst={props.bekreftelseTekst}
-                        avbryt={() => {
-                            ref.current?.close();
-                        }}
-                    />
+                    {props.bekreftOnClick !== undefined ? (
+                        <LagreOgAvbrytKnapp
+                            disabled={laster}
+                            lagreFunksjon={() => bekreftKlikk()}
+                            lagretekst={props.bekreftelseTekst}
+                            avbrytelsetekst={props.avbrytelseTekst}
+                            avbryt={() => {
+                                ref.current?.close();
+                            }}
+                        />
+                    ) : (
+                        <Button
+                            variant="secondary"
+                            className={cls.element('knapp')}
+                            onClick={() => ref.current?.close()}
+                        >
+                            {props.avbrytelseTekst || 'Lukk'}
+                        </Button>
+                    )}
                 </Modal.Footer>
             </Modal>
         </div>

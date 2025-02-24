@@ -11,6 +11,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     lagreFunksjon: () => void;
     avbryt: () => void;
     lagretekst: string;
+    avbrytelsetekst?: string;
 }
 
 const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
@@ -54,7 +55,7 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
             )}
             <div className={cls.element('container')}>
                 <Button variant={'secondary'} type="button" onClick={props.avbryt}>
-                    Avbryt
+                    {props.avbrytelsetekst || 'Avbryt'}
                 </Button>
                 <Button
                     type="submit"

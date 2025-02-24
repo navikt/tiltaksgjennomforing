@@ -52,6 +52,7 @@ const hendelsesIkon: { [key in HendelseType]: JSX.Element } = {
     AVTALE_INNGÅTT: <GodkjentIkon />,
     INKLUDERINGSTILSKUDD_ENDRET: <PengeIkon />,
     OM_MENTOR_ENDRET: <EndretIkon />,
+    OPPFØLGING_AV_TILTAK_UTFØRT: <></>,
 };
 
 const HendelseIkon: FunctionComponent<Props> = (props) => {
