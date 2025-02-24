@@ -22,7 +22,7 @@ function IkkeTilgang403(props: Props) {
                             Ikke tilgang
                         </Heading>
                         <BodyShort>
-                            Du har ikke tilgang til denne resursen. Vennligst sjekk tilgangene dine. Eller logg inn som
+                            Du har ikke tilgang til denne ressursen. Vennligst sjekk tilgangene dine. Eller logg inn som
                             en annen bruker eller avtalepart.
                         </BodyShort>
                     </div>
