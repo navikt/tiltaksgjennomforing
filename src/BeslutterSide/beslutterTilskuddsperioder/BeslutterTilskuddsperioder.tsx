@@ -27,6 +27,11 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
 
+    // Gjeldende tilskuddsperiode er "behandlet" når den har status "godkjent".
+    // Statuser som "annullert" og "behandlet i arena" vil føre til at en tilskuddsperiode
+    // ikke er gjeldende, og behøver derfor ikke å kontrolleres mot.
+    const gjeldendeErBehandlet = gjeldendeTilskuddsperiode?.status === 'GODKJENT';
+
     const [firstStartdato, setFirstStartdato] = useState<any>('');
     const [lastStartdato, setLastStartdato] = useState<any>('');
 
@@ -129,8 +134,6 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                     <tbody>
                         {currentFilter().map((periode) => {
                             const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
-                            const etterGjeldende =
-                                periode.løpenummer === (gjeldendeTilskuddsperiode?.løpenummer || -100) + 1;
                             const kreverOppfølging = periodeKreverOppfølging(periode);
                             return (
                                 <React.Fragment key={periode.id}>
@@ -160,13 +163,12 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                             />
                                         </td>
                                     </tr>
-                                    {kreverOppfølging && etterGjeldende && (
+                                    {kreverOppfølging && gjeldendeErBehandlet && (
                                         <tr className={cls.element('knapp-row')}>
                                             <td
                                                 colSpan={7}
                                                 className={cls.element('knapp-data', settStylingForTabellrad(periode))}
                                             >
-                                                {/*Dagens dato*/}
                                                 Tilskuddsperioden ble stanset av systemet med følgende årsak: Veileder
                                                 må følge opp tiltaket før de neste tilskuddene kan behandles.
                                             </td>
