@@ -42,13 +42,19 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
     const { avtale } = useAvtale();
     const { pabegyntAvtaleRyddeJobb } = useFeatureToggles();
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const erLangTittel = props.tekst.length > 40;
 
     return innloggetBruker.erNavAnsatt && avtale ? (
         <>
             <div className="banner-veileder-container">
                 <div className="banner-veileder" role="banner">
                     <div>
-                        <Heading size="large" role="heading" aria-level={1}>
+                        <Heading
+                            className={erLangTittel ? 'banner-lang-tittel' : ''}
+                            size="large"
+                            role="heading"
+                            aria-level={1}
+                        >
                             {props.tekst}
                         </Heading>
 

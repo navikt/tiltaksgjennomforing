@@ -19,6 +19,7 @@ const Banner: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [searchParams] = useSearchParams();
     const bedriftParam = searchParams.get('bedrift');
+    const erLangTittel = props.tekst.length > 40;
 
     const useOrgnrHook2: () => [string | null, (orgnr: string) => void] = useCallback(() => {
         const currentOrgnr = bedriftParam || null;
@@ -53,7 +54,9 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}
                     sidetittel={
                         <>
-                            <Heading size="large">{props.tekst}</Heading>
+                            <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
+                                {props.tekst}
+                            </Heading>
                             {props.undertittel && (
                                 <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>
                                     {props.undertittel}
@@ -68,7 +71,12 @@ const Banner: React.FunctionComponent<Props> = (props) => {
         case 'DELTAKER':
             return (
                 <div className="banner">
-                    <Heading size="large" role="heading" aria-level={1}>
+                    <Heading
+                        className={erLangTittel ? 'banner-lang-tittel' : ''}
+                        size="large"
+                        role="heading"
+                        aria-level={1}
+                    >
                         {props.tekst}
                     </Heading>
                     {props.undertittel && (
@@ -82,7 +90,12 @@ const Banner: React.FunctionComponent<Props> = (props) => {
         case 'MENTOR':
             return (
                 <div className="banner">
-                    <Heading size="large" role="heading" aria-level={1}>
+                    <Heading
+                        className={erLangTittel ? 'banner-lang-tittel' : ''}
+                        size="large"
+                        role="heading"
+                        aria-level={1}
+                    >
                         {props.tekst}
                     </Heading>
                     {props.undertittel && (
