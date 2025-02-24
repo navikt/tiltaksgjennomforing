@@ -24,6 +24,7 @@ const StatusIkon: FunctionComponent<Props> = (props) => {
         case 'KLAR_FOR_OPPSTART':
             return <CheckIkon style={props.style} />;
         case 'MANGLER_SIGNATUR':
+        case 'OPPFØLGING_KREVES':
             return <ProblemIkon style={props.style} />;
         case 'MANGLER_GODKJENNING':
             if (props.godkjentAvInnloggetBruker || (props.rolle === 'VEILEDER' && !props.andrePartnerHarGodkjent)) {

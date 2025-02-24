@@ -27,7 +27,7 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
     return (
         <>
             <Table.DataCell>
-                <StatusIkon status={avtale.status} />
+                <StatusIkon status={kreverOppfølging ? 'OPPFØLGING_KREVES' : avtale.status} />
             </Table.DataCell>
             <Table.DataCell>
                 <BodyShort size="small">
