@@ -64,10 +64,10 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
 
     const [bedriftNrFeil, setBedriftNrFeil, validerBedriftNr] = useValidering(bedriftNr, [
         (verdi) => {
-            if (!verdi) return 'Virksomhetsnummer er påkrevd';
+            if (!verdi) return 'Organisasjonsnummer er påkrevd';
         },
         (verdi) => {
-            if (!validerOrgnr(verdi)) return 'Ugyldig virksomhetsnummer';
+            if (!validerOrgnr(verdi)) return 'Ugyldig organisasjonsnummer for underenhet';
         },
     ]);
 
@@ -93,12 +93,6 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 })
                 .catch((error: Error) => {
                     setBedriftNrFeil('Det oppstod en uventet feil');
-                    console.error(
-                        `Det oppstod en uventet feil ved henting av virksomhetsnummer ${
-                            bedriftNr ? bedriftNr : ''
-                        } med feilmelding: `,
-                        error,
-                    );
                 });
         } else {
             setBedriftNavn('');

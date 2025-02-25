@@ -165,7 +165,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </Heading>
                     <VerticalSpacer rem={1} />
                     <Alert variant="info">
-                        I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der det
+                        I feltet “Opprettes på bedrift” er det viktig at organisasjonsnummeret er det samme som der det
                         blir registrert inntekt for deltaker i A-meldingen.
                     </Alert>
                     <VerticalSpacer rem={1} />
@@ -183,7 +183,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         className="typo-element"
                         width={'L'}
                         label="Opprettes på bedrift"
-                        description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
+                        description="Organisasjonsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                         value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
                         readOnly={true}
                     />

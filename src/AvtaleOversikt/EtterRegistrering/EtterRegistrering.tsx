@@ -111,7 +111,7 @@ const EtterRegistrering: FunctionComponent = () => {
                                 />
                                 <InfoRad
                                     klasseNavn={cls.element('rad-info')}
-                                    radInfo="Virksomhetsnummer:"
+                                    radInfo="Organisasjonsnummer for underenhet:"
                                     radVerdi={avtale.bedriftNr}
                                 />
                                 <InfoRad

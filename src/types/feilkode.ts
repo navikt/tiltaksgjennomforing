@@ -112,8 +112,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     VARIGHET_FOR_LANG_MENTOR_36_MND: 'Avtalens varighet er maksimalt 36 måneder',
     VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',
     VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD: 'Avtalens varighet er maksimalt 12 måneder',
-    ENHET_ER_JURIDISK: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke den juridiske enheten.',
-    ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke organisasjonsleddet.',
+    ENHET_ER_JURIDISK: 'Avtale må registreres på underenhetens organisasjonsnummer, ikke hovedenheten.',
+    ENHET_ER_ORGLEDD: 'Avtale må registreres på underenhetens organisasjonsnummer, ikke organisasjonsleddet.',
     ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
     ENHET_ER_SLETTET: 'Enheten er slettet',
     IKKE_TILGANG_TIL_DELTAKER: 'Du har ikke tilgang til deltaker',
@@ -174,7 +174,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Kan ikke endre etterregistrering etter at avtalen er godkjent.',
     AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE:
         'Avtalen inneholder utbetalte tilskuddsperiode(er). Avtalen kan derfor ikke annulleres.',
-    UGYLDIG_VIRKSOMHETSNUMMER: 'Du må oppgi gyldig virksomhetsnummer',
+    UGYLDIG_VIRKSOMHETSNUMMER: 'Du må oppgi gyldig organisasjonsnummer for underenhet.',
     UGYLDIG_FØDSELSNUMMER: 'Du må oppgi gyldig fødselsnummer for deltaker',
     UGYLDIG_AVTALETYPE: 'Du må oppgi avtaletype',
     KAN_IKKE_OPPHEVE_GODKJENNINGER_VED_INNGAATT_AVTALE:

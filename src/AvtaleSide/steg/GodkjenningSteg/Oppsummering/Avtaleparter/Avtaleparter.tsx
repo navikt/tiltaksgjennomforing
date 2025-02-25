@@ -62,7 +62,7 @@ const Avtaleparter: FunctionComponent<Props> = (props) => {
                     ]}
                     tilleggFelter={[
                         {
-                            felt: 'virksomhetsnummer',
+                            felt: 'organisasjonsnummer',
                             verdi: avtale.bedriftNr,
                         },
                         {

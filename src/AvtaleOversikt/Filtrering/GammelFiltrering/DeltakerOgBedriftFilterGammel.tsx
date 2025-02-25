@@ -14,7 +14,8 @@ const navIdentValidering: Validering = (verdi) => (!verdi.match(/\w\d{6}/) ? 'Ug
 
 const fnrValidering: Validering = (verdi) => (!validerFnr(verdi) ? 'Ugyldig fødselsnummer' : undefined);
 
-const orgNrValidering: Validering = (verdi) => (!validerOrgnr(verdi) ? 'Ugyldig virksomhetsnummer' : undefined);
+const orgNrValidering: Validering = (verdi) =>
+    !validerOrgnr(verdi) ? 'Ugyldig organisasjonsnummer for underenhet' : undefined;
 
 type Søketype = 'alle' | 'deltaker' | 'veileder' | 'bedrift' | 'egne' | 'avtaleVedEnhet' | 'ufordelte' | 'avtaleNr';
 
@@ -90,7 +91,7 @@ export const DeltakerOgBedriftFilterGammel: FunctionComponent = () => {
             utførSøk: (søkeord: string) => endreFilter({ ...tomt, deltakerFnr: søkeord }),
         },
         bedrift: {
-            placeholder: 'Virksomhetsnummer',
+            placeholder: 'Organisasjonsnummer for underenhet',
             label: 'På en bedrift',
             maxLength: 9,
             validering: orgNrValidering,

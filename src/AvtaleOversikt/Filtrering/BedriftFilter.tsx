@@ -11,14 +11,14 @@ export const BedriftFilter: FunctionComponent<PropsWithChildren> = () => {
             <SøkeInput
                 className="søk"
                 style={{ display: 'flex', alignItems: 'center' }}
-                label="Virksomhetsnummer"
+                label="Organisasjonsnummer for underenhet"
                 maxLength={9}
                 utførsøk={(søkeord: string) => endreFilter({ bedriftNr: søkeord })}
                 valider={(verdi: string) => {
                     if (verdi === '') return undefined;
-                    return !validerOrgnr(verdi) ? 'Ugyldig virksomhetsnummer' : undefined;
+                    return !validerOrgnr(verdi) ? 'Ugyldig organisasjonsnummer for underenhet' : undefined;
                 }}
-                placeholder={'Skriv et virksomhetsnummer'}
+                placeholder={'Skriv et organisasjonsnummer for underenhet'}
                 verdi={filtre.bedriftNr}
             />
         </Filter>
