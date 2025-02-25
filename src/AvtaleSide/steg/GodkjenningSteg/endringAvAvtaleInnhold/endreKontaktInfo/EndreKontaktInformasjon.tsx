@@ -3,17 +3,16 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
-import { EndreKontaktInfo, TiltaksType, VTAO } from '@/types/avtale';
+import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
 import { Checkbox, Heading, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const EndreKontaktInformasjon: FunctionComponent = () => {
     const cls = BEMHelper('endreKontaktInformasjon');
-    const { avtale, hentAvtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
+    const { avtale, hentAvtale } = useContext(AvtaleContext);
     const vtao = avtale.gjeldendeInnhold.vtao;
 
     const {
@@ -110,7 +109,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 <Heading level="3" size="small" className={cls.element('tittel')}>
                     Informasjon om deltaker
                 </Heading>
-                <div className={cls.element('rad')}>
+                <div className={cls.element('grid')}>
                     <PakrevdInput
                         label="Fornavn"
                         verdi={kontaktInfo.deltakerFornavn}
@@ -121,8 +120,6 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.deltakerEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
                     />
-                </div>
-                <div className={cls.element('rad')}>
                     <TelefonnummerInput
                         label="Mobilnummer "
                         verdi={kontaktInfo.deltakerTlf}
@@ -132,7 +129,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 <Heading level="3" size="small" className={cls.element('tittel')}>
                     Informasjon om veileder
                 </Heading>
-                <div className={cls.element('rad')}>
+                <div className={cls.element('grid')}>
                     <PakrevdInput
                         label="Fornavn"
                         verdi={kontaktInfo.veilederFornavn}
@@ -143,8 +140,6 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.veilederEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
                     />
-                </div>
-                <div className={cls.element('rad')}>
                     <TelefonnummerInput
                         label="Mobilnummer"
                         verdi={kontaktInfo.veilederTlf}
@@ -154,7 +149,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 <Heading level="3" size="small" className={cls.element('tittel')}>
                     Kontaktperson for avtalen i bedriften
                 </Heading>
-                <div className={cls.element('rad')}>
+                <div className={cls.element('grid')}>
                     <PakrevdInput
                         label="Fornavn"
                         verdi={kontaktInfo.arbeidsgiverFornavn}
@@ -165,8 +160,6 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.arbeidsgiverEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
                     />
-                </div>
-                <div className={cls.element('rad')}>
                     <TelefonnummerInput
                         label="Mobilnummer"
                         verdi={kontaktInfo.arbeidsgiverTlf}
@@ -178,7 +171,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         <Heading level="3" size="small" className={cls.element('tittel')}>
                             Informasjon om fadder
                         </Heading>
-                        <div className={cls.element('rad')}>
+                        <div className={cls.element('grid')}>
                             <PakrevdInput
                                 label="Fornavn"
                                 verdi={kontaktInfo.vtao?.fadderFornavn}
@@ -196,9 +189,6 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                                     })
                                 }
                             />
-                        </div>
-                        <VerticalSpacer rem={1} />
-                        <div className={cls.element('rad')}>
                             <TelefonnummerInput
                                 label="Mobilnummer"
                                 verdi={kontaktInfo.vtao?.fadderTlf}
@@ -212,7 +202,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         <Heading size="small" className={cls.element('tittel')}>
                             Kontaktperson for refusjon i bedriften
                         </Heading>
-                        <div className={cls.element('rad')}>
+                        <div className={cls.element('grid')}>
                             <PakrevdInput
                                 label="Fornavn"
                                 verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
@@ -233,8 +223,6 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                                     })
                                 }
                             />
-                        </div>
-                        <div className={cls.element('rad')}>
                             <TelefonnummerInput
                                 label="Mobilnummer"
                                 verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
