@@ -12,7 +12,6 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import amplitude from '@/utils/amplitude';
 import useValidering from '@/komponenter/useValidering';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
@@ -81,14 +80,12 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         valgtTiltaksType,
                         Avtalerolle.ARBEIDSGIVER,
                     );
-                    amplitude.logEvent('#tiltak-avtale-opprettet', { tiltakstype: valgtTiltaksType });
                     navigate(generatePath(Path.AVTALE_STEG, { avtaleId: mentorAvtale.id, steg: 'kontaktinformasjon' }));
                     return;
                 }
                 return;
             }
             const avtale = await opprettAvtaleSomArbeidsgiver(deltakerFnr, valgtBedriftNr, valgtTiltaksType);
-            amplitude.logEvent('#tiltak-avtale-opprettet-arbeidsgiver', { tiltakstype: valgtTiltaksType });
             navigate({
                 pathname: generatePath(Path.AVTALE_STEG, { avtaleId: avtale.id, steg: 'kontaktinformasjon' }),
                 search: window.location.search,
@@ -118,10 +115,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                             introduksjon til hvordan løsningen fungerer {''}
                         </EksternLenke>
                         og vite om{' '}
-                        <EksternLenke
-                            onClick={() => amplitude.logEvent('#tiltak-arbeidsgiver-alle-tiltak-link-apnet')}
-                            href="https://www.nav.no/arbeidsgiver/inkludere"
-                        >
+                        <EksternLenke href="https://www.nav.no/arbeidsgiver/inkludere">
                             de ulike støtteordningene.
                         </EksternLenke>
                     </BodyShort>

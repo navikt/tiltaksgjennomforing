@@ -1,4 +1,3 @@
-import amplitude from 'amplitude-js';
 import React, { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +12,6 @@ const RedirectEtterLogin: FunctionComponent<RedirectEtterLoginProps> = (props) =
         const sideFoerInnlogging = sessionStorage.getItem(SIDE_FOER_INNLOGGING);
         if (typeof sideFoerInnlogging === 'string') {
             sessionStorage.removeItem(SIDE_FOER_INNLOGGING);
-            amplitude.logEvent('#tiltak-bruker-ble-innlogget');
             navigation(sideFoerInnlogging);
         }
     };

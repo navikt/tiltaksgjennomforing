@@ -3,7 +3,6 @@ import { hentInnloggetBruker } from '@/services/rest-service';
 import { hentInnloggingskilder } from '@/services/internt';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { InnloggetBruker, Innloggingskilde } from '@/types/innlogget-bruker';
-import amplitude from '@/utils/amplitude';
 import { useEffect, useState } from 'react';
 import { FeilkodeError } from './../types/errors';
 
@@ -28,7 +27,6 @@ const useInnlogget = (): Innlogget => {
         hentInnloggetBruker()
             .then((response) => {
                 setInnloggetBruker(response);
-                amplitude.setUserProperties({ rolle: response.rolle });
             })
             .catch((error) => {
                 if (error instanceof AutentiseringError || error instanceof FeilkodeError) {
