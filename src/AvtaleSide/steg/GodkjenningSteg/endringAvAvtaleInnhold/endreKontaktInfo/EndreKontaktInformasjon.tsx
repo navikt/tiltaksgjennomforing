@@ -2,11 +2,11 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { oppdatereKontaktInformasjon } from '@/services/rest-service';
+import { hentBedriftBrreg, oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Neutral } from '@navikt/ds-icons/cjs';
-import { Checkbox, Heading, Link } from '@navikt/ds-react';
+import { Button, Checkbox, Heading, Link, VStack } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
 
@@ -68,6 +68,11 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
             ...prevState,
             [key]: verdi,
         }));
+    };
+
+    const fyllInBedriftNavn = async () => {
+        const bedriftInfo = await hentBedriftBrreg(avtale.bedriftNr);
+        settNyKontaktInformasjon('bedriftNavn', bedriftInfo.bedriftNavn);
     };
 
     const settØnskerVarsling = () => {
@@ -167,11 +172,16 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         verdi={kontaktInfo.arbeidsgiverTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
                     />
-                    <PakrevdInput
-                        label={'Bedriftsnavn'}
-                        verdi={kontaktInfo.bedriftNavn}
-                        settVerdi={(verdi) => settNyKontaktInformasjon('bedriftNavn', verdi)}
-                    />
+                    <VStack gap="2">
+                        <PakrevdInput
+                            label={'Bedriftsnavn'}
+                            verdi={kontaktInfo.bedriftNavn}
+                            settVerdi={(verdi) => settNyKontaktInformasjon('bedriftNavn', verdi)}
+                        />
+                        <Button onClick={fyllInBedriftNavn} variant="primary" size="small">
+                            Hent bedriftsnavn
+                        </Button>
+                    </VStack>
                 </div>
                 {avtale.tiltakstype === 'VTAO' && (
                     <>
