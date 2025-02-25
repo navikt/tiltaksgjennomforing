@@ -415,6 +415,7 @@ export type EndreKontaktInfo = {
     arbeidsgiverFornavn?: string;
     arbeidsgiverEtternavn?: string;
     arbeidsgiverTlf?: string;
+    bedriftNavn?: string;
     deltakerFornavn?: string;
     deltakerEtternavn?: string;
     deltakerTlf?: string;

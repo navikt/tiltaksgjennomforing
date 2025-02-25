@@ -26,6 +26,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         arbeidsgiverFornavn,
         arbeidsgiverEtternavn,
         arbeidsgiverTlf,
+        bedriftNavn,
         refusjonKontaktperson,
     } = avtale.gjeldendeInnhold;
     const [modalApen, setModalApen] = useState(false);
@@ -44,6 +45,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
         arbeidsgiverFornavn: arbeidsgiverFornavn,
         arbeidsgiverEtternavn: arbeidsgiverEtternavn,
         arbeidsgiverTlf: arbeidsgiverTlf,
+        bedriftNavn: bedriftNavn,
         vtao: vtao,
         refusjonKontaktperson: {
             refusjonKontaktpersonFornavn: refusjonKontaktperson?.refusjonKontaktpersonFornavn,
@@ -171,6 +173,11 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         label="Mobilnummer"
                         verdi={kontaktInfo.arbeidsgiverTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
+                    />
+                    <PakrevdInput
+                        label={'Bedriftsnavn'}
+                        verdi={kontaktInfo.bedriftNavn}
+                        settVerdi={(verdi) => settNyKontaktInformasjon('bedriftNavn', verdi)}
                     />
                 </div>
                 {avtale.tiltakstype === 'VTAO' && (
