@@ -1,4 +1,11 @@
-import { AdresseError, ApiError, AutentiseringError, FeilkodeError, UfullstendigError } from '@/types/errors';
+import {
+    AdresseError,
+    ApiError,
+    AutentiseringError,
+    FeilkodeError,
+    IkkeTilgangError,
+    UfullstendigError,
+} from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import * as Sentry from '@sentry/react';
 
@@ -9,6 +16,7 @@ export const handterFeil = (
 ) => {
     switch (error?.constructor) {
         case FeilkodeError:
+        case IkkeTilgangError:
             const feilmeldingTekst = Feilmeldinger[(error?.message as Feilkode) ?? 'UKJENT_FEIL'];
             if (!feilmeldingTekst) {
                 visFeilmelding('Det har skjedd en feil: ' + error.message);
