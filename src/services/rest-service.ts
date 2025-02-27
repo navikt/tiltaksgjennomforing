@@ -53,7 +53,8 @@ api.interceptors.response.use(
             throw new AutentiseringError('Er ikke logget inn.');
         }
         if (error.response?.status === 403) {
-            throw new IkkeTilgangError('Bruker har ikke tilgang til ressursen.');
+            const feilmelding = error.response?.headers.feilkode || 'Bruker har ikke tilgang til ressursen.';
+            throw new IkkeTilgangError(feilmelding);
         }
         if (error.response?.status === 400 && error.response?.headers.feilkode) {
             throw new FeilkodeError(error.response?.headers.feilkode);
