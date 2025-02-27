@@ -11,6 +11,7 @@ import { storForbokstav } from '@/utils/stringUtils';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import './TilgangTabell.less';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('tilgangtabell');
 
@@ -19,9 +20,20 @@ interface Props {
     tilganger: Tilganger;
 }
 
+type Tiltaksvalg =
+    | 'ARBEIDSTRENING'
+    | 'MIDLERTIDIG_LONNSTILSKUDD'
+    | 'VARIG_LONNSTILSKUDD'
+    | 'MENTOR'
+    | 'INKLUDERINGSTILSKUDD'
+    | 'SOMMERJOBB'
+    | 'VTAO';
+
 const TilgangTabell: FunctionComponent<Props> = (props) => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
     const throwError = useAsyncError();
+
+    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const alleTilganger: TiltaksType[] = [
         'ARBEIDSTRENING',
@@ -30,7 +42,13 @@ const TilgangTabell: FunctionComponent<Props> = (props) => {
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
         'SOMMERJOBB',
-    ];
+        'VTAO',
+    ].filter((tiltak) => {
+        if (tiltak === 'VTAO') {
+            return vtaoTiltakToggle;
+        }
+        return true;
+    }) as Tiltaksvalg[];
 
     useEffect(() => {
         hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler).catch(throwError);
