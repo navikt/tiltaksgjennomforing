@@ -6,7 +6,6 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
-import { missmatchAvtaler } from '@/messages';
 import { Avtaleinnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
@@ -24,7 +23,6 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const { avtale } = useContext(AvtaleContext);
 
     const skalViseGodkjenning =
-        !missmatchAvtaler.includes(avtale.id) &&
         !avtale.erAnnullertEllerAvbrutt &&
         (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
