@@ -7,7 +7,6 @@ import { formaterDato, NORSK_DATO_FORMAT_FULL, NORSK_DATO_OG_TID_FORMAT_FULL } f
 import { erNil } from '@/utils/predicates';
 import { Neutral } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
-import { isBefore } from 'date-fns';
 import sortBy from 'lodash.sortby';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 
@@ -17,7 +16,7 @@ const FortsettTiltak: FunctionComponent = () => {
     const [sisteOppfolgingVarsel, setSisteOppfolgingVarsel] = useState<Varsel | undefined>(undefined);
 
     const [modalApen, setModalApen] = useState(false);
-    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && isBefore(avtale.kreverOppfolgingFom, new Date());
+    const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
 
     useEffect(() => {
         if (modalApen) {
