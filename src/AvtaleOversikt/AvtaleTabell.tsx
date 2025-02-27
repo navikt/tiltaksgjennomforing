@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { useNavigate, generatePath } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
@@ -15,14 +15,13 @@ import { Path } from '@/Router';
 import { Varsel } from '@/types/varsel';
 import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
 import { kunStorForbokstav } from '@/utils/stringUtils';
-import { isBefore } from 'date-fns';
 import { erNil } from '@/utils/predicates';
 
 const cls = BEMHelper('avtaletabell');
 
 const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
     const erGjeldendeTilskuddsperiodeReturnert = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
-    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && !isBefore(new Date(), avtale.kreverOppfolgingFom);
+    const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
 
     return (
         <>

@@ -1,5 +1,5 @@
 import { BodyShort } from '@navikt/ds-react';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import { AvtaleContext } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
@@ -10,9 +10,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { tidSidenTidspunkt, formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { Avtale } from '@/types/avtale';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { erNil } from '@/utils/predicates';
-import { isBefore } from 'date-fns';
 import OppfolgingKreves from './OppfolgingKreves';
 
 interface Props {
@@ -78,7 +76,7 @@ function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
 
-    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && isBefore(avtale.kreverOppfolgingFom, new Date());
+    const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&

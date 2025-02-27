@@ -55,7 +55,7 @@ export type AvtaleMinimalListeVisning = {
     tiltakstype: TiltaksType;
     erGodkjentTaushetserklæringAvMentor: boolean;
     gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus;
-    kreverOppfolgingFom: string;
+    oppfolgingVarselSendt?: string;
     opprettetTidspunkt: string;
     sistEndret: string;
 };
@@ -192,6 +192,7 @@ export interface AvtaleMetadata {
     formidlingsgruppe: Formidlingsgruppe;
     godkjentForEtterregistrering: boolean;
     opphav: Avtaleopphav;
+    oppfolgingVarselSendt?: string;
     kreverOppfolgingFom?: string;
     kreverOppfolgingFrist?: string;
     feilregistrert: boolean;
