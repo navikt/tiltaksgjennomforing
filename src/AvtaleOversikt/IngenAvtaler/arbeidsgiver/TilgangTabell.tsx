@@ -4,7 +4,6 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { useAsyncError } from '@/komponenter/useError';
 import { tiltakstypeTekst } from '@/messages';
 import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-service';
-import { TiltaksType } from '@/types/avtale';
 import { Tilganger } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
@@ -12,6 +11,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import './TilgangTabell.less';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { vtaoToggleFilter } from '@/utils/vtaoToggleFilter';
 
 const cls = BEMHelper('tilgangtabell');
 
@@ -20,35 +20,11 @@ interface Props {
     tilganger: Tilganger;
 }
 
-type Tiltaksvalg =
-    | 'ARBEIDSTRENING'
-    | 'MIDLERTIDIG_LONNSTILSKUDD'
-    | 'VARIG_LONNSTILSKUDD'
-    | 'MENTOR'
-    | 'INKLUDERINGSTILSKUDD'
-    | 'SOMMERJOBB'
-    | 'VTAO';
-
 const TilgangTabell: FunctionComponent<Props> = (props) => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
     const throwError = useAsyncError();
 
     const { vtaoTiltakToggle } = useFeatureToggles();
-
-    const alleTilganger: TiltaksType[] = [
-        'ARBEIDSTRENING',
-        'INKLUDERINGSTILSKUDD',
-        'MENTOR',
-        'MIDLERTIDIG_LONNSTILSKUDD',
-        'VARIG_LONNSTILSKUDD',
-        'SOMMERJOBB',
-        'VTAO',
-    ].filter((tiltak) => {
-        if (tiltak === 'VTAO') {
-            return vtaoTiltakToggle;
-        }
-        return true;
-    }) as Tiltaksvalg[];
 
     useEffect(() => {
         hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler).catch(throwError);
@@ -60,7 +36,7 @@ const TilgangTabell: FunctionComponent<Props> = (props) => {
         <div className={cls.className}>
             <table className="tabell">
                 <tbody>
-                    {alleTilganger.map((tiltakstype) => {
+                    {vtaoToggleFilter(vtaoTiltakToggle).map((tiltakstype) => {
                         const harTilgangTilTiltakstype =
                             props.bedriftNr && props.tilganger[props.bedriftNr]?.includes(tiltakstype);
 

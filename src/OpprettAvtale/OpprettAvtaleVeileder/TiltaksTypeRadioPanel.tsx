@@ -9,8 +9,8 @@ import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
-
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { vtaoToggleFilter } from '@/utils/vtaoToggleFilter';
 
 interface Props {
     className: string;
@@ -19,15 +19,6 @@ interface Props {
     ugyldigAvtaletype: boolean;
     setUgyldigAvtaletype: Dispatch<SetStateAction<boolean>>;
 }
-
-type Tiltaksvalg =
-    | 'ARBEIDSTRENING'
-    | 'MIDLERTIDIG_LONNSTILSKUDD'
-    | 'VARIG_LONNSTILSKUDD'
-    | 'MENTOR'
-    | 'INKLUDERINGSTILSKUDD'
-    | 'SOMMERJOBB'
-    | 'VTAO';
 
 const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     valgtTiltaksType,
@@ -39,21 +30,6 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     const cls = BEMHelper(className);
 
     const { vtaoTiltakToggle } = useFeatureToggles();
-
-    const tiltakvalg: Tiltaksvalg[] = [
-        'ARBEIDSTRENING',
-        'MIDLERTIDIG_LONNSTILSKUDD',
-        'VARIG_LONNSTILSKUDD',
-        'MENTOR',
-        'INKLUDERINGSTILSKUDD',
-        'SOMMERJOBB',
-        'VTAO',
-    ].filter((tiltak) => {
-        if (tiltak === 'VTAO') {
-            return vtaoTiltakToggle;
-        }
-        return true;
-    }) as Tiltaksvalg[];
 
     return (
         <Innholdsboks className={cls.element('valg-tiltakstype-container')}>
@@ -72,7 +48,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
 
             <div className={cls.element('tiltakstype-container')}>
                 <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')} size="medium">
-                    {tiltakvalg.map((valg: Tiltaksvalg, index: number) => (
+                    {vtaoToggleFilter(vtaoTiltakToggle).map((valg: TiltaksType, index: number) => (
                         <RadioPanel
                             key={index}
                             name="tiltakstype"
