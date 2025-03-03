@@ -17,11 +17,7 @@ const ArbeidsgiverinfoDel = () => {
                 <SkjemaTittel>Informasjon om arbeidsgiveren</SkjemaTittel>
                 <Fieldset legend="" title="Om bedriften" className={cls.element('skjemagruppe')}>
                     <div className={cls.element('rad')}>
-                        <PakrevdInput
-                            label="Bedriftens navn"
-                            verdi={avtale.gjeldendeInnhold.bedriftNavn}
-                            settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
-                        />
+                        <VisueltDisabledInputFelt label="Bedriftens navn" tekst={avtale.gjeldendeInnhold.bedriftNavn} />
                         <VisueltDisabledInputFelt label="Virksomhetsnummer" tekst={avtale.bedriftNr} />
                     </div>
                 </Fieldset>
