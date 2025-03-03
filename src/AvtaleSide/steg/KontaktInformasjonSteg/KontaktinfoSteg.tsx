@@ -35,7 +35,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
         <>
             <AvtaleStatus />
             <Innholdsboks>
-                <HemmeligAdresseVarsel />
+                <HemmeligAdresseVarsel avtaleId={avtale.id} />
                 <DeltakerInfo oppsummeringside={false} />
                 <DeltakerinfoDel />
                 <ArbeidsgiverinfoDel />

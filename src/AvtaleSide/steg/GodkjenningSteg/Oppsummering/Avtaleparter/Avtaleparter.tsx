@@ -21,7 +21,7 @@ const Avtaleparter: FunctionComponent<Props> = (props) => {
     return (
         <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
             <div>
-                <HemmeligAdresseVarsel />
+                <HemmeligAdresseVarsel avtaleId={avtale.id} />
                 <AvtaleinfoFeltSjekk
                     navnFelter={[
                         { felt: 'fornavn', verdi: gjeldendeInnhold.deltakerFornavn },
