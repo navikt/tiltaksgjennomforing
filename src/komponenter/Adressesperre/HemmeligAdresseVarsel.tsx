@@ -11,13 +11,17 @@ const HemmeligAdresseVarsel = () => {
     const { avtaleId } = useParams<{ avtaleId: string }>();
     const { data: avtaleKreverAktsomhet } = useAvtaleKreverAktsomhet(avtaleId);
 
-    return avtaleKreverAktsomhet ? (
+   if (!avtaleKreverAktsomhet) {
+       return null;
+   }
+
+    return (
         <Alert variant={'warning'}>
             <Heading spacing size="small" level="3">
                 Hemmelig adresse
             </Heading>
             Denne personen har hemmelig adresse og du må derfor utvise aktsomhet.
         </Alert>
-    ) : null;
+    );
 };
 export default HemmeligAdresseVarsel;
