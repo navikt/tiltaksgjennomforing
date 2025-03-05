@@ -1,31 +1,33 @@
 import React from 'react';
 import { Alert, Heading } from '@navikt/ds-react';
+import { Rolle } from '@/types/innlogget-bruker';
 import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
-import BEMHelper from '@/utils/bem';
-import './hemmeligAdresseVarsel.less';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
-const cls = BEMHelper('hemmelig-adresse-varsel');
+import { container } from './HemmeligAdresseVarsel.module.less';
 
 interface props {
     avtaleId: string;
 }
 
+const ROLLER_SOM_KREVER_KONTROLL: Rolle[] = ['VEILEDER'];
+
 const HemmeligAdresseVarsel = ({ avtaleId }: props) => {
-    const { data: avtaleKreverAktsomhet } = useAvtaleKreverAktsomhet(avtaleId);
+    const { rolle } = useInnloggetBruker();
+    const isKreverKontroll = ROLLER_SOM_KREVER_KONTROLL.includes(rolle);
+    const { data: avtaleKreverAktsomhet } = useAvtaleKreverAktsomhet(isKreverKontroll ? avtaleId : undefined);
 
     if (!avtaleKreverAktsomhet) {
         return null;
     }
 
     return (
-        <>
-            <Alert variant={'warning'} className={cls.className}>
-                <Heading spacing size="small" level="3">
-                    Hemmelig adresse
-                </Heading>
-                Denne personen har hemmelig adresse og du må derfor utvise aktsomhet.
-            </Alert>
-        </>
+        <Alert variant={'warning'} className={container}>
+            <Heading spacing size="small" level="3">
+                Hemmelig adresse
+            </Heading>
+            Denne personen har hemmelig adresse og du må derfor utvise aktsomhet.
+        </Alert>
     );
 };
 export default HemmeligAdresseVarsel;
