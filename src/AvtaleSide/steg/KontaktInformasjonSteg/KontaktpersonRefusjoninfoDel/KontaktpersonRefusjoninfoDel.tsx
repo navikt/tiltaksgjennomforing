@@ -56,97 +56,93 @@ const KontaktpersonRefusjoninfoDel = () => {
     }
 
     return (
-        <>
-            <div className={cls.element('container')}>
-                <div className={cls.element('rad', 'header')}>
-                    <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
-                    <HelpText className={cls.element('helptekst')} title="Hva menes med kontaktperson for refusjon?">
-                        For eksempel en regnskapsfører som skal motta varslinger om refusjon
-                    </HelpText>
-                </div>
-                <Fieldset legend="" title="">
-                    {!visEkstraKontaktpersonFelt && !kontaktpersonAlleredeDefinert && (
-                        <div className={cls.element('buttonSpaceing')}>
-                            <Button
-                                variant="secondary"
-                                onClick={() => {
-                                    setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt);
-                                    settAvtaleInnholdVerdier({
-                                        ...avtale.gjeldendeInnhold,
-                                        refusjonKontaktperson: {
-                                            refusjonKontaktpersonFornavn: '',
-                                            refusjonKontaktpersonEtternavn: '',
-                                            refusjonKontaktpersonTlf: '',
-                                            ønskerVarslingOmRefusjon: true,
-                                        },
-                                    });
-                                }}
-                            >
-                                + Legg til kontaktperson
-                            </Button>
-                        </div>
-                    )}
-
-                    {(kontaktpersonAlleredeDefinert || visEkstraKontaktpersonFelt) && (
-                        <>
-                            <div className={cls.element('rad')}>
-                                <PakrevdInput
-                                    label="Kontaktperson for refusjon sitt fornavn"
-                                    verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn}
-                                    settVerdi={(verdi) =>
-                                        settAvtaleInnholdVerdi('refusjonKontaktperson', {
-                                            ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                            refusjonKontaktpersonFornavn: verdi ?? '',
-                                        })
-                                    }
-                                />
-                                <PakrevdInput
-                                    label="Kontaktperson for refusjon sitt etternavn"
-                                    verdi={
-                                        avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn
-                                    }
-                                    settVerdi={(verdi) =>
-                                        settAvtaleInnholdVerdi('refusjonKontaktperson', {
-                                            ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                            refusjonKontaktpersonEtternavn: verdi ?? '',
-                                        })
-                                    }
-                                />
-                            </div>
-                            <div className={cls.element('rad')}>
-                                <TelefonnummerInput
-                                    label="Kontaktperson for refusjon sitt mobilnummer"
-                                    verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf}
-                                    settVerdi={(verdi) =>
-                                        settAvtaleInnholdVerdi('refusjonKontaktperson', {
-                                            ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                            refusjonKontaktpersonTlf: verdi ?? '',
-                                        })
-                                    }
-                                />
-                            </div>
-                            <div>
-                                <Checkbox
-                                    checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
-                                    onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
-                                >
-                                    Arbeidsgiver for avtalen {getArbeidsgivernavn()} ønsker også å motta varslinger om
-                                    refusjon
-                                </Checkbox>
-                            </div>
-                            {feilmelding && (
-                                <Alert variant="warning" style={{ marginBottom: '1rem' }}>
-                                    {feilmelding}
-                                </Alert>
-                            )}
-                            <Button variant="secondary" onClick={() => resetRefusjonKontaktPerson()}>
-                                Fjern kontaktperson
-                            </Button>
-                        </>
-                    )}
-                </Fieldset>
+        <div className={cls.element('container')}>
+            <div className={cls.element('rad', 'header')}>
+                <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
+                <HelpText className={cls.element('helptekst')} title="Hva menes med kontaktperson for refusjon?">
+                    For eksempel en regnskapsfører som skal motta varslinger om refusjon
+                </HelpText>
             </div>
-        </>
+            <Fieldset legend="" title="">
+                {!visEkstraKontaktpersonFelt && !kontaktpersonAlleredeDefinert && (
+                    <div className={cls.element('buttonSpaceing')}>
+                        <Button
+                            variant="secondary"
+                            onClick={() => {
+                                setVisEkstraKontaktpersonFelt(!visEkstraKontaktpersonFelt);
+                                settAvtaleInnholdVerdier({
+                                    ...avtale.gjeldendeInnhold,
+                                    refusjonKontaktperson: {
+                                        refusjonKontaktpersonFornavn: '',
+                                        refusjonKontaktpersonEtternavn: '',
+                                        refusjonKontaktpersonTlf: '',
+                                        ønskerVarslingOmRefusjon: true,
+                                    },
+                                });
+                            }}
+                        >
+                            + Legg til kontaktperson
+                        </Button>
+                    </div>
+                )}
+
+                {(kontaktpersonAlleredeDefinert || visEkstraKontaktpersonFelt) && (
+                    <>
+                        <div className={cls.element('rad')}>
+                            <PakrevdInput
+                                label="Kontaktperson for refusjon sitt fornavn"
+                                verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn}
+                                settVerdi={(verdi) =>
+                                    settAvtaleInnholdVerdi('refusjonKontaktperson', {
+                                        ...avtale.gjeldendeInnhold.refusjonKontaktperson,
+                                        refusjonKontaktpersonFornavn: verdi ?? '',
+                                    })
+                                }
+                            />
+                            <PakrevdInput
+                                label="Kontaktperson for refusjon sitt etternavn"
+                                verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn}
+                                settVerdi={(verdi) =>
+                                    settAvtaleInnholdVerdi('refusjonKontaktperson', {
+                                        ...avtale.gjeldendeInnhold.refusjonKontaktperson,
+                                        refusjonKontaktpersonEtternavn: verdi ?? '',
+                                    })
+                                }
+                            />
+                        </div>
+                        <div className={cls.element('rad')}>
+                            <TelefonnummerInput
+                                label="Kontaktperson for refusjon sitt mobilnummer"
+                                verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf}
+                                settVerdi={(verdi) =>
+                                    settAvtaleInnholdVerdi('refusjonKontaktperson', {
+                                        ...avtale.gjeldendeInnhold.refusjonKontaktperson,
+                                        refusjonKontaktpersonTlf: verdi ?? '',
+                                    })
+                                }
+                            />
+                        </div>
+                        <div>
+                            <Checkbox
+                                checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
+                                onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
+                            >
+                                Arbeidsgiver for avtalen {getArbeidsgivernavn()} ønsker også å motta varslinger om
+                                refusjon
+                            </Checkbox>
+                        </div>
+                        {feilmelding && (
+                            <Alert variant="warning" style={{ marginBottom: '1rem' }}>
+                                {feilmelding}
+                            </Alert>
+                        )}
+                        <Button variant="secondary" onClick={() => resetRefusjonKontaktPerson()}>
+                            Fjern kontaktperson
+                        </Button>
+                    </>
+                )}
+            </Fieldset>
+        </div>
     );
 };
 
