@@ -10,8 +10,6 @@ import {
 } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
-import amplitude from '@/utils/amplitude';
-import { LogReturn } from 'amplitude-js';
 import React, { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import { useAsyncError } from './komponenter/useError';
@@ -80,11 +78,6 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [mellomLagring, setMellomLagring] = useState<TemporaryLagring | undefined>(undefined);
     const [underLagring, setUnderLagring] = useState(false);
 
-    const sendToAmplitude = (eventName: string): LogReturn =>
-        amplitude.logEvent(eventName, {
-            tiltakstype: avtale.tiltakstype,
-        });
-
     const bekreftOpphevGodkjenninger = async (): Promise<void> => {
         await RestService.opphevGodkjenninger(avtale.id);
         await hentAvtale();
@@ -104,7 +97,6 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         setUnderLagring(true);
         try {
             const lagretAvtale = await RestService.lagreAvtale(nyAvtale);
-            sendToAmplitude('#tiltak-avtale-lagret');
             setAvtale({ ...avtale, ...lagretAvtale });
             setUlagredeEndringer(false);
             setUnderLagring(false);
@@ -120,13 +112,11 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
 
     const annullerAvtale = async (annullerGrunn: string): Promise<void> => {
         const annullertAvtale = await RestService.annullerAvtale(avtale, annullerGrunn);
-        sendToAmplitude('#tiltak-avtale-annullert');
         setAvtale(annullertAvtale);
     };
 
     const overtaAvtale = async (): Promise<void> => {
         await RestService.overtaAvtale(avtale.id);
-        sendToAmplitude('#tiltak-avtale-overtatt');
         await hentAvtale();
     };
 
@@ -185,14 +175,12 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         const nyeMaal = avtale.gjeldendeInnhold.maal.filter((maal: Maal) => maal.id !== maalTilLagring.id);
         nyeMaal.push(maalTilLagring);
         const nyAvtale = settAvtaleInnholdVerdi('maal', nyeMaal);
-        sendToAmplitude('#tiltak-avtale-maal-lagret');
         return lagreAvtale(nyAvtale);
     };
 
     const slettMaal = (maalTilSletting: Maal): Promise<void> => {
         const nyeMaal = avtale.gjeldendeInnhold.maal.filter((maal: Maal) => maal.id !== maalTilSletting.id);
         const nyAvtale = settAvtaleInnholdVerdi('maal', nyeMaal);
-        sendToAmplitude('#tiltak-avtale-maal-slettet');
         return lagreAvtale(nyAvtale);
     };
 
@@ -225,13 +213,11 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
 
     const godkjenn = async (): Promise<void> => {
         await RestService.godkjennAvtale(avtale);
-        sendToAmplitude('#tiltak-avtale-godkjent');
         await hentAvtale(avtale.id);
     };
 
     const godkjennTilskudd = async (enhet: string): Promise<void> => {
         await RestService.godkjennTilskuddsperiode(avtale.id, enhet);
-        sendToAmplitude('#tiltak-tilskudd-godkjent');
         await hentAvtale(avtale.id);
     };
 
@@ -240,25 +226,21 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         returforklaring: string,
     ): Promise<void> => {
         await RestService.returnerTilskuddsperiode(avtale.id, returårsaker, returforklaring);
-        sendToAmplitude('#tiltak-tilskudd-avslag');
         await hentAvtale(avtale.id);
     };
 
     const godkjennPaVegneAvDeltaker = async (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegne(avtale, paVegneGrunn);
-        sendToAmplitude('#tiltak-avtale-godkjent-pavegneav');
         await hentAvtale(avtale.id);
     };
     const godkjennPaVegneAvArbeidsgiver = async (paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner): Promise<void> => {
         await RestService.godkjennAvtalePaVegneAvArbeidsgiver(avtale, paVegneGrunn);
-        sendToAmplitude('#tiltak-avtale-godkjent-pavegneav-ag');
         await hentAvtale(avtale.id);
     };
     const godkjennPaVegneAvDeltakerOgArbeidsgiver = async (
         paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
     ): Promise<void> => {
         await RestService.godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver(avtale, paVegneGrunn);
-        sendToAmplitude('#tiltak-avtale-godkjent-pavegneav-deltaker-og-ag');
         await hentAvtale(avtale.id);
     };
 

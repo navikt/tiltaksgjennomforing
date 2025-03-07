@@ -5,9 +5,9 @@ import './alleredeOpprettetAvtale.less';
 import { BodyShort } from '@navikt/ds-react';
 import { visPeriodeForTiltak } from '@/utils/datoUtils';
 import { tiltakstypeTekst } from '@/messages';
-import sortBy from 'lodash.sortby';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
 import AlleredeOpprettetAvtaleDetaljer from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtaleDetaljer';
+import { sortBy } from '@/utils/utils';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
