@@ -7,8 +7,8 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Heading, Label, Popover, RadioGroup, Tag } from '@navikt/ds-react';
-import { FunctionComponent, useContext, useState } from 'react';
+import { BodyShort, Heading, Label, RadioGroup, Tag } from '@navikt/ds-react';
+import { FunctionComponent, useContext } from 'react';
 import './Relasjoner.less';
 
 const cls = BEMHelper('relasjoner');
