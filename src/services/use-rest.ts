@@ -2,8 +2,15 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import useSWR from 'swr';
 
-import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError, IkkeTilgangError } from '@/types/errors';
-import { Avtale, AvtaleVersjon } from '@/types/avtale';
+import {
+    Aktsomhet,
+    ApiError,
+    AutentiseringError,
+    AvtaleVersjon,
+    FeilkodeError,
+    IkkeFunnetError,
+    IkkeTilgangError,
+} from '@/types';
 import { Enhet } from '@/types/enhet';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { basename } from '@/Router';
@@ -61,7 +68,7 @@ export const useHentEnhet = (enhetsnummer?: string) => {
 };
 
 export const useAvtaleKreverAktsomhet = (avtaleId?: string) => {
-    return useSWR<boolean>(avtaleId ? `/avtaler/${avtaleId}/krever-aktsomhet` : undefined, {
+    return useSWR<boolean | Aktsomhet>(avtaleId ? `/avtaler/${avtaleId}/krever-aktsomhet` : undefined, {
         ...swrConfig,
         revalidateOnFocus: false,
     });

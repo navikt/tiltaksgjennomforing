@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { BodyLong, Button, Loader, Modal } from '@navikt/ds-react';
 import { Locked } from '@navikt/ds-icons';
 
-import { Rolle } from '@/types/innlogget-bruker';
+import { Aktsomhet, Rolle } from '@/types';
 import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
@@ -11,14 +11,19 @@ import { container } from './AvtaleKontroll.module.less';
 
 const ROLLER_SOM_KREVER_KONTROLL: Rolle[] = ['ARBEIDSGIVER'];
 
+const isAvtaleKreverAktsomhet = (data: undefined | boolean | Aktsomhet): boolean => {
+    if (data !== undefined && (data as Aktsomhet).kreverAktsomhet !== undefined) {
+        return (data as Aktsomhet).kreverAktsomhet;
+    }
+    return data !== undefined ? (data as boolean) : false;
+};
+
 const AvtaleKontroll: FunctionComponent<PropsWithChildren> = (props) => {
     const { rolle } = useInnloggetBruker();
     const isKreverKontroll = ROLLER_SOM_KREVER_KONTROLL.includes(rolle);
 
     const { avtaleId } = useParams<{ avtaleId: string }>();
-    const { isLoading, data: avtaleKreverAktsomhet } = useAvtaleKreverAktsomhet(
-        isKreverKontroll ? avtaleId : undefined,
-    );
+    const { isLoading, data } = useAvtaleKreverAktsomhet(isKreverKontroll ? avtaleId : undefined);
 
     const navigate = useNavigate();
     const ref = useRef<HTMLDialogElement>(null);
@@ -32,7 +37,7 @@ const AvtaleKontroll: FunctionComponent<PropsWithChildren> = (props) => {
         );
     }
 
-    if (!avtaleKreverAktsomhet || isGodkjent) {
+    if (!isAvtaleKreverAktsomhet(data) || isGodkjent) {
         return props.children;
     }
 
