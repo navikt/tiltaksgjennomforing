@@ -87,19 +87,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     </div>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell" aria-labelledby="utført_av">
-                                    {varsel.mottaker === 'VEILEDER' || varsel.mottaker === 'BESLUTTER' ? (
-                                        <UtgråetTekst grå={varsel.skjules}>
-                                            {storForbokstav(
-                                                varsel.utførtAvIdentifikator !== null
-                                                    ? varsel.utførtAvIdentifikator
-                                                    : varsel.utførtAv,
-                                            )}
-                                        </UtgråetTekst>
-                                    ) : (
-                                        <UtgråetTekst grå={varsel.skjules}>
-                                            {storForbokstav(varsel.utførtAv)}
-                                        </UtgråetTekst>
-                                    )}
+                                    <UtgråetTekst grå={varsel.skjules}>{storForbokstav(varsel.utførtAv)}</UtgråetTekst>
                                 </Table.DataCell>
                             </Table.Row>
                         ))}
