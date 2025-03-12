@@ -25,7 +25,7 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
     const cls = BEMHelper(className);
     return (
         <>
-            <div className={cls.element('tabell-innslag')}>
+            <div>
                 Avtalen varer fra {formaterDato(gjeldendeInnholdStartdato, NORSK_DATO_FORMAT)} til{' '}
                 {formaterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
                 {antallAktiveTilskuddsperioder} tilskuddsperioder.
