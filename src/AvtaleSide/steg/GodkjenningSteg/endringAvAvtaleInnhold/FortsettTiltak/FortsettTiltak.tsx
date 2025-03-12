@@ -40,7 +40,7 @@ const FortsettTiltak: FunctionComponent = () => {
         <BodyShort size="small" spacing>
             Oppfølging av avtalen ble sist gjennomført den{' '}
             {formaterDato(sisteOppfolgingVarsel.tidspunkt, NORSK_DATO_OG_TID_FORMAT_FULL)} av{' '}
-            {sisteOppfolgingVarsel.utførtAvIdentifikator}.
+            {sisteOppfolgingVarsel.utførtAv}.
         </BodyShort>
     ) : null;
 
