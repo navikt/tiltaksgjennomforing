@@ -3,14 +3,11 @@ import { Rolle } from '@/types/innlogget-bruker';
 
 export interface Varsel {
     id: string;
-    identifikator: string;
     lest: boolean;
     tekst: string;
-    avtaleId: string;
-    tidspunkt: string;
     hendelseType: HendelseType;
     bjelle: boolean;
-    mottaker: Rolle;
+    avtaleId: string;
+    tidspunkt: string;
     utførtAv: Rolle;
-    utførtAvIdentifikator: string;
 }
