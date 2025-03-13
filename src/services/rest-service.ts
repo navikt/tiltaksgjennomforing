@@ -42,6 +42,15 @@ const api = axios.create({
 
 axiosRetry(api, { retries: 3 });
 
+api.interceptors.request.use((config) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const bedriftNr = searchParams.get('bedrift') || searchParams.get('bedriftNr') || null;
+    if (bedriftNr) {
+        config.headers['bedriftNr'] = bedriftNr;
+    }
+    return config;
+});
+
 api.interceptors.response.use(
     (response) => response,
     (error) => {

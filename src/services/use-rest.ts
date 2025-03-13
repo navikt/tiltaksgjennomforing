@@ -14,6 +14,15 @@ const api = axios.create({
     headers: { Pragma: 'no-cache', 'Cache-Control': 'no-cache', 'Content-Type': 'application/json' },
 });
 
+api.interceptors.request.use((config) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const bedriftNr = searchParams.get('bedrift') || searchParams.get('bedriftNr') || null;
+    if (bedriftNr) {
+        config.headers['bedriftNr'] = bedriftNr;
+    }
+    return config;
+});
+
 api.interceptors.response.use(
     (response) => response,
     (error) => {
