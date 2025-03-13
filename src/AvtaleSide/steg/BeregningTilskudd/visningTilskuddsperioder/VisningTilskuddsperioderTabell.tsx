@@ -61,7 +61,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                         borderTop: nyProsent ? '2px solid gray' : 'undefined',
                                     }}
                                 >
-                                    <Table.DataCell textSize={'small'}>
+                                    <Table.DataCell textSize="small">
                                         {formaterPeriode(periode.startDato, periode.sluttDato)}
                                     </Table.DataCell>
                                     {innloggetBruker.erNavAnsatt && (
