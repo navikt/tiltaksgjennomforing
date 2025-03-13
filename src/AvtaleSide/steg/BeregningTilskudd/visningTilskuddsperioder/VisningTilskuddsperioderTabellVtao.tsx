@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, Table } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formaterDato, formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
@@ -20,14 +20,12 @@ interface Properties {
 
 const tilskuddsperiodeRad = ({
     key,
-    cls,
     avtaleOpprettet,
     erNavAnsatt,
     periode,
     kreverOppfølgingDato,
 }: {
     key?: number;
-    cls: any;
     avtaleOpprettet: Date;
     erNavAnsatt: boolean;
     periode: TilskuddsPeriode;
@@ -45,27 +43,27 @@ const tilskuddsperiodeRad = ({
             : periode.status;
 
     return (
-        <div key={key} className={cls.element('tabell-innslag')}>
-            <div>
+        <Table.Row key={key}>
+            <Table.DataCell textSize={'small'}>
                 <BodyShort size="small">{formaterPeriode(periode.startDato, periode.sluttDato)}</BodyShort>
                 {erITidligereAar && (
                     <BodyShort size="small" textColor="subtle">
                         Sats for {periodeAar}
                     </BodyShort>
                 )}
-            </div>
+            </Table.DataCell>
             {erNavAnsatt && (
-                <BodyShort>
+                <Table.DataCell textSize={'small'}>
                     <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
-                </BodyShort>
+                </Table.DataCell>
             )}
-            <BodyShort size="small" style={{ minWidth: '4rem' }}>
-                {periode.beløp !== null ? formaterPenger(periode.beløp) : '-'}
-            </BodyShort>
-            <BodyShort size="small" style={{ minWidth: '4rem' }}>
+            <Table.DataCell align={'right'} textSize={'small'}>
+                {periode.beløp !== null ? formaterPenger(periode.beløp) : '—'}
+            </Table.DataCell>
+            <Table.DataCell textSize={'small'}>
                 {formaterDato(addDays(new Date(periode.sluttDato), 3).toString(), 'dd MMM yyyy')}
-            </BodyShort>
-        </div>
+            </Table.DataCell>
+        </Table.Row>
     );
 };
 
@@ -88,40 +86,46 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
             : undefined;
 
     return (
-        <div className={cls.element('tabell')}>
-            <div className={cls.element('tabell-ingress')}>
-                <Label>Tilskudd for perioder</Label>
-                {innloggetBruker.erNavAnsatt && <Label>Status</Label>}
-                <Label>Inntil</Label>
-                <Label>Utbetales</Label>
-            </div>
-            {avtale.tilskuddPeriode
-                .filter((p: TilskuddsPeriode) => p.aktiv)
-                .slice(startIndexVisning, sluttIndexVisning)
-                .map((periode: TilskuddsPeriode, key: number) => {
-                    return tilskuddsperiodeRad({
-                        key,
-                        periode,
-                        avtaleOpprettet,
-                        cls,
-                        erNavAnsatt,
-                        kreverOppfølgingDato,
-                    });
-                })}
-            {!visAllePerioder && sistePeriode && (
-                <div>
-                    <div key={1} className={cls.element('tabell-innslag')}>
-                        ...
-                    </div>
-                    {tilskuddsperiodeRad({
-                        cls,
-                        erNavAnsatt,
-                        avtaleOpprettet,
-                        periode: sistePeriode,
-                        kreverOppfølgingDato,
-                    })}
-                </div>
-            )}
+        <>
+            <Table size={'medium'}>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell textSize={'small'}>Tilskudd for perioder</Table.HeaderCell>
+                        {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize={'small'}>Status</Table.HeaderCell>}
+                        <Table.HeaderCell textSize={'small'}>Inntil</Table.HeaderCell>
+                        <Table.HeaderCell textSize={'small'}>Utbetales</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {avtale.tilskuddPeriode
+                        .filter((p: TilskuddsPeriode) => p.aktiv)
+                        .slice(startIndexVisning, sluttIndexVisning)
+                        .map((periode: TilskuddsPeriode, key: number) => {
+                            return tilskuddsperiodeRad({
+                                key,
+                                periode,
+                                avtaleOpprettet,
+                                erNavAnsatt,
+                                kreverOppfølgingDato,
+                            });
+                        })}
+                    {!visAllePerioder && sistePeriode && (
+                        <>
+                            <Table.Row key={1}>
+                                <Table.DataCell textSize={'small'} colSpan={100}>
+                                    ...
+                                </Table.DataCell>
+                            </Table.Row>
+                            {tilskuddsperiodeRad({
+                                erNavAnsatt,
+                                avtaleOpprettet,
+                                periode: sistePeriode,
+                                kreverOppfølgingDato,
+                            })}
+                        </>
+                    )}
+                </Table.Body>
+            </Table>
             <InfoRundtTilskuddsperioder
                 className={cls.className}
                 gjeldendeInnholdStartdato={avtale.gjeldendeInnhold.startDato}
@@ -130,7 +134,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                 setVisAllePerioder={setVisAllePerioder}
                 visAllePerioder={visAllePerioder}
             />
-        </div>
+        </>
     );
 };
 export default VisningTilskuddsperioderTabellVtao;
