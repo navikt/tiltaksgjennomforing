@@ -68,7 +68,7 @@ export const useHentEnhet = (enhetsnummer?: string) => {
 };
 
 export const useAvtaleKreverAktsomhet = (avtaleId?: string) => {
-    return useSWR<boolean | Aktsomhet>(avtaleId ? `/avtaler/${avtaleId}/krever-aktsomhet` : undefined, {
+    return useSWR<Aktsomhet>(avtaleId ? `/avtaler/${avtaleId}/krever-aktsomhet` : undefined, {
         ...swrConfig,
         revalidateOnFocus: false,
     });

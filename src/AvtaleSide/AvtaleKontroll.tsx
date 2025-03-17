@@ -3,20 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { BodyLong, Button, Loader, Modal } from '@navikt/ds-react';
 import { Locked } from '@navikt/ds-icons';
 
-import { Aktsomhet, Rolle } from '@/types';
+import { Rolle } from '@/types';
 import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
 import { container } from './AvtaleKontroll.module.less';
 
 const ROLLER_SOM_KREVER_KONTROLL: Rolle[] = ['ARBEIDSGIVER'];
-
-const isAvtaleKreverAktsomhet = (data: undefined | boolean | Aktsomhet): boolean => {
-    if (data !== undefined && (data as Aktsomhet).kreverAktsomhet !== undefined) {
-        return (data as Aktsomhet).kreverAktsomhet;
-    }
-    return data !== undefined ? (data as boolean) : false;
-};
 
 const AvtaleKontroll: FunctionComponent<PropsWithChildren> = (props) => {
     const { rolle } = useInnloggetBruker();
@@ -37,7 +30,7 @@ const AvtaleKontroll: FunctionComponent<PropsWithChildren> = (props) => {
         );
     }
 
-    if (!isAvtaleKreverAktsomhet(data) || isGodkjent) {
+    if (!data?.kreverAktsomhet || isGodkjent) {
         return props.children;
     }
 
