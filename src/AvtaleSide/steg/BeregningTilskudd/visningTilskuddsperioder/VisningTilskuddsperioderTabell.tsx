@@ -12,6 +12,7 @@ import {
     antallAktiveTilskuddsperioder,
     getIndexVisningForTilskuddsperiode,
 } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Properties {
     className: string;
@@ -85,6 +86,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                         })}
                 </Table.Body>
             </Table>
+            <VerticalSpacer rem={1} />
             <InfoRundtTilskuddsperioder
                 className={cls.className}
                 gjeldendeInnholdStartdato={avtale.gjeldendeInnhold.startDato}
