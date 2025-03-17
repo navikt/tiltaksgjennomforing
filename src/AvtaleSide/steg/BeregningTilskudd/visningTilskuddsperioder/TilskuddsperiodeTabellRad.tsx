@@ -11,18 +11,7 @@ const TilskuddsperiodeRad: React.FC<{
     erNavAnsatt: boolean;
     periode: TilskuddsPeriode;
     kreverOppfølgingDato?: Date | undefined;
-}> = ({
-    avtaleOpprettet,
-    erNavAnsatt,
-    periode,
-    kreverOppfølgingDato,
-}: {
-    key?: number;
-    avtaleOpprettet: Date;
-    erNavAnsatt: boolean;
-    periode: TilskuddsPeriode;
-    kreverOppfølgingDato?: Date;
-}) => {
+}> = ({ avtaleOpprettet, erNavAnsatt, periode, kreverOppfølgingDato }) => {
     const periodeAar = getYear(new Date(periode.startDato));
     // Hvis tilskuddsperioden gjelder for et tidligere år enn når avtalen er opprettet,
     // så vil vi vise en liten notis om at VTAO-satsen er basert på et lavere beløp
@@ -36,7 +25,7 @@ const TilskuddsperiodeRad: React.FC<{
 
     return (
         <Table.Row>
-            <Table.DataCell textSize={'small'}>
+            <Table.DataCell textSize="small">
                 <BodyShort size="small">{formaterPeriode(periode.startDato, periode.sluttDato)}</BodyShort>
                 {erITidligereAar && (
                     <BodyShort size="small" textColor="subtle">
