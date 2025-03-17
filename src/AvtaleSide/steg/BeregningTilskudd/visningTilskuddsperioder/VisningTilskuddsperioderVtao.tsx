@@ -17,9 +17,7 @@ const VisningTilskuddsperioderVtao: FunctionComponent = () => {
             </Label>
             <VerticalSpacer rem={2} />
             <div className={cls.element('container')}>
-                <div className={cls.element('header')}>
-                    <VisningTilskuddsperioderTabellVtao className={cls.className} />
-                </div>
+                <VisningTilskuddsperioderTabellVtao className={cls.className} />
             </div>
         </div>
     );

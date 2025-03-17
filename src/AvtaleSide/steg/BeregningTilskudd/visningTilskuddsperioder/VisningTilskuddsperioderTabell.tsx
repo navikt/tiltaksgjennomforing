@@ -47,7 +47,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                 return null;
                             } else if (index !== 0 && (index === startIndexVisning || index === sluttIndexVisning)) {
                                 return (
-                                    <Table.Row key={index}>
+                                    <Table.Row key={periode.id}>
                                         <Table.DataCell textSize={'small'} colSpan={100}>
                                             ...
                                         </Table.DataCell>
@@ -69,7 +69,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                             <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
                                         </Table.DataCell>
                                     )}
-                                    <Table.DataCell align={'right'} textSize={'small'}>
+                                    <Table.DataCell textSize={'small'}>
                                         {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' &&
                                             periode.status !== 'BEHANDLET_I_ARENA' && (
                                                 <>{periode.lonnstilskuddProsent}%</>
@@ -85,7 +85,6 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                         })}
                 </Table.Body>
             </Table>
-
             <InfoRundtTilskuddsperioder
                 className={cls.className}
                 gjeldendeInnholdStartdato={avtale.gjeldendeInnhold.startDato}

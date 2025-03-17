@@ -1,6 +1,6 @@
 import React from 'react';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { Button } from '@navikt/ds-react';
+import { BodyShort, Button } from '@navikt/ds-react';
 
 interface Props {
     className: string;
@@ -22,11 +22,11 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
 
     return (
         <>
-            <div>
+            <BodyShort size="small">
                 Avtalen varer fra {formaterDato(gjeldendeInnholdStartdato, NORSK_DATO_FORMAT)} til{' '}
                 {formaterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
                 {antallAktiveTilskuddsperioder} tilskuddsperioder.
-            </div>
+            </BodyShort>
             {!visAllePerioder && (
                 <Button size="small" onClick={() => setVisAllePerioder(true)}>
                     Vis alle perioder
