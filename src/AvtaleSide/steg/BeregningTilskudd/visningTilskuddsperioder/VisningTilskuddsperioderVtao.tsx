@@ -16,11 +16,7 @@ const VisningTilskuddsperioderVtao: FunctionComponent = () => {
                 Oversikt over tilskudd fra {avtale.gjeldendeInnhold.startDato} - {avtale.gjeldendeInnhold.sluttDato}
             </Label>
             <VerticalSpacer rem={2} />
-            <div className={cls.element('container')}>
-                <div className={cls.element('header')}>
-                    <VisningTilskuddsperioderTabellVtao className={cls.className} />
-                </div>
-            </div>
+            <VisningTilskuddsperioderTabellVtao className={cls.className} />
         </div>
     );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { Button } from '@navikt/ds-react';
-import BEMHelper from '@/utils/bem';
+import { BodyShort, Button } from '@navikt/ds-react';
 
 interface Props {
     className: string;
@@ -13,7 +12,6 @@ interface Props {
 }
 
 const InfoRundtTilskuddsperioder: React.FC<Props> = ({
-    className,
     gjeldendeInnholdStartdato,
     gjeldendeInnholdSluttdato,
     antallAktiveTilskuddsperioder,
@@ -22,14 +20,13 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
 }: Props) => {
     if (!(gjeldendeInnholdStartdato && gjeldendeInnholdSluttdato)) return null;
 
-    const cls = BEMHelper(className);
     return (
         <>
-            <div className={cls.element('tabell-innslag')}>
+            <BodyShort size="small">
                 Avtalen varer fra {formaterDato(gjeldendeInnholdStartdato, NORSK_DATO_FORMAT)} til{' '}
                 {formaterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
                 {antallAktiveTilskuddsperioder} tilskuddsperioder.
-            </div>
+            </BodyShort>
             {!visAllePerioder && (
                 <Button size="small" onClick={() => setVisAllePerioder(true)}>
                     Vis alle perioder
