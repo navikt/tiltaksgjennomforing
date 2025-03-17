@@ -25,13 +25,13 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
     const cls = BEMHelper(className);
     return (
         <>
-            <Table size={'medium'}>
+            <Table size="medium">
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell textSize={'small'}>Tilskudd for perioder</Table.HeaderCell>
-                        {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize={'small'}>Status</Table.HeaderCell>}
-                        <Table.HeaderCell textSize={'small'}>Tilskuddsprosent</Table.HeaderCell>
-                        <Table.HeaderCell textSize={'small'}>Inntil</Table.HeaderCell>
+                        <Table.HeaderCell textSize="small">Tilskudd for perioder</Table.HeaderCell>
+                        {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize="small">Status</Table.HeaderCell>}
+                        <Table.HeaderCell textSize="small">Tilskuddsprosent</Table.HeaderCell>
+                        <Table.HeaderCell textSize="small">Inntil</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -48,7 +48,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                             } else if (index !== 0 && (index === startIndexVisning || index === sluttIndexVisning)) {
                                 return (
                                     <Table.Row key={periode.id}>
-                                        <Table.DataCell textSize={'small'} colSpan={100}>
+                                        <Table.DataCell textSize="small" colSpan={100}>
                                             ...
                                         </Table.DataCell>
                                     </Table.Row>
@@ -65,11 +65,11 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                         {formaterPeriode(periode.startDato, periode.sluttDato)}
                                     </Table.DataCell>
                                     {innloggetBruker.erNavAnsatt && (
-                                        <Table.DataCell textSize={'small'}>
+                                        <Table.DataCell textSize="small">
                                             <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
                                         </Table.DataCell>
                                     )}
-                                    <Table.DataCell textSize={'small'}>
+                                    <Table.DataCell textSize="small">
                                         {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' &&
                                             periode.status !== 'BEHANDLET_I_ARENA' && (
                                                 <>{periode.lonnstilskuddProsent}%</>
@@ -79,7 +79,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                             <>{periode.lonnstilskuddProsent}%</>
                                         )}
                                     </Table.DataCell>
-                                    <Table.DataCell textSize={'small'}>{formaterPenger(periode.beløp)}</Table.DataCell>
+                                    <Table.DataCell textSize="small">{formaterPenger(periode.beløp)}</Table.DataCell>
                                 </Table.Row>
                             );
                         })}

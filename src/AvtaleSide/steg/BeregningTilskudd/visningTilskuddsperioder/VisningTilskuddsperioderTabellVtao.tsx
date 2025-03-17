@@ -37,20 +37,20 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
 
     return (
         <>
-            <Table size={'medium'}>
+            <Table size="medium">
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell textSize={'small'}>Tilskudd for perioder</Table.HeaderCell>
-                        {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize={'small'}>Status</Table.HeaderCell>}
-                        <Table.HeaderCell textSize={'small'}>Inntil</Table.HeaderCell>
-                        <Table.HeaderCell textSize={'small'}>Utbetales</Table.HeaderCell>
+                        <Table.HeaderCell textSize="small">Tilskudd for perioder</Table.HeaderCell>
+                        {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize="small">Status</Table.HeaderCell>}
+                        <Table.HeaderCell textSize="small">Inntil</Table.HeaderCell>
+                        <Table.HeaderCell textSize="small">Utbetales</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                     {avtale.tilskuddPeriode
                         .filter((p: TilskuddsPeriode) => p.aktiv)
                         .slice(startIndexVisning, sluttIndexVisning)
-                        .map((periode: TilskuddsPeriode, key: number) => (
+                        .map((periode: TilskuddsPeriode) => (
                             <TilskuddsperiodeRad
                                 avtaleOpprettet={avtaleOpprettet}
                                 erNavAnsatt={erNavAnsatt}
@@ -62,7 +62,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                     {!visAllePerioder && sistePeriode && (
                         <>
                             <Table.Row>
-                                <Table.DataCell textSize={'small'} colSpan={100}>
+                                <Table.DataCell textSize="small" colSpan={100}>
                                     ...
                                 </Table.DataCell>
                             </Table.Row>

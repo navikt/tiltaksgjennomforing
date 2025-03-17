@@ -34,14 +34,14 @@ const TilskuddsperiodeRad: React.FC<{
                 )}
             </Table.DataCell>
             {erNavAnsatt && (
-                <Table.DataCell textSize={'small'}>
+                <Table.DataCell textSize="small">
                     <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
                 </Table.DataCell>
             )}
-            <Table.DataCell align={'right'} textSize={'small'}>
+            <Table.DataCell align="right" textSize="small">
                 {periode.beløp !== null ? formaterPenger(periode.beløp) : '—'}
             </Table.DataCell>
-            <Table.DataCell textSize={'small'}>
+            <Table.DataCell textSize="small">
                 {formaterDato(addDays(new Date(periode.sluttDato), 3).toString(), 'dd MMM yyyy')}
             </Table.DataCell>
         </Table.Row>
