@@ -54,6 +54,7 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
                     />
                 </div>
                 <VisningTilskuddsperioderVtao />
+                <VerticalSpacer rem={2} />
                 <Row className={cls.element('rad-kontonummer')}>
                     <Column md="12" className={cls.element('kontonummer')}>
                         <HenteKontonummer />
