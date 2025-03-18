@@ -82,7 +82,6 @@ const lonnstilskuddAvtaleMock: Avtale = {
     avtaleNr: 1,
     godkjentForEtterregistrering: false,
     erAvtaleInngått: false,
-    erRyddeAvtale: false,
     opphav: 'VEILEDER',
     feilregistrert: false,
 };

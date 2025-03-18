@@ -100,7 +100,6 @@ const arbeidstreningAvtaleMock: Avtale = {
 
     godkjentForEtterregistrering: false,
     erAvtaleInngått: false,
-    erRyddeAvtale: false,
     opphav: 'VEILEDER',
     feilregistrert: false,
 };
