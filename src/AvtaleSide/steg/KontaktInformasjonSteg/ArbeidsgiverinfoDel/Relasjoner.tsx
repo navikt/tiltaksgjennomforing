@@ -62,39 +62,37 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                         {harFamilietilknytningSomJaNeiSvar(harFamilietilknytning)}
                     </div>
                 ) : (
-                    <>
-                        <RadioGroup
-                            legend="Familierelasjoner"
-                            value={avtale.gjeldendeInnhold.harFamilietilknytning}
-                            className={cls.element('familie-relasjoner')}
-                        >
-                            <div className={cls.element('familie-relasjoner-valg')}>
-                                <RadioPanel
-                                    className={cls.element('radioknapp')}
-                                    name="familievalg"
-                                    checked={harFamilietilknytning}
-                                    value={true}
-                                    onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
-                                >
-                                    Ja
-                                </RadioPanel>
-                                <RadioPanel
-                                    className={cls.element('radioknapp')}
-                                    name="familievalg"
-                                    checked={harFamilietilknytning === false}
-                                    value={false}
-                                    onChange={() => {
-                                        settAvtaleVerdier({
-                                            familietilknytningForklaring: undefined,
-                                            harFamilietilknytning: false,
-                                        });
-                                    }}
-                                >
-                                    Nei
-                                </RadioPanel>
-                            </div>
-                        </RadioGroup>
-                    </>
+                    <RadioGroup
+                        legend="Familierelasjoner"
+                        value={avtale.gjeldendeInnhold.harFamilietilknytning}
+                        className={cls.element('familie-relasjoner')}
+                    >
+                        <div className={cls.element('familie-relasjoner-valg')}>
+                            <RadioPanel
+                                className={cls.element('radioknapp')}
+                                name="familievalg"
+                                checked={harFamilietilknytning}
+                                value={true}
+                                onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
+                            >
+                                Ja
+                            </RadioPanel>
+                            <RadioPanel
+                                className={cls.element('radioknapp')}
+                                name="familievalg"
+                                checked={harFamilietilknytning === false}
+                                value={false}
+                                onChange={() => {
+                                    settAvtaleVerdier({
+                                        familietilknytningForklaring: undefined,
+                                        harFamilietilknytning: false,
+                                    });
+                                }}
+                            >
+                                Nei
+                            </RadioPanel>
+                        </div>
+                    </RadioGroup>
                 )}
             </div>
             {harFamilietilknytning && (
@@ -116,13 +114,11 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
             )}
             <>
                 {rolle === 'VEILEDER' && (
-                    <>
-                        <Popover open={!!popoverAnker} anchorEl={popoverAnker} onClose={() => setPopoverAnker(null)}>
-                            <Popover.Content>
-                                <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
-                            </Popover.Content>
-                        </Popover>
-                    </>
+                    <Popover open={!!popoverAnker} anchorEl={popoverAnker} onClose={() => setPopoverAnker(null)}>
+                        <Popover.Content>
+                            <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
+                        </Popover.Content>
+                    </Popover>
                 )}
             </>
         </div>
