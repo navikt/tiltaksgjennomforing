@@ -1,6 +1,6 @@
 services:
   tiltaksgjennomforing-playwright:
-    image: mcr.microsoft.com/playwright:v1.48.0
+    image: mcr.microsoft.com/playwright:v1.51.0
     command: npx playwright test --update-snapshots
     environment:
       - DOCKER=1
