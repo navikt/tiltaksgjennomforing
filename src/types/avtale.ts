@@ -3,6 +3,7 @@ import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlin
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
+import { Diskresjonskode } from '@/types/diskresjon';
 
 export type Avtale = Annullering &
     Avbrytelse &
@@ -58,6 +59,7 @@ export type AvtaleMinimalListeVisning = {
     oppfolgingVarselSendt?: string;
     opprettetTidspunkt: string;
     sistEndret: string;
+    diskresjonskode: Diskresjonskode;
 };
 
 export type AvtaleMinimalForBeslutter = {

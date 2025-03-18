@@ -16,6 +16,7 @@ import { Varsel } from '@/types/varsel';
 import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
 import { kunStorForbokstav } from '@/utils/stringUtils';
 import { erNil } from '@/utils/predicates';
+import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -39,17 +40,6 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
             </Table.DataCell>
         </>
     );
-};
-
-const lagFulltNavn = (avtale: AvtaleMinimalListeVisning) => {
-    if (avtale?.deltakerFornavn && avtale?.deltakerEtternavn) {
-        return avtale?.deltakerFornavn + ' ' + avtale?.deltakerEtternavn;
-    } else if (avtale?.deltakerFornavn) {
-        return avtale?.deltakerFornavn;
-    } else if (avtale?.deltakerEtternavn) {
-        return avtale?.deltakerEtternavn;
-    }
-    return '-';
 };
 
 const AvtaleTabell: FunctionComponent<{
@@ -102,7 +92,13 @@ const AvtaleTabell: FunctionComponent<{
                                     <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
                                 </Table.DataCell>
                                 <Table.DataCell>
-                                    <BodyShort size="small">{lagFulltNavn(avtale)}</BodyShort>
+                                    <BodyShort size="small">
+                                        <NavnMedDiskresjonskode
+                                            fornavn={avtale.deltakerFornavn}
+                                            etternavn={avtale.deltakerEtternavn}
+                                            diskresjonskode={avtale.diskresjonskode}
+                                        />
+                                    </BodyShort>
                                 </Table.DataCell>
                                 {innloggetBruker.erNavAnsatt && (
                                     <Table.DataCell>
