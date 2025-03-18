@@ -50,7 +50,7 @@
         "zod": "^3.24.2"
     },
     "devDependencies": {
-        "@playwright/test": "^1.48.0",
+        "@playwright/test": "^1.51.0",
         "@sentry/cli": "^2.43.0",
         "@sentry/react": "^9.10.1",
         "@storybook/addon-essentials": "^8.6.11",

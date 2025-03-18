@@ -1,5 +1,7 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test';
 
+declare const process: { env: { CI: string } };
+
 const config: PlaywrightTestConfig = {
     testDir: './playwright',
     forbidOnly: !!process.env.CI,
