@@ -42,6 +42,18 @@ test.describe('Arbeidstrening', () => {
             expect(response.status()).toBe(200);
         });
 
+        test.beforeEach(async () => {
+            await page.addInitScript(() => {
+                const interval = setInterval(() => {
+                    const meny = document.querySelector<HTMLDivElement>('nav[id=stegmeny]');
+                    if (meny) {
+                        meny.style.position = 'relative';
+                        clearInterval(interval);
+                    }
+                }, 250);
+            });
+        });
+
         test('Opprett avtale', async () => {
             await page.getByRole('radio', { name: 'Arbeidstrening' }).click();
             await page.getByLabel('Deltakers fødselsnummer').fill('00000000000');
