@@ -7,6 +7,7 @@ import './Avtaleparter.less';
 import AvtaleparterHeaderIkon from './AvtalepartnerHeaderIkon';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import KontaktpersonRefusjonOppsumering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/KontaktpersonRefusjonOppsummering/KontaktpersonRefusjonOppsummering';
+import HemmeligAdresseVarsel from '@/komponenter/Adressesperre/HemmeligAdresseVarsel';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -20,6 +21,7 @@ const Avtaleparter: FunctionComponent<Props> = (props) => {
     return (
         <Stegoppsummering tittel="Avtalens parter" ikon={<AvtaleparterHeaderIkon />}>
             <div>
+                {rolle === 'VEILEDER' && <HemmeligAdresseVarsel avtaleId={avtale.id} />}
                 <AvtaleinfoFeltSjekk
                     navnFelter={[
                         { felt: 'fornavn', verdi: gjeldendeInnhold.deltakerFornavn },
