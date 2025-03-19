@@ -16,7 +16,6 @@ const ROLLER_SOM_KREVER_KONTROLL: Rolle[] = ['VEILEDER'];
 const kode6eller7 = (diskresjonskode?: Diskresjonskode) => {
     switch (diskresjonskode) {
         case Diskresjonskode.STRENGT_FORTROLIG_UTLAND:
-            return '- Kode 6';
         case Diskresjonskode.STRENGT_FORTROLIG:
             return '- Kode 6';
         case Diskresjonskode.FORTROLIG:
