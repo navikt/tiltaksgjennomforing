@@ -13,26 +13,11 @@ interface EksternLenkeProps {
 
 const EksternLenke: React.FunctionComponent<PropsWithChildren<EksternLenkeProps>> = (props) => {
     return (
-        <>
-            <Link target="_blank" href={props.href}>
-                {props.children}
-                <TilEkstern className="ekstern-lenke-icon" />
-            </Link>
-        </>
+        <Link target="_blank" href={props.href}>
+            {props.children}
+            <TilEkstern className="ekstern-lenke-icon" />
+        </Link>
     );
 };
-
-/*
-const EksternLenke: React.FunctionComponent<Props> = (props) => {
-    return (
-        <>
-            <Link target="_blank" {...props}>
-                {props.children}
-                <TilEkstern focusable="false" className="ekstern-lenke-icon" />
-            </Link>
-        </>
-    );
-};
-*/
 
 export default EksternLenke;
