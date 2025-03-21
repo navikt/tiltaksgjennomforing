@@ -1,5 +1,5 @@
 import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
-import { miljo } from '@/utils/utils';
+import { miljo } from '@/utils';
 
 const decoratorconfig = (): DecoratorProps => {
     return {

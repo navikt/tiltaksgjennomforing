@@ -7,7 +7,7 @@ import { visPeriodeForTiltak } from '@/utils/datoUtils';
 import { tiltakstypeTekst } from '@/messages';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
 import AlleredeOpprettetAvtaleDetaljer from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/AlleredeOpprettetAvtaleDetaljer';
-import { sortBy } from '@/utils/utils';
+import { sortBy } from '@/utils';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
