@@ -28,7 +28,7 @@ import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
 import { litenForbokstav } from '@/utils/stringUtils';
-import { fjernTommeFelterFraObjekt } from '@/utils/utils';
+import { fjernTommeFelterFraObjekt } from '@/utils';
 import './AvtaleOversikt.less';
 import { FiltreringContext } from './Filtrering/FiltreringProvider';
 
