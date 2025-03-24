@@ -12,6 +12,7 @@ import { Path } from '@/Router';
 import { Varsel } from '@/types/varsel';
 import { kunStorForbokstav } from '@/utils/stringUtils';
 import { tiltakstypeTekstKort } from '@/messages';
+import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -51,8 +52,11 @@ const AvtaleTabellBeslutter = (props: Props) => {
                             </Table.DataCell>
                             <Table.DataCell>
                                 <BodyShort size="small">
-                                    {avtale.deltakerFornavn || ''}&nbsp;
-                                    {avtale.deltakerEtternavn || ''}
+                                    <NavnMedDiskresjonskode
+                                        diskresjonskode={avtale.diskresjonskode}
+                                        fornavn={avtale.deltakerFornavn}
+                                        etternavn={avtale.deltakerEtternavn}
+                                    />
                                 </BodyShort>
                             </Table.DataCell>
                             <Table.DataCell>

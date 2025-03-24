@@ -73,6 +73,7 @@ export type AvtaleMinimalForBeslutter = {
     bedriftNavn: string;
     status: TilskuddPeriodeStatus;
     tiltakstype: TiltaksType;
+    diskresjonskode: Diskresjonskode;
 };
 
 export type Avtaleinnhold = {
