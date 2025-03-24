@@ -49,6 +49,7 @@ const AvtaleSide: FunctionComponent = () => {
     if (innloggetBruker.rolle === 'MENTOR') avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
     const navigate = useNavigate();
     const { steg } = useParams<any>();
+    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const erDesktop = windowSize > 768;
     const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
@@ -58,7 +59,9 @@ const AvtaleSide: FunctionComponent = () => {
         avtale.avbrutt ||
         avtale.annullertTidspunkt ||
         innloggetBruker.rolle === 'DELTAKER' ||
-        innloggetBruker.rolle === 'MENTOR';
+        innloggetBruker.rolle === 'MENTOR' ||
+        (!vtaoTiltakToggle && avtale.tiltakstype === 'VTAO');
+
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const handleWindowSize = () => setWindowSize(window.innerWidth);
