@@ -13,6 +13,7 @@ import { Path } from '@/Router';
 import { Varsel } from '@/types/varsel';
 import { avtaleStatusTekst } from '@/messages';
 import { formaterDatoHvisDefinert } from '@/utils/datoUtils';
+import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
 
 const cls = BEMHelper('avtalekortMobil');
 
@@ -57,8 +58,11 @@ const AvtalekortMobil: FunctionComponent<{
                                     )}
                                     <div>
                                         <Heading size="small">
-                                            {avtale.deltakerFornavn || ''}&nbsp;
-                                            {avtale.deltakerEtternavn || ''}
+                                            <NavnMedDiskresjonskode
+                                                fornavn={avtale.deltakerFornavn}
+                                                etternavn={avtale.deltakerEtternavn}
+                                                diskresjonskode={avtale.diskresjonskode}
+                                            />
                                         </Heading>
                                         <VerticalSpacer rem={0.5} />
                                         <Ingress>{avtale.bedriftNavn}</Ingress>
