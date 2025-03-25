@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { Button, BodyShort, Box, Heading, List, Page, VStack } from '@navikt/ds-react';
 
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import { Path } from '@/Router';
 import { Rolle } from '@/types/innlogget-bruker';
+
+import { Path } from './Router';
 
 interface Props {
     rolle?: Rolle;

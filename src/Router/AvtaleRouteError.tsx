@@ -1,8 +1,9 @@
 import { useRouteError } from 'react-router-dom';
 
 import { IkkeFunnetError } from '@/types/errors';
-import IkkeFunnet404 from '@/Router/IkkeFunnet404';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
+
+import IkkeFunnet404 from './IkkeFunnet404';
 
 function AvtaleRouteError() {
     const error = useRouteError();

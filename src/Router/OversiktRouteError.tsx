@@ -1,8 +1,9 @@
 import { useRouteError } from 'react-router-dom';
 
 import { IkkeTilgangError } from '@/types/errors';
-import IkkeTilgang403 from '@/Router/IkkeTilgang403';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
+
+import IkkeTilgang403 from './IkkeTilgang403';
 
 function OversiktRouteError() {
     const error = useRouteError();

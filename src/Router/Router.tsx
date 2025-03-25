@@ -7,7 +7,6 @@ import AvtaleFetcher from '@/AvtaleSide/AvtaleFetcher';
 import AvtaleProvider from '@/AvtaleProvider';
 import AvtaleSide from '@/AvtaleSide/AvtaleSide';
 import BeslutterSide from '@/BeslutterSide/BeslutterSide';
-import IkkeFunnet404 from '@/Router/IkkeFunnet404';
 import Informasjonsside from '@/Informasjonsside/Informasjonsside';
 import InnloggingBoundary from '@/InnloggingBoundary/InnloggingBoundary';
 import OpprettAvtaleArbeidsgiver from '@/OpprettAvtale/OpprettAvtaleArbeidsgiver/OpprettAvtaleArbeidsgiver';
@@ -20,9 +19,11 @@ import { FeilVarselProvider } from '@/FeilVarselProvider';
 import { NotifikasjonWidgetProvider } from '@/NotifikasjonWidgetProvider';
 import { VarselOmNedetid } from '@/InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from '@/komponenter/ErrorBoundary';
-import AvtaleRouteError from '@/Router/AvtaleRouteError';
-import OversiktRouteError from '@/Router/OversiktRouteError';
 import AvtaleKontroll from '@/AvtaleSide/AvtaleKontroll';
+
+import AvtaleRouteError from './AvtaleRouteError';
+import OversiktRouteError from './OversiktRouteError';
+import IkkeFunnet404 from './IkkeFunnet404';
 
 export const basename = '/tiltaksgjennomforing';
 
