@@ -1,10 +1,11 @@
-import { AvtaleMinimalListeVisning, Diskresjonskode } from '@/types';
+import { Diskresjonskode } from '@/types';
 import { Tag } from '@navikt/ds-react';
 
 interface Props {
     fornavn?: string;
     etternavn?: string;
     diskresjonskode?: Diskresjonskode;
+    inline?: boolean;
 }
 
 const lagFulltNavn = (deltakerFornavn?: string, deltakerEtternavn?: string) => {
@@ -19,7 +20,7 @@ const lagFulltNavn = (deltakerFornavn?: string, deltakerEtternavn?: string) => {
 };
 
 function NavnMedDiskresjonskode(props: Props) {
-    const { diskresjonskode = Diskresjonskode.UGRADERT, fornavn, etternavn } = props;
+    const { diskresjonskode = Diskresjonskode.UGRADERT, fornavn, etternavn, inline } = props;
     const navn = lagFulltNavn(fornavn, etternavn);
 
     switch (diskresjonskode) {
@@ -27,21 +28,31 @@ function NavnMedDiskresjonskode(props: Props) {
         case Diskresjonskode.STRENGT_FORTROLIG_UTLAND:
             return (
                 <>
+                    {inline && <>{navn} </>}
                     <Tag size="xsmall" variant="error-moderate">
                         Kode 6
                     </Tag>
-                    <br />
-                    {navn}
+                    {!inline && (
+                        <>
+                            <br />
+                            {navn}
+                        </>
+                    )}
                 </>
             );
         case Diskresjonskode.FORTROLIG:
             return (
                 <>
+                    {inline && <>{navn} </>}
                     <Tag size="xsmall" variant="warning-moderate">
                         Kode 7
                     </Tag>
-                    <br />
-                    {navn}
+                    {!inline && (
+                        <>
+                            <br />
+                            {navn}
+                        </>
+                    )}
                 </>
             );
         default:

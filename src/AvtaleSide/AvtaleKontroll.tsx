@@ -9,7 +9,7 @@ import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
 import { container } from './AvtaleKontroll.module.less';
 
-const ROLLER_SOM_KREVER_KONTROLL: Rolle[] = ['ARBEIDSGIVER'];
+const ROLLER_SOM_KREVER_KONTROLL: Rolle[] = ['ARBEIDSGIVER', 'MENTOR'];
 
 const AvtaleKontroll: FunctionComponent<PropsWithChildren> = (props) => {
     const { rolle } = useInnloggetBruker();
