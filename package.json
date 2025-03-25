@@ -64,7 +64,7 @@
         "@types/react-dom": "18.3.1",
         "@types/react-responsive": "^8.0.8",
         "@types/react-router-dom": "^5.3.3",
-        "@vitejs/plugin-react": "4.3.2",
+        "@vitejs/plugin-react": "4.3.4",
         "husky": "^9.0.10",
         "jsdom": "25.0.1",
         "less": "^4.2.0",
@@ -73,9 +73,9 @@
         "storybook": "^8.6.9",
         "svgo": "^3.2.0",
         "typescript": "5.6.3",
-        "vite": "5.4.9",
-        "vite-plugin-svgr": "^4.2.0",
-        "vitest": "2.1.3"
+        "vite": "6.2.3",
+        "vite-plugin-svgr": "^4.3.0",
+        "vitest": "3.0.9"
     },
     "lint-staged": {
         "*.{ts,tsx,js,jsx,mjs,less,css,md}": "npm run prettier:fix",
