@@ -12,6 +12,7 @@ import { Path } from '@/Router';
 import { Varsel } from '@/types/varsel';
 import { kunStorForbokstav } from '@/utils/stringUtils';
 import { tiltakstypeTekstKort } from '@/messages';
+import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -40,32 +41,25 @@ const AvtaleTabellBeslutter = (props: Props) => {
                                 });
                             }}
                         >
-                            <Table.DataCell>
+                            <Table.DataCell textSize="small">
                                 {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                                <BodyShort size="small">
-                                    {kunStorForbokstav(tiltakstypeTekstKort[avtale.tiltakstype])}
-                                </BodyShort>
+                                {kunStorForbokstav(tiltakstypeTekstKort[avtale.tiltakstype])}
                             </Table.DataCell>
-                            <Table.DataCell>
-                                <BodyShort size="small">{avtale.bedriftNavn}</BodyShort>
+                            <Table.DataCell textSize="small">{avtale.bedriftNavn}</Table.DataCell>
+                            <Table.DataCell textSize="small">
+                                <NavnMedDiskresjonskode
+                                    diskresjonskode={avtale.diskresjonskode}
+                                    fornavn={avtale.deltakerFornavn}
+                                    etternavn={avtale.deltakerEtternavn}
+                                />
                             </Table.DataCell>
-                            <Table.DataCell>
-                                <BodyShort size="small">
-                                    {avtale.deltakerFornavn || ''}&nbsp;
-                                    {avtale.deltakerEtternavn || ''}
-                                </BodyShort>
-                            </Table.DataCell>
-                            <Table.DataCell>
-                                <BodyShort size="small">{avtale.veilederNavIdent || 'Ufordelt'}</BodyShort>
-                            </Table.DataCell>
-                            <Table.DataCell>
-                                <BodyShort size="small">
-                                    {new Date(avtale.startDato).toLocaleDateString('no-NB', {
-                                        day: 'numeric',
-                                        month: 'short',
-                                        year: '2-digit',
-                                    })}
-                                </BodyShort>
+                            <Table.DataCell textSize="small">{avtale.veilederNavIdent || 'Ufordelt'}</Table.DataCell>
+                            <Table.DataCell textSize="small">
+                                {new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                    day: 'numeric',
+                                    month: 'short',
+                                    year: '2-digit',
+                                })}
                             </Table.DataCell>
                             <Table.DataCell>
                                 <EtikettStatus
