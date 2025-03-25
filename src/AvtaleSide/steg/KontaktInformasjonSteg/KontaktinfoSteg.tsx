@@ -11,7 +11,7 @@ import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/Kontakt
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import FadderinfoDel from '@/AvtaleSide/steg/KontaktInformasjonSteg/FadderinfoDel/FadderinfoDel';
-import HemmeligAdresseVarsel from '@/komponenter/Adressesperre/HemmeligAdresseVarsel';
+import HemmeligAdresseVarsel, { isSkalViseAdresseVarsel } from '@/komponenter/Adressesperre/HemmeligAdresseVarsel';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const KontaktinfoSteg: FunctionComponent = () => {
@@ -37,7 +37,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
         <>
             <AvtaleStatus />
             <Innholdsboks>
-                {rolle === 'VEILEDER' && <HemmeligAdresseVarsel avtaleId={avtale.id} />}
+                {isSkalViseAdresseVarsel(rolle) && <HemmeligAdresseVarsel avtaleId={avtale.id} />}
                 <DeltakerInfo oppsummeringside={false} />
                 <DeltakerinfoDel />
                 <ArbeidsgiverinfoDel />

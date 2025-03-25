@@ -3,11 +3,15 @@ import { Alert, Heading } from '@navikt/ds-react';
 import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
 
 import { container } from './HemmeligAdresseVarsel.module.less';
-import { Diskresjonskode } from '@/types';
+import { Diskresjonskode, Rolle } from '@/types';
 
 interface Props {
     avtaleId: string;
 }
+
+export const isSkalViseAdresseVarsel = (rolle: Rolle) => {
+    return ['ARBEIDSGIVER', 'BESLUTTER', 'MENTOR', 'VEILEDER'].includes(rolle);
+};
 
 const kode6eller7 = (diskresjonskode?: Diskresjonskode) => {
     switch (diskresjonskode) {
