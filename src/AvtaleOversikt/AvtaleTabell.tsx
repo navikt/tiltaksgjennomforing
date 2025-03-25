@@ -82,51 +82,45 @@ const AvtaleTabell: FunctionComponent<{
                                     }
                                 }}
                             >
-                                <Table.DataCell>
-                                    {ulestVarsel && <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />}
-                                    <BodyShort size="small">
+                                <Table.DataCell textSize="small">
+                                    <>
+                                        {ulestVarsel && (
+                                            <span aria-hidden={!ulestVarsel} className="ulest-varsel-ikon" />
+                                        )}
                                         {kunStorForbokstav(tiltakstypeTekstKort[avtale.tiltakstype])}
-                                    </BodyShort>
+                                    </>
                                 </Table.DataCell>
-                                <Table.DataCell>
-                                    <BodyShort size="small">{avtale?.bedriftNavn || '-'}</BodyShort>
-                                </Table.DataCell>
-                                <Table.DataCell>
-                                    <BodyShort size="small">
-                                        <NavnMedDiskresjonskode
-                                            fornavn={avtale.deltakerFornavn}
-                                            etternavn={avtale.deltakerEtternavn}
-                                            diskresjonskode={avtale.diskresjonskode}
-                                        />
-                                    </BodyShort>
+                                <Table.DataCell textSize="small">{avtale?.bedriftNavn || '-'}</Table.DataCell>
+                                <Table.DataCell textSize="small">
+                                    <NavnMedDiskresjonskode
+                                        fornavn={avtale.deltakerFornavn}
+                                        etternavn={avtale.deltakerEtternavn}
+                                        diskresjonskode={avtale.diskresjonskode}
+                                    />
                                 </Table.DataCell>
                                 {innloggetBruker.erNavAnsatt && (
-                                    <Table.DataCell>
-                                        <BodyShort size="small">{avtale.veilederNavIdent ?? 'Ufordelt'}</BodyShort>
+                                    <Table.DataCell textSize="small">
+                                        {avtale.veilederNavIdent ?? 'Ufordelt'}
                                     </Table.DataCell>
                                 )}
                                 <MediaQuery minWidth={576}>
-                                    <Table.DataCell>
-                                        <BodyShort size="small">
-                                            {avtale.startDato
-                                                ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
-                                                      day: 'numeric',
-                                                      month: 'short',
-                                                      year: '2-digit',
-                                                  })
-                                                : '-'}
-                                        </BodyShort>
+                                    <Table.DataCell textSize="small">
+                                        {avtale.startDato
+                                            ? new Date(avtale.startDato).toLocaleDateString('no-NB', {
+                                                  day: 'numeric',
+                                                  month: 'short',
+                                                  year: '2-digit',
+                                              })
+                                            : '-'}
                                     </Table.DataCell>
-                                    <Table.DataCell>
-                                        <BodyShort size="small">
-                                            {avtale.sluttDato
-                                                ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
-                                                      day: 'numeric',
-                                                      month: 'short',
-                                                      year: '2-digit',
-                                                  })
-                                                : '-'}
-                                        </BodyShort>
+                                    <Table.DataCell textSize="small">
+                                        {avtale.sluttDato
+                                            ? new Date(avtale.sluttDato).toLocaleDateString('no-NB', {
+                                                  day: 'numeric',
+                                                  month: 'short',
+                                                  year: '2-digit',
+                                              })
+                                            : '-'}
                                     </Table.DataCell>
                                 </MediaQuery>
 
