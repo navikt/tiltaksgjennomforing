@@ -8,7 +8,7 @@
         "build": "vite build",
         "checknpm": "echo \"$npm_execpath\" | grep -q \"npm-cli\\.js$\" || (echo '⚠️ Bruk npm ellers får du sparken! ⚠️' && echo && exit 1)",
         "preinstall": "$npm_execpath --silent run checknpm",
-        "prepare": "husky install",
+        "prepare": "husky",
         "prettier": "prettier -c .",
         "prettier:fix": "prettier -w .",
         "release": "node sentry.js",
