@@ -1,6 +1,6 @@
 import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import isEqual from 'lodash.isequal';
+import { isDeepStrictEqual } from 'node:util';
 import { useContext } from 'react';
 
 const updateOrDeleteKeyFromObject = (filterobject: any, filterEndring: Filtrering, key: keyof Filtrering) => {
@@ -40,7 +40,7 @@ export const useFilter = () => {
             obj['page'] = endring.page;
         }
 
-        if (!isEqual(obj, filtre)) {
+        if (!isDeepStrictEqual(obj, filtre)) {
             setFiltre(obj);
         }
     };

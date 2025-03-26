@@ -1,5 +1,5 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import isEqual from 'lodash.isequal';
+import { isDeepStrictEqual } from 'node:util';
 import { useContext, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiltreringContextGammel } from './FiltreringProviderGammel';
@@ -22,7 +22,7 @@ export const useFilterGammel = () => {
 
     useEffect(() => {
         const newParams = toObject(searchParams);
-        if (!isEqual(newParams, filtre)) {
+        if (!isDeepStrictEqual(newParams, filtre)) {
             setFiltre(newParams);
         }
     }, [searchParams, filtre, setFiltre]);
