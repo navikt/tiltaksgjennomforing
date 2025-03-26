@@ -16,7 +16,7 @@
         "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^6.2.2",
         "@navikt/nav-dekoratoren-moduler": "^2.1.5",
         "@navikt/oasis": "3.6.0",
-        "axios": "1.7.7",
+        "axios": "1.8.2",
         "compression": "^1.7.4",
         "cookie-parser": "1.4.7",
         "express": "4.21.2",
