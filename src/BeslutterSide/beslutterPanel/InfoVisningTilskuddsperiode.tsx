@@ -6,12 +6,18 @@ import BEMHelper from '@/utils/bem';
 import InfoRadBesluttervisning from '@/BeslutterSide/beslutterPanel/InfoRadBesluttervisning';
 import TilskuddsperiodeEndreKostnadssted from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeEndreKostnadssted';
 import { AvtaleContext } from '@/AvtaleProvider';
+import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
+import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
 
 const InfoVisningTilskuddsperiode: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const { gjeldendeTilskuddsperiode } = avtale;
+    const { data: aktsomhet } = useAvtaleKreverAktsomhet(avtale.id);
     const cls = BEMHelper('beslutter-panel');
-    if (!gjeldendeTilskuddsperiode) return null;
+
+    if (!gjeldendeTilskuddsperiode) {
+        return null;
+    }
 
     return (
         <>
@@ -20,9 +26,14 @@ const InfoVisningTilskuddsperiode: FunctionComponent = () => {
                 <div className={cls.element('infovisning-gruppe')}>
                     <InfoRadBesluttervisning
                         metadata="Deltaker"
-                        info={`${
-                            avtale.gjeldendeInnhold.deltakerFornavn + ' ' + avtale.gjeldendeInnhold.deltakerEtternavn
-                        }`}
+                        info={
+                            <NavnMedDiskresjonskode
+                                diskresjonskode={aktsomhet?.diskresjonskode}
+                                fornavn={avtale.gjeldendeInnhold.deltakerFornavn}
+                                etternavn={avtale.gjeldendeInnhold.deltakerEtternavn}
+                                inline
+                            />
+                        }
                     />
                     <InfoRadBesluttervisning metadata="Arbeidsgiver" info={avtale.gjeldendeInnhold.bedriftNavn} />
                     <InfoRadBesluttervisning
