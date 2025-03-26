@@ -18,10 +18,12 @@ import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAv
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
 import FortsettTiltak from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/FortsettTiltak/FortsettTiltak';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const harØkonomi =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
@@ -36,9 +38,10 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'ARBEIDSTRENING';
 
-    if (!erVeileder) {
+    if (!erVeileder || (!vtaoTiltakToggle && avtale.tiltakstype === 'VTAO')) {
         return <Varsellogg />;
     }
+
     return (
         <>
             <div className={'modelLenker'}>

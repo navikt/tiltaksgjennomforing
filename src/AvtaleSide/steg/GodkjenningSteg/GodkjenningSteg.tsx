@@ -8,9 +8,10 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
 import { Avtaleinnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import React, { createElement, FunctionComponent, Suspense, useContext } from 'react';
+import React, { createElement, FunctionComponent, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -21,10 +22,12 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
+    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const skalViseGodkjenning =
         !avtale.erAnnullertEllerAvbrutt &&
-        (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
+        (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt)) &&
+        (avtale.tiltakstype !== 'VTAO' || vtaoTiltakToggle);
 
     return (
         <div className={cls.className}>
