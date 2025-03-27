@@ -32,7 +32,6 @@ export interface Periode {
 export const TilskuddsperiodeContext = React.createContext<Periode>({} as Periode);
 
 const BeslutterSide: FunctionComponent = () => {
-    const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
     const { gjeldendeTilskuddsperiode, enhetOppfolging, enhetGeografisk } = avtale;
     const [visReturModal, setVisReturModal] = useState(false);
