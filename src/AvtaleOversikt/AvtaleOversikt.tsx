@@ -1,5 +1,5 @@
 import { Alert, omit, Pagination, Select } from '@navikt/ds-react';
-import { isDeepStrictEqual } from 'node:util';
+import isEqual from 'fast-deep-equal';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ const AvtaleOversikt: FunctionComponent = () => {
         if (nettressursCtx.status !== Status.Lastet) return;
 
         const filtreUtenPage = omit(filtre, ['page', 'sorteringskolonne', 'sorteringOrder']);
-        const erFiltreLikeNettressursFiltre = isDeepStrictEqual(
+        const erFiltreLikeNettressursFiltre = isEqual(
             fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere),
             fjernTommeFelterFraObjekt(filtreUtenPage),
         );

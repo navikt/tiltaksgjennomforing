@@ -1,8 +1,8 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import { isDeepStrictEqual } from 'node:util';
 import { useContext, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiltreringContextGammel } from './FiltreringProviderGammel';
+import isEqual from 'fast-deep-equal';
 
 const toObject = (params: URLSearchParams) => Object.fromEntries(params.entries());
 
@@ -22,7 +22,7 @@ export const useFilterGammel = () => {
 
     useEffect(() => {
         const newParams = toObject(searchParams);
-        if (!isDeepStrictEqual(newParams, filtre)) {
+        if (!isEqual(newParams, filtre)) {
             setFiltre(newParams);
         }
     }, [searchParams, filtre, setFiltre]);
