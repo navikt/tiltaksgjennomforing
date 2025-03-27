@@ -1,6 +1,6 @@
 import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import { isDeepStrictEqual } from 'node:util';
+import isEqual from 'fast-deep-equal';
 import { useContext } from 'react';
 
 const updateOrDeleteKeyFromObject = (filterobject: any, filterEndring: Filtrering, key: keyof Filtrering) => {
@@ -40,7 +40,7 @@ export const useFilter = () => {
             obj['page'] = endring.page;
         }
 
-        if (!isDeepStrictEqual(obj, filtre)) {
+        if (!isEqual(obj, filtre)) {
             setFiltre(obj);
         }
     };
