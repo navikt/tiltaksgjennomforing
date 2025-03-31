@@ -13,6 +13,16 @@ interface Props {
     className: string;
 }
 
+const migreringsdatoForTiltakstype = (tiltakstype: TiltaksType): string | null => {
+    if (['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(tiltakstype)) {
+        return '2023-02-01';
+    } else if (tiltakstype === 'VTAO') {
+        return '2025-07-01';
+    } else {
+        return null;
+    }
+};
+
 const InfoArenaOppryddingAlert: React.FC<Props> = ({
     tiltakstype,
     startDato,
@@ -20,15 +30,7 @@ const InfoArenaOppryddingAlert: React.FC<Props> = ({
     erNavAnsatt,
     className,
 }: Props) => {
-    let migreringsdato: string | undefined = undefined;
-
-    if (['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(tiltakstype)) {
-        migreringsdato = '2023-02-01';
-    } else if (tiltakstype === 'VTAO') {
-        migreringsdato = '2025-07-01';
-    } else {
-        return null;
-    }
+    const migreringsdato: string | null = migreringsdatoForTiltakstype(tiltakstype);
 
     const skalViseAlert = migreringsdato && isBefore(startDato, migreringsdato) && !erRyddeAvtale && erNavAnsatt;
 
