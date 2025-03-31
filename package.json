@@ -43,7 +43,7 @@
         "react-responsive": "^10.0.1",
         "react-router-dom": "^6.30.0",
         "react-select": "^5.10.1",
-        "swr": "2.2.5",
+        "swr": "^2.3.3",
         "zod": "^3.24.2"
     },
     "devDependencies": {
