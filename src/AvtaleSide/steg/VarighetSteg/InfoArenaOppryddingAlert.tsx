@@ -3,6 +3,7 @@ import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { isBefore } from 'date-fns';
 import React from 'react';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 
 interface Props {
     tiltakstype: TiltaksType;
@@ -12,6 +13,16 @@ interface Props {
     className: string;
 }
 
+const migreringsdatoForTiltakstype = (tiltakstype: TiltaksType): string | null => {
+    if (['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(tiltakstype)) {
+        return '2023-02-01';
+    } else if (tiltakstype === 'VTAO') {
+        return '2025-07-01';
+    } else {
+        return null;
+    }
+};
+
 const InfoArenaOppryddingAlert: React.FC<Props> = ({
     tiltakstype,
     startDato,
@@ -19,31 +30,27 @@ const InfoArenaOppryddingAlert: React.FC<Props> = ({
     erNavAnsatt,
     className,
 }: Props) => {
-    const skalViseAlert =
-        ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(tiltakstype) &&
-        isBefore(startDato, '2023-02-01') &&
-        !erRyddeAvtale &&
-        erNavAnsatt;
+    const migreringsdato: string | null = migreringsdatoForTiltakstype(tiltakstype);
+
+    const skalViseAlert = migreringsdato && isBefore(startDato, migreringsdato) && !erRyddeAvtale && erNavAnsatt;
 
     if (!skalViseAlert) {
         return null;
     }
 
+    const norskMigreringsdato = formaterDato(migreringsdato, NORSK_DATO_FORMAT);
+
     const cls = BEMHelper(className);
     return (
         <Alert variant="warning" className={cls.element('info-arena-opprydding-alert')}>
-            <div className={cls.element('info-arena-opprydding-container')}>
-                <div className={cls.element('info-arena-opprydding-avsnitt')}>
-                    <BodyShort size="small">Du har oppgitt en startdato som er før 01.02.2023</BodyShort>
-                </div>
-                <div className={cls.element('info-arena-opprydding-avsnitt')}>
-                    <BodyShort size="small">
-                        Du må sjekke om det er utbetalt refusjon i Arena før 01.02.2023 for å forhindre dobbel
-                        utbetaling av tilskudd. Dersom det allerede er refundert tilskudd, må startdato i avtalen
-                        tidligst være dagen etter siste refunderte tilskuddsperiode. Hvis det ligger en avsluttet avtale
-                        fra tidligere så anbefales det at du gjenåpner («forleng avtale») istedenfor å opprette en ny.
-                    </BodyShort>
-                </div>
+            <div className={cls.element('info-arena-opprydding-alert-innhold')}>
+                <BodyShort size="small">Du har oppgitt en startdato som er før {norskMigreringsdato}</BodyShort>
+                <BodyShort size="small">
+                    Du må sjekke om det er utbetalt refusjon i Arena før {norskMigreringsdato} for å forhindre dobbel
+                    utbetaling av tilskudd. Dersom det allerede er refundert tilskudd, må startdato i avtalen tidligst
+                    være dagen etter siste refunderte tilskuddsperiode. Hvis det ligger en avsluttet avtale fra
+                    tidligere så anbefales det at du gjenåpner («forleng avtale») istedenfor å opprette en ny.
+                </BodyShort>
             </div>
         </Alert>
     );
