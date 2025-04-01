@@ -10,7 +10,7 @@ interface Props {
 
 const lagFulltNavn = (deltakerFornavn?: string, deltakerEtternavn?: string) => {
     if (deltakerFornavn && deltakerEtternavn) {
-        return deltakerFornavn + ' ' + deltakerEtternavn;
+        return deltakerEtternavn + ', ' + deltakerFornavn;
     } else if (deltakerFornavn) {
         return deltakerFornavn;
     } else if (deltakerEtternavn) {
