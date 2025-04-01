@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { createProxyMiddleware } from 'http-proxy-middleware';
 import { Express } from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import { DECORATOR_EXTERNAL_URL } from '../config';
 
@@ -16,7 +16,7 @@ export function setup(app: Express) {
                 ...response.data,
                 API_INNLOGGINGSLINJE_URL: '/dekoratoren/api',
                 APP_URL: '/dekoratoren',
-                LOGOUT_URL: '/logout',
+                LOGOUT_URL: '/logout?redirect=/https://tiltaksgjennomforing.ekstern.dev.nav.no/tiltaksgjennomforing',
             });
         } catch (e) {
             console.error(e);
