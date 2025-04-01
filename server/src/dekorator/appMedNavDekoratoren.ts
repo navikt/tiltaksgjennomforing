@@ -15,7 +15,7 @@ export async function getNavdekoratoren(indexFilepath: string, req: Request, res
                 redirectToApp: true,
                 level: 'Level4',
                 language: 'en',
-                redirectToUrlLogout: '/tiltaksgjennomforing',
+                logoutUrl: '/tiltaksgjennomforing/logout',
                 chatbotVisible: true,
             },
         });
