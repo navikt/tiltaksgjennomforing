@@ -11,7 +11,9 @@ export function setup(app: Express) {
 
     app.use('/dekoratoren/env', async (_, res) => {
         try {
-            const response = await axios.get(`${DECORATOR_EXTERNAL_URL}/env?context=arbeidsgiver&feedback=false`);
+            const response = await axios.get(
+                `${DECORATOR_EXTERNAL_URL}/env?context=arbeidsgiver&feedback=false&redirectToUrlLogout=/tiltaksgjennomforing&simple=true`,
+            );
             res.json({
                 ...response.data,
                 API_INNLOGGINGSLINJE_URL: '/dekoratoren/api',
