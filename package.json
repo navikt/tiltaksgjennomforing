@@ -54,7 +54,7 @@
         "@storybook/react": "^8.6.11",
         "@storybook/react-vite": "^8.6.11",
         "@storybook/test": "^8.6.11",
-        "@testing-library/react": "^14.3.1",
+        "@testing-library/react": "^16.2.0",
         "@types/lodash.debounce": "^4.0.9",
         "@types/node": "^20.17.28",
         "@types/react": "18.3.11",
