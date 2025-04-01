@@ -2,7 +2,7 @@
 "miljo": "prod-gcp"
 "api-gw-url": "https://tiltak-proxy.prod-fss-pub.nais.io"
 "login-url": "/tiltaksgjennomforing/oauth2/login?redirect=/tiltaksgjennomforing"
-"logout-url": "/tiltaksgjennomforing/oauth2/logout"
+"logout-url": "/tiltaksgjennomforing/oauth2/logout?redirect=/tiltaksgjennomforing"
 "stillingstitler-url": "http://tiltak-stillingstitler"
 "api-audience": "prod-fss:arbeidsgiver:tiltak-proxy"
 "proxy-cluster": "prod-fss"
