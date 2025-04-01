@@ -48,7 +48,7 @@
     },
     "devDependencies": {
         "@sentry/cli": "^2.43.0",
-        "@sentry/react": "^7.120.3",
+        "@sentry/react": "^9.10.1",
         "@storybook/addon-essentials": "^8.6.11",
         "@storybook/blocks": "^8.6.11",
         "@storybook/react": "^8.6.11",

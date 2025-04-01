@@ -13,7 +13,7 @@ const ErrorBoundary: FunctionComponent<PropsWithChildren> = (props) => {
                         <Heading size="small">Det har oppstått en uventet feil. Forsøk å laste siden på nytt.</Heading>
                         <VerticalSpacer rem={0.5} />
                         <BodyShort size="small">
-                            Teknisk feilkode: <i>{error.toString()}</i>
+                            Teknisk feilkode: <i>{error instanceof Error ? error.message : String(error)}</i>
                         </BodyShort>
                     </Alert>
                 </>
