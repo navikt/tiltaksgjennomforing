@@ -128,8 +128,6 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
-
-    vtao?: VTAO;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<
@@ -330,13 +328,6 @@ export interface Maal {
     beskrivelse: string;
 }
 
-export interface VTAO {
-    id?: string;
-    fadderFornavn?: string;
-    fadderEtternavn?: string;
-    fadderTlf?: string;
-}
-
 export interface Oppfolging {
     oppfolging?: string;
 }
@@ -425,7 +416,6 @@ export type EndreKontaktInfo = {
     veilederFornavn?: string;
     veilederEtternavn?: string;
     veilederTlf?: string;
-    vtao?: VTAO;
     refusjonKontaktperson: RefusjonKontaktperson;
 };
 
