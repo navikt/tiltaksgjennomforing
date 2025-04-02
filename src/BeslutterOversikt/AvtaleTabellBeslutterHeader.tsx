@@ -17,7 +17,7 @@ const AvtaleTabellBeslutterHeader: React.FC = () => {
                     <SorteringOrderValgGammel label={'Bedrift'} sorteringsverdi={'bedriftNavn'} />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader>
-                    <SorteringOrderValgGammel label={'Deltaker'} sorteringsverdi={'deltakerFornavn'} />
+                    <SorteringOrderValgGammel label={'Deltaker'} sorteringsverdi={'deltakerEtternavn'} />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader>Veileder</Table.ColumnHeader>
                 <Table.ColumnHeader>

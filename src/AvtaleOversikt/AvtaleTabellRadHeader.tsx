@@ -22,7 +22,7 @@ const AvtaleTabellRadHeader: React.FC<Props> = ({ erBeslutter, erNavAnsatt }: Pr
                     <SorteringOrderValg label={'Bedrift'} sorteringsverdi={'bedriftNavn'} />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader style={{ width: '15%' }}>
-                    <SorteringOrderValg label={'Deltaker'} sorteringsverdi={'deltakerFornavn'} />
+                    <SorteringOrderValg label={'Deltaker'} sorteringsverdi={'deltakerEtternavn'} />
                 </Table.ColumnHeader>
                 {erNavAnsatt && (
                     <Table.ColumnHeader>

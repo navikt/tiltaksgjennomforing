@@ -58,7 +58,7 @@ const AvtaleTabell: FunctionComponent<{
             <Table className={cls.className}>
                 <AvtaleTabellRadHeader erBeslutter={false} erNavAnsatt={innloggetBruker.erNavAnsatt} />
                 <Table.Body>
-                    {avtaler.map((avtale: AvtaleMinimalListeVisning, index: number) => {
+                    {avtaler.map((avtale: AvtaleMinimalListeVisning) => {
                         const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                         return (
                             <Table.Row
