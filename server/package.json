@@ -13,11 +13,11 @@
         "start:intern": "cross-env ENABLE_INTERNAL_MENU=true INTERN_INGRESS=true npm run server"
     },
     "dependencies": {
-        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^6.2.2",
-        "@navikt/nav-dekoratoren-moduler": "^2.1.5",
+        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^6.5.9",
+        "@navikt/nav-dekoratoren-moduler": "^2.1.6",
         "@navikt/oasis": "3.6.0",
-        "axios": "1.7.7",
-        "compression": "^1.7.4",
+        "axios": "^1.8.4",
+        "compression": "^1.8.0",
         "cookie-parser": "1.4.7",
         "express": "4.21.2",
         "helmet": "8.0.0",
@@ -26,7 +26,7 @@
     },
     "devDependencies": {
         "@types/compression": "^1.7.5",
-        "@types/cookie-parser": "^1.4.7",
+        "@types/cookie-parser": "^1.4.8",
         "@types/express": "5.0.0",
         "@types/jsdom": "^21.1.7",
         "cross-env": "^7.0.3",
