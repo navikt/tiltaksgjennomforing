@@ -37,8 +37,6 @@ spec:
           value: '{{{decorator-external-url}}}'
         - name: ENABLE_INTERNAL_MENU
           value: '{{{enable-internal-menu}}}'
-        - name: ARBEIDSGIVER_DIALOG_URL
-          value: {{{arbeidsgiver-dialog}}}
     {{#if labs}}
     accessPolicy:
       outbound:

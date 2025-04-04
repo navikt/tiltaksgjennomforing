@@ -39,8 +39,6 @@ spec:
       value: '{{{api-audience}}}'
     - name: AAD_REDIRECT_URL
       value: {{{aad-redirect-url}}}
-    - name: ARBEIDSGIVER_DIALOG_URL
-      value: {{{arbeidsgiver-dialog}}}
   tokenx:
     enabled: true
   idporten:

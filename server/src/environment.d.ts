@@ -4,7 +4,6 @@ declare global {
             AAD_REDIRECT_URL: string;
             APIGW_URL: string;
             API_AUDIENCE: string;
-            ARBEIDSGIVER_DIALOG_URL: string;
             DECORATOR_EXTERNAL_URL: string;
             ENABLE_EXTERNAL_MENU: string;
             ENABLE_INTERNAL_MENU: string;
