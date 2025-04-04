@@ -22,7 +22,7 @@
         "express": "^5.1.0",
         "helmet": "^8.1.0",
         "http-proxy-middleware": "3.0.3",
-        "jsdom": "25.0.1"
+        "jsdom": "^26.0.0"
     },
     "devDependencies": {
         "@types/compression": "^1.7.5",
