@@ -78,7 +78,7 @@ async function startMedNavDekoratoren() {
 
 async function startMedModiaDekoratoren() {
     console.log('Starter med modia-dekoratør...');
-    node.get(['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
+    node.get(['/{*splat}', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*splat'], (req, res) =>
         appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
     );
 }
