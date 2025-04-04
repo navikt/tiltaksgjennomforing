@@ -13,8 +13,8 @@
         "start:intern": "cross-env ENABLE_INTERNAL_MENU=true INTERN_INGRESS=true npm run server"
     },
     "dependencies": {
-        "@navikt/arbeidsgiver-notifikasjoner-brukerapi-mock": "^6.5.9",
-        "@navikt/nav-dekoratoren-moduler": "^2.1.6",
+        "@navikt/arbeidsgiver-notifikasjon-widget": "^7.2.3",
+        "@navikt/nav-dekoratoren-moduler": "^3.2.2",
         "@navikt/oasis": "3.7",
         "axios": "^1.8.4",
         "compression": "^1.8.0",
