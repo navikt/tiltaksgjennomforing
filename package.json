@@ -22,7 +22,7 @@
     },
     "dependencies": {
         "@hookform/resolvers": "3.10.0",
-        "@navikt/arbeidsgiver-notifikasjon-widget": "latest",
+        "@navikt/arbeidsgiver-notifikasjon-widget": "^7.2.3",
         "@navikt/bedriftsmeny": "^7.0.5",
         "@navikt/ds-css": "^7.18.0",
         "@navikt/ds-react": "^7.18.0",
