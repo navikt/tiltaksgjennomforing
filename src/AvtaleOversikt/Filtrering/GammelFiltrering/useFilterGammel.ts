@@ -1,8 +1,8 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import isEqual from 'lodash.isequal';
 import { useContext, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiltreringContextGammel } from './FiltreringProviderGammel';
+import isEqual from 'lodash.isequal';
 
 const toObject = (params: URLSearchParams) => Object.fromEntries(params.entries());
 

@@ -71,21 +71,21 @@ async function startServer(): Promise<void> {
 
 async function startMedNavDekoratoren() {
     console.log('Starter med nav-dekoratør...');
-    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
+    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*splat'], (req, res) =>
         appMedNavDekoratoren.getNavdekoratoren(indexPath, req, res),
     );
 }
 
 async function startMedModiaDekoratoren() {
     console.log('Starter med modia-dekoratør...');
-    node.get(['/*', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (req, res) =>
+    node.get(['/{*splat}', '/tiltaksgjennomforing/', '/tiltaksgjennomforing/*splat'], (req, res) =>
         appMedModiaDekoratoren.getModiaDekoratoren(indexPath, req, res),
     );
 }
 
 async function startLabs() {
     console.log('Starter i labs-modus...');
-    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*'], (_, res) => {
+    node.get(['/tiltaksgjennomforing/', '/tiltaksgjennomforing/*splat'], (_, res) => {
         res.sendFile(path.resolve(__dirname, '../client', 'index.html'));
     });
 }
