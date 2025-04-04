@@ -1,5 +1,5 @@
 import { Alert, omit, Pagination, Select } from '@navikt/ds-react';
-import isEqual from 'fast-deep-equal';
+import isEqual from 'lodash.isequal';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
