@@ -2,7 +2,7 @@ import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { useContext, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FiltreringContextGammel } from './FiltreringProviderGammel';
-import isEqual from 'fast-deep-equal';
+import isEqual from 'lodash.isequal';
 
 const toObject = (params: URLSearchParams) => Object.fromEntries(params.entries());
 

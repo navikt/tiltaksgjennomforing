@@ -1,6 +1,6 @@
 import { FiltreringContext } from '@/AvtaleOversikt/Filtrering/FiltreringProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import isEqual from 'fast-deep-equal';
+import isEqual from 'lodash.isequal';
 import { useContext } from 'react';
 
 const updateOrDeleteKeyFromObject = (filterobject: any, filterEndring: Filtrering, key: keyof Filtrering) => {
