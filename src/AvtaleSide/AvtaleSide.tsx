@@ -1,23 +1,22 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import Dialog from '@/komponenter/brukerdialog/Dialog';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleTittel } from '@/messages';
 import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
+import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { Alert } from '@navikt/ds-react';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('avtaleside');
 
@@ -145,7 +144,6 @@ const AvtaleSide: FunctionComponent = () => {
                                 rolle={innloggetBruker.rolle}
                             />
                         )}
-                        <Dialog id={avtale.id} />
                     </div>
                 }
             </div>

@@ -2,21 +2,15 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { mutate } from 'swr';
 
-import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError, IkkeTilgangError } from '@/types/errors';
-import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import { Hendelse } from '@/types/hendelse';
-import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
+import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
-import { Variants } from '@/types/unleash-variant';
-import { Varsel } from '@/types/varsel';
 import { basename } from '@/Router';
 import {
     AlleredeRegistrertAvtale,
-    Returårsaker,
     Avtale,
     Bedriftinfo,
     EndreKontaktInfo,
@@ -29,10 +23,16 @@ import {
     MentorInnhold,
     PageableAvtale,
     PageableAvtaleMinimalForBeslutter,
+    Returårsaker,
     Stilling,
     TiltaksType,
     Varighet,
 } from '@/types/avtale';
+import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError, IkkeTilgangError } from '@/types/errors';
+import { Hendelse } from '@/types/hendelse';
+import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
+import { Variants } from '@/types/unleash-variant';
+import { Varsel } from '@/types/varsel';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',
@@ -83,11 +83,6 @@ export const hentAvtale = async (id: string): Promise<Avtale> => {
 
 export const hentAvtaleMedAvtaleNr = async (avtaleNr: number): Promise<Avtale> => {
     const response = await api.get<Avtale>(`/avtaler/avtaleNr/${avtaleNr}`);
-    return response.data;
-};
-
-export const hentAvtaleVisSalesforceDialog = async (id: string): Promise<boolean> => {
-    const response = await api.get<boolean>(`/avtaler/${id}/vis-salesforce-dialog`);
     return response.data;
 };
 

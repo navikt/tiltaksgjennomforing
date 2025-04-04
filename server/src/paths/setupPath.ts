@@ -1,18 +1,11 @@
 import { Express } from 'express';
 
-import {
-    LOGOUT_URL,
-    INTERN_INGRESS,
-    ENABLE_EXTERNAL_MENU,
-    ENABLE_INTERNAL_MENU,
-    ARBEIDSGIVER_DIALOG_URL,
-    IS_LABS,
-} from '../config';
+import { ENABLE_EXTERNAL_MENU, ENABLE_INTERNAL_MENU, INTERN_INGRESS, IS_LABS, LOGOUT_URL } from '../config';
 import {
     PathVariables,
-    labsInnloggingskilder,
     innloggingskilderEksternBrukerFlate,
     innloggingskilderInternBrukerFlate,
+    labsInnloggingskilder,
 } from './pathVariables';
 
 export const BASEPATH: string = '/tiltaksgjennomforing';
@@ -56,11 +49,5 @@ export function initializePath(app: Express): void {
 
     app.get('/tiltaksgjennomforing/brukavInternflate', (_, res) => {
         res.json(ENABLE_INTERNAL_MENU);
-    });
-
-    app.get('/tiltaksgjennomforing/chat', (req, res) => {
-        res.redirect(
-            `${ARBEIDSGIVER_DIALOG_URL}/?organisasjonsnummer=${req.query.organisasjonsnummer}&avtalenummer=${req.query.avtalenummer}`,
-        );
     });
 }

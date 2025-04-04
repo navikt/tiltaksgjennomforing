@@ -1,5 +1,5 @@
-import { ViteDevServer } from 'vite';
 import axios from 'axios';
+import { ViteDevServer } from 'vite';
 
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
@@ -67,18 +67,6 @@ export default () => ({
 
             res.setHeader('set-cookie', `fake-aad-idtoken=${response.data};path=/`);
             res.writeHead(302, { Location: '/tiltaksgjennomforing' });
-            res.end();
-        });
-
-        middlewares.use('/tiltaksgjennomforing/chat', async (req, res) => {
-            const redirectUrl = process.env.ARBEIDSGIVER_DIALOG_URL;
-            const searchParams = new URLSearchParams(req.url);
-            const orgNr = searchParams.get('organisasjonsnummer');
-            const avtaleNr = searchParams.get('avtalenummer');
-
-            res.writeHead(302, {
-                Location: `${redirectUrl}/?organisasjonsnummer=${orgNr}&avtalenummer=${avtaleNr}`,
-            });
             res.end();
         });
 

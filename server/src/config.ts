@@ -23,8 +23,6 @@ export const ENV = MILJO === Miljo.PROD_GCP ? Env.PROD : Env.DEV;
 
 export const APIGW_URL = MILJO !== Miljo.LOCALHOST ? process.env.APIGW_URL : 'http://localhost:8080';
 export const API_AUDIENCE = MILJO !== Miljo.LOCALHOST ? process.env.API_AUDIENCE : 'dummy-audience';
-export const ARBEIDSGIVER_DIALOG_URL =
-    MILJO !== Miljo.LOCALHOST ? process.env.ARBEIDSGIVER_DIALOG_URL : 'http://localhost:8080';
 export const DECORATOR_EXTERNAL_URL =
     MILJO !== Miljo.LOCALHOST ? process.env.DECORATOR_EXTERNAL_URL : 'http://localhost:8080';
 export const DECORATOR_INTERNAL_SCRIPT =
