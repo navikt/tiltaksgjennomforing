@@ -5,10 +5,12 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Rolle } from '@/types/innlogget-bruker';
 
 import { Path } from './Router';
+import { ApiError } from '@/types';
 
 interface Props {
     rolle?: Rolle;
     enkelVisning?: boolean;
+    feilkode?: ApiError;
 }
 
 function IkkeTilgang403(props: Props) {
@@ -20,7 +22,7 @@ function IkkeTilgang403(props: Props) {
                 <VStack gap="12" align="start">
                     <div>
                         <Heading level="1" size="large" spacing>
-                            Ikke tilgang
+                            Ikke tilgang {props.feilkode?.message}
                         </Heading>
                         <BodyShort>
                             Du har ikke tilgang til denne ressursen. Vennligst sjekk tilgangene dine. Eller logg inn som

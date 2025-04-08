@@ -86,7 +86,10 @@ export type Feilkode =
     | 'SLUTTDATO_GRENSE_NÅDD'
     | 'VARIG_LONNSTILSKUDD_TILSKUDDSPERIODE_MIDLERTIDIG_AVSKURDD'
     | 'KAN_IKKE_ENDRE_ARENA_MIGRERINGSDATO_INNGAATT_AVTALE'
-    | 'KAN_IKKE_FORKORTE_FOR_UTBETALT_TILSKUDDSPERIODE';
+    | 'KAN_IKKE_FORKORTE_FOR_UTBETALT_TILSKUDDSPERIODE'
+    | 'IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG'
+    | 'IKKE_TILGANG_TIL_DELTAKER_FORTROLIG'
+    | 'IKKE_TILGANG_TIL_DELTAKER_SKJERMET';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -193,4 +196,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Avtalen er inngått. Arena-migreringsdato kan derfor ikke endres. Annuller og opprett avtalen på nytt.',
     KAN_IKKE_FORKORTE_FOR_UTBETALT_TILSKUDDSPERIODE:
         'Avtalen kan ikke forkortes til før en tilskuddsperiode som er godkjent av arbeidsgiver.',
+    IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG: 'IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG sdklfgbdfslk',
+    IKKE_TILGANG_TIL_DELTAKER_FORTROLIG: 'IKKE_TILGANG_TIL_DELTAKER_FORTROLIG sljdfblksjdfg',
+    IKKE_TILGANG_TIL_DELTAKER_SKJERMET: 'IKKE_TILGANG_TIL_DELTAKER_SKJERMET sdfkhjkldfsjg',
 };
