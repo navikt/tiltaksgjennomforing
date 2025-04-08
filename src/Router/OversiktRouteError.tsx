@@ -9,7 +9,10 @@ function OversiktRouteError() {
     const error = useRouteError();
     const { rolle } = useInnloggetBruker();
 
+    console.log('error', error);
+
     if (error instanceof IkkeTilgangError) {
+        console.log('Error av type IkkeTilgangError', error);
         return <IkkeTilgang403 rolle={rolle} feilkode={error} />;
     }
 
