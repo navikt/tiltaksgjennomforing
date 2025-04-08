@@ -13,6 +13,7 @@ import {
     getIndexVisningForTilskuddsperiode,
 } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { erNil } from '@/utils/predicates';
 
 interface Properties {
     className: string;
@@ -80,7 +81,9 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                             <>{periode.lonnstilskuddProsent}%</>
                                         )}
                                     </Table.DataCell>
-                                    <Table.DataCell textSize="small">{formaterPenger(periode.beløp)}</Table.DataCell>
+                                    <Table.DataCell textSize="small">
+                                        {erNil(periode.beløp) ? '—' : formaterPenger(periode.beløp)}
+                                    </Table.DataCell>
                                 </Table.Row>
                             );
                         })}

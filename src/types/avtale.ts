@@ -295,7 +295,7 @@ export type ArbeidsAvgiftSats = 0.141 | 0.106 | 0.064 | 0.051 | 0.079 | 0;
 export type FerieSatser = 0 | 0.12 | 0.143 | 0.102 | 0.125;
 
 export interface TilskuddsPeriode {
-    beløp: number;
+    beløp?: number;
     løpenummer: number;
     id: string;
     startDato: string;

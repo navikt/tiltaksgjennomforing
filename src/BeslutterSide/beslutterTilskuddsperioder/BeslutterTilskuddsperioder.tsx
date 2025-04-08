@@ -149,7 +149,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                         >
                                             {formaterPeriode(periode.startDato, periode.sluttDato, 'dd.MM.yy')}
                                         </td>
-                                        <td>{formaterPenger(periode.beløp)}</td>
+                                        <td>{erNil(periode.beløp) ? '—' : formaterPenger(periode.beløp)}</td>
                                         <td>{formaterProsent(periode.lonnstilskuddProsent)}</td>
                                         <td>{formaterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
