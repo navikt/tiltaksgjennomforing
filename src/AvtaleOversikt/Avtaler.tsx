@@ -52,6 +52,7 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
         props.avtalelisteRessurs.status === Status.Feil &&
         props.avtalelisteRessurs.error instanceof IkkeTilgangError
     ) {
+        console.log('Error av type IkkeTilgangError', props.avtalelisteRessurs.error);
         return <IkkeTilgang403 enkelVisning />;
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
         handterFeil(props.avtalelisteRessurs.error, feilVarsel);
