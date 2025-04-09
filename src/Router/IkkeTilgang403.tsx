@@ -5,16 +5,18 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Rolle } from '@/types/innlogget-bruker';
 
 import { Path } from './Router';
-import { ApiError } from '@/types';
+import { ApiError, IkkeTilgangError } from '@/types';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 interface Props {
     rolle?: Rolle;
     enkelVisning?: boolean;
-    feilkode?: ApiError;
+    feilkode?: String;
 }
 
 function IkkeTilgang403(props: Props) {
     const { rolle = 'INGEN_ROLLE', enkelVisning = false } = props;
+    const feilmelding = Feilmeldinger[props.feilkode as Feilkode];
 
     if (enkelVisning) {
         return (
@@ -22,12 +24,9 @@ function IkkeTilgang403(props: Props) {
                 <VStack gap="12" align="start">
                     <div>
                         <Heading level="1" size="large" spacing>
-                            Ikke tilgang {props.feilkode?.message}
+                            Ikke tilgang
                         </Heading>
-                        <BodyShort>
-                            Du har ikke tilgang til denne ressursen. Vennligst sjekk tilgangene dine. Eller logg inn som
-                            en annen bruker eller avtalepart.
-                        </BodyShort>
+                        <BodyShort>{feilmelding}</BodyShort>
                     </div>
                 </VStack>
             </Innholdsboks>
@@ -43,10 +42,7 @@ function IkkeTilgang403(props: Props) {
                             <Heading level="1" size="large" spacing>
                                 Ikke tilgang
                             </Heading>
-                            <BodyShort>
-                                Du har ikke tilgang til denne ressursen. Vennligst sjekk tilgangene dine. Eller logg inn
-                                som en annen bruker eller avtalepart.
-                            </BodyShort>
+                            <BodyShort>{feilmelding}</BodyShort>
                             <List>
                                 <List.Item>
                                     <Link to={Path.OVERSIKT}>Gå til forsiden</Link>

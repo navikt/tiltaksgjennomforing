@@ -196,7 +196,10 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Avtalen er inngått. Arena-migreringsdato kan derfor ikke endres. Annuller og opprett avtalen på nytt.',
     KAN_IKKE_FORKORTE_FOR_UTBETALT_TILSKUDDSPERIODE:
         'Avtalen kan ikke forkortes til før en tilskuddsperiode som er godkjent av arbeidsgiver.',
-    IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG: 'IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG sdklfgbdfslk',
-    IKKE_TILGANG_TIL_DELTAKER_FORTROLIG: 'IKKE_TILGANG_TIL_DELTAKER_FORTROLIG sljdfblksjdfg',
-    IKKE_TILGANG_TIL_DELTAKER_SKJERMET: 'IKKE_TILGANG_TIL_DELTAKER_SKJERMET sdfkhjkldfsjg',
+    IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG:
+        'Dette er en avtale med strengt fortrolige opplysninger. Du har ikke tilgang til denne avtalen.',
+    IKKE_TILGANG_TIL_DELTAKER_FORTROLIG:
+        'Dette er en avtale med fortrolige opplysninger. Du har ikke tilgang til denne avtalen.',
+    IKKE_TILGANG_TIL_DELTAKER_SKJERMET:
+        'Dette er en avtale med skjermede opplysninger. Du har ikke tilgang til denne avtalen.',
 };
