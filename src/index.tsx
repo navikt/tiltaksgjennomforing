@@ -1,5 +1,5 @@
 import '@navikt/ds-css';
-import { init as Sentry, Integrations } from '@sentry/react';
+import { init as Sentry, breadcrumbsIntegration } from '@sentry/react';
 import * as ReactDOMClient from 'react-dom/client';
 
 import './index.less';
@@ -11,7 +11,7 @@ Sentry({
     dsn: 'https://3a5b579938bc4d6c9011c48d34af18f8@sentry.gc.nav.no/4',
     release: GIT_COMMIT_HASH || 'unknown',
     environment: window.location.hostname,
-    integrations: [new Integrations.Breadcrumbs({ console: false })],
+    integrations: [breadcrumbsIntegration({ console: false })],
 });
 
 const container = document.getElementById('root');

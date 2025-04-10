@@ -38,7 +38,7 @@ const BeslutterSide: FunctionComponent = () => {
     const defaultEnhet = gjeldendeTilskuddsperiode?.enhet || enhetOppfolging || enhetGeografisk || '';
     const [enhet, setEnhet] = useState<string | undefined>(
         gjeldendeTilskuddsperiode && gjeldendeTilskuddsperiode?.løpenummer > 1
-            ? avtale.tilskuddPeriode[gjeldendeTilskuddsperiode?.løpenummer - 1].enhet ?? defaultEnhet
+            ? (avtale.tilskuddPeriode[gjeldendeTilskuddsperiode?.løpenummer - 1].enhet ?? defaultEnhet)
             : defaultEnhet,
     );
     const [visEnhetFeil, setVisEnhetFeil] = useState<boolean>(false);
