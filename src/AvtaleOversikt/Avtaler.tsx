@@ -7,6 +7,7 @@ import { FeilVarselContext } from '@/FeilVarselProvider';
 import IkkeTilgang403 from '@/Router/IkkeTilgang403';
 import { PageableAvtalelisteRessurs } from '@/types/avtale';
 import { IkkeTilgangError } from '@/types/errors';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
@@ -52,7 +53,7 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
         props.avtalelisteRessurs.status === Status.Feil &&
         props.avtalelisteRessurs.error instanceof IkkeTilgangError
     ) {
-        return <IkkeTilgang403 enkelVisning />;
+        return <IkkeTilgang403 enkelVisning feilkode={props.avtalelisteRessurs.error.message} />;
     } else if (props.avtalelisteRessurs.status === Status.Feil) {
         handterFeil(props.avtalelisteRessurs.error, feilVarsel);
     }
