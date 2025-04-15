@@ -89,7 +89,8 @@ export type Feilkode =
     | 'KAN_IKKE_FORKORTE_FOR_UTBETALT_TILSKUDDSPERIODE'
     | 'IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG'
     | 'IKKE_TILGANG_TIL_DELTAKER_FORTROLIG'
-    | 'IKKE_TILGANG_TIL_DELTAKER_SKJERMET';
+    | 'IKKE_TILGANG_TIL_DELTAKER_SKJERMET'
+    | 'IKKE_TILGANG_TIL_DELTAKER_ARBEIDSGIVER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -202,4 +203,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Dette er en avtale med fortrolige opplysninger. Du har ikke tilgang til denne avtalen.',
     IKKE_TILGANG_TIL_DELTAKER_SKJERMET:
         'Dette er en avtale med skjermede opplysninger. Du har ikke tilgang til denne avtalen.',
+    IKKE_TILGANG_TIL_DELTAKER_ARBEIDSGIVER:
+        'Du har dessverre ikke tilgang til å opprette avtale på denne deltakeren. Ta kontakt med Nav.',
 };
