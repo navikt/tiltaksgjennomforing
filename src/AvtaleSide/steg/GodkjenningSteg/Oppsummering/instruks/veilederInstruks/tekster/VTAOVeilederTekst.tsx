@@ -32,7 +32,8 @@ const VTAOVeilederTekst: FunctionComponent<Props> = (props) => {
                 </li>
                 <li className={cls.element('list-element')}>
                     <BodyShort size="small">
-                        Det går automatisk melding til NAV Arbeid og ytelser med beskjed om innvilget tiltaksplass.
+                        Det går automatisk melding til NAV Arbeid og ytelser med beskjed om at bruker har fått innvilget
+                        tiltaksplass.
                     </BodyShort>
                 </li>
                 <li>
