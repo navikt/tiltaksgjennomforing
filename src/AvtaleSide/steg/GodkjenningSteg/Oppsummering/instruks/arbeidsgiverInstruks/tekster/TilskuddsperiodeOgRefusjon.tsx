@@ -3,6 +3,8 @@ import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import { Link } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
 import { WalletIcon } from '@navikt/aksel-icons';
+import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
+import { Path } from '@/Router';
 
 interface Props {
     tiltakstype: TiltaksType;
@@ -26,20 +28,28 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                 headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
             >
                 <p>
-                    Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra NAV og kan avvike fra
-                    avtalt periode for tiltaksgjennomføringen. Ved endring i deltakelsen underveis i tiltaket som kan
-                    påvirker utbetalingen, så må du gi umiddelbar beskjed til NAV.
+                    De godkjente tilskuddsperiodene er styrende for NAVs økonomiske forpliktelser og kan avvike fra den
+                    faktiske perioden for tiltaket. Ved endring i deltakelsen underveis i tiltaket som kan påvirke
+                    utbetalingen, så må dere gi umiddelbar beskjed til NAV.
                 </p>
                 <p>
-                    Tilskudd for varig tilrettelagt arbeid i ordinær virksomhet baseres på en fast sats som settes årlig
-                    av departementet. Avtale- og refusjonsløsningen vil automatisk oppdateres når det kommer nye satser.
+                    Merk:
+                    <ul style={{ paddingInlineStart: '1.5rem' }}>
+                        <li>
+                            Tilskudd for varig tilrettelagt arbeid i ordinær virksomhet følger en årlig sats fastsatt av
+                            departementet
+                        </li>
+                        <li>Avtale- og refusjonsløsningen oppdateres automatisk ved endringer i satsene</li>
+                        <li>Refusjoner behandles automatisk</li>
+                        <li>
+                            Utbetaling og kvitteringer finner dere i refusjonsløsningen:
+                            <Link href={'https://tiltak-refusjon.nav.no.'}> tiltak-refusjon.nav.no. </Link> og via Min
+                            Side Arbeidsgiver
+                        </li>
+                        <li>For å bruke løsningen må dere ha tilgang til “inntektsmelding” via Altinn</li>
+                    </ul>
                 </p>
-                <p>
-                    Refusjonen behandles automatisk, utbetaling og kvittering kan ses i refusjonsløsningen (
-                    <Link href={'https://tiltak-refusjon.nav.no'}> https://tiltak-refusjon.nav.no</Link>) og via Min
-                    Side Arbeidsgiver. For å bruke løsningen må du ha tilgangen “inntektsmelding” via Altinn. Vi kan
-                    kontrollere om pengene som blir utbetalt blir brukt riktig.
-                </p>
+                <p>NAV forbeholder seg retten til å kontrollere at utbetalte midler brukes i samsvar med avtalen.</p>
             </IkonTekstRad>
         );
     }

@@ -18,28 +18,11 @@ const OppfolgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLe
             svgIkon={<CalendarIcon title="Oppfølging og varighet" />}
             headerTekst={{ tekst: 'Oppfølging og varighet', headingType: 'small' }}
         >
-            {tiltakstype !== 'VTAO' && (
-                <p>
-                    Du som arbeidsgiver og NAV skal følge opp deltaker. Din oppgave er å følge opp i det daglige
-                    arbeidet og se at arbeidet er i tråd med avtalen som er inngått. Varigheten på tilskuddet skal
-                    vurderes ut fra deltakers behov. Tilskuddet reguleres av{' '}
-                    <EksternLenke href={eksternLenke}>forskrift for arbeidsmarkedstiltak</EksternLenke>
-                </p>
-            )}
-            {tiltakstype === 'VTAO' && (
-                <>
-                    <p>
-                        Tilskuddet reguleres av forskrift for arbeidsmarkedstiltak. Dere som arbeidsgiver og NAV skal
-                        følge opp deltaker. Deres oppgave er å følge opp i det daglige arbeidet og se at arbeidet er i
-                        tråd med avtalen som er inngått. Varigheten på tilskuddet skal vurderes ut fra deltakers behov.
-                    </p>
-                    <p>
-                        Arbeidsgiver er forpliktet til å rapportere etter nærmere avtale (minst en gang i året).
-                        Rapporten skal inneholde dokumentasjon om deltakerens utvikling i arbeidsforholdet og hvilke
-                        tilpasninger som er gjort for å øke deltakerens mestringsnivå.
-                    </p>
-                </>
-            )}
+            <p>
+                Tilskuddet reguleres av forskrift for arbeidsmarkedstiltak. Som arbeidsgiver skal dere følge opp
+                arbeidstaker i det daglige arbeidet og påse at arbeidet er i tråd med avtalen som er inngått. Varigheten
+                på tiltaket skal vurderes ut fra arbeidstakerens behov.
+            </p>
         </IkonTekstRad>
     );
 };
