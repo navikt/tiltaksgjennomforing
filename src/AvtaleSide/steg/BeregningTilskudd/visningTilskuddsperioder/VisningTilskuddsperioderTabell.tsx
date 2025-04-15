@@ -3,7 +3,7 @@ import { Table } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
 import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -80,7 +80,9 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                             <>{periode.lonnstilskuddProsent}%</>
                                         )}
                                     </Table.DataCell>
-                                    <Table.DataCell textSize="small">{formaterPenger(periode.beløp)}</Table.DataCell>
+                                    <Table.DataCell textSize="small">
+                                        {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
+                                    </Table.DataCell>
                                 </Table.Row>
                             );
                         })}

@@ -4,7 +4,7 @@ import { addDays, getYear, isWithinInterval } from 'date-fns';
 import { BodyShort, Table } from '@navikt/ds-react';
 import { formaterDato, formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formaterPenger } from '@/utils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 
 const TilskuddsperiodeRad: React.FC<{
     avtaleOpprettet: Date;
@@ -39,7 +39,7 @@ const TilskuddsperiodeRad: React.FC<{
                 </Table.DataCell>
             )}
             <Table.DataCell align="right" textSize="small">
-                {periode.beløp !== null ? formaterPenger(periode.beløp) : '—'}
+                {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
             </Table.DataCell>
             <Table.DataCell textSize="small">
                 {formaterDato(addDays(new Date(periode.sluttDato), 3).toString(), 'dd MMM yyyy')}
