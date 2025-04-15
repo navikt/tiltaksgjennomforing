@@ -3,10 +3,9 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formaterPeriode } from '@/utils/datoUtils';
 import { formaterProsent } from '@/utils/formaterProsent';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
 import { FunctionComponent } from 'react';
 import './tilskuddsPerioder.less';
-import { erNil } from '@/utils/predicates';
 
 const cls = BEMHelper('tilskuddsPerioder');
 
@@ -38,7 +37,7 @@ const TilskuddsPerioderVeileder: FunctionComponent<Props> = (props) => {
                                     {formaterPeriode(periode.startDato, periode.sluttDato)}
                                 </td>
                                 <td>{formaterProsent(periode.lonnstilskuddProsent)}</td>
-                                <td>{erNil(periode.beløp) ? '—' : formaterPenger(periode.beløp)}</td>
+                                <td>{formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}</td>
                                 <td>
                                     <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
                                 </td>

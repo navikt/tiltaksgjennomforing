@@ -3,7 +3,7 @@ import { Table } from '@navikt/ds-react';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
 import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -13,7 +13,6 @@ import {
     getIndexVisningForTilskuddsperiode,
 } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { erNil } from '@/utils/predicates';
 
 interface Properties {
     className: string;
@@ -82,7 +81,7 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                                         )}
                                     </Table.DataCell>
                                     <Table.DataCell textSize="small">
-                                        {erNil(periode.beløp) ? '—' : formaterPenger(periode.beløp)}
+                                        {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
                                     </Table.DataCell>
                                 </Table.Row>
                             );
