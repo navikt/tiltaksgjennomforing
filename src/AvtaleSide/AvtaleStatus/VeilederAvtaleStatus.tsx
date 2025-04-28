@@ -8,8 +8,8 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderReturnert from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderReturnert';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { tidSidenTidspunkt, formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
-import { Avtale } from '@/types/avtale';
+import { Avtale, TiltaksType } from '@/types/avtale';
+import { formaterDato, NORSK_DATO_FORMAT_FULL, tidSidenTidspunkt } from '@/utils/datoUtils';
 import { erNil } from '@/utils/predicates';
 import OppfolgingKreves from './OppfolgingKreves';
 
@@ -72,6 +72,37 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
     return 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER';
 };
 
+const arenaMigreringTekst = (tiltakstype: TiltaksType) => (
+    <>
+        <BodyShort size="small">
+            Avtalen er opprettet fra fagsystemet (Arena) hvor deltakeren har status som gjennomføres eller godkjent
+            tiltaksplass.
+        </BodyShort>
+
+        <VerticalSpacer rem={1} />
+        <BodyShort size="small">
+            Avtalen er ufullstendig og må fylles ut og godkjennes for at den skal settes som gjennomføres.
+        </BodyShort>
+
+        {tiltakstype === 'VTAO' && (
+            <>
+                <VerticalSpacer rem={1} />
+                <BodyShort size="small">
+                    Sjekk at avtalen er opprettet på riktig virksomhetsnummer hos arbeidsgiver, da utbetalingene går
+                    automatisk.
+                </BodyShort>
+            </>
+        )}
+
+        <VerticalSpacer rem={1} />
+        <BodyShort size="small">
+            Du kan godkjenne på vegne av både arbeidsgiver og deltaker.
+            <br />
+            De får ingen automatisk varsling om å godkjenne avtalen.
+        </BodyShort>
+    </>
+);
+
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
@@ -99,19 +130,7 @@ function VeilederAvtaleStatus(props: Props) {
                         {avtale.opphav === 'ARBEIDSGIVER' && (
                             <BodyShort size="small">Avtalen er opprettet av arbeidsgiver.</BodyShort>
                         )}
-                        {avtale.opphav === 'ARENA' && (
-                            <>
-                                <BodyShort size="small">
-                                    Avtalen er opprettet fra fagsystemet (Arena) hvor deltakeren har status som aktuell,
-                                    gjennomføres eller godkjent tiltaksplass.
-                                </BodyShort>
-                                <VerticalSpacer rem={1} />
-                                <BodyShort size="small">
-                                    Avtalen er ufullstendig og må fylles ut for at den skal settes som gjennomføres,
-                                    eller annulleres for å fjernes.
-                                </BodyShort>
-                            </>
-                        )}
+                        {avtale.opphav === 'ARENA' && arenaMigreringTekst(avtale.tiltakstype)}
                         <VerticalSpacer rem={1.5} />
                         <LagreKnapp lagre={() => overtaAvtale()} suksessmelding="Avtale tildelt">
                             Overta avtale
@@ -154,25 +173,7 @@ function VeilederAvtaleStatus(props: Props) {
                 return (
                     <StatusPanel
                         header="Avtalen er ufullstendig og må fylles ut"
-                        body={
-                            <>
-                                <BodyShort size="small">
-                                    Avtalen er opprettet fra fagsystemet (Arena) hvor deltakeren har status som aktuell,
-                                    gjennomføres eller godkjent tiltaksplass.
-                                </BodyShort>
-                                <VerticalSpacer rem={1} />
-                                <BodyShort size="small">
-                                    Avtalen er ufullstendig og må fylles ut for at den skal settes som gjennomføres,
-                                    eller annulleres for å fjernes.
-                                </BodyShort>
-                                <VerticalSpacer rem={1} />
-                                <BodyShort size="small">
-                                    Du kan godkjenne på vegne av både arbeidsgiver og deltaker.
-                                    <br />
-                                    De får ingen automatisk varsling om å godkjenne avtalen.
-                                </BodyShort>
-                            </>
-                        }
+                        body={arenaMigreringTekst(avtale.tiltakstype)}
                     />
                 );
             }
