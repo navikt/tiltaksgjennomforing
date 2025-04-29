@@ -10,7 +10,6 @@ import './kontaktinfo.less';
 import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import FadderinfoDel from '@/AvtaleSide/steg/KontaktInformasjonSteg/FadderinfoDel/FadderinfoDel';
 import HemmeligAdresseVarsel, { isSkalViseAdresseVarsel } from '@/komponenter/Adressesperre/HemmeligAdresseVarsel';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
@@ -18,7 +17,6 @@ const KontaktinfoSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
     const { rolle } = useInnloggetBruker();
 
-    const skalViseFadderKontaktInformasjon = ['VTAO'].includes(avtale.tiltakstype);
     const skalViseKontaktpersonForRefusjon = [
         'SOMMERJOBB',
         'MIDLERTIDIG_LONNSTILSKUDD',
@@ -43,7 +41,6 @@ const KontaktinfoSteg: FunctionComponent = () => {
                 <ArbeidsgiverinfoDel />
                 {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
                 {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
-                {skalViseFadderKontaktInformasjon && <FadderinfoDel />}
                 <VeilederinfoDel />
                 <LagreKnapp
                     className="kontaktinfo-steg__lagre-knapp"
