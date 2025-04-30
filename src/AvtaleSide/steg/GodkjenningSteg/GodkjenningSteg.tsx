@@ -64,9 +64,11 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     </Innholdsboks>
                 </>
             ) : (
-                <Innholdsboks>
-                    <GodkjenningInstruks />
-                </Innholdsboks>
+                (avtale.avtaleInngått || avtale.godkjentAvArbeidsgiver) && (
+                    <Innholdsboks>
+                        <GodkjenningInstruks />
+                    </Innholdsboks>
+                )
             )}
             <VersjoneringKomponent avtale={avtale} />
         </div>
