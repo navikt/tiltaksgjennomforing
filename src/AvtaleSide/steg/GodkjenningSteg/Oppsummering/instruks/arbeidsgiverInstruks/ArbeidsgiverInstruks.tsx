@@ -54,7 +54,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
                     <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
                     <Refusjon tiltakstype={tiltakstype} />
-                    <BehandlingAvPersonopplysninger />
+                    <BehandlingAvPersonopplysninger tiltakstype={tiltakstype} />
                     <Taushetsplikt />
                     <HvaSierRegelverket tiltakstype={tiltakstype} href={oppfolgingLenker[props.tiltakstype]} />
                 </div>
