@@ -6,7 +6,6 @@ import { erNil } from '@/utils/predicates';
 
 interface Props {
     startDato: string | undefined;
-    sluttDato: string | undefined;
     erArbeidsgiverOgUfordelt: boolean;
     className: string;
     sommerjobbDeltakerOver30VedStartdato: boolean;
@@ -14,14 +13,11 @@ interface Props {
 
 const VarighetTilbakeTidAlert: React.FC<Props> = ({
     startDato,
-    sluttDato,
     erArbeidsgiverOgUfordelt,
     className,
     sommerjobbDeltakerOver30VedStartdato,
 }: Props) => {
     const cls = BEMHelper(className);
-
-    const enDatoMangler = erNil(startDato) || erNil(sluttDato);
 
     return (
         <div className={cls.element('rad')}>
@@ -30,7 +26,7 @@ const VarighetTilbakeTidAlert: React.FC<Props> = ({
                     Deltaker kan ikke ha fylt 30 år før startdatoen. Det vil ikke være mulig å starte opp avtalen.
                 </Alert>
             )}
-            {!enDatoMangler && (erDatoTilbakeITid(startDato) || erDatoTilbakeITid(sluttDato)) && (
+            {!erNil(startDato) && erDatoTilbakeITid(startDato) && (
                 <>
                     {erArbeidsgiverOgUfordelt && (
                         <ErrorMessage className={cls.element('er-arbeidsgiver-ufordelt')}>
