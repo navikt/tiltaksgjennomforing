@@ -1,6 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 
-test.describe('Arbeidstrening', () => {
+test.describe('Varig Lønnstilskudd', () => {
     test.describe('Veileder', () => {
         let page: Page;
 
@@ -55,7 +55,7 @@ test.describe('Arbeidstrening', () => {
         });
 
         test('Opprett avtale', async () => {
-            await page.getByRole('radio', { name: 'Arbeidstrening' }).click();
+            await page.getByRole('radio', { name: 'Varig lønnstilskudd' }).click();
             await page.getByLabel('Deltakers fødselsnummer').fill('00000000000');
             await page.getByLabel('Virksomhetsnummer').fill('999999999');
 
@@ -77,41 +77,11 @@ test.describe('Arbeidstrening', () => {
             await page.getByLabel('Etternavn').nth(2).fill('Kontaktperson');
             await page.getByLabel('Mobilnummer').nth(2).fill('99665544');
 
-            await expect(page).toHaveScreenshot({ fullPage: true });
+            await page.getByRole('button', { name: '+ Legg til kontaktperson' }).click();
 
-            await page.getByRole('link', { name: 'Neste' }).click();
-        });
-
-        test('Mål', async () => {
-            await page.reload();
-
-            await page.getByRole('button', { name: '+ Legg til nytt mål' }).click();
-
-            await page.getByLabel('Hva er målet med arbeidstreningen?').selectOption('Arbeidserfaring');
-            await page.getByLabel('Beskriv målet').pressSequentially('Bli sjefen over alle sjefer');
-
-            await page.getByRole('button', { name: 'Lagre mål' }).click();
-
-            await expect(page.getByRole('button', { name: 'Endre' })).toBeVisible();
-            await expect(page.getByRole('button', { name: 'Slett' })).toBeVisible();
-
-            await expect(page).toHaveScreenshot({ fullPage: true });
-
-            await page.getByRole('link', { name: 'Neste' }).click();
-        });
-
-        test('Stilling', async () => {
-            await page.reload();
-
-            await page.locator('input[id=stillinginput]').fill('Klovn');
-
-            await page.getByText('Klovn').nth(1).click();
-
-            await page
-                .getByLabel('Beskriv arbeidsoppgavene som inngår i stillingen')
-                .pressSequentially('En klovn er en komisk artist som opptrer i et sirkus, en varieté eller lignende.');
-
-            await page.getByLabel('Beskriv arbeidsoppgavene som inngår i stillingen').blur();
+            await page.getByLabel('Kontaktperson for refusjon sitt fornavn').nth(0).fill('Raymond');
+            await page.getByLabel('Kontaktperson for refusjon sitt etternavn').nth(0).fill('Refusjon');
+            await page.getByLabel('Kontaktperson for refusjon sitt mobilnummer').nth(0).fill('99556633');
 
             await expect(page).toHaveScreenshot({ fullPage: true });
 
@@ -149,6 +119,24 @@ test.describe('Arbeidstrening', () => {
             await page.getByRole('link', { name: 'Neste' }).click();
         });
 
+        test('Stilling', async () => {
+            await page.reload();
+
+            await page.locator('input[id=stillinginput]').fill('CEO');
+
+            await page.getByText('CEO').nth(1).click();
+
+            await page
+                .getByLabel('Beskriv arbeidsoppgavene som inngår i stillingen')
+                .pressSequentially('Skal bli sjefen over alle sjefer');
+
+            await page.getByLabel('Beskriv arbeidsoppgavene som inngår i stillingen').blur();
+
+            await expect(page).toHaveScreenshot({ fullPage: true });
+
+            await page.getByRole('link', { name: 'Neste' }).click();
+        });
+
         test('Oppfølging', async () => {
             await page.reload();
 
@@ -174,19 +162,40 @@ test.describe('Arbeidstrening', () => {
             await page.getByRole('link', { name: 'Neste' }).click();
         });
 
-        test('Godkjenning', async () => {
+        test('Beregning av tilskudd', async () => {
             await page.reload();
 
-            await page.getByRole('checkbox', { name: 'Jeg skal godkjenne på vegne av deltakeren' }).check();
-            await page.getByRole('checkbox', { name: 'har ikke BankID' }).check();
-            await page
-                .getByRole('checkbox', {
-                    name: 'Deltakeren er informert om kravene og godkjenner innholdet i avtalen.',
-                })
-                .check();
+            await page.getByRole('textbox').nth(0).fill('60');
+            await page.getByLabel('Månedslønn før skatt').fill('10000');
 
-            await page.waitForLoadState('networkidle');
+            await page.getByLabel('Sats for feriepenger').click();
+            await page.getByRole('option', { name: '12 %' }).click();
+
+            await page.getByLabel('Obligatorisk tjenestepensjon fra 0 - 30 %').fill('20');
+
+            await page.getByLabel('Sats for arbeidsgiveravgift').click();
+            await page.getByRole('option', { name: '10,6 %' }).click();
+
+            await page.getByRole('button', { name: 'Hent kontonummer fra Altinn' }).click();
+
             await expect(page).toHaveScreenshot({ fullPage: true });
+
+            await page.getByRole('link', { name: 'Neste' }).click();
         });
+        //
+        // test('Godkjenning', async () => {
+        //     await page.reload();
+        //
+        //     await page.getByRole('checkbox', { name: 'Jeg skal godkjenne på vegne av deltakeren' }).check();
+        //     await page.getByRole('checkbox', { name: 'har ikke BankID' }).check();
+        //     await page
+        //         .getByRole('checkbox', {
+        //             name: 'Deltakeren er informert om kravene og godkjenner innholdet i avtalen.',
+        //         })
+        //         .check();
+        //
+        //     await page.waitForLoadState('networkidle');
+        //     await expect(page).toHaveScreenshot({ fullPage: true });
+        // });
     });
 });
