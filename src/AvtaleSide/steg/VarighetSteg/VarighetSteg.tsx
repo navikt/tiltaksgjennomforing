@@ -21,7 +21,7 @@ const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { deltakerFnr, tiltakstype, erRyddeAvtale } = avtale;
-    const { startDato, sluttDato } = avtale.gjeldendeInnhold;
+    const { startDato } = avtale.gjeldendeInnhold;
     const cls = BEMHelper('varighetsteg');
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtale.erUfordelt;
@@ -73,7 +73,6 @@ const VarighetSteg: FunctionComponent = () => {
                     </Row>
                     <VarighetTilbakeTidAlert
                         startDato={startDato}
-                        sluttDato={sluttDato}
                         erArbeidsgiverOgUfordelt={erArbeidsgiverOgUfordelt}
                         className={cls.className}
                         sommerjobbDeltakerOver30VedStartdato={sommerjobbDeltakerOver30VedStartdato}
