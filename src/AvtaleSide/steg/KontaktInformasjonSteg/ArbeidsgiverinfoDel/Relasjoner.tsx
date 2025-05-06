@@ -34,7 +34,8 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
     };
 
     const { rolle } = useContext(InnloggetBrukerContext);
-    const [popoverAnker, setPopoverAnker] = useState<HTMLElement | null>(null);
+    const isKanEndreFamilierelasjon =
+        rolle !== 'VEILEDER' || avtale.tiltakstype === 'SOMMERJOBB' || avtale.opphav === 'ARENA';
 
     return (
         <div className={cls.className}>
@@ -51,80 +52,62 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
             <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk" className={cls.element('LesMerPanel')}>
                 <RelasjonHjelpetekst tiltakstype={tiltakstype} />
             </LesMerPanel>
-            <div
-                onMouseOver={(e) => setPopoverAnker(e.currentTarget)}
-                onMouseLeave={() => setPopoverAnker(null)}
-                className={cls.element('familietilknytning-valg')}
-                id="familevalg"
-            >
-                {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
+            <div className={cls.element('familietilknytning-valg')} id="familevalg">
+                {isKanEndreFamilierelasjon ? (
+                    <RadioGroup
+                        legend="Familierelasjoner"
+                        value={avtale.gjeldendeInnhold.harFamilietilknytning}
+                        className={cls.element('familie-relasjoner')}
+                    >
+                        <div className={cls.element('familie-relasjoner-valg')}>
+                            <RadioPanel
+                                className={cls.element('radioknapp')}
+                                name="familievalg"
+                                checked={harFamilietilknytning}
+                                value={true}
+                                onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
+                            >
+                                Ja
+                            </RadioPanel>
+                            <RadioPanel
+                                className={cls.element('radioknapp')}
+                                name="familievalg"
+                                checked={harFamilietilknytning === false}
+                                value={false}
+                                onChange={() => {
+                                    settAvtaleVerdier({
+                                        familietilknytningForklaring: undefined,
+                                        harFamilietilknytning: false,
+                                    });
+                                }}
+                            >
+                                Nei
+                            </RadioPanel>
+                        </div>
+                    </RadioGroup>
+                ) : (
                     <div className={cls.element('svar')}>
                         {harFamilietilknytningSomJaNeiSvar(harFamilietilknytning)}
                     </div>
-                ) : (
-                    <>
-                        <RadioGroup
-                            legend="Familierelasjoner"
-                            value={avtale.gjeldendeInnhold.harFamilietilknytning}
-                            className={cls.element('familie-relasjoner')}
-                        >
-                            <div className={cls.element('familie-relasjoner-valg')}>
-                                <RadioPanel
-                                    className={cls.element('radioknapp')}
-                                    name="familievalg"
-                                    checked={harFamilietilknytning}
-                                    value={true}
-                                    onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
-                                >
-                                    Ja
-                                </RadioPanel>
-                                <RadioPanel
-                                    className={cls.element('radioknapp')}
-                                    name="familievalg"
-                                    checked={harFamilietilknytning === false}
-                                    value={false}
-                                    onChange={() => {
-                                        settAvtaleVerdier({
-                                            familietilknytningForklaring: undefined,
-                                            harFamilietilknytning: false,
-                                        });
-                                    }}
-                                >
-                                    Nei
-                                </RadioPanel>
-                            </div>
-                        </RadioGroup>
-                    </>
                 )}
             </div>
             {harFamilietilknytning && (
                 <div className={cls.element('harFamilietilknytning-forklaring')}>
-                    {rolle === 'VEILEDER' && avtale.tiltakstype !== 'SOMMERJOBB' ? (
-                        <>
-                            <Label>Vennligst utdyp denne relasjonen</Label>
-                            <BodyShort size="small">{familietilknytningForklaring || ''}</BodyShort>
-                        </>
-                    ) : (
+                    {isKanEndreFamilierelasjon ? (
                         <PakrevdTextarea
                             label="Vennligst utdyp denne relasjonen"
                             maxLengde={500}
                             verdi={familietilknytningForklaring || ''}
                             settVerdi={(verdi) => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
                         />
+                    ) : (
+                        <>
+                            <Label>Vennligst utdyp denne relasjonen</Label>
+                            <BodyShort size="small">{familietilknytningForklaring || ''}</BodyShort>
+                        </>
                     )}
                 </div>
             )}
-            <>
-                {rolle === 'VEILEDER' && (
-                    <>
-                        <Popover open={!!popoverAnker} anchorEl={popoverAnker} onClose={() => setPopoverAnker(null)}>
-                            <Popover.Content>
-                                <div style={{ padding: '1rem' }}>Dette fylles ut av arbeidsgiver.</div>
-                            </Popover.Content>
-                        </Popover>
-                    </>
-                )}
-            </>
         </div>
     );
 };
