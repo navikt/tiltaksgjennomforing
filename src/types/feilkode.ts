@@ -90,7 +90,9 @@ export type Feilkode =
     | 'IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG'
     | 'IKKE_TILGANG_TIL_DELTAKER_FORTROLIG'
     | 'IKKE_TILGANG_TIL_DELTAKER_SKJERMET'
-    | 'IKKE_TILGANG_TIL_DELTAKER_ARBEIDSGIVER';
+    | 'IKKE_TILGANG_TIL_DELTAKER_ARBEIDSGIVER'
+    | 'AVTALE_ER_ALLEREDE_INNGAATT'
+    | 'IKKE_TILGANG_TIL_A_INNGAA_AVTALE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -205,4 +207,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Dette er en avtale med skjermede opplysninger. Du har ikke tilgang til denne avtalen.',
     IKKE_TILGANG_TIL_DELTAKER_ARBEIDSGIVER:
         'Du har dessverre ikke tilgang til å opprette avtale på denne deltakeren. Ta kontakt med Nav.',
+    AVTALE_ER_ALLEREDE_INNGAATT: 'Avtalen er allerede inngått',
+    IKKE_TILGANG_TIL_A_INNGAA_AVTALE: 'Du har ikke tilgang til å inngå avtale på denne deltakeren',
 };
