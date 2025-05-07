@@ -99,10 +99,10 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
             </div>
             <TextField
                 className={cls.element('typo-element')}
-                label="Virksomhetsnummer"
+                label="Organisasjonsnummer for underenhet"
                 value={bedriftNr}
                 size={'small'}
-                description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
+                description="Organisasjonsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                 onChange={orgnrOnChange}
                 onBlur={orgnrOnBlur}
                 error={bedriftNrFeil}
