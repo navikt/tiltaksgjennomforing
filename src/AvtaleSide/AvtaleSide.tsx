@@ -110,17 +110,6 @@ const AvtaleSide: FunctionComponent = () => {
                                 <VerticalSpacer rem={1} />
                             </>
                         )}
-                        {innloggetBruker.rolle === 'VEILEDER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
-                            <>
-                                <VerticalSpacer rem={1} />
-                                <Alert variant={'warning'}>
-                                    På grunn av overføring av data på arbeidstrening fra Arena, så kan det forekomme
-                                    endringer i Tiltaksgjennomføring. Avtaler som ikke er fullført i Arena kan ha blitt
-                                    annullert som følge av migreringen og må derfor opprettes på nytt.
-                                </Alert>
-                                <VerticalSpacer rem={1} />
-                            </>
-                        )}
                         {erAvtaleLaast && (
                             <div className={cls.element('innhold')}>
                                 <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
