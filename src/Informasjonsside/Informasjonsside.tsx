@@ -113,11 +113,12 @@ const Informasjonsside: FunctionComponent = () => {
                             personen gis følgende tilganger til enkeltrettigheter for de ulike avtalene:
                             <ul>
                                 <li>Avtale om arbeidstrening</li>
-                                <li>Avtale om midlertidig lønnstilskudd</li>
-                                <li>Avtale om varig lønnstilskudd</li>
-                                <li>Avtale om sommerjobb</li>
                                 <li>Avtale om inkluderingstilskudd</li>
                                 <li>Avtale om mentor</li>
+                                <li>Avtale om midlertidig lønnstilskudd</li>
+                                <li>Avtale om varig lønnstilskudd</li>
+                                <li>Avtale om varig tilrettelagt arbeid i ordinær virksomhet</li>
+                                <li>Avtale om sommerjobb</li>
                             </ul>
                             <br />
                             <span className={cls.element('lenke')}>
