@@ -1,5 +1,4 @@
 import VeilederpanelMedUtklippstavleIkon from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
-import { TiltaksType } from '@/types/avtale';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 import '../instruks.less';
