@@ -10,9 +10,14 @@ interface Props {
 
 const BehandlingAvPersonopplysninger: React.FC<Props> = ({ tiltakstype }) => {
     if (
-        !['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'MENTOR', 'INKLUDERINGSTILSKUDD'].includes(
-            tiltakstype,
-        )
+        ![
+            'SOMMERJOBB',
+            'MIDLERTIDIG_LONNSTILSKUDD',
+            'VARIG_LONNSTILSKUDD',
+            'MENTOR',
+            'INKLUDERINGSTILSKUDD',
+            'VTAO',
+        ].includes(tiltakstype)
     ) {
         return null;
     }

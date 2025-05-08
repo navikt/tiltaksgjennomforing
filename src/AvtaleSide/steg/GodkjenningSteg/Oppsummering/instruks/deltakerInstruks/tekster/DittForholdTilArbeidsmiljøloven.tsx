@@ -32,7 +32,8 @@ const DittForholdTilArbeidsmiljLoven: FunctionComponent<Props> = ({ tiltakstype 
                 )}
                 {(tiltakstype === 'SOMMERJOBB' ||
                     tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                    tiltakstype === 'VARIG_LONNSTILSKUDD') && (
+                    tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+                    tiltakstype === 'VTAO') && (
                     <>
                         Når du deltar på tiltak med lønnstilskudd er du en vanlig ansatt, som vil si at din arbeidsgiver
                         må følge arbeidsmiljølovens regler. Arbeidsgiver må også forsikre deg og arbeidsgiver har et
