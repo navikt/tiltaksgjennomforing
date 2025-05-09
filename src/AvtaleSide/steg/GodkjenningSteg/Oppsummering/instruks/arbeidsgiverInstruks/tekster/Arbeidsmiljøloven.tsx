@@ -42,7 +42,10 @@ const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
                 </p>
             )}
             {deltakerenErAnsatt(tiltakstype) && (
-                <p>Deltakeren er ansatt og dere skal følge arbeidsmiljølovens bestemmelser.</p>
+                <p>
+                    Deltakeren er ansatt hos dere, og arbeidsmiljølovens bestemmelser gjelder. Det skal inngås
+                    arbeidskontrakt i henhold til loven.
+                </p>
             )}
             <p>
                 <EksternLenke href="https://lovdata.no/dokument/NL/lov/2005-06-17-62">

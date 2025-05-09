@@ -25,8 +25,8 @@ const YrkesskadeforsikringOgSkadeerstatning: FunctionComponent<Props> = ({ tilta
             }}
         >
             <p>
-                Dere er ansvarlig dersom deltakeren skader seg på jobb. Du kan søke om inkluderingstilskudd for å dekke
-                utgiftene dere har til forsikringen.{' '}
+                Som arbeidsgiver er dere ansvarlige dersom arbeidstaker skader seg på jobb. Dere kan søke om
+                inkluderingstilskudd for å dekke utgiftene dere har til forsikringen.{' '}
                 <EksternLenke href="https://lovdata.no/dokument/NL/lov/1989-06-16-65">
                     Les mer om yrkesskadeforsikring her
                 </EksternLenke>
@@ -36,7 +36,7 @@ const YrkesskadeforsikringOgSkadeerstatning: FunctionComponent<Props> = ({ tilta
                 <EksternLenke href="https://lovdata.no/dokument/NL/lov/1969-06-13-26">
                     lov om skadeserstatning
                 </EksternLenke>{' '}
-                ansvarlig for skade som deltakeren gjør forsettlig eller uaktsomt.{' '}
+                ansvarlig for skade som deltakeren gjør forsettlig eller uaktsomt.
             </p>
         </IkonTekstRad>
     );

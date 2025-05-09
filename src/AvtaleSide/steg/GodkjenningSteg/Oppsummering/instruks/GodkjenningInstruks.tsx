@@ -4,6 +4,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import DeltakerInstruks from './deltakerInstruks/DeltakerInstruks';
 import ArbeidsgiverInstruks from './arbeidsgiverInstruks/ArbeidsgiverInstruks';
 import VeilederInstruks from './veilederInstruks/VeilederInstruks';
+import MentorInstruks from './mentorInstruks/MentorInstruks';
 
 const GodkjenningInstruks: FunctionComponent = () => {
     const { rolle } = useContext(InnloggetBrukerContext);
@@ -16,7 +17,7 @@ const GodkjenningInstruks: FunctionComponent = () => {
         case 'DELTAKER':
             return <DeltakerInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
         case 'MENTOR':
-            return <DeltakerInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
+            return <MentorInstruks erLaast={erLåst} />;
         case 'ARBEIDSGIVER':
             return <ArbeidsgiverInstruks erLaast={erLåst} tiltakstype={tiltakstype} />;
         case 'VEILEDER':

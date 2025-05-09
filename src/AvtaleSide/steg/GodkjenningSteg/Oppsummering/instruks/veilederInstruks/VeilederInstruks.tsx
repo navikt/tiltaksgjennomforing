@@ -58,7 +58,10 @@ const VeilederInstruks = (props: Props) => {
     if (tiltakstype === 'VTAO') {
         return (
             <VeilederpanelMedUtklippstavle>
-                <VTAOVeilederTekst tiltakstype={tiltakstype} />
+                <div className={cls.element('subheader')}>
+                    <Label>Hva skjer videre:</Label>
+                </div>
+                <VTAOVeilederTekst />
             </VeilederpanelMedUtklippstavle>
         );
     }

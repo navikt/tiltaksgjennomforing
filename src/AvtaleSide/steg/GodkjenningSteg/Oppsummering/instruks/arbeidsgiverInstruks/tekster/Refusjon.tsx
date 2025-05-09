@@ -25,12 +25,12 @@ const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
             </p>
             <p>
                 {tiltakstype === 'MENTOR' && (
-                    <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/refusjoner/mentor'}>
+                    <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/mentor">
                         Refusjonsskjema for mentortilskudd
                     </EksternLenke>
                 )}
                 {tiltakstype === 'INKLUDERINGSTILSKUDD' && (
-                    <EksternLenke href={'https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd'}>
+                    <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd">
                         Refusjonsskjema for inkluderingstilskudd
                     </EksternLenke>
                 )}

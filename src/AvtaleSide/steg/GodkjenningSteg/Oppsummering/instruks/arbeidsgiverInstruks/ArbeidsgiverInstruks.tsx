@@ -33,23 +33,28 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
     };
     return (
         <>
-            {!erLaast && <BodyShort size="small">Når du godkjenner avtalen godtar du kravene fra NAV</BodyShort>}
+            {!erLaast && (
+                <BodyShort size="small">
+                    Når dere godkjenner denne avtalen, samtykker dere samtidig følgende forpliktelser overfor NAV.
+                </BodyShort>
+            )}
             <VeilederpanelMedUtklippstavle>
                 <div className={cls.element('container')}>
                     <div className={cls.element('subheader')}>
-                        <Label>Som arbeidsgiver må du</Label>
+                        <Label>Som arbeidsgiver må dere:</Label>
                     </div>
+
                     <VerticalSpacer rem={2} />
+                    <ArbeidsmiljLoven tiltakstype={tiltakstype} />
                     <OppfolgingOgVarighet
                         tiltakstype={tiltakstype}
                         eksternLenke={oppfolgingLenker[props.tiltakstype]}
                     />
-                    <ArbeidsmiljLoven tiltakstype={tiltakstype} />
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
-                    <BehandlingAvPersonopplysninger />
                     <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
                     <Refusjon tiltakstype={tiltakstype} />
+                    <BehandlingAvPersonopplysninger tiltakstype={tiltakstype} />
                     <Taushetsplikt />
                     <HvaSierRegelverket tiltakstype={tiltakstype} href={oppfolgingLenker[props.tiltakstype]} />
                 </div>
