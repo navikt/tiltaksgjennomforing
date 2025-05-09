@@ -36,7 +36,7 @@ const YrkesskadeforsikringOgSkadeerstatning: FunctionComponent<Props> = ({ tilta
                 <EksternLenke href="https://lovdata.no/dokument/NL/lov/1969-06-13-26">
                     lov om skadeserstatning
                 </EksternLenke>{' '}
-                ansvarlig for skade som deltakeren gjør forsettlig eller uaktsomt.{' '}
+                ansvarlig for skade som deltakeren gjør forsettlig eller uaktsomt.
             </p>
         </IkonTekstRad>
     );

@@ -33,8 +33,7 @@ const GiBeskjedHvisDuErBorteFraJobb: FunctionComponent<Props> = ({ tiltakstype }
                     <VerticalSpacer rem={0.5} />
                     Du må melde fra til arbeidsgiver ved fravær. Ved egen eller barns sykdom gjelder ordinære regler for
                     bruk av egenmelding også for deg som er på {tiltakstype === 'ARBEIDSTRENING' && 'arbeidstrening'}
-                    {(tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD') &&
-                        'tiltak med lønnstilskudd'}
+                    {tiltakstype !== 'SOMMERJOBB' && 'tiltak med lønnstilskudd'}
                     {tiltakstype === 'SOMMERJOBB' && 'tiltak med tilskudd til sommerjobb'}.
                 </IkonTekstRad>
             )}

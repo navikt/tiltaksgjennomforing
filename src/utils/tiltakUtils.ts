@@ -1,6 +1,7 @@
-import { TiltaksType } from '../types/avtale';
+import { TiltaksType } from '@/types/avtale';
+
+const tiltakstyper: TiltaksType[] = ['VARIG_LONNSTILSKUDD', 'MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'VTAO'];
 
 export const deltakerenErAnsatt = (tiltakstype: TiltaksType) => {
-    const tiltakstyper: TiltaksType[] = ['VARIG_LONNSTILSKUDD', 'MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'VTAO'];
     return tiltakstyper.includes(tiltakstype);
 };

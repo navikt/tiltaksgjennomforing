@@ -3,8 +3,6 @@ import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import { Link } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
 import { WalletIcon } from '@navikt/aksel-icons';
-import LenkeKnapp from '@/komponenter/lenkeknapp/LenkeKnapp';
-import { Path } from '@/Router';
 
 interface Props {
     tiltakstype: TiltaksType;
@@ -37,16 +35,16 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                     <ul style={{ paddingInlineStart: '1.5rem' }}>
                         <li>
                             Tilskudd for varig tilrettelagt arbeid i ordinær virksomhet følger en årlig sats fastsatt av
-                            departementet
+                            departementet.
                         </li>
-                        <li>Avtale- og refusjonsløsningen oppdateres automatisk ved endringer i satsene</li>
-                        <li>Refusjoner behandles automatisk</li>
+                        <li>Avtale- og refusjonsløsningen oppdateres automatisk ved endringer i satsene.</li>
+                        <li>Refusjoner behandles automatisk.</li>
                         <li>
                             Utbetaling og kvitteringer finner dere i refusjonsløsningen:
-                            <Link href={'https://tiltak-refusjon.nav.no.'}> tiltak-refusjon.nav.no. </Link> og via Min
-                            Side Arbeidsgiver
+                            <Link href="https://tiltak-refusjon.nav.no">tiltak-refusjon.nav.no</Link> og via Min Side
+                            Arbeidsgiver.
                         </li>
-                        <li>For å bruke løsningen må dere ha tilgang til “inntektsmelding” via Altinn</li>
+                        <li>For å bruke løsningen må dere ha tilgang til “inntektsmelding” via Altinn.</li>
                     </ul>
                 </p>
                 <p>NAV forbeholder seg retten til å kontrollere at utbetalte midler brukes i samsvar med avtalen.</p>
@@ -75,7 +73,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
             </p>
             <p>
                 For å behandle refusjonen må du logge deg inn i refusjonsløsningen:
-                <Link href={'https://tiltak-refusjon.nav.no.'}> https://tiltak-refusjon.nav.no. </Link>
+                <Link href="https://tiltak-refusjon.nav.no">https://tiltak-refusjon.nav.no</Link>
                 Tilgangen styres via Altinn og du må ha tilgangen “inntektsmelding” for å kunne sende inn refusjonskrav.
             </p>
             <p>
