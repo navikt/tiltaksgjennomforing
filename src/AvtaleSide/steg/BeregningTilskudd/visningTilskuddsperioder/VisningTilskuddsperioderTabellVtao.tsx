@@ -42,7 +42,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                     <Table.Row>
                         <Table.HeaderCell textSize="small">Tilskudd for perioder</Table.HeaderCell>
                         {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize="small">Status</Table.HeaderCell>}
-                        <Table.HeaderCell textSize="small">Inntil</Table.HeaderCell>
+                        <Table.HeaderCell textSize="small">Sats</Table.HeaderCell>
                         <Table.HeaderCell textSize="small">Utbetales</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>

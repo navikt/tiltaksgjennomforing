@@ -20,7 +20,7 @@ const cls = BEMHelper('beregningTilskuddSteg');
 
 const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
-
+    /*
     const [sats, setSats] = useState<{ aar: number; belop: number }>({ aar: NaN, belop: NaN });
 
     const satsBelop = isNaN(sats.belop) ? '...' : formaterPenger(sats.belop);
@@ -31,6 +31,7 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
             setSats(data);
         });
     }, [avtale]);
+     */
 
     return (
         <>
@@ -41,11 +42,15 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
                     Hvor mye dekker tilskuddet?
                 </Heading>
                 <BodyShort size="small">
-                    Arbeidsgiveren får et tilskudd fra NAV for varig tilrettelagt arbeid. Tilskuddssatsen er {satsBelop}{' '}
-                    per måned. Satsen settes årlig av departementet og avtale- og refusjonsløsningen vil automatisk
-                    oppdateres når det kommer nye satser.
+                    Arbeidsgiveren får et tilskudd fra NAV for varig tilrettelagt arbeid. Satsen settes årlig av
+                    departementet og avtale- og refusjonsløsningen vil automatisk oppdateres når det kommer nye satser.
                 </BodyShort>
                 <VerticalSpacer rem={2} />
+                {/*
+
+                Det er ikke behov for denne visningen i VTAO,
+                da måndelig tilskuddssats vises i @VisningTilskuddsperioderVtao.tsx
+
                 <div className={cls.element('rad')}>
                     <VisueltDisabledInputFelt
                         label="Månedlig tilskuddssats"
@@ -53,6 +58,7 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
                         tekst={satsBelop}
                     />
                 </div>
+                */}
                 <VisningTilskuddsperioderVtao />
                 <VerticalSpacer rem={2} />
                 <Row className={cls.element('rad-kontonummer')}>
