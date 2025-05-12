@@ -7,18 +7,19 @@ import EndreTilskuddsberegning from '@/AvtaleSide/steg/GodkjenningSteg/endringAv
 import ForkortAvtale from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/forkortAvtale/ForkortAvtale';
 import ForlengAvtale from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/forlengAvtale/ForlengAvtale';
 import Varsellogg from '@/AvtaleSide/Varsellogg/Varsellogg';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import React, { useContext } from 'react';
 import DelLenkeTilAvtalen from '../DelLenkeTilAvtalen/DelLenkeTilAvtalen';
 import OppdaterOppfølgingEnhet from '../OppdaterOppfølgingsenhet/OppdaterOppfølgingsenhet';
 import SendTilbakeTilBeslutterUendret from '../SendTilbakeTilBeslutterUendret/SendTilbakeTilBeslutterUendret';
+import AvsluttArenaAvtale from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/AvsluttArenaAvtale/AvsluttArenaAvtale';
 import EndreKontaktInformasjon from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreKontaktInfo/EndreKontaktInformasjon';
 import EndreMaal from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/EndreMaal/EndreMaal';
 import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreOppfølgingOgTilrettelegging/EndreOppfølgingOgTilrettelegging';
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
-import './OppgaveLenker.css';
 import FortsettTiltak from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/FortsettTiltak/FortsettTiltak';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import './OppgaveLenker.css';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -47,6 +48,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
             <div className={'modelLenker'}>
                 <OvertaAvtalen forskjelligNavIdent={!erNavIdenterLike} erUfordelt={avtale.erUfordelt} />
                 <AnnullerAvtalen />
+                <AvsluttArenaAvtale />
                 {avtale.tiltakstype === 'MENTOR' && <DelLenkeTilAvtalen />}
                 {avtale.godkjentAvVeileder !== null && (
                     <>
