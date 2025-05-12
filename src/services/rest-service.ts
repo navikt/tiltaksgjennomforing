@@ -547,7 +547,7 @@ export const avsluttArenaAvtale = async (avtale: Avtale) => {
     const uri = `/avtaler/${avtale.id}/forkort`;
     await api.post(
         uri,
-        { sluttdato: avtale.gjeldendeInnhold.sluttDato, grunn: 'Avtalen er avsluttet i Arena' },
+        { sluttDato: avtale.gjeldendeInnhold.sluttDato, grunn: 'Avtalen er avsluttet i Arena' },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,

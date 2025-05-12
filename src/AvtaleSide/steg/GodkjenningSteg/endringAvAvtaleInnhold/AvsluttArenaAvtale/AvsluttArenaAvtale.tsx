@@ -21,7 +21,7 @@ const AvsluttArenaAvtale: FunctionComponent = () => {
 
     const avsluttAvtale = async (): Promise<void> => {
         if (!naavaerendeDato) {
-            setDatoFeil('Dato må fylles ut');
+            setDatoFeil('Dato må fylles ut. Gå til varighetssteget og velg sluttdato.');
             return;
         }
         await avsluttArenaAvtale(avtaleContext.avtale);
@@ -79,11 +79,7 @@ const AvsluttArenaAvtale: FunctionComponent = () => {
                 {datoFeil && (
                     <>
                         <VerticalSpacer rem={2} />
-                        <div>
-                            <Label size="medium" color="red">
-                                <Alert variant="error">{datoFeil}</Alert>
-                            </Label>
-                        </div>
+                        <Alert variant="error">{datoFeil}</Alert>
                     </>
                 )}
             </BekreftelseModal>
