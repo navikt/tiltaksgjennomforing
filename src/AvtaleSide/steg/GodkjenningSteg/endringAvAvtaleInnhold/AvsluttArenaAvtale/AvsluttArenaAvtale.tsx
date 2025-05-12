@@ -29,6 +29,9 @@ const AvsluttArenaAvtale: FunctionComponent = () => {
         lukkModal();
     };
 
+    // Skal kun vises hvis avtalen er migrert fra ARENA og ikke godkjent av veileder
+    if (avtaleContext.avtale.opphav !== 'ARENA' && avtaleContext.avtale.godkjentAvVeileder == null) return null;
+
     return (
         <>
             <div>
