@@ -12,6 +12,7 @@ import React, { createElement, FunctionComponent, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -53,10 +54,21 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
-            {avtale.tilskuddPeriode.length > 0 && (
-                <Innholdsboks>
-                    <TilskuddsPerioderOppsummering />
-                </Innholdsboks>
+            {avtale.tilskuddPeriode.length > 0 ? (
+                <>
+                    <Innholdsboks>
+                        <TilskuddsPerioderOppsummering />
+                    </Innholdsboks>
+                    <Innholdsboks>
+                        <GodkjenningInstruks />
+                    </Innholdsboks>
+                </>
+            ) : (
+                (avtale.avtaleInngått || avtale.godkjentAvArbeidsgiver) && (
+                    <Innholdsboks>
+                        <GodkjenningInstruks />
+                    </Innholdsboks>
+                )
             )}
             <VersjoneringKomponent avtale={avtale} />
         </div>
