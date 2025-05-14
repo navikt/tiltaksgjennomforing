@@ -1,6 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
+import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
+import EtterregistreringInstruks from '@/AvtaleSide/steg/VarighetSteg/EtterregistreringInstruks';
 import InfoArenaOppryddingAlert from '@/AvtaleSide/steg/VarighetSteg/InfoArenaOppryddingAlert';
-import VarighetInfoVeileder from '@/AvtaleSide/steg/VarighetSteg/VarighetInfoVeileder';
 import VarighetIngress from '@/AvtaleSide/steg/VarighetSteg/VarighetIngress';
 import VarighetInputfelt from '@/AvtaleSide/steg/VarighetSteg/VarighetInputfelt';
 import VarighetTilbakeTidAlert from '@/AvtaleSide/steg/VarighetSteg/VarighetTilbakeTidAlert';
@@ -12,10 +13,9 @@ import Datovelger from '@/komponenter/datovelger/Datovelger';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import BEMHelper from '@/utils/bem';
 import { VellykketGenerertIsoDatoString, genererFnrdatostringFraFnr } from '@/utils/fnrUtils';
+import { addYears, differenceInDays } from 'date-fns';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
-import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import { addYears, differenceInDays } from 'date-fns';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -50,8 +50,11 @@ const VarighetSteg: FunctionComponent = () => {
                             <VarighetIngress tiltakstype={avtale.tiltakstype} className={cls.className} />
                         </Column>
                     </Row>
-
-                    <VarighetInfoVeileder erNavAnsatt={innloggetBruker.erNavAnsatt} className={cls.className} />
+                    <EtterregistreringInstruks
+                        opphav={opphav}
+                        erNavAnsatt={innloggetBruker.erNavAnsatt}
+                        className={cls.className}
+                    />
                     <Row className={cls.element('rad')}>
                         <Column md="12">
                             {startDato !== undefined && (

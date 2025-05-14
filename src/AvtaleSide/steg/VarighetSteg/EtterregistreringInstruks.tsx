@@ -1,15 +1,20 @@
-import React from 'react';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Avtaleopphav } from '@/types';
 import BEMHelper from '@/utils/bem';
+import { Alert, BodyShort } from '@navikt/ds-react';
+import React from 'react';
 
 interface Props {
     erNavAnsatt: boolean;
     className: string;
+    opphav: Avtaleopphav;
 }
 
-const VarighetInfoVeileder: React.FC<Props> = ({ erNavAnsatt, className }: Props) => {
+const EtterregistreringInstruks: React.FC<Props> = ({ erNavAnsatt, className, opphav }: Props) => {
     if (!erNavAnsatt) {
+        return null;
+    }
+    if ('ARENA' === opphav) {
         return null;
     }
 
@@ -28,4 +33,4 @@ const VarighetInfoVeileder: React.FC<Props> = ({ erNavAnsatt, className }: Props
         </Row>
     );
 };
-export default VarighetInfoVeileder;
+export default EtterregistreringInstruks;
