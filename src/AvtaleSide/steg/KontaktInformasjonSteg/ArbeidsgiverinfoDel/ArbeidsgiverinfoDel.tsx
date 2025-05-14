@@ -22,7 +22,7 @@ const ArbeidsgiverinfoDel = () => {
                             verdi={avtale.gjeldendeInnhold.bedriftNavn}
                             settVerdi={(verdi) => settAvtaleVerdi('bedriftNavn', verdi)}
                         />
-                        <VisueltDisabledInputFelt label="Virksomhetsnummer" tekst={avtale.bedriftNr} />
+                        <VisueltDisabledInputFelt label="Organisasjonsnummer for underenhet" tekst={avtale.bedriftNr} />
                     </div>
                 </Fieldset>
                 <Fieldset legend="" title="Kontaktperson for avtalen" className={cls.element('skjemagruppe')}>
