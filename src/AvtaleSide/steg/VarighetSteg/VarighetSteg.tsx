@@ -20,7 +20,7 @@ import { addYears, differenceInDays } from 'date-fns';
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { deltakerFnr, tiltakstype, erRyddeAvtale } = avtale;
+    const { deltakerFnr, tiltakstype, erRyddeAvtale, opphav } = avtale;
     const { startDato } = avtale.gjeldendeInnhold;
     const cls = BEMHelper('varighetsteg');
 
@@ -60,6 +60,7 @@ const VarighetSteg: FunctionComponent = () => {
                                     startDato={startDato}
                                     erRyddeAvtale={erRyddeAvtale}
                                     erNavAnsatt={innloggetBruker.erNavAnsatt}
+                                    opphav={opphav}
                                     className={cls.className}
                                 />
                             )}
