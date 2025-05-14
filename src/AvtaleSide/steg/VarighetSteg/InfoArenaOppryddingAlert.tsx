@@ -1,4 +1,4 @@
-import { TiltaksType } from '@/types/avtale';
+import { Avtaleopphav, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { isBefore } from 'date-fns';
@@ -11,6 +11,7 @@ interface Props {
     erRyddeAvtale: boolean;
     erNavAnsatt: boolean;
     className: string;
+    opphav: Avtaleopphav;
 }
 
 const migreringsdatoForTiltakstype = (tiltakstype: TiltaksType): string | null => {
@@ -29,10 +30,17 @@ const InfoArenaOppryddingAlert: React.FC<Props> = ({
     erRyddeAvtale,
     erNavAnsatt,
     className,
+    opphav,
 }: Props) => {
     const migreringsdato: string | null = migreringsdatoForTiltakstype(tiltakstype);
 
-    const skalViseAlert = migreringsdato && isBefore(startDato, migreringsdato) && !erRyddeAvtale && erNavAnsatt;
+    const skalViseAlert =
+        migreringsdato &&
+        startDato &&
+        isBefore(startDato, migreringsdato) &&
+        !erRyddeAvtale &&
+        'ARENA' !== opphav &&
+        erNavAnsatt;
 
     if (!skalViseAlert) {
         return null;
