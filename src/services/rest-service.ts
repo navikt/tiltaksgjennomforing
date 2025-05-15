@@ -378,7 +378,7 @@ export const delAvtaleMedAvtalepart = async (avtale: Avtale, rolle: Rolle): Prom
 };
 
 export const oppdatereKostnadsstedet = async (avtale: Avtale, kostnadssted: Kostnadssted): Promise<Avtale> => {
-    const response = await api.post(`avtaler/${avtale.id}/endre-kostnadssted`, JSON.stringify(kostnadssted), {
+    const response = await api.post(`/avtaler/${avtale.id}/endre-kostnadssted`, JSON.stringify(kostnadssted), {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
