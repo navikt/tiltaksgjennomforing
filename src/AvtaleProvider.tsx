@@ -79,7 +79,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const [underLagring, setUnderLagring] = useState(false);
 
     const bekreftOpphevGodkjenninger = async (): Promise<void> => {
-        await RestService.opphevGodkjenninger(avtale.id);
+        await RestService.opphevGodkjenninger(avtale);
         await hentAvtale();
         setOpphevGodkjenningerModalIsOpen(false);
     };
@@ -116,7 +116,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     };
 
     const overtaAvtale = async (): Promise<void> => {
-        await RestService.overtaAvtale(avtale.id);
+        await RestService.overtaAvtale(avtale);
         await hentAvtale();
     };
 
@@ -217,7 +217,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     };
 
     const godkjennTilskudd = async (enhet: string): Promise<void> => {
-        await RestService.godkjennTilskuddsperiode(avtale.id, enhet);
+        await RestService.godkjennTilskuddsperiode(avtale, enhet);
         await hentAvtale(avtale.id);
     };
 
@@ -225,7 +225,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         returårsaker: Set<Returårsaker>,
         returforklaring: string,
     ): Promise<void> => {
-        await RestService.returnerTilskuddsperiode(avtale.id, returårsaker, returforklaring);
+        await RestService.returnerTilskuddsperiode(avtale, returårsaker, returforklaring);
         await hentAvtale(avtale.id);
     };
 

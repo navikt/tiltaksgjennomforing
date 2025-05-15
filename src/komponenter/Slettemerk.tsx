@@ -1,17 +1,17 @@
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { slettemerkAvtale } from '@/services/rest-service';
 import { Alert } from '@navikt/ds-react';
-import React, { FunctionComponent, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import LagreKnapp from './LagreKnapp/LagreKnapp';
 import VerticalSpacer from './layout/VerticalSpacer';
+import { AvtaleContext } from '@/AvtaleProvider';
 
 const Slettemerk: FunctionComponent = () => {
+    const { avtale } = useContext(AvtaleContext);
     const [suksess, setSuksess] = useState(false);
-    const { avtaleId } = useParams<any>();
 
     const slettemerk = () => {
-        return slettemerkAvtale(avtaleId!).then(() => {
+        return slettemerkAvtale(avtale).then(() => {
             setSuksess(true);
         });
     };
