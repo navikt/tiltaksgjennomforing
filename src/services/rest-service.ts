@@ -165,7 +165,7 @@ export const lagreAvtale = async (avtale: Avtale): Promise<Avtale> => {
                     'Ved å lagre endringer oppheves godkjenningene. Ønsker du å fortsette?',
             )
         ) {
-            await opphevGodkjenninger(avtale.id);
+            await opphevGodkjenninger(avtale);
         } else {
             return Promise.reject();
         }
@@ -238,24 +238,19 @@ const opprettAvtalen = async (
 };
 
 export const mentorGodkjennTaushetserklæring = async (avtaleId: string, sistEndret: string): Promise<Avtale> => {
-    const uri = `/avtaler/${avtaleId}/mentorGodkjennTaushetserklæring`;
-
-    await api.post(uri, null, { headers: { 'If-Unmodified-Since': sistEndret } });
-
+    await api.post(`/avtaler/${avtaleId}/mentorGodkjennTaushetserklæring`, null, {
+        headers: { 'If-Unmodified-Since': sistEndret },
+    });
     return hentAvtale(avtaleId);
 };
 
 export const godkjennAvtale = async (avtale: Avtale) => {
-    const uri = `/avtaler/${avtale.id}/godkjenn`;
-
-    await api.post(uri, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
-
+    await api.post(`/avtaler/${avtale.id}/godkjenn`, null, { headers: { 'If-Unmodified-Since': avtale.sistEndret } });
     return hentAvtale(avtale.id);
 };
 
 export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => {
-    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av`;
-    await api.post(uri, paVegneGrunn, {
+    await api.post(`/avtaler/${avtale.id}/godkjenn-paa-vegne-av`, paVegneGrunn, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
@@ -267,8 +262,11 @@ export const godkjennAvtalePaVegneAvArbeidsgiver = async (
     avtale: Avtale,
     paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner,
 ) => {
-    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av-arbeidsgiver`;
-    await api.post(uri, paVegneGrunn);
+    await api.post(`/avtaler/${avtale.id}/godkjenn-paa-vegne-av-arbeidsgiver`, paVegneGrunn, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
     return hentAvtale(avtale.id);
 };
 
@@ -276,20 +274,26 @@ export const godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver = async (
     avtale: Avtale,
     paVegneGrunn: GodkjentPaVegneAvDeltakerOgArbeidsgiverGrunner,
 ) => {
-    const uri = `/avtaler/${avtale.id}/godkjenn-paa-vegne-av-deltaker-og-arbeidsgiver`;
-    await api.post(uri, paVegneGrunn);
+    await api.post(`/avtaler/${avtale.id}/godkjenn-paa-vegne-av-deltaker-og-arbeidsgiver`, paVegneGrunn, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
     return hentAvtale(avtale.id);
 };
 
-export const opphevGodkjenninger = async (avtaleId: string) => {
-    await api.post(`/avtaler/${avtaleId}/opphev-godkjenninger`);
-    return hentAvtale(avtaleId);
+export const opphevGodkjenninger = async (avtale: Avtale) => {
+    await api.post(`/avtaler/${avtale.id}/opphev-godkjenninger`, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
+    return hentAvtale(avtale.id);
 };
 
 export const annullerAvtale = async (avtale: Avtale, annullertGrunn: string) => {
-    const uri = `/avtaler/${avtale.id}/annuller`;
     const response = await api.post<Avtale>(
-        uri,
+        `/avtaler/${avtale.id}/annuller`,
         { annullertGrunn },
         {
             headers: {
@@ -353,8 +357,7 @@ export const hentHendelselogg = async (avtaleId: string): Promise<Hendelse[]> =>
 };
 
 export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<void> => {
-    const uri = `/varsler/sett-alle-til-lest`;
-    await api.post(uri, varselIder);
+    await api.post(`/varsler/sett-alle-til-lest`, varselIder);
 };
 
 export const hentFeatureToggles = async (featureToggles: Feature[]): Promise<FeatureToggles> => {
@@ -366,17 +369,29 @@ export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Pr
     return response.data;
 };
 
-export const delAvtaleMedAvtalepart = async (avtaleId: string, rolle: Rolle): Promise<void> => {
-    await api.post(`/avtaler/${avtaleId}/del-med-avtalepart`, JSON.stringify(rolle));
+export const delAvtaleMedAvtalepart = async (avtale: Avtale, rolle: Rolle): Promise<void> => {
+    await api.post(`/avtaler/${avtale.id}/del-med-avtalepart`, JSON.stringify(rolle), {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
 };
 
-export const oppdatereKostnadsstedet = async (avtaleId: string, kostnadssted: Kostnadssted): Promise<Avtale> => {
-    const response = await api.post(`avtaler/${avtaleId}/endre-kostnadssted`, JSON.stringify(kostnadssted));
+export const oppdatereKostnadsstedet = async (avtale: Avtale, kostnadssted: Kostnadssted): Promise<Avtale> => {
+    const response = await api.post(`/avtaler/${avtale.id}/endre-kostnadssted`, JSON.stringify(kostnadssted), {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
     return response.data;
 };
 
-export const overtaAvtale = async (avtaleId: string): Promise<void> => {
-    await api.put(`/avtaler/${avtaleId}/overta`);
+export const overtaAvtale = async (avtale: Avtale): Promise<void> => {
+    await api.put(`/avtaler/${avtale.id}/overta`, null, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
 };
 
 export type BeOmRettigheterUrler = {
@@ -388,32 +403,52 @@ export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigh
     return response.data;
 };
 
-export const godkjennTilskuddsperiode = async (avtaleId: string, enhet: string) => {
-    const uri = `/avtaler/${avtaleId}/godkjenn-tilskuddsperiode`;
-    await api.post(uri, { enhet });
+export const godkjennTilskuddsperiode = async (avtale: Avtale, enhet: string) => {
+    await api.post(
+        `/avtaler/${avtale.id}/godkjenn-tilskuddsperiode`,
+        { enhet },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        },
+    );
 };
 
-export const setOmAvtalenKanEtterregistreres = async (avtaleId: string): Promise<Avtale> => {
-    const uri = `/avtaler/${avtaleId}/set-om-avtalen-kan-etterregistreres`;
-    const response = await api.post(uri);
+export const setOmAvtalenKanEtterregistreres = async (avtale: Avtale): Promise<Avtale> => {
+    const response = await api.post(`/avtaler/${avtale.id}/set-om-avtalen-kan-etterregistreres`, null, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
     return response.data;
 };
 
 export const returnerTilskuddsperiode = async (
-    avtaleId: string,
+    avtale: Avtale,
     avslagsårsaker: Set<Returårsaker>,
     avslagsforklaring: string,
 ) => {
-    const uri = `/avtaler/${avtaleId}/avslag-tilskuddsperiode`;
-    await api.post(uri, {
-        avslagsårsaker: Array.from(avslagsårsaker),
-        avslagsforklaring,
-    });
+    await api.post(
+        `/avtaler/${avtale.id}/avslag-tilskuddsperiode`,
+        {
+            avslagsårsaker: Array.from(avslagsårsaker),
+            avslagsforklaring,
+        },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        },
+    );
 };
 
-export const slettemerkAvtale = async (avtaleId: string) => {
-    const uri = `/avtaler/${avtaleId}/slettemerk`;
-    await api.post(uri);
+export const slettemerkAvtale = async (avtale: Avtale) => {
+    await api.post(`/avtaler/${avtale.id}/slettemerk`, null, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
 };
 
 export const oppdatereKontaktInformasjon = async (
@@ -463,7 +498,11 @@ export const oppdatereOppfølgingOgTilretteleggingInformasjon = async (
 
 export type EndreStilling = Stilling & Pick<Varighet, 'stillingprosent' | 'antallDagerPerUke'>;
 export const oppdatereStillingbeskrivelse = async (avtale: Avtale, endreStillingInfo: EndreStilling): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/endre-stillingbeskrivelse`, endreStillingInfo);
+    await api.post(`/avtaler/${avtale.id}/endre-stillingbeskrivelse`, endreStillingInfo, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
@@ -497,15 +536,17 @@ export const oppdateretilskuddsBeregningDryRun = async (
 };
 
 export const oppdaterOppfølgingsEnhet = async (avtale: Avtale): Promise<Avtale> => {
-    const uri = `/avtaler/${avtale.id}/oppdaterOppfølgingsEnhet`;
-    const response = await api.post(uri);
+    const response = await api.post(`/avtaler/${avtale.id}/oppdaterOppfølgingsEnhet`, null, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
     return response.data;
 };
 
 export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
-    const uri = `/avtaler/${avtale.id}/forleng`;
     await api.post(
-        uri,
+        `/avtaler/${avtale.id}/forleng`,
         { sluttDato },
         {
             headers: {
@@ -516,23 +557,13 @@ export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 export const forlengAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
-    const uri = `/avtaler/${avtale.id}/forleng-dry-run`;
-    const response = await api.post(
-        uri,
-        { sluttDato },
-        {
-            headers: {
-                'If-Unmodified-Since': avtale.sistEndret,
-            },
-        },
-    );
+    const response = await api.post(`/avtaler/${avtale.id}/forleng-dry-run`, { sluttDato });
     return response.data;
 };
 
 export const forkortAvtale = async (avtale: Avtale, sluttDato: string, grunn: string, annetGrunn?: string) => {
-    const uri = `/avtaler/${avtale.id}/forkort`;
     await api.post(
-        uri,
+        `/avtaler/${avtale.id}/forkort`,
         { sluttDato, grunn, annetGrunn },
         {
             headers: {
@@ -544,27 +575,29 @@ export const forkortAvtale = async (avtale: Avtale, sluttDato: string, grunn: st
 };
 
 export const forkortAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
-    const uri = `/avtaler/${avtale.id}/forkort-dry-run`;
-    const response = await api.post(
-        uri,
-        { sluttDato },
+    const response = await api.post(`/avtaler/${avtale.id}/forkort-dry-run`, { sluttDato });
+    return response.data;
+};
+
+export const sendTilbakeTilBeslutter = async (avtale: Avtale) => {
+    const response = await api.post(`/avtaler/${avtale.id}/send-tilbake-til-beslutter`, null, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
+    return response.data;
+};
+
+export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Promise<void> => {
+    await api.post(
+        `/avtaler/${avtale.id}/endre-maal`,
+        { maal: maal },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,
             },
         },
     );
-    return response.data;
-};
-
-export const sendTilbakeTilBeslutter = async (avtale: Avtale) => {
-    const uri = `/avtaler/${avtale.id}/send-tilbake-til-beslutter`;
-    const response = await api.post(uri);
-    return response.data;
-};
-
-export const oppdatereMålInformasjon = async (avtale: Avtale, maal: Maal[]): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/endre-maal`, { maal: maal });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
@@ -572,14 +605,26 @@ export const endreInkluderingstilskudd = async (
     avtale: Avtale,
     inkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[],
 ): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/endre-inkluderingstilskudd`, {
-        inkluderingstilskuddsutgift: inkluderingstilskuddutgifter,
-    });
+    await api.post(
+        `/avtaler/${avtale.id}/endre-inkluderingstilskudd`,
+        {
+            inkluderingstilskuddsutgift: inkluderingstilskuddutgifter,
+        },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        },
+    );
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
 export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold): Promise<void> => {
-    await api.post(`/avtaler/${avtale.id}/endre-om-mentor`, mentorInnhold);
+    await api.post(`/avtaler/${avtale.id}/endre-om-mentor`, mentorInnhold, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 

@@ -39,7 +39,7 @@ const EtterRegistrering: FunctionComponent = () => {
 
     const AvtaleKanEtterrgistreres = async (): Promise<void> => {
         if (avtale) {
-            const response = await RestService.setOmAvtalenKanEtterregistreres(avtale.id);
+            const response = await RestService.setOmAvtalenKanEtterregistreres(avtale);
             setAvtale(response);
         }
     };

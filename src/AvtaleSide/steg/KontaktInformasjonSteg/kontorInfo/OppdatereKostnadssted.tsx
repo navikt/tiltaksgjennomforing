@@ -28,7 +28,7 @@ const OppdatereKostnadssted: FunctionComponent = () => {
         setFeilmelding(undefined);
         if (nyttKostnadssted.enhet !== kostnadssted.enhet) {
             try {
-                const oppdatertAvtale: Avtale = await oppdatereKostnadsstedet(avtale.id, nyttKostnadssted);
+                const oppdatertAvtale: Avtale = await oppdatereKostnadsstedet(avtale, nyttKostnadssted);
                 oppdatereAvtaleContext(oppdatertAvtale);
             } catch (err) {
                 setFeilmelding((err as string).toString().split(':')?.[1].trim());

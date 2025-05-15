@@ -50,7 +50,7 @@ const SendVarselModal: React.FunctionComponent<Props> = (props) => {
                 </Heading>
                 <VerticalSpacer rem={1} />
                 <LagreKnapp
-                    lagre={() => delAvtaleMedAvtalepart(avtale.id, 'MENTOR')}
+                    lagre={() => delAvtaleMedAvtalepart(avtale, 'MENTOR')}
                     suksessmelding="SMS sendt til mentor"
                     variant={'primary'}
                 >
