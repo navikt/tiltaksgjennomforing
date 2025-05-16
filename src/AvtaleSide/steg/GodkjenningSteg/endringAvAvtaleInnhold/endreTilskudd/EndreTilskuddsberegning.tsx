@@ -8,16 +8,16 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, Varighet } from '@/types/avtale';
+import { formaterNorskeTall } from '@/utils';
 import BEMHelper from '@/utils/bem';
 import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import './EndreTilskuddsberegning.less';
-import { formaterNorskeTall } from '@/utils';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
-    'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent'
+    'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent' | 'lonnstilskuddProsent'
 >;
 
 const ARBEIDSGIVER_AVGIFT_SATSER: ArbeidsAvgiftSats[] = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
@@ -35,7 +35,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
     const context = useContext(AvtaleContext);
 
-    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift, stillingprosent } =
+    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift, stillingprosent, lonnstilskuddProsent } =
         context.avtale.gjeldendeInnhold;
 
     const [nyBeregning, setNyBeregning] = useState<EndreBeregning>({
@@ -44,6 +44,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
         otpSats: otpSats,
         feriepengesats: feriepengesats,
         arbeidsgiveravgift: arbeidsgiveravgift,
+        lonnstilskuddProsent: lonnstilskuddProsent,
     });
 
     const endreBeregning = async (): Promise<void> => {
@@ -91,6 +92,19 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 lukkModal={() => setModalApen(false)}
             >
                 <div className={cls.className}>
+                    <ProsentInput
+                        name="lonnstilskuddProsent"
+                        width="S"
+                        label="Tilskuddsprosent"
+                        value={nyBeregning.lonnstilskuddProsent}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            settNyBeregningsverdi('lonnstilskuddProsent', parseFloat(event.target.value));
+                        }}
+                        min={0}
+                        max={75}
+                    />
+                    <VerticalSpacer rem={1} />
+
                     <ValutaInput
                         name="manedslonn"
                         size="medium"

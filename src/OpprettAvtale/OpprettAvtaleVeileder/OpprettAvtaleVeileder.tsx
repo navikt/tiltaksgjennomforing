@@ -1,34 +1,33 @@
-import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
-import { Alert, Heading } from '@navikt/ds-react';
-import { useNavigate, generatePath } from 'react-router-dom';
+import { Alert, Heading, Radio, RadioGroup } from '@navikt/ds-react';
+import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { generatePath, useNavigate } from 'react-router-dom';
 
-import './OpprettAvtale.less';
-import './opprettAvtaleVeileder.less';
-import BEMHelper from '@/utils/bem';
-import Dokumenttittel from '@/komponenter/Dokumenttittel';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import HvemSkalInngaaAvtalen from '@/OpprettAvtale/OpprettAvtaleVeileder/HvemSkalInngaaAvtalen';
 import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettAvtaleVeileder/InformasjonsboksTopVeilederOppretterAvtale';
+import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
+import { Path } from '@/Router';
+import Dokumenttittel from '@/komponenter/Dokumenttittel';
+import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
+import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
-import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
-import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
-import { FeilVarselContext } from '@/FeilVarselProvider';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import { Path } from '@/Router';
-import { handterFeil } from '@/utils/apiFeilUtils';
 import {
     hentBedriftBrreg,
     opprettAvtaleSomVeileder,
     opprettMentorAvtale,
     sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
 } from '@/services/rest-service';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { handterFeil } from '@/utils/apiFeilUtils';
+import BEMHelper from '@/utils/bem';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
+import './OpprettAvtale.less';
+import './opprettAvtaleVeileder.less';
 
 const cls = BEMHelper('opprett-avtale');
 
@@ -49,6 +48,8 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
+
+    const [erLangvarigLonnstilskudd, setErLangvarigLonnstilskudd] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -210,6 +211,34 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale}
                 setModalIsOpen={setModalIsOpen}
             />
+
+            <div>
+                <VerticalSpacer rem={1} />
+                <Innholdsboks>
+                    <Alert variant="info">
+                        <Heading spacing size="small" level="3">
+                            Er dette et langvarig lønnstilskudd?
+                        </Heading>
+                        Et langvarig lønnstilskudd er i praksis et midlertidig lønnstilskudd som kan vare opptil 4 år.
+                        Det finnes på nåværende tidspunkt ikke noen funksjonalitet for å opprette langvarig
+                        lønnstilskudd, men ved å huke av denne boksen muliggjør vi å telle de. Du må derfor selv følge
+                        opp at reglene som gjelder for langvarig lønnstilskudd blir fulgt.
+                        {/* <Checkbox
+                            value="LANGVARIG_LONNSTILSKUDD"
+                            checked={erLangvarigLonnstilskudd}
+                            onChange={(e) => setErLangvarigLonnstilskudd(!erLangvarigLonnstilskudd)}
+                        >
+                            Ja
+                        </Checkbox> */}
+                        <RadioGroup legend="Type lønnstilskudd" onChange={setVal} value={val}>
+                            <Radio value="VARIG_LONNSTILSKUDD">Varirg Lønnstilskudd</Radio>
+                            <Radio value="LANGVARIG_LONNSTILSKUDD">Langvarig Lønnstilskudd</Radio>
+                        </RadioGroup>
+                    </Alert>
+                    <VerticalSpacer rem={1} />
+                </Innholdsboks>
+            </div>
+
             <div className={cls.element('knappRad')}>
                 <LagreKnapp
                     lagre={opprettAvtaleKlikk}
