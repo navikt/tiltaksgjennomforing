@@ -1,4 +1,4 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import SelectInput from '@/komponenter/form/SelectInput';
@@ -7,17 +7,17 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
-import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, Varighet } from '@/types/avtale';
+import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, TiltaksType, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import './EndreTilskuddsberegning.less';
 import { formaterNorskeTall } from '@/utils';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
-    'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent'
+    'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent' | 'lonnstilskuddProsent'
 >;
 
 const ARBEIDSGIVER_AVGIFT_SATSER: ArbeidsAvgiftSats[] = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
@@ -33,10 +33,11 @@ function getAvgiftsatserForRadioValg(satser: number[]): Array<{ label: string; v
 const EndreTilskuddsberegning: FunctionComponent = () => {
     const cls = BEMHelper('endreTilskuddsBeregning');
     const [modalApen, setModalApen] = useState(false);
-    const context = useContext(AvtaleContext);
+    const { avtale, hentAvtale } = useAvtale();
 
-    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift, stillingprosent } =
-        context.avtale.gjeldendeInnhold;
+    const { tiltakstype, gjeldendeInnhold } = avtale;
+    const { manedslonn, feriepengesats, otpSats, arbeidsgiveravgift, stillingprosent, lonnstilskuddProsent } =
+        gjeldendeInnhold;
 
     const [nyBeregning, setNyBeregning] = useState<EndreBeregning>({
         stillingprosent: stillingprosent,
@@ -44,16 +45,17 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
         otpSats: otpSats,
         feriepengesats: feriepengesats,
         arbeidsgiveravgift: arbeidsgiveravgift,
+        lonnstilskuddProsent: lonnstilskuddProsent,
     });
 
     const endreBeregning = async (): Promise<void> => {
         try {
-            await oppdateretilskuddsBeregning(context.avtale, nyBeregning);
+            await oppdateretilskuddsBeregning(avtale, nyBeregning);
         } catch (err) {
             console.warn('feilet med å lagre oppdaterte beregninger: ', err);
         }
         setModalApen(false);
-        await context.hentAvtale(context.avtale.id);
+        await hentAvtale(avtale.id);
     };
 
     const settNyBeregningsverdi = async <K extends keyof EndreBeregning, V extends EndreBeregning>(
@@ -91,6 +93,22 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 lukkModal={() => setModalApen(false)}
             >
                 <div className={cls.className}>
+                    {'VARIG_LONNSTILSKUDD' === tiltakstype && (
+                        <>
+                            <ProsentInput
+                                name="lonnstilskuddProsent"
+                                width="S"
+                                label="Tilskuddsprosent"
+                                value={nyBeregning.lonnstilskuddProsent}
+                                onChange={(event) => {
+                                    settNyBeregningsverdi('lonnstilskuddProsent', parseFloat(event.target.value));
+                                }}
+                                min={0}
+                                max={75}
+                            />
+                            <VerticalSpacer rem={1} />
+                        </>
+                    )}
                     <ValutaInput
                         name="manedslonn"
                         size="medium"
@@ -148,7 +166,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     />
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('panel')}>
-                        <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={context.avtale} />
+                        <EndringsTilskuddUtregningPanel endreBeregning={{ ...nyBeregning }} avtale={avtale} />
                     </div>
                 </div>
             </BekreftelseModal>
