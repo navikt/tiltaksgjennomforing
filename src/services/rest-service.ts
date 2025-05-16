@@ -283,7 +283,7 @@ export const godkjennAvtalePaVegneAvDeltakerOgArbeidsgiver = async (
 };
 
 export const opphevGodkjenninger = async (avtale: Avtale) => {
-    await api.post(`/avtaler/${avtale.id}/opphev-godkjenninger`, {
+    await api.post(`/avtaler/${avtale.id}/opphev-godkjenninger`, null, {
         headers: {
             'If-Unmodified-Since': avtale.sistEndret,
         },
