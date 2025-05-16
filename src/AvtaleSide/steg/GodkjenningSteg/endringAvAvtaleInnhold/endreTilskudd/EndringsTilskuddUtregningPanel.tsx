@@ -2,7 +2,8 @@ import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
 import { Avtale } from '@/types/avtale';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState, useCallback } from 'react';
+import { debounce } from '@navikt/ds-react';
 
 interface Props {
     endreBeregning: EndreBeregning;
@@ -13,17 +14,22 @@ const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = (props) => {
     const { manedslonn, feriepengesats, arbeidsgiveravgift, otpSats, stillingprosent } = props.endreBeregning;
     const [nyAvtale, settNyAvtale] = useState<Avtale>(props.avtale);
 
-    useEffect(() => {
-        const kalkulerNyBeregningsverdi = async (): Promise<void> => {
+    const kalkulerNyBeregningsverdi = useCallback(
+        debounce(async (avtale: Avtale, endreBeregning: EndreBeregning) => {
+            console.log('endre 2');
             try {
-                const avtale = await oppdateretilskuddsBeregningDryRun(props.avtale, props.endreBeregning);
-                settNyAvtale((prevState) => ({ ...prevState, ...avtale }));
+                const oppdatertAvtale = await oppdateretilskuddsBeregningDryRun(avtale, endreBeregning);
+                settNyAvtale((prevState) => ({ ...prevState, ...oppdatertAvtale }));
             } catch (error) {
                 console.warn('feilet med å oppdatere utregningene: ', error);
             }
-        };
+        }, 250),
+        [oppdateretilskuddsBeregningDryRun, settNyAvtale]
+    );
 
-        kalkulerNyBeregningsverdi();
+    useEffect(() => {
+        console.log('endre 1');
+        kalkulerNyBeregningsverdi(props.avtale, props.endreBeregning);
     }, [props.endreBeregning, props.avtale]);
 
     return (
