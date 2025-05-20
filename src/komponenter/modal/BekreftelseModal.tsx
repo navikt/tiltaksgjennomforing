@@ -1,10 +1,11 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
 import BEMHelper from '@/utils/bem';
 import { Alert, Button, Heading, Modal } from '@navikt/ds-react';
-import React, { CSSProperties, ReactNode, useRef, useState } from 'react';
+import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import VarselTegnForModal from './VarselTegnForModal';
 import './bekreftelseModal.less';
+import { Status } from '@/types/nettressurs';
 
 const cls = BEMHelper('bekreftelseModal');
 
@@ -24,6 +25,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
     const [feilmelding, setFeilmelding] = useState<string>();
     const [laster, setLaster] = useState<boolean>(false);
     const ref = useRef<HTMLDialogElement>(null);
+    const refFeil = useRef<HTMLDivElement>(null);
 
     const bekreftKlikk = async () => {
         if (props.bekreftOnClick === undefined) return;
@@ -43,6 +45,13 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
             }
         }
     };
+
+    useEffect(() => {
+        if (feilmelding && refFeil.current) {
+            refFeil.current.scrollIntoView();
+            refFeil.current.focus();
+        }
+    }, [feilmelding, refFeil]);
 
     return (
         <div className={cls.className}>
@@ -68,12 +77,12 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                             </div>
                             <div className={cls.element('varselTekst')}>{props.children}</div>
                         </div>
+                        {feilmelding && (
+                            <Alert ref={refFeil} variant="warning" size="small">
+                                {feilmelding}
+                            </Alert>
+                        )}
                     </div>
-                    {feilmelding && (
-                        <Alert variant="warning" size="small">
-                            {feilmelding}
-                        </Alert>
-                    )}
                 </Modal.Body>
                 <Modal.Footer>
                     {props.bekreftOnClick !== undefined ? (

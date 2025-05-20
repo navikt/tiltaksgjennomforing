@@ -49,20 +49,13 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
     });
 
     const endreBeregning = async (): Promise<void> => {
-        try {
-            await oppdateretilskuddsBeregning(avtale, nyBeregning);
-        } catch (err) {
-            console.warn('feilet med å lagre oppdaterte beregninger: ', err);
-        }
+        await oppdateretilskuddsBeregning(avtale, nyBeregning);
         setModalApen(false);
         await hentAvtale(avtale.id);
     };
 
-    const settNyBeregningsverdi = async <K extends keyof EndreBeregning, V extends EndreBeregning>(
-        key: K,
-        verdi: V[K],
-    ) => {
-        await setNyBeregning((prevState) => ({
+    const settNyBeregningsverdi = <K extends keyof EndreBeregning, V extends EndreBeregning>(key: K, verdi: V[K]) => {
+        setNyBeregning((prevState) => ({
             ...prevState,
             [key]: verdi,
         }));
