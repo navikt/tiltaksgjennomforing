@@ -10,8 +10,7 @@ import { storForbokstav } from '@/utils/stringUtils';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import './TilgangTabell.less';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { vtaoToggleFilter } from '@/utils/vtaoToggleFilter';
+import { TiltaksType } from '@/types';
 
 const cls = BEMHelper('tilgangtabell');
 
@@ -20,11 +19,19 @@ interface Props {
     tilganger: Tilganger;
 }
 
+const TILTAKSTYPER: TiltaksType[] = [
+    'ARBEIDSTRENING',
+    'INKLUDERINGSTILSKUDD',
+    'MENTOR',
+    'MIDLERTIDIG_LONNSTILSKUDD',
+    'VARIG_LONNSTILSKUDD',
+    'SOMMERJOBB',
+    'VTAO',
+];
+
 const TilgangTabell: FunctionComponent<Props> = (props) => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
     const throwError = useAsyncError();
-
-    const { vtaoTiltakToggle } = useFeatureToggles();
 
     useEffect(() => {
         hentBeOmRettighetUrler(props.bedriftNr).then(setBeOmRettighetUrler).catch(throwError);
@@ -36,7 +43,7 @@ const TilgangTabell: FunctionComponent<Props> = (props) => {
         <div className={cls.className}>
             <table className="tabell">
                 <tbody>
-                    {vtaoToggleFilter(vtaoTiltakToggle).map((tiltakstype) => {
+                    {TILTAKSTYPER.map((tiltakstype) => {
                         const harTilgangTilTiltakstype =
                             props.bedriftNr && props.tilganger[props.bedriftNr]?.includes(tiltakstype);
 

@@ -4,7 +4,6 @@ import { hentFeatureToggles } from './services/rest-service';
 
 const InitialState = {
     visNedetidBanner: false,
-    vtaoTiltakToggle: false,
     visHvemHarGodkjent: false,
     pabegyntAvtaleRyddeJobb: false,
 } as const;
