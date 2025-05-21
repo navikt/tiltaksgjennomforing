@@ -23,7 +23,6 @@ import { useFeatureToggles } from '@/FeatureToggleProvider';
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const harØkonomi =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
@@ -38,7 +37,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'ARBEIDSTRENING';
 
-    if (!erVeileder || (!vtaoTiltakToggle && avtale.tiltakstype === 'VTAO')) {
+    if (!erVeileder) {
         return <Varsellogg />;
     }
 

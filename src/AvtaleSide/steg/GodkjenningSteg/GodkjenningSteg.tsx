@@ -23,12 +23,10 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const skalViseGodkjenning =
         !avtale.erAnnullertEllerAvbrutt &&
-        (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt)) &&
-        (avtale.tiltakstype !== 'VTAO' || vtaoTiltakToggle);
+        (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
     return (
         <div className={cls.className}>

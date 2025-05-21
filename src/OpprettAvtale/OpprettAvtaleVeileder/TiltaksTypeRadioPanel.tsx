@@ -8,8 +8,6 @@ import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { vtaoToggleFilter } from '@/utils/vtaoToggleFilter';
 
 interface Props {
     className: string;
@@ -19,6 +17,16 @@ interface Props {
     setUgyldigAvtaletype: Dispatch<SetStateAction<boolean>>;
 }
 
+const TILTAKSTYPER: TiltaksType[] = [
+    'ARBEIDSTRENING',
+    'INKLUDERINGSTILSKUDD',
+    'MENTOR',
+    'MIDLERTIDIG_LONNSTILSKUDD',
+    'VARIG_LONNSTILSKUDD',
+    'SOMMERJOBB',
+    'VTAO',
+];
+
 const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     valgtTiltaksType,
     setTiltaksType,
@@ -27,8 +35,6 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     className,
 }) => {
     const cls = BEMHelper(className);
-
-    const { vtaoTiltakToggle } = useFeatureToggles();
 
     return (
         <Innholdsboks className={cls.element('valg-tiltakstype-container')}>
@@ -44,18 +50,18 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
 
             <div className={cls.element('tiltakstype-container')}>
                 <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')} size="medium">
-                    {vtaoToggleFilter(vtaoTiltakToggle).map((valg: TiltaksType, index: number) => (
+                    {TILTAKSTYPER.map((tiltakstype: TiltaksType) => (
                         <RadioPanel
-                            key={index}
+                            key={tiltakstype}
                             name="tiltakstype"
-                            value={valg}
-                            checked={valgtTiltaksType === valg}
+                            value={tiltakstype}
+                            checked={valgtTiltaksType === tiltakstype}
                             onChange={() => {
-                                setTiltaksType(valg);
+                                setTiltaksType(tiltakstype);
                                 setUgyldigAvtaletype(false);
                             }}
                         >
-                            {storForbokstav(tiltakstypeTekst[valg])}
+                            {storForbokstav(tiltakstypeTekst[tiltakstype])}
                         </RadioPanel>
                     ))}
                 </RadioGroup>

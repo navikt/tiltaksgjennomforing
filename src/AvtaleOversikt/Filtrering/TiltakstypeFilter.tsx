@@ -9,14 +9,13 @@ import React, { FunctionComponent } from 'react';
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
     const { endreFilter, filtre } = useFilter();
-    const { vtaoTiltakToggle } = useFeatureToggles();
 
     const alleTiltakstyperBeslutter: OptionProps[] = [
         { value: '', label: 'Alle' },
         { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
-        vtaoTiltakToggle ? { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' } : null,
+        { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
     ].filter((x) => x !== null) as OptionProps[];
 
     const alleTiltakstyper: OptionProps[] = [
@@ -27,7 +26,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
         { value: 'MENTOR', label: 'Mentor' },
         { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
-        vtaoTiltakToggle ? { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' } : null,
+        { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
     ].filter((x) => x !== null) as OptionProps[];
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
