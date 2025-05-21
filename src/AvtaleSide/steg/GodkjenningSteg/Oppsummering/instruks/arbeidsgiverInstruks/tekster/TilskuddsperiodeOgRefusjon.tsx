@@ -61,8 +61,8 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                 avtalt periode for tiltaksgjennomføringen.
             </p>
             <p>
-                Når tiltaket er over, vil NAV sende dere et ferdig utregnet forslag til refusjon. Refusjonen regnes ut
-                på bakgrunn av innhold i avtalen og innrapporterte inntekter i A-meldingen. Har dere mindre
+                Når tilskuddsperioden er over, vil NAV sende dere et ferdig utregnet forslag til refusjon. Refusjonen
+                regnes ut på bakgrunn av innhold i avtalen og innrapporterte inntekter i A-meldingen. Har dere mindre
                 lønnsutgifter enn avtalt, blir også støtten redusert. Tilskuddet behandles automatisk og utbetales
                 etterskuddsvis, etter at dere har godkjent refusjonen. Vi kan kontrollere om pengene som blir utbetalt
                 blir brukt riktig.
