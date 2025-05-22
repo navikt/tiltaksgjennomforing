@@ -19,13 +19,13 @@ export function getIndexVisningForTilskuddsperiode(avtale: Avtale, visAllePeriod
             i++;
         });
     }
-    let startIndexVisning = gjeldendeTilskuddsperiodeIndex - 6;
-    if (startIndexVisning < 0) {
-        startIndexVisning = 0;
+    let startIndexVisning = gjeldendeTilskuddsperiodeIndex;
+    if (startIndexVisning < 1) {
+        startIndexVisning = 1;
     }
     let sluttIndexVisning = gjeldendeTilskuddsperiodeIndex + 6;
     if (visAllePerioder) {
-        startIndexVisning = 0;
+        startIndexVisning = 1;
         sluttIndexVisning = antallAktiveTilskuddsperioder(avtale);
     }
 

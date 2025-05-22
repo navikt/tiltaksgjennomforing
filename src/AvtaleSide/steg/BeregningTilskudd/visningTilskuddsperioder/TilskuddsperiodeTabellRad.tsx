@@ -1,51 +1,40 @@
 import React from 'react';
 import { TilskuddsPeriode } from '@/types/avtale';
-import { addDays, getYear, isWithinInterval } from 'date-fns';
-import { BodyShort, Table } from '@navikt/ds-react';
-import { formaterDato, formaterPeriode } from '@/utils/datoUtils';
+import { Table } from '@navikt/ds-react';
+import { formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
 
-const TilskuddsperiodeRad: React.FC<{
-    avtaleOpprettet: Date;
-    erNavAnsatt: boolean;
+const TilskuddsperiodeTabellRad: React.FC<{
+    index: number;
     periode: TilskuddsPeriode;
-    kreverOppfølgingDato?: Date | undefined;
-}> = ({ avtaleOpprettet, erNavAnsatt, periode, kreverOppfølgingDato }) => {
-    const periodeAar = getYear(new Date(periode.startDato));
-    // Hvis tilskuddsperioden gjelder for et tidligere år enn når avtalen er opprettet,
-    // så vil vi vise en liten notis om at VTAO-satsen er basert på et lavere beløp
-    const erITidligereAar = periodeAar < getYear(avtaleOpprettet);
-
-    const periodeStatus =
-        kreverOppfølgingDato &&
-        isWithinInterval(kreverOppfølgingDato, { start: periode.startDato, end: periode.sluttDato })
-            ? 'OPPFØLGING_KREVES'
-            : periode.status;
-
+    erNavAnsatt: boolean;
+    tiltakstype: string;
+    nyProsent?: boolean;
+}> = ({ index, periode, erNavAnsatt, tiltakstype, nyProsent }) => {
     return (
-        <Table.Row>
-            <Table.DataCell textSize="small">
-                <BodyShort size="small">{formaterPeriode(periode.startDato, periode.sluttDato)}</BodyShort>
-                {erITidligereAar && (
-                    <BodyShort size="small" textColor="subtle">
-                        Sats for {periodeAar}
-                    </BodyShort>
-                )}
-            </Table.DataCell>
+        <Table.Row
+            key={index}
+            style={{
+                borderTop: nyProsent ? '2px solid gray' : 'undefined',
+            }}
+        >
+            <Table.DataCell textSize="small">{formaterPeriode(periode.startDato, periode.sluttDato)}</Table.DataCell>
             {erNavAnsatt && (
                 <Table.DataCell textSize="small">
-                    <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
+                    <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
                 </Table.DataCell>
             )}
-            <Table.DataCell align="right" textSize="small">
-                {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
-            </Table.DataCell>
             <Table.DataCell textSize="small">
-                {formaterDato(addDays(new Date(periode.sluttDato), 3).toString(), 'dd MMM yyyy')}
+                {tiltakstype === 'VARIG_LONNSTILSKUDD' && periode.status !== 'BEHANDLET_I_ARENA'
+                    ? `${periode.lonnstilskuddProsent}%`
+                    : tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'SOMMERJOBB'
+                      ? `${periode.lonnstilskuddProsent}%`
+                      : null}
             </Table.DataCell>
+            <Table.DataCell textSize="small">{formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}</Table.DataCell>
         </Table.Row>
     );
 };
 
-export default TilskuddsperiodeRad;
+export default TilskuddsperiodeTabellRad;
