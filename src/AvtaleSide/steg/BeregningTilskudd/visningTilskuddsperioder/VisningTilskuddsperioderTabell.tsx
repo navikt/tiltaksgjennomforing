@@ -13,6 +13,8 @@ import {
     getIndexVisningForTilskuddsperiode,
 } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import TilskuddsperiodeTabellRad from './TilskuddsperiodeTabellRad';
+import bannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 
 interface Properties {
     className: string;
@@ -23,6 +25,10 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
     const { startIndexVisning, sluttIndexVisning } = getIndexVisningForTilskuddsperiode(avtale, visAllePerioder);
+    const sistePeriode =
+        antallAktiveTilskuddsperioder(avtale) - 1 > sluttIndexVisning
+            ? avtale.tilskuddPeriode.at(antallAktiveTilskuddsperioder(avtale) - 1)
+            : undefined;
     const cls = BEMHelper(className);
     return (
         <>
@@ -36,56 +42,53 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
+                    <TilskuddsperiodeTabellRad
+                        index={0}
+                        periode={avtale.tilskuddPeriode.at(0) as TilskuddsPeriode}
+                        erNavAnsatt={innloggetBruker.erNavAnsatt}
+                        tiltakstype={avtale.tiltakstype}
+                    />
+                    {startIndexVisning > 1 && (
+                        <Table.Row>
+                            <Table.DataCell textSize="small" colSpan={100}>
+                                ...
+                            </Table.DataCell>
+                        </Table.Row>
+                    )}
                     {avtale.tilskuddPeriode
                         .filter((p: TilskuddsPeriode) => p.aktiv)
+                        .slice(startIndexVisning, sluttIndexVisning)
                         .map((periode: TilskuddsPeriode, index: number) => {
                             const nyProsent: boolean =
                                 index > 0
                                     ? avtale.tilskuddPeriode[index - 1].lonnstilskuddProsent !==
                                       periode.lonnstilskuddProsent
                                     : false;
-                            if (index < startIndexVisning || index > sluttIndexVisning) {
-                                return null;
-                            } else if (index !== 0 && (index === startIndexVisning || index === sluttIndexVisning)) {
-                                return (
-                                    <Table.Row key={periode.id}>
-                                        <Table.DataCell textSize="small" colSpan={100}>
-                                            ...
-                                        </Table.DataCell>
-                                    </Table.Row>
-                                );
-                            }
                             return (
-                                <Table.Row
-                                    key={index}
-                                    style={{
-                                        borderTop: nyProsent ? '2px solid gray' : 'undefined',
-                                    }}
-                                >
-                                    <Table.DataCell textSize="small">
-                                        {formaterPeriode(periode.startDato, periode.sluttDato)}
-                                    </Table.DataCell>
-                                    {innloggetBruker.erNavAnsatt && (
-                                        <Table.DataCell textSize="small">
-                                            <EtikettStatus tilskuddsperiodestatus={periode.status} size="small" />
-                                        </Table.DataCell>
-                                    )}
-                                    <Table.DataCell textSize="small">
-                                        {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' &&
-                                            periode.status !== 'BEHANDLET_I_ARENA' && (
-                                                <>{periode.lonnstilskuddProsent}%</>
-                                            )}
-                                        {(avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-                                            avtale.tiltakstype === 'SOMMERJOBB') && (
-                                            <>{periode.lonnstilskuddProsent}%</>
-                                        )}
-                                    </Table.DataCell>
-                                    <Table.DataCell textSize="small">
-                                        {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
-                                    </Table.DataCell>
-                                </Table.Row>
+                                <TilskuddsperiodeTabellRad
+                                    index={index}
+                                    periode={periode}
+                                    erNavAnsatt={innloggetBruker.erNavAnsatt}
+                                    tiltakstype={avtale.tiltakstype}
+                                    nyProsent={nyProsent}
+                                />
                             );
                         })}
+                    {!visAllePerioder && sistePeriode && (
+                        <>
+                            <Table.Row>
+                                <Table.DataCell textSize="small" colSpan={100}>
+                                    ...
+                                </Table.DataCell>
+                            </Table.Row>
+                            <TilskuddsperiodeTabellRad
+                                index={antallAktiveTilskuddsperioder(avtale) - 1}
+                                periode={sistePeriode}
+                                erNavAnsatt={innloggetBruker.erNavAnsatt}
+                                tiltakstype={avtale.tiltakstype}
+                            />
+                        </>
+                    )}
                 </Table.Body>
             </Table>
             <VerticalSpacer rem={1} />

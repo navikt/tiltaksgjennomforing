@@ -11,7 +11,7 @@ import {
     getIndexVisningForTilskuddsperiode,
 } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import TilskuddsperiodeRad from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/TilskuddsperiodeTabellRad';
+import TilskuddsperiodeRadVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/TilskuddsperiodeTabellVtao';
 
 interface Properties {
     className: string;
@@ -47,11 +47,24 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
+                    <TilskuddsperiodeRadVtao
+                        avtaleOpprettet={avtaleOpprettet}
+                        periode={avtale.tilskuddPeriode.at(0) as TilskuddsPeriode}
+                        erNavAnsatt={erNavAnsatt}
+                        kreverOppfølgingDato={kreverOppfølgingDato}
+                    />
+                    {startIndexVisning > 1 && (
+                        <Table.Row>
+                            <Table.DataCell textSize="small" colSpan={100}>
+                                ...
+                            </Table.DataCell>
+                        </Table.Row>
+                    )}
                     {avtale.tilskuddPeriode
                         .filter((p: TilskuddsPeriode) => p.aktiv)
                         .slice(startIndexVisning, sluttIndexVisning)
                         .map((periode: TilskuddsPeriode) => (
-                            <TilskuddsperiodeRad
+                            <TilskuddsperiodeRadVtao
                                 avtaleOpprettet={avtaleOpprettet}
                                 erNavAnsatt={erNavAnsatt}
                                 periode={periode}
@@ -66,7 +79,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
                                     ...
                                 </Table.DataCell>
                             </Table.Row>
-                            <TilskuddsperiodeRad
+                            <TilskuddsperiodeRadVtao
                                 avtaleOpprettet={avtaleOpprettet}
                                 periode={sistePeriode}
                                 erNavAnsatt={erNavAnsatt}
