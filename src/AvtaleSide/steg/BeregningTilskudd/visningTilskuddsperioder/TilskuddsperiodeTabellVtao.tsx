@@ -6,12 +6,15 @@ import { formaterDato, formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 
-const TilskuddsperiodeRadVtao: React.FC<{
+interface Props {
     avtaleOpprettet: Date;
     erNavAnsatt: boolean;
     periode: TilskuddsPeriode;
     kreverOppfølgingDato?: Date | undefined;
-}> = ({ avtaleOpprettet, erNavAnsatt, periode, kreverOppfølgingDato }) => {
+}
+
+const TilskuddsperiodeRadVtao = (props: Props) => {
+    const { avtaleOpprettet, erNavAnsatt, periode, kreverOppfølgingDato } = props;
     const periodeAar = getYear(new Date(periode.startDato));
     // Hvis tilskuddsperioden gjelder for et tidligere år enn når avtalen er opprettet,
     // så vil vi vise en liten notis om at VTAO-satsen er basert på et lavere beløp
@@ -42,7 +45,7 @@ const TilskuddsperiodeRadVtao: React.FC<{
                 {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
             </Table.DataCell>
             <Table.DataCell textSize="small">
-                {formaterDato(addDays(new Date(periode.sluttDato), 3).toString(), 'dd MMM yyyy')}
+                {formaterDato(addDays(new Date(periode.sluttDato), 3), 'dd MMM yyyy')}
             </Table.DataCell>
         </Table.Row>
     );
