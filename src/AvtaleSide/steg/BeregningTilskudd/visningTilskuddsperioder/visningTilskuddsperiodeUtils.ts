@@ -1,36 +1,41 @@
 import { Avtale, TilskuddsPeriode } from '@/types/avtale';
+import { useMemo, useState } from 'react';
 
-interface IndexVisning {
-    startIndexVisning: number;
-    sluttIndexVisning: number;
+interface Tilskuddsperiodevisning {
+    tilskuddsperioder: {
+        forste?: TilskuddsPeriode;
+        mellom: TilskuddsPeriode[];
+        siste?: TilskuddsPeriode;
+    };
+    antallAktivePerioder: number;
+    visAllePerioder: boolean;
+    toggleAllePerioder: () => void;
 }
 
-export const antallAktiveTilskuddsperioder = (avtale: Avtale): number =>
-    avtale.tilskuddPeriode.filter((periode: TilskuddsPeriode) => periode.aktiv).length;
+export function useTilskuddsperiodevisning(avtale: Avtale): Tilskuddsperiodevisning {
+    const [visAllePerioder, setVisAllePerioder] = useState(false);
 
-export function getIndexVisningForTilskuddsperiode(avtale: Avtale, visAllePerioder: boolean): IndexVisning {
-    let gjeldendeTilskuddsperiodeIndex = 0;
-    if (avtale.gjeldendeTilskuddsperiode) {
-        let i = 0;
-        avtale.tilskuddPeriode.forEach((periode: TilskuddsPeriode) => {
-            if (avtale.gjeldendeTilskuddsperiode && avtale.gjeldendeTilskuddsperiode.id === periode.id) {
-                gjeldendeTilskuddsperiodeIndex = i;
-            }
-            i++;
-        });
-    }
-    let startIndexVisning = gjeldendeTilskuddsperiodeIndex;
-    if (startIndexVisning < 1) {
-        startIndexVisning = 1;
-    }
-    let sluttIndexVisning = gjeldendeTilskuddsperiodeIndex + 6;
-    if (visAllePerioder) {
-        startIndexVisning = 1;
-        sluttIndexVisning = antallAktiveTilskuddsperioder(avtale);
-    }
+    return useMemo(() => {
+        const aktiveTilskuddsperioder = avtale.tilskuddPeriode.filter((tp) => tp.aktiv);
+        const gjeldendeTilskuddsperiodeIndex =
+            aktiveTilskuddsperioder.findIndex((tp) => avtale.gjeldendeTilskuddsperiode?.id === tp.id) ?? 0;
 
-    return {
-        startIndexVisning: startIndexVisning,
-        sluttIndexVisning: sluttIndexVisning,
-    };
+        const forstePeriode = aktiveTilskuddsperioder[0];
+        const perioder = aktiveTilskuddsperioder.slice(
+            gjeldendeTilskuddsperiodeIndex,
+            gjeldendeTilskuddsperiodeIndex + 6,
+        );
+        const sistePeriode = aktiveTilskuddsperioder[aktiveTilskuddsperioder.length - 1];
+
+        return {
+            tilskuddsperioder: {
+                forste: perioder.includes(forstePeriode) || visAllePerioder ? undefined : forstePeriode,
+                mellom: visAllePerioder ? aktiveTilskuddsperioder : perioder,
+                siste: perioder.includes(sistePeriode) || visAllePerioder ? undefined : sistePeriode,
+            },
+            antallAktivePerioder: aktiveTilskuddsperioder.length,
+            visAllePerioder: visAllePerioder,
+            toggleAllePerioder: () => setVisAllePerioder(!visAllePerioder),
+        };
+    }, [avtale.tilskuddPeriode, avtale.gjeldendeTilskuddsperiode, visAllePerioder]);
 }

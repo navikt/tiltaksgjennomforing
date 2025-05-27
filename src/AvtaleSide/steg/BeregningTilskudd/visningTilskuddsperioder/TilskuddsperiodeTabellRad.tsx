@@ -6,15 +6,13 @@ import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
 
 const TilskuddsperiodeTabellRad: React.FC<{
-    index: number;
     periode: TilskuddsPeriode;
     erNavAnsatt: boolean;
     tiltakstype: string;
     nyProsent?: boolean;
-}> = ({ index, periode, erNavAnsatt, tiltakstype, nyProsent }) => {
+}> = ({ periode, erNavAnsatt, tiltakstype, nyProsent }) => {
     return (
         <Table.Row
-            key={index}
             style={{
                 borderTop: nyProsent ? '2px solid gray' : 'undefined',
             }}
