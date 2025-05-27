@@ -2,7 +2,7 @@ import React from 'react';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { addDays, getYear, isWithinInterval } from 'date-fns';
 import { BodyShort, Table } from '@navikt/ds-react';
-import { formaterDato, formaterPeriode } from '@/utils/datoUtils';
+import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 
@@ -45,7 +45,7 @@ const TilskuddsperiodeRadVtao = (props: Props) => {
                 {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
             </Table.DataCell>
             <Table.DataCell textSize="small">
-                {formaterDato(addDays(new Date(periode.sluttDato), 3), 'dd MMM yyyy')}
+                {formaterDato(addDays(new Date(periode.sluttDato), 3), NORSK_DATO_FORMAT)}
             </Table.DataCell>
         </Table.Row>
     );

@@ -7,7 +7,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { addDays } from 'date-fns';
 import { useTilskuddsperiodevisning } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import TilskuddsperiodeRadVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/TilskuddsperiodeTabellVtao';
+import TilskuddsperiodeRadVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/TilskuddsperiodeRadVtao';
 
 interface Properties {
     className: string;
