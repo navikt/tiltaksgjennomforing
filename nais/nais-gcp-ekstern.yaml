@@ -48,6 +48,14 @@ spec:
       level: Level4
       locale: nb
       autoLogin: false
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
+    logging:
+      destinations:
+        - id: elastic
+        - id: loki
   accessPolicy:
     outbound:
       rules:
