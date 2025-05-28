@@ -7,7 +7,7 @@ interface Props {
     gjeldendeInnholdStartdato?: string | undefined;
     gjeldendeInnholdSluttdato?: string | undefined;
     antallAktiveTilskuddsperioder: number;
-    setVisAllePerioder: (value: React.SetStateAction<boolean>) => void;
+    setVisAllePerioder: () => void;
     visAllePerioder: boolean;
 }
 
@@ -27,11 +27,9 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
                 {formaterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
                 {antallAktiveTilskuddsperioder} tilskuddsperioder.
             </BodyShort>
-            {!visAllePerioder && (
-                <Button size="small" onClick={() => setVisAllePerioder(true)}>
-                    Vis alle perioder
-                </Button>
-            )}
+            <Button size="small" onClick={() => setVisAllePerioder()}>
+                {visAllePerioder ? 'Skjul perioder' : 'Vis alle perioder'}
+            </Button>
         </>
     );
 };
