@@ -28,7 +28,7 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
                 {antallAktiveTilskuddsperioder} tilskuddsperioder.
             </BodyShort>
             <Button size="small" onClick={() => setVisAllePerioder()}>
-                {visAllePerioder ? 'Skjul periopder' : 'Vis alle perioder'}
+                {visAllePerioder ? 'Skjul perioder' : 'Vis alle perioder'}
             </Button>
         </>
     );
