@@ -385,7 +385,7 @@ function VeilederAvtaleStatus(props: Props) {
                 );
             }
 
-            if ('ARBEIDSTRENING' === avtale.tiltakstype) {
+            if (['ARBEIDSTRENING', 'VTAO'].includes(avtale.tiltakstype)) {
                 return (
                     <StatusPanel
                         header="Avtalen er ferdig utfylt og godkjent"
