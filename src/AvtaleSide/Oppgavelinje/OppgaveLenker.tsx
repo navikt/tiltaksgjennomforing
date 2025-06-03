@@ -35,7 +35,8 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB' ||
-        avtale.tiltakstype === 'ARBEIDSTRENING';
+        avtale.tiltakstype === 'ARBEIDSTRENING' ||
+        avtale.tiltakstype === 'VTAO';
 
     if (!erVeileder) {
         return <Varsellogg />;
