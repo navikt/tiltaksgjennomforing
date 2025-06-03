@@ -5,6 +5,19 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(3, 6, 2025),
+        tittel: 'Endre Tilskuddsprosent - Varig lønnstilskudd',
+        innhold: (
+            <>
+                <p>
+                    Det er nå mulig å endre lønnstilskuddsprosenten på avtaler om varig lønnstilskudd som er under
+                    gjennomførering.
+                </p>
+                <p>Du finner denne funksjonen under menypunktet "Endre tilskuddsberegning" i avtalen.</p>
+            </>
+        ),
+    },
+    {
         dato: tilDato(17, 10, 2024),
         tittel: 'Automatisk sletting av avtaler som ikke er inngått',
         innhold: (
