@@ -1,15 +1,15 @@
+import { useAvtale } from '@/AvtaleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import { Heading, Detail, Alert } from '@navikt/ds-react';
+import { Alert, Detail, Heading } from '@navikt/ds-react';
+import { addDays, differenceInDays, endOfDay, max } from 'date-fns';
 import React, { useContext } from 'react';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import nyheter from '../NyttIAppen/nyheter';
 import Nytt from '../NyttIAppen/Nytt';
 import './Banner.less';
-import { useAvtale } from '@/AvtaleProvider';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { addDays, max, differenceInDays, endOfDay } from 'date-fns';
-import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 
 interface Props {
     tekst: string;
@@ -43,46 +43,48 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const erLangTittel = props.tekst.length > 40;
 
-    return innloggetBruker.erNavAnsatt && avtale ? (
-        <>
-            <div className="banner-veileder-container">
-                <div className="banner-veileder" role="banner">
-                    <div>
-                        <Heading
-                            className={erLangTittel ? 'banner-lang-tittel' : ''}
-                            size="large"
-                            role="heading"
-                            aria-level={1}
-                        >
-                            {props.tekst}
-                        </Heading>
+    return (
+        innloggetBruker.erNavAnsatt && (
+            <>
+                <div className="banner-veileder-container">
+                    <div className="banner-veileder" role="banner">
+                        <div>
+                            <Heading
+                                className={erLangTittel ? 'banner-lang-tittel' : ''}
+                                size="large"
+                                role="heading"
+                                aria-level={1}
+                            >
+                                {props.tekst}
+                            </Heading>
 
-                        {props.undertittel && (
-                            <>
-                                <VerticalSpacer rem={0.5} />
-                                <Detail style={{ fontWeight: 'bold' }}>{props.undertittel}</Detail>
-                            </>
-                        )}
-                    </div>
+                            {props.undertittel && (
+                                <>
+                                    <VerticalSpacer rem={0.5} />
+                                    <Detail style={{ fontWeight: 'bold' }}>{props.undertittel}</Detail>
+                                </>
+                            )}
+                        </div>
 
-                    <div>
-                        <Nytt
-                            åpneVedFørsteBesøk={true}
-                            nyheter={nyheter}
-                            tittel="Nytt i tiltaksgjennomføring"
-                            navn="Tiltaksgjennomføring"
-                        />
+                        <div>
+                            <Nytt
+                                åpneVedFørsteBesøk={true}
+                                nyheter={nyheter}
+                                tittel="Nytt i tiltaksgjennomføring"
+                                navn="Tiltaksgjennomføring"
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-            {pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale.status) && (
-                <Alert variant="info">
-                    Avtalen vil automatisk slettes dersom den ikke blir inngått eller endret innen{' '}
-                    {formaterSlettetidspunkt(avtale.sistEndret)}.
-                </Alert>
-            )}
-        </>
-    ) : null;
+                {avtale && pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale.status) && (
+                    <Alert variant="info">
+                        Avtalen vil automatisk slettes dersom den ikke blir inngått eller endret innen{' '}
+                        {formaterSlettetidspunkt(avtale.sistEndret)}.
+                    </Alert>
+                )}
+            </>
+        )
+    );
 };
 
 export default BannerNAVAnsatt;
