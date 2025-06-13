@@ -574,6 +574,20 @@ export const forkortAvtale = async (avtale: Avtale, sluttDato: string, grunn: st
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
+export const avsluttArenaAvtale = async (avtale: Avtale) => {
+    const uri = `/avtaler/${avtale.id}/forkort`;
+    await api.post(
+        uri,
+        { sluttDato: avtale.gjeldendeInnhold.sluttDato, grunn: 'Avtalen er avsluttet i Arena' },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        },
+    );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
+};
+
 export const forkortAvtaleDryRun = async (avtale: Avtale, sluttDato: string): Promise<Avtale> => {
     const response = await api.post(`/avtaler/${avtale.id}/forkort-dry-run`, { sluttDato });
     return response.data;
