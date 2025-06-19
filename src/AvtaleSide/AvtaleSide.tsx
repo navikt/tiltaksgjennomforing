@@ -1,16 +1,13 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleTittel } from '@/messages';
 import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
-import { Alert } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './AvtaleSide.less';
@@ -95,19 +92,6 @@ const AvtaleSide: FunctionComponent = () => {
             <div className="avtaleside" role="main">
                 {
                     <div className={erAvtaleLaast ? cls.element('innhold') : cls.element('')}>
-                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && avtale.tiltakstype === 'ARBEIDSTRENING' && (
-                            <>
-                                <VerticalSpacer rem={1} />
-                                <Alert variant={'warning'}>
-                                    Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer
-                                    for de som har avtaler om arbeidstrening.
-                                    <br />
-                                    Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på
-                                    telefonen: <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
-                                </Alert>
-                                <VerticalSpacer rem={1} />
-                            </>
-                        )}
                         {erAvtaleLaast && (
                             <div className={cls.element('innhold')}>
                                 <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />

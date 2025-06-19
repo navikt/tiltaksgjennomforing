@@ -1,4 +1,4 @@
-import { Alert, omit, Pagination, Select } from '@navikt/ds-react';
+import { omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -210,22 +210,6 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                {innloggetBruker.rolle === 'DELTAKER' && (
-                    <Alert variant={'warning'}>
-                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for deg som
-                        har avtale om arbeidstrening. Hvis du opplever at noe ikke stemmer, så ta kontakt med din
-                        veileder.
-                    </Alert>
-                )}
-                {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
-                    <Alert variant={'warning'}>
-                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som
-                        har avtaler om arbeidstrening.
-                        <br />
-                        Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på telefonen:{' '}
-                        <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
-                    </Alert>
-                )}
                 <div
                     style={layout.stylingAvFilterOgTabell}
                     className={cls.element('filter-og-tabell')}
