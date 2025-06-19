@@ -25,7 +25,7 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
     return (
         <>
             <OppgaveLinje />
-            <form>{ekspanderbartPanel}</form>
+            {ekspanderbartPanel}
         </>
     );
 };
