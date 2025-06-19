@@ -65,6 +65,7 @@ const AvtaleTabellBeslutter = (props: Props) => {
                                 <EtikettStatus
                                     tilskuddsperiodestatus={avtale.status}
                                     antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
+                                    godkjentAv={avtale.veilederNavIdent}
                                 />
                             </Table.DataCell>
                             <Table.DataCell>
