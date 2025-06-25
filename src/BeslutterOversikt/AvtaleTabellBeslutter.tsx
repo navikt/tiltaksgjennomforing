@@ -33,7 +33,7 @@ const AvtaleTabellBeslutter = (props: Props) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
                         <Table.Row
-                            key={avtale.id + index}
+                            key={avtale.id}
                             onClick={() => {
                                 navigate({
                                     pathname: generatePath(Path.AVTALE_BESLUTTER, { avtaleId: avtale.id }),

@@ -11,20 +11,20 @@ const AvtaleTabellBeslutterHeader: React.FC = () => {
         <Table.Header className={cls.className}>
             <Table.Row>
                 <Table.ColumnHeader style={{ width: '15%' }}>
-                    <SorteringOrderValgBeslutter label={'Tiltakstype'} sorteringsverdi={'tiltakstype'} />
+                    <SorteringOrderValgBeslutter label="Tiltakstype" sorteringsverdi="tiltakstype" />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader style={{ width: '20%' }}>
-                    <SorteringOrderValgBeslutter label={'Bedrift'} sorteringsverdi={'bedriftNavn'} />
+                    <SorteringOrderValgBeslutter label="Bedrift" sorteringsverdi="bedriftNavn" />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader style={{ width: '20%' }}>
-                    <SorteringOrderValgBeslutter label={'Deltaker'} sorteringsverdi={'deltakerEtternavn'} />
+                    <SorteringOrderValgBeslutter label="Deltaker" sorteringsverdi="deltakerEtternavn" />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader style={{ width: '10%' }}>Veileder</Table.ColumnHeader>
                 <Table.ColumnHeader style={{ width: '15%' }}>
-                    <SorteringOrderValgBeslutter label={'Startdato'} sorteringsverdi={'startDato'} />
+                    <SorteringOrderValgBeslutter label="Startdato" sorteringsverdi="startDato" />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader style={{ width: '20%' }}>
-                    <SorteringOrderValgBeslutter label={'Status'} sorteringsverdi={'status'} />
+                    <SorteringOrderValgBeslutter label="Status" sorteringsverdi={'status'} />
                 </Table.ColumnHeader>
                 <Table.ColumnHeader />
             </Table.Row>
