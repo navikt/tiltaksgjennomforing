@@ -74,6 +74,7 @@ export type AvtaleMinimalForBeslutter = {
     status: TilskuddPeriodeStatus;
     tiltakstype: TiltaksType;
     diskresjonskode: Diskresjonskode;
+    harReturnertSomKanBehandles: boolean;
 };
 
 export type Avtaleinnhold = {

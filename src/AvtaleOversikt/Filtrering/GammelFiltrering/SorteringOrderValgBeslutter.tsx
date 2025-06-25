@@ -10,13 +10,21 @@ interface Props {
     sorteringsverdi: string;
 }
 
-const cls = BEMHelper('avtaletabellradheader');
+const cls = BEMHelper('avtaletabellbeslutterheader');
 
-const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsverdi }) => {
+const SorteringOrderValgBeslutter: FunctionComponent<Props> = ({ label, sorteringsverdi }) => {
     const { endreFilter, filtre } = useFilterGammel();
 
     return (
-        <div className={cls.element('label-container')}>
+        <div
+            className={cls.element('label-container')}
+            onClick={() => {
+                endreFilter({
+                    sorteringskolonne: sorteringsverdi as keyof Avtale,
+                    sorteringOrder: filtre.sorteringOrder === 'DESC' ? 'ASC' : 'DESC',
+                });
+            }}
+        >
             {label}
             <TriangleUp
                 style={{ marginLeft: '0.5rem' }}
@@ -26,12 +34,6 @@ const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsv
                         ? 'asc-selected'
                         : 'asc',
                 )}
-                onClick={() => {
-                    endreFilter({
-                        sorteringskolonne: sorteringsverdi as keyof Avtale,
-                        sorteringOrder: 'ASC',
-                    });
-                }}
             />
             <TriangleDown
                 className={cls.element(
@@ -40,14 +42,8 @@ const SorteringOrderValgGammel: FunctionComponent<Props> = ({ label, sorteringsv
                         ? 'desc-selected'
                         : 'desc',
                 )}
-                onClick={() => {
-                    endreFilter({
-                        sorteringskolonne: sorteringsverdi as keyof Avtale,
-                        sorteringOrder: 'DESC',
-                    });
-                }}
             />
         </div>
     );
 };
-export default SorteringOrderValgGammel;
+export default SorteringOrderValgBeslutter;

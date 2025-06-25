@@ -9,6 +9,7 @@ type Props = {
     antallKlarTilgodkjenning?: number;
     godkjentAv?: string;
     size?: TagProps['size'];
+    returnertSomKanBehandles?: boolean;
 };
 
 const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
@@ -21,11 +22,18 @@ const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
 };
 
 const EtikettStatus: FunctionComponent<Props> = (props) => {
-    const { refusjonStatus, antallKlarTilgodkjenning = 0, tilskuddsperiodestatus, size, godkjentAv } = props;
+    const {
+        refusjonStatus,
+        antallKlarTilgodkjenning = 0,
+        tilskuddsperiodestatus,
+        size,
+        godkjentAv,
+        returnertSomKanBehandles,
+    } = props;
 
     if (refusjonStatus === 'UTBETALT') {
         return (
-            <Tag className="etikett-status" variant={'success'}>
+            <Tag className="etikett-status" variant="success">
                 Utbetalt
             </Tag>
         );
@@ -36,6 +44,15 @@ const EtikettStatus: FunctionComponent<Props> = (props) => {
             <Tag className="etikett-status" variant={etikettStatus[tilskuddsperiodestatus]} size={size}>
                 {tilskuddsperiodeStatusTekst[tilskuddsperiodestatus]}
                 {godkjentAv && <> av {godkjentAv}</>}
+            </Tag>
+        );
+    }
+
+    if (returnertSomKanBehandles) {
+        return (
+            <Tag className="etikett-status" variant="warning" size={size}>
+                Returnert
+                {antallKlarTilgodkjenning > 0 && ' (' + antallKlarTilgodkjenning + ' ub.)'}
             </Tag>
         );
     }

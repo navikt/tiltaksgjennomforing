@@ -10,18 +10,15 @@ const TilskuddPeriodeStatusFilter: FunctionComponent = () => {
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [
         { value: 'ALLE', label: 'Alle' },
-        { value: 'UBEHANDLET', label: 'Ubehandlet' },
+        { value: 'UBEHANDLET', label: 'Kan behandles' },
         { value: 'GODKJENT', label: 'Godkjent' },
         { value: 'AVSLÅTT', label: 'Returnert' },
+        { value: 'AVSLÅTT_UBEHANDLET', label: 'Returnert (kan behandles)' },
     ];
 
     return (
         <Filter tittel="Status">
-            <RadioGroup
-                legend=""
-                size="small"
-                value={filtre.tilskuddPeriodeStatus || (filtre.tilskuddPeriodeStatus === undefined && 'ALLE')}
-            >
+            <RadioGroup legend="" size="small" value={filtre.tilskuddPeriodeStatus ?? 'ALLE'}>
                 {alleTilskuddPeriodeStatus.map((tilskuddPeriodeStatus: OptionProps) => (
                     <Radio
                         key={tilskuddPeriodeStatus.value}
