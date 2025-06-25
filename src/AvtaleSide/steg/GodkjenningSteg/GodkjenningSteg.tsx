@@ -11,8 +11,8 @@ import BEMHelper from '@/utils/bem';
 import React, { createElement, FunctionComponent, useContext } from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
+import { Rolle } from '@/types';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -27,6 +27,21 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const skalViseGodkjenning =
         !avtale.erAnnullertEllerAvbrutt &&
         (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
+
+    const viseGodkjenningInstruks = (rolle: Rolle) => {
+        switch (rolle) {
+            case 'DELTAKER':
+                return avtale.godkjentAvDeltaker;
+            case 'MENTOR':
+                return avtale.godkjentAvMentor;
+            case 'ARBEIDSGIVER':
+                return avtale.godkjentAvArbeidsgiver;
+            case 'VEILEDER':
+                return avtale.godkjentAvVeileder;
+            default:
+                return false;
+        }
+    };
 
     return (
         <div className={cls.className}>
@@ -52,21 +67,15 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
-            {avtale.tilskuddPeriode.length > 0 ? (
-                <>
-                    <Innholdsboks>
-                        <TilskuddsPerioderOppsummering />
-                    </Innholdsboks>
-                    <Innholdsboks>
-                        <GodkjenningInstruks />
-                    </Innholdsboks>
-                </>
-            ) : (
-                (avtale.avtaleInngått || avtale.godkjentAvArbeidsgiver) && (
-                    <Innholdsboks>
-                        <GodkjenningInstruks />
-                    </Innholdsboks>
-                )
+            {avtale.tilskuddPeriode.length > 0 && (
+                <Innholdsboks>
+                    <TilskuddsPerioderOppsummering />
+                </Innholdsboks>
+            )}
+            {viseGodkjenningInstruks(innloggetBruker.rolle) && (
+                <Innholdsboks>
+                    <GodkjenningInstruks />
+                </Innholdsboks>
             )}
             <VersjoneringKomponent avtale={avtale} />
         </div>
