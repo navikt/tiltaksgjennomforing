@@ -1,9 +1,31 @@
 @import (reference) '../tiltak_variabler.less';
 .avtaletabellbeslutterheader {
     &__label-container {
+        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    &__sortering {
+        &--asc,
+        &--asc-selected {
+            bottom: 0.1rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        &--desc,
+        &--desc-selected {
+            top: 0.1rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        &--asc-selected,
+        &--desc-selected {
+            opacity: 0.5;
+        }
     }
 
     th {

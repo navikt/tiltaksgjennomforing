@@ -9,6 +9,7 @@ type Props = {
     antallKlarTilgodkjenning?: number;
     godkjentAv?: string;
     size?: TagProps['size'];
+    returnertSomKanBehandles?: boolean;
 };
 
 const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
@@ -21,21 +22,47 @@ const etikettStatus: { [key in TilskuddPeriodeStatus]: TagProps['variant'] } = {
 };
 
 const EtikettStatus: FunctionComponent<Props> = (props) => {
-    if (props.refusjonStatus === 'UTBETALT') {
+    const {
+        refusjonStatus,
+        antallKlarTilgodkjenning = 0,
+        tilskuddsperiodestatus,
+        size,
+        godkjentAv,
+        returnertSomKanBehandles,
+    } = props;
+
+    if (refusjonStatus === 'UTBETALT') {
         return (
-            <Tag className="etikett-status" variant={'success'}>
+            <Tag className="etikett-status" variant="success">
                 Utbetalt
             </Tag>
         );
-    } else {
+    }
+
+    if (['GODKJENT', 'AVSLÅTT'].includes(tilskuddsperiodestatus)) {
         return (
-            <Tag className="etikett-status" variant={etikettStatus[props.tilskuddsperiodestatus]} size={props.size}>
-                {props.antallKlarTilgodkjenning && props.antallKlarTilgodkjenning + ' '}
-                {tilskuddsperiodeStatusTekst[props.tilskuddsperiodestatus]}
-                {props.tilskuddsperiodestatus === 'GODKJENT' && props.godkjentAv && <> av {props.godkjentAv}</>}
+            <Tag className="etikett-status" variant={etikettStatus[tilskuddsperiodestatus]} size={size}>
+                {tilskuddsperiodeStatusTekst[tilskuddsperiodestatus]}
+                {godkjentAv && <> av {godkjentAv}</>}
             </Tag>
         );
     }
+
+    if (returnertSomKanBehandles) {
+        return (
+            <Tag className="etikett-status" variant="warning" size={size}>
+                Returnert
+                {antallKlarTilgodkjenning > 0 && ' (' + antallKlarTilgodkjenning + ' ub.)'}
+            </Tag>
+        );
+    }
+
+    return (
+        <Tag className="etikett-status" variant={etikettStatus[tilskuddsperiodestatus]} size={size}>
+            {antallKlarTilgodkjenning > 0 && antallKlarTilgodkjenning + ' '}
+            {tilskuddsperiodeStatusTekst[tilskuddsperiodestatus]}
+        </Tag>
+    );
 };
 
 export default EtikettStatus;

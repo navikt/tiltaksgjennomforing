@@ -1,6 +1,5 @@
-import { FunctionComponent } from 'react';
-import { useNavigate, generatePath } from 'react-router-dom';
-import { Table, BodyShort } from '@navikt/ds-react';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { Table } from '@navikt/ds-react';
 
 import '../AvtaleOversikt/AvtaleTabell.less';
 import AvtaleTabellBeslutterHeader from '@/BeslutterOversikt/AvtaleTabellBeslutterHeader';
@@ -13,6 +12,7 @@ import { Varsel } from '@/types/varsel';
 import { kunStorForbokstav } from '@/utils/stringUtils';
 import { tiltakstypeTekstKort } from '@/messages';
 import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
+import { Diskresjonskode } from '@/types';
 
 const cls = BEMHelper('avtaletabell');
 
@@ -33,8 +33,8 @@ const AvtaleTabellBeslutter = (props: Props) => {
                     const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                     return (
                         <Table.Row
-                            key={avtale.id + index}
-                            onClick={(e) => {
+                            key={avtale.id}
+                            onClick={() => {
                                 navigate({
                                     pathname: generatePath(Path.AVTALE_BESLUTTER, { avtaleId: avtale.id }),
                                     search: window.location.search,
@@ -65,6 +65,8 @@ const AvtaleTabellBeslutter = (props: Props) => {
                                 <EtikettStatus
                                     tilskuddsperiodestatus={avtale.status}
                                     antallKlarTilgodkjenning={Number(avtale.antallUbehandlet)}
+                                    godkjentAv={avtale.veilederNavIdent}
+                                    returnertSomKanBehandles={avtale.harReturnertSomKanBehandles}
                                 />
                             </Table.DataCell>
                             <Table.DataCell>

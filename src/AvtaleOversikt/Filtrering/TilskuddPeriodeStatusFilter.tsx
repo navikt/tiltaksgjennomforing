@@ -9,27 +9,27 @@ const TilskuddPeriodeStatusFilter: FunctionComponent = () => {
     const { endreFilter, filtre } = useFilterGammel();
 
     const alleTilskuddPeriodeStatus: OptionProps[] = [
-        { value: 'UBEHANDLET', label: 'Ubehandlet' },
+        { value: 'ALLE', label: 'Alle' },
+        { value: 'UBEHANDLET', label: 'Kan behandles' },
         { value: 'GODKJENT', label: 'Godkjent' },
         { value: 'AVSLÅTT', label: 'Returnert' },
+        { value: 'AVSLÅTT_UBEHANDLET', label: 'Returnert (kan behandles)' },
     ];
 
     return (
         <Filter tittel="Status">
-            <RadioGroup
-                legend=""
-                size="small"
-                value={filtre.tilskuddPeriodeStatus || (filtre.tilskuddPeriodeStatus === undefined && 'UBEHANDLET')}
-            >
-                {alleTilskuddPeriodeStatus.map((tilskuddPeriodeStatus: OptionProps, index: number) => (
+            <RadioGroup legend="" size="small" value={filtre.tilskuddPeriodeStatus ?? 'ALLE'}>
+                {alleTilskuddPeriodeStatus.map((tilskuddPeriodeStatus: OptionProps) => (
                     <Radio
-                        key={index}
+                        key={tilskuddPeriodeStatus.value}
                         id={tilskuddPeriodeStatus.label}
                         name={'tilskuddPeriodeStatus'}
                         value={tilskuddPeriodeStatus.value}
                         onChange={(event) => {
-                            const nyTilskuddPeriode = event.currentTarget.value as TilskuddPeriodeStatus;
-                            endreFilter({ tilskuddPeriodeStatus: nyTilskuddPeriode });
+                            const value = event.currentTarget.value;
+                            endreFilter({
+                                tilskuddPeriodeStatus: value !== 'ALLE' ? (value as TilskuddPeriodeStatus) : undefined,
+                            });
                         }}
                         role="radio"
                         aria-labelledby={tilskuddPeriodeStatus.label}
