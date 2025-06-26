@@ -28,7 +28,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
         !avtale.erAnnullertEllerAvbrutt &&
         (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
-    const viseGodkjenningInstruks = (rolle: Rolle) => {
+    const harGodkjentSelv = (rolle: Rolle) => {
         switch (rolle) {
             case 'DELTAKER':
                 return avtale.godkjentAvDeltaker;
