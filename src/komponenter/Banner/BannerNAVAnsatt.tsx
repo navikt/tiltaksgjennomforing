@@ -1,14 +1,18 @@
-import { useAvtale } from '@/AvtaleProvider';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
-import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
+import React, { useContext } from 'react';
 import { Alert, Detail, Heading } from '@navikt/ds-react';
 import { addDays, differenceInDays, endOfDay, max } from 'date-fns';
-import React, { useContext } from 'react';
-import VerticalSpacer from '../layout/VerticalSpacer';
-import nyheter from '../NyttIAppen/nyheter';
-import Nytt from '../NyttIAppen/Nytt';
+
+import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
+
+import Nytt from '@/komponenter/NyttIAppen/Nytt';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import nyheter from '@/komponenter/NyttIAppen/nyheter';
+import { Avtale } from '@/types';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
+import { useAvtale } from '@/AvtaleProvider';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
+
 import './Banner.less';
 
 interface Props {
@@ -17,11 +21,16 @@ interface Props {
 }
 
 const TOLV_UKER_I_DAGER = 7 * 12;
-const STARTDATO_FOR_RYDDING = endOfDay(new Date('2024-11-28'));
+const FORSTE_SEPTEMBER_2025 = endOfDay(new Date('2025-09-01'));
 
-const formaterSlettetidspunkt = (sistEndret: string) => {
-    const sistEndretPlussTolvUker = addDays(endOfDay(sistEndret), TOLV_UKER_I_DAGER);
-    const slettetidspunkt = max([STARTDATO_FOR_RYDDING, sistEndretPlussTolvUker]);
+const formaterSlettetidspunkt = (avtale: Avtale) => {
+    const { sistEndret, opphav, tiltakstype } = avtale;
+    const tolvUkerEtterSistEndret = addDays(endOfDay(sistEndret), TOLV_UKER_I_DAGER);
+
+    const slettetidspunkt =
+        opphav === 'ARENA' && tiltakstype === 'VTAO'
+            ? max([FORSTE_SEPTEMBER_2025, tolvUkerEtterSistEndret])
+            : tolvUkerEtterSistEndret;
 
     const antallDager = Math.abs(differenceInDays(new Date(), slettetidspunkt));
 
@@ -79,7 +88,7 @@ const BannerNAVAnsatt: React.FunctionComponent<Props> = (props) => {
                 {avtale && pabegyntAvtaleRyddeJobb && ['PÅBEGYNT', 'MANGLER_GODKJENNING'].includes(avtale.status) && (
                     <Alert variant="info">
                         Avtalen vil automatisk slettes dersom den ikke blir inngått eller endret innen{' '}
-                        {formaterSlettetidspunkt(avtale.sistEndret)}.
+                        {formaterSlettetidspunkt(avtale)}.
                     </Alert>
                 )}
             </>
