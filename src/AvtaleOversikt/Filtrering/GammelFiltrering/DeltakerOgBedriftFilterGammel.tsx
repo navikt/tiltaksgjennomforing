@@ -131,11 +131,13 @@ export const DeltakerOgBedriftFilterGammel: FunctionComponent = () => {
         }
     };
 
-    const navEnhetOptions = innloggetBruker.navEnheter.sort().map((enhet, index) => (
-        <option key={index} value={enhet.verdi}>
-            {enhet.navn} ({enhet.verdi})
-        </option>
-    ));
+    const navEnhetOptions = innloggetBruker.navEnheter
+        .sort((a, b) => a.navn.localeCompare(b.navn))
+        .map((enhet, index) => (
+            <option key={index} value={enhet.verdi}>
+                {enhet.navn} ({enhet.verdi})
+            </option>
+        ));
 
     const aktueltSøk = søk[aktivSøketype];
     const visSøkefelt =
