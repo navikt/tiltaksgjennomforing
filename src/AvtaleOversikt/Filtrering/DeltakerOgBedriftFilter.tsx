@@ -6,7 +6,7 @@ import { validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { Radio, RadioGroup, Select } from '@navikt/ds-react';
 import { erNil } from '@/utils/predicates';
-import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
+import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 type Validering = (verdi: string) => string | undefined;
 
@@ -131,13 +131,17 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
         }
     };
 
-    const navEnhetOptions = innloggetBruker.navEnheter
-        .sort((a, b) => a.navn.localeCompare(b.navn))
-        .map((enhet, index) => (
-            <option key={index} value={enhet.verdi}>
-                {enhet.navn} ({enhet.verdi})
-            </option>
-        ));
+    const navEnhetOptions = useMemo(
+        () =>
+            [...innloggetBruker.navEnheter]
+                .sort((a, b) => a.navn.localeCompare(b.navn))
+                .map((enhet) => (
+                    <option key={enhet.verdi} value={enhet.verdi}>
+                        {enhet.navn} ({enhet.verdi})
+                    </option>
+                )),
+        [innloggetBruker.navEnheter],
+    );
 
     const aktueltSøk = søk[aktivSøketype];
     const visSøkefelt =
