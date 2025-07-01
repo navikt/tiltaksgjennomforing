@@ -213,5 +213,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     IKKE_TILGANG_TIL_A_INNGAA_AVTALE: 'Du har ikke tilgang til å inngå avtale på denne deltakeren',
     KAN_IKKE_ENDRE_OKONOMI_UGYLDIG_INPUT: 'Kunne ikke endre beregning. Ett eller flere felt har ugyldig verdi.',
     ROLLE_HAR_IKKE_TILGANG:
-        'Du har ikke tilgang til å utføre denne handlingen. Påse at du har riktig rolle eller forsøk å oppfrisk siden.',
+        'Du er innlogget med en rolle som ikke har tilgang til å utføre denne handlingen. Forsøk å oppfrisk siden og prøv igjen.',
 };
