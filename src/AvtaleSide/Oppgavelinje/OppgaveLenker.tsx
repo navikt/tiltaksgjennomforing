@@ -18,7 +18,7 @@ import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAv
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
 import FortsettTiltak from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/FortsettTiltak/FortsettTiltak';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import EndreKidOgKontonummer from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endre-kid-og-kontoummer';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -57,6 +57,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                         {skalViseStillingsbeskrivelse && <EndreStillingbeskrivelse />}
                         <EndreOppfølgingOgTilrettelegging />
                         {harØkonomi && <EndreTilskuddsberegning />}
+                        {harØkonomi && <EndreKidOgKontonummer />}
                         {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                         {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
                         {avtale.tiltakstype === 'VTAO' && <FortsettTiltak />}

@@ -1,17 +1,19 @@
-import { FunctionComponent } from 'react';
 import { BodyShort, Label } from '@navikt/ds-react';
-import { rad_element, info_not_bold } from './RadInfo.module.less';
+
+import styles from './RadInfo.module.less';
+
 interface Props {
     label: string;
     info: string | number;
     infoNotBold?: boolean;
 }
 
-const RadInfo: FunctionComponent<Props> = ({ label, info, infoNotBold }) => {
+const RadInfo = (props: Props) => {
+    const { label, info, infoNotBold } = props;
     return (
-        <div className={rad_element}>
+        <div className={styles.radElement}>
             <BodyShort size="small">{label}</BodyShort>
-            <Label size="small" className={infoNotBold ? info_not_bold : ''}>
+            <Label size="small" className={infoNotBold ? styles.infoNotBold : ''}>
                 {info}
             </Label>
         </div>

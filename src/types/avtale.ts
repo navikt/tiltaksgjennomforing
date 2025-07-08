@@ -120,6 +120,7 @@ export type Avtaleinnhold = {
     enhetsnavnKostnadssted?: string;
 
     arbeidsgiverKontonummer?: string;
+    arbeidsgiverKid?: string;
     harFamilietilknytning?: boolean;
     familietilknytningForklaring?: string;
 
@@ -313,10 +314,6 @@ export interface TilskuddsPeriode {
     aktiv: boolean;
     enhet?: string;
     enhetsnavn?: string;
-}
-
-export interface Kontonummer {
-    arbeidsgiverKontonummer?: string;
 }
 
 export interface MaalListe {
