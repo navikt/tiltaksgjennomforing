@@ -94,7 +94,8 @@ export type Feilkode =
     | 'AVTALE_ER_ALLEREDE_INNGAATT'
     | 'IKKE_TILGANG_TIL_A_INNGAA_AVTALE'
     | 'KAN_IKKE_ENDRE_OKONOMI_UGYLDIG_INPUT'
-    | 'ROLLE_HAR_IKKE_TILGANG';
+    | 'ROLLE_HAR_IKKE_TILGANG'
+    | 'FEIL_KID_NUMMER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -214,4 +215,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KAN_IKKE_ENDRE_OKONOMI_UGYLDIG_INPUT: 'Kunne ikke endre beregning. Ett eller flere felt har ugyldig verdi.',
     ROLLE_HAR_IKKE_TILGANG:
         'Du er innlogget med en rolle som ikke har tilgang til å utføre denne handlingen. Forsøk å oppfrisk siden og prøv igjen.',
+    FEIL_KID_NUMMER: 'KID-nummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
 };

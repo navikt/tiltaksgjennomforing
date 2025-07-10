@@ -13,7 +13,7 @@ import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/Kvalifiseringsg
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
 import UtregningPanel from './UtregningPanel';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
-import HenteKontonummer from '@/komponenter/form/henteKontornummer/HenteKontonummer';
+import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import HvaMenesMedDette from '@/AvtaleSide/steg/BeregningTilskudd/HvaMenesMedDette';
 import Manedslonn from '@/AvtaleSide/steg/BeregningTilskudd/Manedslonn';
 import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
@@ -36,7 +36,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
                 {avtale.tiltakstype !== 'SOMMERJOBB' && <KvalifiseringsgruppeSats cls={cls} />}
                 {avtale.tiltakstype === 'SOMMERJOBB' && <OppgiLonnstilskuddprosent />}
-                <Heading level="2" size="small" className={cls.element('lonn-tittel')}>
+                <Heading level="3" size="small" className={cls.element('lonn-tittel')}>
                     Lønn per måned i faktisk stillingsprosent inkludert faste og uregelmessige tillegg
                 </Heading>
                 <HvaMenesMedDette className={cls.className} />
@@ -46,7 +46,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <Arbeidsgiveravgift cls={cls} />
                 <Row className={cls.element('rad-kontonummer')}>
                     <Column md="12" className={cls.element('kontonummer')}>
-                        <HenteKontonummer />
+                        <KidOgKontonummer />
                     </Column>
                 </Row>
 

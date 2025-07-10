@@ -633,3 +633,23 @@ export const hentVtaoSats = async (forDato?: string): Promise<{ aar: number; bel
     const response = await api.get(`/satser/vtao?${queryParams}`);
     return response.data;
 };
+
+export const endreKidOgKontonummer = async (
+    avtale: Avtale,
+    arbeidsgiverKid?: string,
+    arbeidsgiverKontonummer?: string,
+): Promise<void> => {
+    await api.put(
+        `/avtaler/${avtale.id}/kid-og-kontonummer`,
+        {
+            arbeidsgiverKid,
+            arbeidsgiverKontonummer,
+        },
+        {
+            headers: {
+                'If-Unmodified-Since': avtale.sistEndret,
+            },
+        },
+    );
+    await mutate(`/avtaler/${avtale.id}/versjoner`);
+};
