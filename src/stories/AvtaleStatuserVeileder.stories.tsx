@@ -70,9 +70,7 @@ const erUfordelt: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -139,9 +137,7 @@ const annullert: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -208,9 +204,7 @@ const avbrutt: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -277,9 +271,7 @@ const påbegynt: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -346,9 +338,7 @@ const manglerGodkjenningVeilederHarGodkjent: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -416,9 +406,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor: Avtale =
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -486,9 +474,7 @@ const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -556,9 +542,7 @@ const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor: Avtale =
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -625,9 +609,7 @@ const manglerGodkjenningDeltakerHarGodkjent: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -695,9 +677,7 @@ const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor: Avtale =
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -764,9 +744,7 @@ const manglerGodkjenningArbeidsgiverHarGodkjent: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -834,9 +812,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent: Avtale = 
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -903,9 +879,7 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -972,9 +946,7 @@ const klarForOppstartUteforArena: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -1041,9 +1013,7 @@ const klarForOppstartArena: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -1110,9 +1080,7 @@ const gjennomføres: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
@@ -1179,9 +1147,7 @@ const avsluttet: Avtale = {
         kanBehandles: true,
     },
     avtaleInngått: '2021-08-01',
-    erAnnullertEllerAvbrutt: true,
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
