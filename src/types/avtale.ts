@@ -396,6 +396,7 @@ export type InnholdType =
     | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
     | 'ENDRE_OM_MENTOR'
     | 'ENDRET_AV_ARENA'
+    | 'ENDRE_KID_OG_KONTONUMMER'
     | 'ANNULLERE';
 
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
