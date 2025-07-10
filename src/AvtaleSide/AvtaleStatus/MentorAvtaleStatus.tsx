@@ -8,7 +8,7 @@ import { BodyShort } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 
 interface Props {
-    avtale: Pick<Avtale, 'status' | 'annullertTidspunkt' | 'avtaleInngått' | 'annullertGrunn' | 'avbruttGrunn'> & {
+    avtale: Pick<Avtale, 'status' | 'annullertTidspunkt' | 'avtaleInngått' | 'annullertGrunn'> & {
         gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
     };
 }
@@ -24,15 +24,6 @@ const MentorAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                             Veileder har annullert avtalen{' '}
                             {formaterDato(avtale.annullertTidspunkt!, NORSK_DATO_OG_TID_FORMAT_FULL)}.
                         </BodyShort>
-                    }
-                />
-            );
-        case 'AVBRUTT':
-            return (
-                <StatusPanel
-                    header="Avtalen er avbrutt"
-                    body={
-                        <BodyShort size="small">Veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.</BodyShort>
                     }
                 />
             );

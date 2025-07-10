@@ -16,7 +16,7 @@ const cls = BEMHelper('avtaleside');
 
 const OppgaveLinje: React.FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const avtaleContext = useContext(AvtaleContext);
+    const { avtale } = useContext(AvtaleContext);
     const [dropdown, setDropdown] = useState<HTMLElement | null>(null);
     const [erÅpnet, setErÅpnet] = useState<boolean>(false);
 
@@ -45,8 +45,7 @@ const OppgaveLinje: React.FunctionComponent = () => {
         }
     };
 
-    const avtaleAnnullertEllerAvbrutt = avtaleContext.avtale.annullertTidspunkt || avtaleContext.avtale.avbruttDato;
-    const visKunHendelseslog = avtaleAnnullertEllerAvbrutt || innloggetBruker.rolle !== 'VEILEDER';
+    const visKunHendelseslog = avtale.status === 'ANNULLERT' || innloggetBruker.rolle !== 'VEILEDER';
 
     return (
         <div className={cls.element('meny-wrapper')}>

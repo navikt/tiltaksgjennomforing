@@ -40,9 +40,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     godkjentAvArbeidsgiver: undefined,
     godkjentAvVeileder: undefined,
     erGodkjentTaushetserklæringAvMentor: undefined,
-    avbrutt: false,
     godkjentPaVegneAv: false,
-    erAnnullertEllerAvbrutt: false,
 
     godkjentPaVegneGrunn: undefined,
 

@@ -111,7 +111,7 @@ function VeilederAvtaleStatus(props: Props) {
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
-        !avtale.erAnnullertEllerAvbrutt &&
+        avtale.status != 'ANNULLERT' &&
         avtale.tilskuddPeriode.find(
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
         ) &&
@@ -154,17 +154,6 @@ function VeilederAvtaleStatus(props: Props) {
                             </BodyShort>
                             <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
                         </>
-                    }
-                />
-            );
-        case 'AVBRUTT':
-            return (
-                <StatusPanel
-                    header="Avtalen er avbrutt"
-                    body={
-                        <BodyShort size="small">
-                            Du eller en annen veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.
-                        </BodyShort>
                     }
                 />
             );

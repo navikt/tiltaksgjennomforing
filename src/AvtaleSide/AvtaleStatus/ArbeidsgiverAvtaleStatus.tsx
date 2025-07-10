@@ -34,15 +34,6 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     }
                 />
             );
-        case 'AVBRUTT':
-            return (
-                <StatusPanel
-                    header={'Avtalen er avbrutt'}
-                    body={
-                        <BodyShort size="small">Veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.</BodyShort>
-                    }
-                />
-            );
         case 'PÅBEGYNT':
             return <StatusPanel header={'Innholdet i avtalen fylles ut av arbeidsgiver og veileder'} />;
         case 'MANGLER_GODKJENNING': {
