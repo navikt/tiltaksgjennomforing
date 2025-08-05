@@ -10,7 +10,7 @@ const cls = BEMHelper('les-mer-om-løsningen');
 
 const LesMerOmLøsningen: FunctionComponent = () => (
     <>
-        <LinkPanel href={`${basename}/${Path.INFORMASJONSSIDE}`} className={cls.className}>
+        <LinkPanel href={`${basename}${Path.INFORMASJONSSIDE}`} className={cls.className}>
             <LinkPanel.Title>
                 <div style={{ display: 'flex' }}>
                     <Info width="24" height="24" />
