@@ -18,17 +18,12 @@ import EndreOppfølgingOgTilrettelegging from '../steg/GodkjenningSteg/endringAv
 import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/endreStillingbeskrivelse/EndreStillingbeskrivelse';
 import './OppgaveLenker.css';
 import FortsettTiltak from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/FortsettTiltak/FortsettTiltak';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import EndreKidOgKontonummer from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endre-kid-og-kontoummer';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    const harØkonomi =
-        avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-        avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
-        avtale.tiltakstype === 'SOMMERJOBB';
-    const erArbeidstrening = avtale.tiltakstype === 'ARBEIDSTRENING';
     const erNavIdenterLike = innloggetBruker.identifikator === avtale.veilederNavIdent;
     const erVeileder = innloggetBruker.rolle === 'VEILEDER';
     const skalViseStillingsbeskrivelse =
@@ -36,6 +31,15 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'ARBEIDSTRENING' ||
+        avtale.tiltakstype === 'VTAO';
+    const skalViseTilskuddsberegning =
+        avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'SOMMERJOBB';
+    const skalViseEndreKidOgKontonummer =
+        avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'VTAO';
 
     if (!erVeileder) {
@@ -51,12 +55,13 @@ const OppgaveLenker: React.FunctionComponent = () => {
                 {avtale.godkjentAvVeileder !== null && (
                     <>
                         <EndreKontaktInformasjon />
-                        {erArbeidstrening && <EndreMaal />}
+                        {avtale.tiltakstype === 'ARBEIDSTRENING' && <EndreMaal />}
                         <ForkortAvtale />
                         <ForlengAvtale />
                         {skalViseStillingsbeskrivelse && <EndreStillingbeskrivelse />}
                         <EndreOppfølgingOgTilrettelegging />
-                        {harØkonomi && <EndreTilskuddsberegning />}
+                        {skalViseTilskuddsberegning && <EndreTilskuddsberegning />}
+                        {skalViseEndreKidOgKontonummer && <EndreKidOgKontonummer />}
                         {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                         {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
                         {avtale.tiltakstype === 'VTAO' && <FortsettTiltak />}
