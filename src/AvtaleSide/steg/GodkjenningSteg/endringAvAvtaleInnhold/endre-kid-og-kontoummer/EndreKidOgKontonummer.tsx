@@ -1,5 +1,5 @@
 import { Money } from '@navikt/ds-icons';
-import { Link } from '@navikt/ds-react';
+import { Alert, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
@@ -55,10 +55,10 @@ const EndreKidOgKontonummer: FunctionComponent = () => {
                     setModalApen(false);
                 }}
             >
-                <p>
-                    Endringer vil tre i kraft fra og med neste tilskuddsperiode som godkjennes. For tilskuddsperioder
-                    som allerede er godkjent må endringene gjøres for hver enkelt refusjon.
-                </p>
+                <Alert variant="info">
+                    Endringer vil tre i kraft fra og med neste tilskuddsperiode som godkjennes. For tilskudd som
+                    allerede er godkjent må KID-nummer endres for hver enkelt refusjon i refusjonsløsningen.
+                </Alert>
                 <KidOgKontonummer
                     avtaleId={avtale.id}
                     kid={state.kid}
