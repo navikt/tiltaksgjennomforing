@@ -11,7 +11,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Label } from '@navikt/ds-react';
 import SjekkOmVerdiEksisterer from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import { stillingstype } from '@/messages';
-import BeregningTilskuddOppsummeringVTAO from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummeringVTAO';
+import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -33,7 +33,7 @@ const OppsummeringVTAO: FunctionComponent<Props> = (props) => (
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
-        <BeregningTilskuddOppsummeringVTAO {...props.avtaleinnhold} />
+        <BeregningTilskuddOppsummering erVtao {...props.avtaleinnhold} />
     </>
 );
 

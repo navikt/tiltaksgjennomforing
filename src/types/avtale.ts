@@ -120,6 +120,7 @@ export type Avtaleinnhold = {
     enhetsnavnKostnadssted?: string;
 
     arbeidsgiverKontonummer?: string;
+    arbeidsgiverKid?: string;
     harFamilietilknytning?: boolean;
     familietilknytningForklaring?: string;
 
@@ -315,10 +316,6 @@ export interface TilskuddsPeriode {
     enhetsnavn?: string;
 }
 
-export interface Kontonummer {
-    arbeidsgiverKontonummer?: string;
-}
-
 export interface MaalListe {
     maal: Maal[];
 }
@@ -399,6 +396,7 @@ export type InnholdType =
     | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
     | 'ENDRE_OM_MENTOR'
     | 'ENDRET_AV_ARENA'
+    | 'ENDRE_KID_OG_KONTONUMMER'
     | 'ANNULLERE';
 
 export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;

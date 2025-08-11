@@ -1,15 +1,17 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import React, { useContext, useState } from 'react';
+import { Button } from '@navikt/ds-react';
+import { Expand } from '@navikt/ds-icons';
+import { Popover } from '@navikt/ds-react';
+
+import BEMHelper from '@/utils/bem';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import { FeilVarselContext } from '@/FeilVarselProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { ApiError } from '@/types/errors';
-import BEMHelper from '@/utils/bem';
-import { Expand } from '@navikt/ds-icons';
-import { Button } from '@navikt/ds-react';
+import { AvtaleContext } from '@/AvtaleProvider';
+import { FeilVarselContext } from '@/FeilVarselProvider';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
-import { Popover } from '@navikt/ds-react';
-import React, { useContext, useState } from 'react';
 import Varsellogg from '../Varsellogg/Varsellogg';
 
 const cls = BEMHelper('avtaleside');
@@ -38,7 +40,8 @@ const OppgaveLinje: React.FunctionComponent = () => {
                 await lagreAvtale();
             } catch (error) {
                 if (error instanceof ApiError) {
-                    return visFeilmelding(error.message);
+                    const feilkode = Feilmeldinger[error.message as Feilkode];
+                    return visFeilmelding(feilkode ? feilkode : 'Det har skjedd en feil: ' + error.message);
                 }
                 throw error;
             }
