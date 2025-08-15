@@ -23,18 +23,18 @@ export const FiltreringContext = createContext<
         PageableAvtalelisteRessurs,
         Dispatch<SetStateAction<PageableAvtalelisteRessurs>>,
     ]
->([{}, () => null, { status: Status.IkkeLastet }, () => null]);
+>([{}, () => null, { status: Status.IKKE_LASTET }, () => null]);
 
 export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [nettressursCtx, setNettressursCtx] = useState<PageableAvtalelisteRessurs>({ status: Status.IkkeLastet });
+    const [nettressursCtx, setNettressursCtx] = useState<PageableAvtalelisteRessurs>({ status: Status.IKKE_LASTET });
     const params: any = {};
     const [filtre, setFiltre] = useState<Filtrering>(params);
 
     useEffect(() => {
         // KJØR EN GANG PÅ OPPSTART
-        if (nettressursCtx.status !== Status.IkkeLastet) return;
+        if (nettressursCtx.status !== Status.IKKE_LASTET) return;
         if (innloggetBruker.rolle === 'BESLUTTER') return;
         if (innloggetBruker.rolle === 'ARBEIDSGIVER' && !filtre.bedriftNr) return;
 
@@ -42,7 +42,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
         const bedriftNrISøkekriterier = bedriftNr && bedriftNr.trim().length === 9 ? { bedriftNr: bedriftNr } : {};
         const tekniskPage = searchParams.get('page') ? parseInt(searchParams.get('page')!, 10) - 1 : 0;
         let resultat;
-        setNettressursCtx({ status: Status.LasterInn });
+        setNettressursCtx({ status: Status.LASTER_INN });
         const sorteringskolonne = (searchParams.get('sorteringskolonne') as keyof Avtale) || 'sistEndret';
         const sorteringOrder = searchParams.get('sorteringOrder') || 'ASC';
         let erGet = false;
@@ -68,7 +68,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                 if (pagableAvtale.sokId === '') {
                     // ugyldig sokId - Utfører blankt søk.
                     hentAvtalerForInnloggetBrukerMedPost(filtre, 10, 0).then((pagableAvtale: PageableAvtale) => {
-                        setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                        setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
                         setSearchParams({
                             sokId: pagableAvtale.sokId,
                             page: '' + (pagableAvtale.currentPage + 1),
@@ -103,7 +103,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                         });
                         setSearchParams(sokeParams, { replace: true });
                     }
-                    setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                    setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
                     setFiltre({
                         ...pagableAvtale.sokeParametere,
                         page: pagableAvtale.currentPage + 1 + '',
@@ -113,7 +113,7 @@ export const FiltreringProvider: FunctionComponent<PropsWithChildren> = (props) 
                 }
             })
             .catch((error) => {
-                setNettressursCtx({ status: Status.Feil, error });
+                setNettressursCtx({ status: Status.FEIL, error });
             });
     }, [filtre, nettressursCtx.status, searchParams, setSearchParams, innloggetBruker.rolle]);
 

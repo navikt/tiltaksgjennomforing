@@ -15,16 +15,16 @@ const cls = BEMHelper('varsellogg');
 
 const Varsellogg: FunctionComponent = () => {
     const [varselLoggModalApen, setVarselLoggModalApen] = useState<boolean>(false);
-    const [varsler, setVarsler] = useState<Nettressurs<Varsel[]>>({ status: Status.IkkeLastet });
+    const [varsler, setVarsler] = useState<Nettressurs<Varsel[]>>({ status: Status.IKKE_LASTET });
     const avtaleContext = useContext(AvtaleContext);
 
     useEffect(() => {
-        setVarsler({ status: Status.LasterInn });
+        setVarsler({ status: Status.LASTER_INN });
         // Hent nye varselr når loggen åpnes.
         if (varselLoggModalApen) {
             hentVarsellogg(avtaleContext.avtale.id)
-                .then((data: Varsel[]) => setVarsler({ status: Status.Lastet, data }))
-                .catch((error: Error) => setVarsler({ status: Status.Feil, error: error }));
+                .then((data: Varsel[]) => setVarsler({ status: Status.LASTET, data }))
+                .catch((error: Error) => setVarsler({ status: Status.FEIL, error: error }));
         }
     }, [avtaleContext.avtale.id, varselLoggModalApen]);
 
@@ -64,13 +64,13 @@ const Varsellogg: FunctionComponent = () => {
                             <VerticalSpacer rem={1} />
                         </>
                     )}
-                    {varsler.status === Status.Lastet && varsler.data.length > 0 && (
+                    {varsler.status === Status.LASTET && varsler.data.length > 0 && (
                         <VarselTabell varsler={varsler.data} />
                     )}
-                    {varsler.status === Status.LasterInn && (
+                    {varsler.status === Status.LASTER_INN && (
                         <Loader variant="neutral" size="xlarge" className={cls.element('spinner')} />
                     )}
-                    {varsler.status === Status.Feil && (
+                    {varsler.status === Status.FEIL && (
                         <BodyShort size="small">Klarte ikke hente hendelselogg. Prøv igjen senere.</BodyShort>
                     )}
                 </Modal.Body>

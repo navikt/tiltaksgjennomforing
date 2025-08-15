@@ -21,16 +21,16 @@ const BeslutterOversikt: FunctionComponent = () => {
     const { filtre, endreFilter } = useFilterGammel();
     const [currentPage, setCurrentPage] = useState<PageableAvtaleMinimalForBeslutter>();
     const [nettressurs, setNettressurs] = useState<AvtalelisteMinimalForBeslutterRessurs>({
-        status: Status.IkkeLastet,
+        status: Status.IKKE_LASTET,
     });
 
     useEffect(() => {
-        setNettressurs({ status: Status.LasterInn });
+        setNettressurs({ status: Status.LASTER_INN });
         const page = parseInt(filtre.page ? filtre.page : '1', 10);
         hentAvtalerForInnloggetBeslutter(filtre, 10, page - 1).then(
             (pagableAvtale: PageableAvtaleMinimalForBeslutter) => {
                 setCurrentPage(pagableAvtale);
-                setNettressurs({ status: Status.Lastet, data: pagableAvtale.avtaler });
+                setNettressurs({ status: Status.LASTET, data: pagableAvtale.avtaler });
             },
         );
     }, [filtre]);
@@ -62,7 +62,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                             varsler={[]}
                         />
                         <div className={clsPagination.className}>
-                            {pageNumber && nettressurs.status === Status.Lastet && currentPage!.totalPages > 0 && (
+                            {pageNumber && nettressurs.status === Status.LASTET && currentPage!.totalPages > 0 && (
                                 <>
                                     <Pagination
                                         page={pageNumber}

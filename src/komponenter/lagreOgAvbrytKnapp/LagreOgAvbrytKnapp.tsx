@@ -16,7 +16,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
     const cls = BEMHelper('lagre-og-avbryt-knapp');
-    const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IkkeLastet });
+    const [oppslag, setOppslag] = useState<Nettressurs<any>>({ status: Status.IKKE_LASTET });
     const [feilmelding, setFeilmelding] = useState('');
 
     // Fjerner ikke-standard knapp-props før de spreades inn i KnappBase.
@@ -26,25 +26,25 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
 
     const onClick = async () => {
         try {
-            setOppslag({ status: Status.LasterInn });
+            setOppslag({ status: Status.LASTER_INN });
             // midlertidig fiks. Må fikse mem-leak før denne kan pushes under callback lagreFunksjon.
             await props.lagreFunksjon();
-            setOppslag({ status: Status.Sendt });
+            setOppslag({ status: Status.SENDT });
         } catch (error: any) {
-            setOppslag({ status: Status.Feil, error: error.feilmelding ?? 'Uventet feil' });
+            setOppslag({ status: Status.FEIL, error: error.feilmelding ?? 'Uventet feil' });
             handterFeil(error, setFeilmelding);
         }
     };
 
     useEffect(() => {
-        if (oppslag.status === Status.Feil) {
+        if (oppslag.status === Status.FEIL) {
             feilRef.current?.focus();
         }
     }, [oppslag.status]);
 
     return (
         <div className={classNames(props.className, cls.className)}>
-            {oppslag.status === Status.Feil && (
+            {oppslag.status === Status.FEIL && (
                 <div className={cls.element('alert')}>
                     <Alert size="small" variant="warning">
                         <div ref={feilRef} aria-live="polite">
@@ -59,8 +59,8 @@ const LagreOgAvbrytKnapp: FunctionComponent<Props & ButtonProps> = (props) => {
                 </Button>
                 <Button
                     type="submit"
-                    loading={oppslag.status === Status.LasterInn}
-                    disabled={oppslag.status === Status.LasterInn}
+                    loading={oppslag.status === Status.LASTER_INN}
+                    disabled={oppslag.status === Status.LASTER_INN}
                     onClick={onClick}
                     variant="primary"
                     {...knappBaseProps}
