@@ -6,7 +6,6 @@ import { Maalkategori } from './maalkategorier';
 import { Diskresjonskode } from '@/types/diskresjon';
 
 export type Avtale = Annullering &
-    Avbrytelse &
     Readonly<AvtaleMetadata> &
     Avtaleparter &
     Godkjenninger &
@@ -154,19 +153,8 @@ export type TilskuddPeriodeStatus =
     | 'BEHANDLET_I_ARENA'
     | 'OPPFØLGING_KREVES';
 export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV';
-export type AvbrytelseGrunn =
-    | 'Feilregistrering'
-    | 'Begynt i arbeid'
-    | 'Fått tilbud om annet tiltak'
-    | 'Syk'
-    | 'Ikke møtt'
-    | 'Fullført'
-    | 'Annet'
-    | '';
-
 export type AvtaleStatus =
     | 'ANNULLERT'
-    | 'AVBRUTT'
     | 'PÅBEGYNT'
     | 'MANGLER_SIGNATUR'
     | 'MANGLER_GODKJENNING'
@@ -351,12 +339,6 @@ export interface Godkjenninger {
 export interface Annullering {
     annullertTidspunkt?: string;
     annullertGrunn?: string;
-}
-
-export interface Avbrytelse {
-    avbrutt: boolean;
-    avbruttDato: string;
-    avbruttGrunn: AvbrytelseGrunn;
 }
 
 export interface GodkjentPaVegneAvDeltakerGrunner {

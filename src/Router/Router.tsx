@@ -13,7 +13,6 @@ import OpprettAvtaleArbeidsgiver from '@/OpprettAvtale/OpprettAvtaleArbeidsgiver
 import OpprettAvtaleVeileder from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import Oversikt from '@/Oversikt';
 import RedirectEtterLogin from '@/RedirectEtterLogin';
-import Slettemerk from '@/komponenter/Slettemerk';
 import { FeatureToggleProvider } from '@/FeatureToggleProvider';
 import { FeilVarselProvider } from '@/FeilVarselProvider';
 import { NotifikasjonWidgetProvider } from '@/NotifikasjonWidgetProvider';
@@ -118,10 +117,6 @@ const router = createBrowserRouter(
                                 {
                                     path: Path.AVTALE_BESLUTTER_TILSKUDDSPERIODE,
                                     element: <BeslutterSide />,
-                                },
-                                {
-                                    path: Path.AVTALE_SLETT,
-                                    element: <Slettemerk />,
                                 },
                             ],
                         },

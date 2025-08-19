@@ -1,6 +1,6 @@
 import DeltakerAvtaleStatus from '@/AvtaleSide/AvtaleStatus/DeltakerAvtaleStatus';
 import { Meta, StoryObj } from '@storybook/react';
-import { AvbrytelseGrunn, AvtaleStatus } from '@/types/avtale';
+import { AvtaleStatus } from '@/types/avtale';
 
 const meta = {
     title: 'Tiltaksgjennomforing/Statuser/Deltaker',
@@ -21,7 +21,6 @@ const annullert = {
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
@@ -33,25 +32,6 @@ export const Annullert: Story = {
     args: { avtale: annullert },
 };
 
-const avbrutt = {
-    status: 'AVBRUTT' as AvtaleStatus,
-    annullertTidspunkt: '2021-08-01',
-    godkjentAvDeltaker: '20-08-01',
-    avtaleInngått: '2021-08-01',
-    annullertGrunn: 'annulert grunn',
-    avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
-    gjeldendeInnhold: {
-        startDato: '2021-08-01',
-        sluttDato: '2021-08-01',
-    },
-};
-
-export const Avbrutt: Story = {
-    name: 'Avbrutt',
-    args: { avtale: avbrutt },
-};
-
 const påbegynt = {
     status: 'PÅBEGYNT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
@@ -59,7 +39,6 @@ const påbegynt = {
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
@@ -80,7 +59,6 @@ const manglerGodkjenningDeltakerHarGodkjent = {
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
@@ -111,7 +89,6 @@ const manglerGodkjenningDeltakerHarIkkeGodkjent = {
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
@@ -130,7 +107,6 @@ const klarForOppstart = {
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
@@ -149,7 +125,6 @@ const gjennomføres = {
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
@@ -168,7 +143,6 @@ const avsluttet = {
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
-    avbruttGrunn: 'Begynt i arbeid' as AvbrytelseGrunn,
     gjeldendeInnhold: {
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',

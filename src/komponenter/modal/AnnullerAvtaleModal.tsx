@@ -1,7 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { AvbrytelseGrunn } from '@/types/avtale';
 import { Alert, BodyShort, RadioGroup, Radio } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import BekreftelseModal from './BekreftelseModal';
@@ -14,7 +13,7 @@ interface Props {
 const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
     const [annetGrunn, setAnnetGrunn] = useState('');
     const [grunnFeil, setGrunnFeil] = useState<undefined | string>(undefined);
-    const [annullertGrunn, setAnnullertGrunn] = useState<AvbrytelseGrunn | string>('');
+    const [annullertGrunn, setAnnullertGrunn] = useState<string>('');
     const avtaleContext = useContext(AvtaleContext);
 
     const bekreftAnnullerAvtale = async () => {

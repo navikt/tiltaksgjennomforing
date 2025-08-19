@@ -51,7 +51,6 @@ const AvtaleSide: FunctionComponent = () => {
 
     const erAvtaleLaast =
         godkjentAvVeileder ||
-        avtale.avbrutt ||
         avtale.annullertTidspunkt ||
         innloggetBruker.rolle === 'DELTAKER' ||
         innloggetBruker.rolle === 'MENTOR';

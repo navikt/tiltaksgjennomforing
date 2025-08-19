@@ -443,14 +443,6 @@ export const returnerTilskuddsperiode = async (
     );
 };
 
-export const slettemerkAvtale = async (avtale: Avtale) => {
-    await api.post(`/avtaler/${avtale.id}/slettemerk`, null, {
-        headers: {
-            'If-Unmodified-Since': avtale.sistEndret,
-        },
-    });
-};
-
 export const oppdatereKontaktInformasjon = async (
     avtale: Avtale,
     endreKontaktInfo: EndreKontaktInfo,

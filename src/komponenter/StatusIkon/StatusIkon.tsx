@@ -34,8 +34,6 @@ const StatusIkon: FunctionComponent<Props> = (props) => {
             }
         case 'ANNULLERT':
             return <AvbruttIkon style={props.style} />;
-        case 'AVBRUTT':
-            return <AvbruttIkon style={props.style} />;
         case 'AVSLUTTET':
             return <InaktivIkon style={props.style} />;
         case 'GJENNOMFØRES':
