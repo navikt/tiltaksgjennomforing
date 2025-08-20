@@ -48,8 +48,8 @@ const OppgaveLinje: React.FunctionComponent = () => {
         }
     };
 
-    const avtaleAnnullertEllerAvbrutt = avtaleContext.avtale.annullertTidspunkt || avtaleContext.avtale.avbruttDato;
-    const visKunHendelseslog = avtaleAnnullertEllerAvbrutt || innloggetBruker.rolle !== 'VEILEDER';
+    const avtaleAnnullert = avtaleContext.avtale.annullertTidspunkt;
+    const visKunHendelseslog = avtaleAnnullert || innloggetBruker.rolle !== 'VEILEDER';
 
     return (
         <div className={cls.element('meny-wrapper')}>

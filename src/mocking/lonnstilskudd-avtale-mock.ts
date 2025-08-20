@@ -10,7 +10,6 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentAvDeltaker: '',
     godkjentAvArbeidsgiver: '',
     godkjentAvVeileder: '',
-    avbrutt: false,
     godkjentPaVegneAv: false,
     erAnnullertEllerAvbrutt: false,
 
@@ -26,8 +25,6 @@ const lonnstilskuddAvtaleMock: Avtale = {
 
     deltakerFnr: '00000000000',
     mentorFnr: '00000000000',
-    avbruttDato: '',
-    avbruttGrunn: '',
     gjeldendeInnhold: {
         oppfolging: 'Bruker og AG skal følges opp.',
         tilrettelegging: 'AG skal tilrettelegge.',

@@ -17,7 +17,6 @@ const StatusFilter: FunctionComponent = () => {
         'KLAR_FOR_OPPSTART',
         'GJENNOMFØRES',
         'AVSLUTTET',
-        'AVBRUTT',
         'ANNULLERT',
     ];
 

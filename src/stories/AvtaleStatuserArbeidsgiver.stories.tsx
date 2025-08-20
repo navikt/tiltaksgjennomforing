@@ -1,6 +1,6 @@
 import ArbeidsgiverAvtaleStatus from '@/AvtaleSide/AvtaleStatus/ArbeidsgiverAvtaleStatus';
 import { Meta, StoryObj } from '@storybook/react';
-import { AvbrytelseGrunn, Avtale, AvtaleStatus } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 const meta = {
@@ -25,7 +25,6 @@ const erUfordelt: Avtale = {
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
@@ -48,7 +47,6 @@ const annullert: Avtale = {
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
@@ -61,29 +59,6 @@ export const Annullert: Story = {
     args: { avtale: annullert },
 };
 
-const avbrutt: Avtale = {
-    ...lonnstilskuddAvtaleMock,
-    erUfordelt: false,
-    status: 'AVBRUTT',
-    annullertTidspunkt: '2021-08-01',
-    godkjentAvArbeidsgiver: '20-08-01',
-    godkjentAvDeltaker: '2021-08-01',
-    godkjentAvVeileder: '2021-08-01',
-    avtaleInngått: '2021-08-01',
-    annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
-    gjeldendeInnhold: {
-        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
-        startDato: '2024-05-01',
-        sluttDato: '2025-04-30',
-    },
-};
-
-export const Avbrutt: Story = {
-    name: 'Avbrutt',
-    args: { avtale: avbrutt },
-};
-
 const påbegynt: Avtale = {
     ...lonnstilskuddAvtaleMock,
     erUfordelt: false,
@@ -94,7 +69,6 @@ const påbegynt: Avtale = {
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
@@ -117,7 +91,6 @@ const manglerGodkjenningArbeidsgiverHarIkkeGodkjent: Avtale = {
     godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
@@ -140,7 +113,6 @@ const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerOgNAV: Avtale = {
     godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
@@ -183,7 +155,6 @@ const klarForOppstart: Avtale = {
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2021-08-01',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
@@ -206,7 +177,6 @@ const gjennomføres: Avtale = {
     godkjentAvVeileder: '2021-08-01',
     avtaleInngått: '2024-04-21',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',
@@ -229,7 +199,6 @@ const avsluttet: Avtale = {
     godkjentAvVeileder: '',
     avtaleInngått: '',
     annullertGrunn: 'annulert grunn',
-    avbruttGrunn: 'Begynt i arbeid',
     gjeldendeInnhold: {
         ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2024-05-01',

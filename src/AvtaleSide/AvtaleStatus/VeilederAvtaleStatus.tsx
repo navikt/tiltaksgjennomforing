@@ -157,17 +157,6 @@ function VeilederAvtaleStatus(props: Props) {
                     }
                 />
             );
-        case 'AVBRUTT':
-            return (
-                <StatusPanel
-                    header="Avtalen er avbrutt"
-                    body={
-                        <BodyShort size="small">
-                            Du eller en annen veileder har avbrutt avtalen. Årsak: {avtale.avbruttGrunn}.
-                        </BodyShort>
-                    }
-                />
-            );
         case 'PÅBEGYNT': {
             if (avtale.opphav === 'ARENA') {
                 return (

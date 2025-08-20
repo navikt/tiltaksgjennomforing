@@ -18,8 +18,6 @@ interface Props {
         | 'godkjentAvVeileder'
         | 'avtaleInngått'
         | 'annullertGrunn'
-        | 'avbruttDato'
-        | 'avbruttGrunn'
     > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
 }
 
@@ -33,18 +31,6 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                         <BodyShort size="small">
                             Veileder har annullert avtalen {formaterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
                             {avtale.annullertGrunn}.
-                        </BodyShort>
-                    }
-                />
-            );
-        case 'AVBRUTT':
-            return (
-                <StatusPanel
-                    header="Avtalen er avbrutt"
-                    body={
-                        <BodyShort size="small">
-                            Veileder har avbrutt avtalen {formaterDato(avtale.avbruttDato!)}. Årsak:{' '}
-                            {avtale.avbruttGrunn}.
                         </BodyShort>
                     }
                 />

@@ -120,7 +120,6 @@ export const tilskuddsperiodeRefusjonStatusText: { [key in TilskuddPeriodeRefusj
 
 export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
     ANNULLERT: 'Annullert',
-    AVBRUTT: 'Avbrutt',
     PÅBEGYNT: 'Påbegynt',
     MANGLER_SIGNATUR: 'Mangler signatur',
     MANGLER_GODKJENNING: 'Mangler godkjenning',
