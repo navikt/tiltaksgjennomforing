@@ -40,7 +40,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
     const { avtale } = useContext(AvtaleContext);
 
     const skalViseGodkjenning =
-        !avtale.erAnnullertEllerAvbrutt &&
+        avtale.status !== 'ANNULLERT' &&
         (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
 
     return (

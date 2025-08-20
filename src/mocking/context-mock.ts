@@ -15,7 +15,6 @@ const avtaleInnhold: Avtale | Avtaleinnhold = {
     deltakerEtternavn: '',
     deltakerFornavn: '',
     deltakerTlf: '',
-    erAnnullertEllerAvbrutt: false,
     feriepengerBelop: 1,
     feriepengesats: 100,
     harFamilietilknytning: false,

@@ -178,7 +178,6 @@ export interface AvtaleMetadata {
     enhetsnavnGeografisk?: string;
     enhetOppfolging?: string;
     enhetsnavnOppfolging?: string;
-    erAnnullertEllerAvbrutt: boolean;
     kvalifiseringsgruppe: Kvalifiseringsgruppe;
     formidlingsgruppe: Formidlingsgruppe;
     godkjentForEtterregistrering: boolean;

@@ -111,7 +111,7 @@ function VeilederAvtaleStatus(props: Props) {
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
-        !avtale.erAnnullertEllerAvbrutt &&
+        avtale.status !== 'ANNULLERT' &&
         avtale.tilskuddPeriode.find(
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
         ) &&
