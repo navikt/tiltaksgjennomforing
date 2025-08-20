@@ -23,7 +23,7 @@ import {
     hentAvtalerForInnloggetBrukerMedSokId,
     hentUlesteVarsler,
 } from '@/services/rest-service';
-import { Avtale, PageableAvtale } from '@/types/avtale';
+import { Avtale, PageableAvtale, PageableAvtaleMinimal } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
@@ -44,21 +44,22 @@ const AvtaleOversikt: FunctionComponent = () => {
     const [, , nettressursCtx, setNettressursCtx] = useContext(FiltreringContext);
 
     useEffect(() => {
-        if (nettressursCtx.status !== Status.Lastet) return;
+        if (![Status.LASTET, Status.OMLAST].includes(nettressursCtx.status)) return;
 
+        const data: Partial<PageableAvtaleMinimal> = 'data' in nettressursCtx ? nettressursCtx.data : {};
         const filtreUtenPage = omit(filtre, ['page', 'sorteringskolonne', 'sorteringOrder']);
         const erFiltreLikeNettressursFiltre = isEqual(
-            fjernTommeFelterFraObjekt(nettressursCtx.data.sokeParametere),
+            fjernTommeFelterFraObjekt(data.sokeParametere ?? {}),
             fjernTommeFelterFraObjekt(filtreUtenPage),
         );
 
         const filterPage = parseInt(filtre.page ? filtre.page : '1', 10);
-        const sammePageIDataOgFilter = nettressursCtx.data.currentPage === filterPage - 1;
+        const sammePageIDataOgFilter = data.currentPage === filterPage - 1;
         const sammeSorteringIUrlOgFilter = searchParams.get('sorteringskolonne') === filtre.sorteringskolonne;
-        const sammeSokId = searchParams.get('sokId') === nettressursCtx.data.sokId;
+        const sammeSokId = searchParams.get('sokId') === data.sokId;
         const sammePageIUrlOgFilter = searchParams.get('page') === '' + filterPage;
-        const sammeSorteringIDataOgFilter = nettressursCtx.data.sorteringskolonne === filtre.sorteringskolonne;
-        const sammeSorteringOrderIDataOgFilter = nettressursCtx.data.sorteringOrder === filtre.sorteringOrder;
+        const sammeSorteringIDataOgFilter = data.sorteringskolonne === filtre.sorteringskolonne;
+        const sammeSorteringOrderIDataOgFilter = data.sorteringOrder === filtre.sorteringOrder;
         const sammeSorteringOrderIUrlOgFilter = searchParams.get('sorteringOrder') === filtre.sorteringOrder;
 
         // Hvis alt er likt i url, filter og data fra backend - ikke gjør noe.
@@ -75,7 +76,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             return;
         }
 
-        setNettressursCtx({ status: Status.LasterInn });
+        setNettressursCtx({ status: Status.LASTER_INN });
         if (!erFiltreLikeNettressursFiltre) {
             // Filteret er endret - Nytt POST-søk
             hentAvtalerForInnloggetBrukerMedPost(filtre, 10, filterPage - 1)
@@ -101,10 +102,10 @@ const AvtaleOversikt: FunctionComponent = () => {
                             }),
                         );
                     }
-                    setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                    setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
                 })
                 .catch((error) => {
-                    setNettressursCtx({ status: Status.Feil, error });
+                    setNettressursCtx({ status: Status.FEIL, error });
                 });
         } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter || !sammeSorteringOrderIDataOgFilter) {
             // page/sortering er endret - Nytt GET-søk
@@ -135,7 +136,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         }),
                     );
                 }
-                setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
             });
         } else if (
             !sammeSokId ||
@@ -160,7 +161,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                 // const eksisterendeSearchParams = lagObjektAvSearchParams(searchParams);
                 // if (eksisterendeSearchParams.bedrift) setSearchParams({...eksisterendeSearchParams, bedrift: pagableAvtale.sokeParametere.bedriftNr});
 
-                setNettressursCtx({ status: Status.Lastet, data: pagableAvtale });
+                setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
                 endreFilter({
                     page: '' + (pagableAvtale.currentPage + 1),
                     sorteringskolonne: pagableAvtale.sorteringskolonne,
@@ -185,12 +186,12 @@ const AvtaleOversikt: FunctionComponent = () => {
         innloggetBruker.tilganger[filtre.bedriftNr]?.length > 0;
 
     const antallAvtalerSuffiks =
-        nettressursCtx.status === Status.Lastet &&
+        nettressursCtx.status === Status.LASTET &&
         (nettressursCtx.data.totalItems > 1 || nettressursCtx.data.totalItems === 0)
             ? ' avtaler'
             : ' avtale';
     const antallAvtalerTekst =
-        nettressursCtx.status === Status.Lastet && nettressursCtx.data.totalItems
+        nettressursCtx.status === Status.LASTET && nettressursCtx.data.totalItems
             ? `(${nettressursCtx.data.totalItems} ${antallAvtalerSuffiks})`
             : '';
     const oversiktTekst = `Tiltaksoversikt ${antallAvtalerTekst}`;
@@ -249,9 +250,9 @@ const AvtaleOversikt: FunctionComponent = () => {
                         />
                         <AvtaleOversiktArbeidsgiverInformasjon rolle={innloggetBruker.rolle} cls={cls} />
                         <div className={clsPagination.className}>
-                            {nettressursCtx.status === Status.LasterInn && <VerticalSpacer rem={3.9} />}
+                            {nettressursCtx.status === Status.LASTER_INN && <VerticalSpacer rem={3.9} />}
                             {pageNumber &&
-                                nettressursCtx.status === Status.Lastet &&
+                                nettressursCtx.status === Status.LASTET &&
                                 nettressursCtx.data.totalPages > 0 && (
                                     <>
                                         <Pagination

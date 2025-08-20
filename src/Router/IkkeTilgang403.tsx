@@ -5,7 +5,6 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Rolle } from '@/types/innlogget-bruker';
 
 import { Path } from './Router';
-import { ApiError, IkkeTilgangError } from '@/types';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 interface Props {

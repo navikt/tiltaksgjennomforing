@@ -7,12 +7,12 @@ import { FeilVarselContext } from '@/FeilVarselProvider';
 import IkkeTilgang403 from '@/Router/IkkeTilgang403';
 import { PageableAvtalelisteRessurs } from '@/types/avtale';
 import { IkkeTilgangError } from '@/types/errors';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { FunctionComponent, useContext } from 'react';
+import ResetFilterVedEndring from '@/AvtaleOversikt/Filtrering/ResetFilterVedEndring';
 
 type Props = {
     avtalelisteRessurs: PageableAvtalelisteRessurs;
@@ -26,16 +26,16 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
     const layout = useAvtaleOversiktLayout();
 
-    if (props.avtalelisteRessurs.status === Status.LasterInn) {
+    if (props.avtalelisteRessurs.status === Status.LASTER_INN) {
         return <AvtaleOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
     } else if (
-        props.avtalelisteRessurs.status === Status.Lastet &&
+        props.avtalelisteRessurs.status === Status.LASTET &&
         props.avtalelisteRessurs.data.avtaler.length === 0
     ) {
         return <IngenAvtaler />;
     } else if (props.innloggetBruker.rolle === 'ARBEIDSGIVER' && harIngenAltinnTilganger(props.innloggetBruker)) {
         return <IngenAvtaler />;
-    } else if (props.avtalelisteRessurs.status === Status.Lastet) {
+    } else if (props.avtalelisteRessurs.status === Status.LASTET) {
         return layout.erNokPlassTilTabell ? (
             <AvtaleTabell
                 avtaler={props.avtalelisteRessurs.data.avtaler}
@@ -50,11 +50,15 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
             />
         );
     } else if (
-        props.avtalelisteRessurs.status === Status.Feil &&
+        props.avtalelisteRessurs.status === Status.FEIL &&
         props.avtalelisteRessurs.error instanceof IkkeTilgangError
     ) {
-        return <IkkeTilgang403 enkelVisning feilkode={props.avtalelisteRessurs.error.message} />;
-    } else if (props.avtalelisteRessurs.status === Status.Feil) {
+        return (
+            <ResetFilterVedEndring>
+                <IkkeTilgang403 enkelVisning feilkode={props.avtalelisteRessurs.error.message} />
+            </ResetFilterVedEndring>
+        );
+    } else if (props.avtalelisteRessurs.status === Status.FEIL) {
         handterFeil(props.avtalelisteRessurs.error, feilVarsel);
     }
     return null;
