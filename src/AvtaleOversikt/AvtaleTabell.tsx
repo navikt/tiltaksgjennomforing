@@ -22,6 +22,7 @@ const cls = BEMHelper('avtaletabell');
 
 const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
     const erGjeldendeTilskuddsperiodeReturnert = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
+    const erAnnullert = avtale.status === 'ANNULLERT';
     const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
 
     return (
@@ -31,9 +32,9 @@ const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolea
             </Table.DataCell>
             <Table.DataCell>
                 <BodyShort size="small">
-                    {erNavAnsatt && erGjeldendeTilskuddsperiodeReturnert
+                    {erNavAnsatt && erGjeldendeTilskuddsperiodeReturnert && !erAnnullert
                         ? 'Tilskuddsperiode returnert'
-                        : kreverOppfølging
+                        : kreverOppfølging && !erAnnullert
                           ? 'Oppfølging kreves'
                           : avtaleStatusTekst[avtale.status]}
                 </BodyShort>
