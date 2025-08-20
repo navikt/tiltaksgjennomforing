@@ -95,7 +95,8 @@ export type Feilkode =
     | 'IKKE_TILGANG_TIL_A_INNGAA_AVTALE'
     | 'KAN_IKKE_ENDRE_OKONOMI_UGYLDIG_INPUT'
     | 'ROLLE_HAR_IKKE_TILGANG'
-    | 'FEIL_KID_NUMMER';
+    | 'FEIL_KID_NUMMER'
+    | 'FØDSELSNUMMER_IKKE_GYLDIG';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -216,4 +217,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ROLLE_HAR_IKKE_TILGANG:
         'Du er innlogget med en rolle som ikke har tilgang til å utføre denne handlingen. Forsøk å oppfrisk siden og prøv igjen.',
     FEIL_KID_NUMMER: 'KID-nummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
+    FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
 };
