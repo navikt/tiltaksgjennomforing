@@ -14,6 +14,8 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { TiltaksType } from '@/types';
 
 const cls = BEMHelper('avtaleside');
 
@@ -37,12 +39,16 @@ export interface StegInfo {
 }
 
 const AvtaleSide: FunctionComponent = () => {
+    const { mentorFeatureToggle } = useFeatureToggles();
+
     const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
     const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
     if (innloggetBruker.rolle === 'MENTOR') avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
+    if (innloggetBruker.rolle !== 'MENTOR' && avtale.tiltakstype === 'MENTOR' && mentorFeatureToggle)
+        avtaleSteg = hentAvtaleSteg.MENTOR_UTEN_BEREGNING_AV_TILSKUDD;
     const navigate = useNavigate();
     const { steg } = useParams<any>();
 

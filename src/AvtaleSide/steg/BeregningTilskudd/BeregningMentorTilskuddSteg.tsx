@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import ValutaInput from '@/komponenter/form/ValutaInput';
@@ -13,13 +13,10 @@ import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
 import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/ObligatoriskTjenestepensjon';
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
-    const { mentorFeatureToggle } = useFeatureToggles();
-
     const avtaleContext = useContext(AvtaleContext);
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
         avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
@@ -33,13 +30,6 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
             return Number(verdi);
         }
     };
-
-    //console.log(avtaleContext);
-    console.log('mentorFeatureToggle:', mentorFeatureToggle);
-
-    if (mentorFeatureToggle) {
-        return <>mentor</>;
-    }
 
     return (
         <>
