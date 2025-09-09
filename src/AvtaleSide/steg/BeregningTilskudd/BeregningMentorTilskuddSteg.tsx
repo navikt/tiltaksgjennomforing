@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import ValutaInput from '@/komponenter/form/ValutaInput';
@@ -14,10 +14,24 @@ import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/Obl
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
 import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
+import { hentFeatureTogglesVarianter } from '@/services/rest-service';
+import { Variant } from '@/types/unleash-variant';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
+    const [variant, setVariant] = useState<Variant>();
+    const { mentorFeatureToggle } = useFeatureToggles();
+
+    useEffect(() => {
+        hentFeatureTogglesVarianter(['mentorFeatureToggle'])
+            .then((varianter) => {
+                setVariant(varianter['mentorFeatureToggle']);
+            })
+            .catch(() => void 0);
+    }, []);
+
     const avtaleContext = useContext(AvtaleContext);
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
         avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
@@ -32,7 +46,14 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
         }
     };
 
-    console.log(avtaleContext);
+    //console.log(avtaleContext);
+    console.log('variant.enabled: ', variant?.enabled);
+    console.log('variant.payload: ', variant?.payload?.value);
+    console.log('mentorFeatureToggle:', mentorFeatureToggle);
+
+    if (variant && variant.enabled) {
+        return <>mentor</>;
+    }
 
     return (
         <>
