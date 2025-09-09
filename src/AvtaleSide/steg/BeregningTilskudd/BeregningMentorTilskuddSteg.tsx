@@ -12,25 +12,13 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
 import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/ObligatoriskTjenestepensjon';
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
-import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
-import { hentFeatureTogglesVarianter } from '@/services/rest-service';
-import { Variant } from '@/types/unleash-variant';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
-    const [variant, setVariant] = useState<Variant>();
     const { mentorFeatureToggle } = useFeatureToggles();
-
-    useEffect(() => {
-        hentFeatureTogglesVarianter(['mentorFeatureToggle'])
-            .then((varianter) => {
-                setVariant(varianter['mentorFeatureToggle']);
-            })
-            .catch(() => void 0);
-    }, []);
 
     const avtaleContext = useContext(AvtaleContext);
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
@@ -47,11 +35,9 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     };
 
     //console.log(avtaleContext);
-    console.log('variant.enabled: ', variant?.enabled);
-    console.log('variant.payload: ', variant?.payload?.value);
     console.log('mentorFeatureToggle:', mentorFeatureToggle);
 
-    if (variant && variant.enabled) {
+    if (mentorFeatureToggle) {
         return <>mentor</>;
     }
 
