@@ -70,7 +70,7 @@ const OmMentorSteg = () => {
                     />
                 </div>
 
-                {mentorFeatureToggle && (
+                {!mentorFeatureToggle && (
                     <>
                         <div className={cls.element('rad')}>
                             <PakrevdInputValidering

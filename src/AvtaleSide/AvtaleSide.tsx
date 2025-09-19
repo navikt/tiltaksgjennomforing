@@ -47,7 +47,7 @@ const AvtaleSide: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
     if (innloggetBruker.rolle === 'MENTOR') avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
-    if (innloggetBruker.rolle !== 'MENTOR' && avtale.tiltakstype === 'MENTOR' && mentorFeatureToggle)
+    if (innloggetBruker.rolle !== 'MENTOR' && avtale.tiltakstype === 'MENTOR' && !mentorFeatureToggle)
         avtaleSteg = hentAvtaleSteg.MENTOR_UTEN_BEREGNING_AV_TILSKUDD;
     const navigate = useNavigate();
     const { steg } = useParams<any>();
