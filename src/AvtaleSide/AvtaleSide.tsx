@@ -9,7 +9,7 @@ import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
@@ -39,6 +39,7 @@ export interface StegInfo {
 const AvtaleSide: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const location = useLocation();
     const navigate = useNavigate();
     const { steg } = useParams<{ steg?: string }>();
 
@@ -64,12 +65,18 @@ const AvtaleSide: FunctionComponent = () => {
     useEffect(() => {
         if (avtale.bedriftNr !== valgtOrg) {
             setValgtOrg(avtale.bedriftNr);
-            const searchParams = new URLSearchParams(window.location.search);
+            const searchParams = new URLSearchParams(location.search);
             searchParams.set('bedrift', avtale.bedriftNr);
             searchParams.delete('sokId');
-            window.history.replaceState(null, '', window.location.pathname + '?' + searchParams.toString());
+            navigate(
+                {
+                    pathname: location.pathname,
+                    search: `?${searchParams.toString()}`,
+                },
+                { replace: true },
+            );
         }
-    }, [avtale.bedriftNr, valgtOrg]);
+    }, [avtale.bedriftNr, valgtOrg, location.pathname, location.search, navigate]);
 
     const byttBedrift = useCallback(
         (org: string) => {
@@ -127,7 +134,7 @@ const AvtaleSide: FunctionComponent = () => {
     ) : null;
 };
 
-const useWindowWidth = () => {
+function useWindowWidth() {
     const [windowWidth, setWidth] = useState(() => (typeof window === 'undefined' ? 0 : window.innerWidth));
 
     useEffect(() => {
@@ -138,6 +145,6 @@ const useWindowWidth = () => {
     }, []);
 
     return windowWidth;
-};
+}
 
 export default AvtaleSide;
