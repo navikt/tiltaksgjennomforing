@@ -9,7 +9,7 @@ import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
@@ -39,7 +39,6 @@ export interface StegInfo {
 const AvtaleSide: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const location = useLocation();
     const navigate = useNavigate();
     const { steg } = useParams<{ steg?: string }>();
 
@@ -53,39 +52,19 @@ const AvtaleSide: FunctionComponent = () => {
         innloggetBruker.rolle === 'MENTOR';
 
     const sideTittel = avtaleTittel[avtale.tiltakstype];
-    const filterType = erAvtaleLaast ? 'godkjenning' : steg;
 
-    const aktivtSteg = useMemo(
-        () => avtaleSteg.find((steg) => steg.id === filterType) || avtaleSteg[0],
-        [avtaleSteg, filterType],
-    );
-
-    const [valgtOrg, setValgtOrg] = useState<string>(avtale.bedriftNr);
-
-    useEffect(() => {
-        if (avtale.bedriftNr !== valgtOrg) {
-            setValgtOrg(avtale.bedriftNr);
-            const searchParams = new URLSearchParams(location.search);
-            searchParams.set('bedrift', avtale.bedriftNr);
-            searchParams.delete('sokId');
-            navigate(
-                {
-                    pathname: location.pathname,
-                    search: `?${searchParams.toString()}`,
-                },
-                { replace: true },
-            );
-        }
-    }, [avtale.bedriftNr, valgtOrg, location.pathname, location.search, navigate]);
+    const aktivtSteg = useMemo(() => {
+        const aktivtStegId = erAvtaleLaast ? 'godkjenning' : steg;
+        return avtaleSteg.find((steg) => steg.id === aktivtStegId) ?? avtaleSteg[0];
+    }, [avtaleSteg, erAvtaleLaast, steg]);
 
     const byttBedrift = useCallback(
         (org: string) => {
-            if (org !== valgtOrg) {
-                setValgtOrg(org);
-                navigate({ pathname: Path.OVERSIKT, search: `bedrift=${org}` });
+            if (org !== avtale.bedriftNr) {
+                navigate(Path.OVERSIKT);
             }
         },
-        [valgtOrg, navigate],
+        [avtale.bedriftNr, navigate],
     );
 
     const erDesktop = useWindowWidth() > 768;
@@ -98,7 +77,7 @@ const AvtaleSide: FunctionComponent = () => {
                 undertittel={'Avtalenummer: ' + avtale.avtaleNr}
                 byttetOrg={byttBedrift}
                 tekst={sideTittel}
-                valgtOrganisasjon={valgtOrg}
+                valgtOrganisasjon={avtale.bedriftNr}
             />
 
             <div className="avtaleside" role="main">
