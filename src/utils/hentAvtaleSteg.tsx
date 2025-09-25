@@ -14,6 +14,7 @@ import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
 import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
+import BeregningMentorTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningMentorTilskuddSteg';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -101,6 +102,11 @@ const mentorSteg: StegInfo[] = [
         komponent: <OppfolgingTilretteleggingSteg />,
         label: 'Oppfølging og tilrettelegging',
         id: 'oppfolging',
+    },
+    {
+        komponent: <BeregningMentorTilskuddSteg />,
+        label: 'Beregning av tilskudd',
+        id: 'beregningtilskudd',
     },
     {
         komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
