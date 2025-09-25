@@ -13,54 +13,44 @@ interface Props {
     tekst: string;
     byttetOrg?: (org: string) => void;
     undertittel?: string;
+    valgtOrganisasjon?: string;
 }
 
-const Banner: React.FunctionComponent<Props> = (props) => {
+const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel, valgtOrganisasjon }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const [searchParams] = useSearchParams();
     const bedriftParam = searchParams.get('bedrift');
-    const erLangTittel = props.tekst.length > 40;
+    const erLangTittel = tekst.length > 40;
 
-    const useOrgnrHook2: () => [string | null, (orgnr: string) => void] = useCallback(() => {
-        const currentOrgnr = bedriftParam || null;
+    const orgnrProvider: () => [string | null, (orgnr: string) => void] = useCallback(() => {
+        const currentOrgnr = bedriftParam || valgtOrganisasjon || null;
 
         return [
             currentOrgnr,
             (orgnr: string) => {
                 if (currentOrgnr !== orgnr) {
-                    if (orgnr === null) {
-                        //push("");
-                    } else {
-                        //push(`?bedrift=${orgnr}`);
-                        if (props.byttetOrg) {
-                            props.byttetOrg(orgnr);
-                        }
-                    }
+                    byttetOrg?.(orgnr);
                 }
             },
         ];
-    }, [bedriftParam, props]);
+    }, [bedriftParam, valgtOrganisasjon, byttetOrg]);
 
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
                 <Bedriftsmeny
-                    orgnrSearchParam={useOrgnrHook2}
+                    orgnrSearchParam={orgnrProvider}
                     onOrganisasjonChange={(org: Organisasjon) => {
-                        if (props.byttetOrg) {
-                            props.byttetOrg(org.OrganizationNumber);
-                        }
+                        byttetOrg?.(org.OrganizationNumber);
                     }}
                     organisasjoner={innloggetBruker.altinnOrganisasjoner}
                     sidetittel={
                         <>
                             <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
-                                {props.tekst}
+                                {tekst}
                             </Heading>
-                            {props.undertittel && (
-                                <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>
-                                    {props.undertittel}
-                                </Detail>
+                            {undertittel && (
+                                <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>{undertittel}</Detail>
                             )}
                         </>
                     }
@@ -69,24 +59,6 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                 </Bedriftsmeny>
             );
         case 'DELTAKER':
-            return (
-                <div className="banner">
-                    <Heading
-                        className={erLangTittel ? 'banner-lang-tittel' : ''}
-                        size="large"
-                        role="heading"
-                        aria-level={1}
-                    >
-                        {props.tekst}
-                    </Heading>
-                    {props.undertittel && (
-                        <>
-                            <VerticalSpacer rem={0.5} />
-                            <Detail style={{ fontWeight: 'bold' }}>{props.undertittel}</Detail>
-                        </>
-                    )}
-                </div>
-            );
         case 'MENTOR':
             return (
                 <div className="banner">
@@ -96,12 +68,12 @@ const Banner: React.FunctionComponent<Props> = (props) => {
                         role="heading"
                         aria-level={1}
                     >
-                        {props.tekst}
+                        {tekst}
                     </Heading>
-                    {props.undertittel && (
+                    {undertittel && (
                         <>
                             <VerticalSpacer rem={0.5} />
-                            <Detail style={{ fontWeight: 'bold' }}>{props.undertittel}</Detail>
+                            <Detail style={{ fontWeight: 'bold' }}>{undertittel}</Detail>
                         </>
                     )}
                 </div>
