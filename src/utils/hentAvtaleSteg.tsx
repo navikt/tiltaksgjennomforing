@@ -14,6 +14,7 @@ import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
 import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
+import BeregningMentorTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningMentorTilskuddSteg';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -82,6 +83,39 @@ const lonnstilskuddSteg: StegInfo[] = [
 ];
 
 const mentorSteg: StegInfo[] = [
+    {
+        komponent: <KontaktinfoSteg />,
+        label: 'Kontaktinformasjon',
+        id: 'kontaktinformasjon',
+    },
+    {
+        komponent: <OmMentorSteg />,
+        label: 'Om mentoren',
+        id: 'mentoren',
+    },
+    {
+        komponent: <VarighetSteg />,
+        label: 'Varighet',
+        id: 'varighet',
+    },
+    {
+        komponent: <OppfolgingTilretteleggingSteg />,
+        label: 'Oppfølging og tilrettelegging',
+        id: 'oppfolging',
+    },
+    {
+        komponent: <BeregningMentorTilskuddSteg />,
+        label: 'Beregning av tilskudd',
+        id: 'beregningtilskudd',
+    },
+    {
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
+        label: 'Godkjenning',
+        id: 'godkjenning',
+    },
+];
+
+const mentorStegUtenBeregningAvTilskudd: StegInfo[] = [
     {
         komponent: <KontaktinfoSteg />,
         label: 'Kontaktinformasjon',
@@ -177,6 +211,7 @@ const hentAvtaleSteg = {
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
+    MENTOR_UTEN_BEREGNING_AV_TILSKUDD: mentorStegUtenBeregningAvTilskudd,
     MENTOR_INNSYN: mentorInnsynSteg,
     INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,
