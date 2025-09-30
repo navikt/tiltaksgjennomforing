@@ -1,9 +1,9 @@
 import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { parseFloatIfFloatable } from '@/utils';
 import { TextFieldProps } from '@navikt/ds-react';
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 
-export const formaterValuta = (value: any): string => {
+export const formaterValuta = (value: any, maximumFractionDigits: number = 0): string => {
     const numericValue = parseFloatIfFloatable(value);
     if (numericValue === undefined) {
         return '';
@@ -14,13 +14,16 @@ export const formaterValuta = (value: any): string => {
         currency: 'NOK',
         useGrouping: false,
         minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
+        maximumFractionDigits: maximumFractionDigits,
     });
     return formatter.format(numericValue);
 };
 
-const ValutaInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithChildren<TextFieldProps>) => {
-    const { max, min, ...other } = props;
+type ValutaInputProps = React.PropsWithChildren<TextFieldProps> & {
+    maximumFractionDigits: number;
+};
+
+const ValutaInput: React.FunctionComponent<ValutaInputProps> = ({ max, min, maximumFractionDigits = 0, ...other }) => {
     const validatorer = [
         (v: any) => {
             if (!v) {
@@ -29,18 +32,24 @@ const ValutaInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithCh
         },
         (v: any) => {
             if (v && min && v < min) {
-                return 'Må være over ' + formaterValuta(min);
+                return 'Må være over ' + formaterValuta(min, maximumFractionDigits);
             }
         },
         (v: any) => {
             if (v && max && v > max) {
-                return 'Må være under ' + formaterValuta(max);
+                return 'Må være under ' + formaterValuta(max, maximumFractionDigits);
             }
         },
     ];
 
     return (
-        <FormattedNumberInput validatorer={validatorer} toFormatted={formaterValuta} max={max} min={min} {...other} />
+        <FormattedNumberInput
+            validatorer={validatorer}
+            toFormatted={(value) => formaterValuta(value, maximumFractionDigits)}
+            max={max}
+            min={min}
+            {...other}
+        />
     );
 };
 

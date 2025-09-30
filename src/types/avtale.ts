@@ -129,6 +129,8 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
+    mentorLonn?: number;
+    mentorloennsberegningTyper?: string;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<
