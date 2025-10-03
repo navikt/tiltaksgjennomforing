@@ -130,6 +130,7 @@ export type Avtaleinnhold = {
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
     mentorLonn?: number;
+    mentorStillingsprosent?: number;
     mentorloennsberegningTyper?: string;
 } & InkluderingsInnhold;
 
