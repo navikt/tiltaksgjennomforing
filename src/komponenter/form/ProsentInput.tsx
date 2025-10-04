@@ -2,6 +2,7 @@ import FormattedNumberInput from '@/komponenter/form/FormattedNumberInput';
 import { formaterProsent } from '@/utils/formaterProsent';
 import React, { PropsWithChildren } from 'react';
 import { TextFieldProps } from '@navikt/ds-react';
+import { formaterValuta } from '@/komponenter/form/ValutaInput';
 
 export interface InputProps extends TextFieldProps {
     width?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
@@ -19,7 +20,7 @@ const ProsentInput: React.FunctionComponent<InputProps> = (props: PropsWithChild
     const { step = 1, max, min, size, ...other } = props;
     const validatorer = [
         (v: any) => {
-            if (!v) {
+            if (v === undefined || v === null || v === '') {
                 return 'Feltet er påkrevd';
             }
         },

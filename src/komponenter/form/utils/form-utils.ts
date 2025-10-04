@@ -3,13 +3,6 @@ import React from 'react';
 export const fromFormatted = (value: any) => {
     return value ? value.replace(',', '.').replace(/[^0-9.]/g, '') + '' : '';
 };
-export const toNumberOnFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    event.target.value = fromFormatted(event.target.value);
-    event.target.type = 'number';
-};
-
-export const stepNumber = (current: number, direction: 1 | -1, min?: number, max?: number): number =>
-    clamp(current + direction, min, max);
 
 export const clamp = (value: number, min?: number, max?: number): number => {
     if (typeof min === 'number' && value < min) return min;
@@ -20,10 +13,10 @@ export const clamp = (value: number, min?: number, max?: number): number => {
 export const sanitizeNumericInput = (raw: string): string => raw.replace(/\s/g, '');
 
 export const parseNumericCandidate = (raw: string): number | undefined => {
-    if (raw === '' || ['-', ',', '.'].includes(raw)) return undefined;
-    const normalized = raw.replace(',', '.');
-    const n = Number(normalized);
-    return Number.isNaN(n) ? undefined : n;
+    if (raw.length === 0 || (raw.length === 1 && '-,.'.includes(raw))) return undefined;
+
+    const normalized = Number(raw.replace(',', '.'));
+    return Number.isNaN(normalized) ? undefined : normalized;
 };
 
 export const isEmptyValue = (v: any): boolean => v === undefined || v === null || v === '';

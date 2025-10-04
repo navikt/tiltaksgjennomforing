@@ -1,17 +1,14 @@
+import React, { PropsWithChildren } from 'react';
+import { TextField, TextFieldProps } from '@navikt/ds-react';
 import {
     isEmptyValue,
     toNumeric,
     sanitizeNumericInput,
     parseNumericCandidate,
     clamp,
-    stepNumber,
 } from '@/komponenter/form/utils/form-utils';
-
 import useValidering from '@/komponenter/useValidering';
-
 import { erNil } from '@/utils/predicates';
-import { TextField, TextFieldProps } from '@navikt/ds-react';
-import React, { PropsWithChildren } from 'react';
 
 const DEFAULT_INPUT_MAX_LENGTH = 524288;
 
@@ -25,9 +22,7 @@ interface FormattedNumberInputProps extends TextFieldProps {
 /**
  * Testet via: FormattedNumberInput.spec.txs ///
  */
-const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> = (
-    props: PropsWithChildren<FormattedNumberInputProps>,
-) => {
+const FormattedNumberInput: React.FC<PropsWithChildren<FormattedNumberInputProps>> = (props) => {
     const {
         value,
         validatorer,
@@ -42,6 +37,7 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
         ...other
     } = props;
 
+    const stepProp = Number((other as any)?.step) || 1;
     const wheelStepActive = enableWheelStep && !readOnly;
 
     const numericMin = toNumeric(min);
@@ -49,10 +45,10 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
 
     const [focused, setFocused] = React.useState(false);
     const [draft, setDraft] = React.useState<string | null>(null);
-    const [feil, settFeil, sjekkInputfelt] = useValidering(value, validatorer);
+    const [feil, , sjekkInputfelt] = useValidering(value, validatorer);
     const inputRef = React.useRef<HTMLInputElement | null>(null);
 
-    const maximumLength = maxLength ?? DEFAULT_INPUT_MAX_LENGTH;
+    const effectiveMaxLength = maxLength ?? DEFAULT_INPUT_MAX_LENGTH;
     const rawNumber = erNil(value) ? '' : String(value);
 
     const formatertTall = toFormatted(rawNumber);
@@ -62,53 +58,68 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
           ? rawNumber
           : formatertTall;
 
-    const emit = (next: string) => {
-        if (!onChange) return;
-        onChange({
-            target: { value: next, name: (other as any)?.name },
-        } as React.ChangeEvent<HTMLInputElement>);
-    };
+    const emit = React.useCallback(
+        (next: string) => {
+            if (!onChange) return;
+            onChange({
+                target: { value: next, name: (other as any)?.name },
+            } as React.ChangeEvent<HTMLInputElement>);
+        },
+        [onChange, other],
+    );
 
     const handleFocus = () => {
         setDraft(rawNumber);
         setFocused(true);
     };
 
-    const parseCandidate = (s: string): number | undefined => {
-        const parsed = parseNumericCandidate(sanitizeNumericInput(s));
-        if (parsed === undefined) return undefined;
-        if (numericMax !== undefined && parsed > numericMax) return undefined;
-        if (numericMin !== undefined && parsed < numericMin) return undefined;
-        return parsed;
-    };
+    const parseCandidate = React.useCallback(
+        (s: string): number | undefined => {
+            const parsed = parseNumericCandidate(sanitizeNumericInput(s));
+            if (parsed === undefined) return undefined;
+            if (numericMax !== undefined && parsed > numericMax) return undefined;
+            if (numericMin !== undefined && parsed < numericMin) return undefined;
+            return parsed;
+        },
+        [numericMin, numericMax],
+    );
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const next = e.target.value;
-
-        if (sanitizeNumericInput(next).length > maximumLength) return;
+        if (sanitizeNumericInput(next).length > effectiveMaxLength) return;
         setDraft(next);
+
+        if (next === '') {
+            emit('');
+            return;
+        }
+
         const parsed = parseCandidate(next);
 
-        if (parsed === undefined) return;
-        emit(parsed.toString());
+        if (parsed !== undefined) {
+            emit(parsed.toString());
+        }
     };
 
     const handleBlur = () => {
         setFocused(false);
-
         if (draft !== null) {
-            const parsed = parseNumericCandidate(sanitizeNumericInput(draft));
+            const parsed = parseCandidate(draft);
             if (parsed === undefined) {
                 emit('');
             } else {
-                emit(clamp(parsed, numericMin, numericMax).toString());
+                emit(String(clamp(parsed, numericMin, numericMax)));
             }
         }
-
         setDraft(null);
-        settFeil(undefined);
         sjekkInputfelt();
     };
+
+    React.useEffect(() => {
+        if (!focused) {
+            sjekkInputfelt();
+        }
+    }, [value, focused, sjekkInputfelt]);
 
     React.useEffect(() => {
         if (!wheelStepActive) return;
@@ -123,16 +134,16 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
             if (Number.isNaN(current)) return;
 
             const dir: 1 | -1 = ev.deltaY < 0 ? 1 : -1;
-            const next = stepNumber(current, dir, numericMin, numericMax);
-
+            const next = clamp(current + dir * stepProp, numericMin, numericMax);
             if (next === current) return;
+
             emit(String(next));
             if (focused) setDraft(String(next));
         };
 
         el.addEventListener('wheel', onWheel, { passive: false });
         return () => el.removeEventListener('wheel', onWheel);
-    }, [wheelStepActive, value, numericMin, numericMax, focused]);
+    }, [wheelStepActive, value, numericMin, numericMax, focused, stepProp, emit]);
 
     return (
         <TextField
@@ -142,7 +153,7 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
             error={feil}
             onBlur={handleBlur}
             value={displayValue}
-            maxLength={maxLength}
+            maxLength={effectiveMaxLength}
             max={max}
             min={min}
             onChange={handleChange}
