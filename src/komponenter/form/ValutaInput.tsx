@@ -26,6 +26,25 @@ type ValutaInputProps = React.PropsWithChildren<TextFieldProps> & {
     enableWheelStep?: boolean;
 };
 
+const truncateDecimals = (raw: string, max: number): string => {
+    if (!raw.includes('.')) return raw;
+    const [i, d] = raw.split('.');
+    if (max <= 0) return i;
+    const truncated = d.slice(0, max).replace(/0+$/, '');
+    return truncated ? `${i}.${truncated}` : i;
+};
+
+const roundDecimals = (raw: string, max: number): string => {
+    if (max <= 0) return raw.split('.')[0]; // no decimals
+    const num = Number(raw);
+    if (!Number.isFinite(num)) return raw;
+    const fixed = num.toFixed(max); // rounded
+    return fixed
+        .replace(/(\.\d*?[1-9])0+$/, '$1') // remove trailing zeros after last non-zero
+        .replace(/\.0+$/, '') // remove .000...
+        .replace(/\.$/, ''); // safety: remove lone dot
+};
+
 const ValutaInput: React.FunctionComponent<ValutaInputProps> = ({
     max,
     min,
@@ -65,6 +84,12 @@ const ValutaInput: React.FunctionComponent<ValutaInputProps> = ({
         [maximumFractionDigits, useGrouping],
     );
 
+    const normalizeOnBlur = React.useCallback(
+        //(raw: string) => truncateDecimals(raw, maximumFractionDigits),
+        (raw: string) => roundDecimals(raw, maximumFractionDigits),
+        [maximumFractionDigits],
+    );
+
     return (
         <FormattedNumberInput
             validatorer={validatorer}
@@ -73,6 +98,7 @@ const ValutaInput: React.FunctionComponent<ValutaInputProps> = ({
             max={max}
             min={min}
             readOnly={readOnly}
+            normalizeOnBlur={normalizeOnBlur}
             {...other}
         />
     );

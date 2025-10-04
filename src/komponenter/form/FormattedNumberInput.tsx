@@ -17,6 +17,7 @@ interface FormattedNumberInputProps extends TextFieldProps {
     validatorer: Array<(value: any) => string | undefined>;
     enableWheelStep?: boolean;
     showSpinners?: boolean;
+    normalizeOnBlur?: (rawValue: string) => string;
 }
 
 /**
@@ -34,6 +35,7 @@ const FormattedNumberInput: React.FC<PropsWithChildren<FormattedNumberInputProps
         enableWheelStep = true,
         showSpinners = true,
         readOnly,
+        normalizeOnBlur,
         ...other
     } = props;
 
@@ -104,11 +106,25 @@ const FormattedNumberInput: React.FC<PropsWithChildren<FormattedNumberInputProps
     const handleBlur = () => {
         setFocused(false);
         if (draft !== null) {
-            const parsed = parseCandidate(draft);
+            let parsed = parseCandidate(draft);
+
+            // Salvage: trailing '.' or ',' with valid integer part
+            if (parsed === undefined && /[.,]$/.test(draft)) {
+                const intPart = draft.slice(0, -1);
+                if (/^-?\d+$/.test(intPart)) parsed = Number(intPart);
+            }
+
+            // Final salvage: pure integer or integer + optional single trailing separator
+            if (parsed === undefined && /^-?\d+[.,]?$/.test(draft)) {
+                parsed = Number(draft.replace(/[.,]$/, ''));
+            }
+
             if (parsed === undefined) {
-                emit('');
+                emit(''); // true empty (user really cleared)
             } else {
-                emit(String(clamp(parsed, numericMin, numericMax)));
+                let next = String(clamp(parsed, numericMin, numericMax));
+                if (normalizeOnBlur) next = normalizeOnBlur(next);
+                emit(next);
             }
         }
         setDraft(null);
@@ -137,13 +153,15 @@ const FormattedNumberInput: React.FC<PropsWithChildren<FormattedNumberInputProps
             const next = clamp(current + dir * stepProp, numericMin, numericMax);
             if (next === current) return;
 
-            emit(String(next));
-            if (focused) setDraft(String(next));
+            let out = String(next);
+            if (normalizeOnBlur) out = normalizeOnBlur(out);
+            emit(out);
+            if (focused) setDraft(out);
         };
 
         el.addEventListener('wheel', onWheel, { passive: false });
         return () => el.removeEventListener('wheel', onWheel);
-    }, [wheelStepActive, value, numericMin, numericMax, focused, stepProp, emit]);
+    }, [wheelStepActive, value, numericMin, numericMax, focused, stepProp, emit, normalizeOnBlur]);
 
     return (
         <TextField

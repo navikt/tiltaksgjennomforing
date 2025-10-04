@@ -47,8 +47,13 @@ const Timeloenn: React.FC<Props> = ({ cls }: Props) => {
     };
 
     const handleMentorLoennChange = (raw: string) => {
-        const num = parseFloat(raw);
-        setMentorLoenn(isNaN(num) ? 0 : num);
+        // Ignore transient empty (prevents flicker to 0)
+        if (raw === '') return;
+        const salvage = raw.match(/^(-?\d+)[.,]$/);
+        const num = salvage ? Number(salvage[1]) : parseFloat(raw);
+        if (!Number.isNaN(num)) {
+            setMentorLoenn(num);
+        }
     };
 
     // const beregnetTimeloenn = +(baseHourly * (100 / stillingsprosent)).toFixed(2);

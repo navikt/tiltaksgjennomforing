@@ -13,10 +13,24 @@ export const clamp = (value: number, min?: number, max?: number): number => {
 export const sanitizeNumericInput = (raw: string): string => raw.replace(/\s/g, '');
 
 export const parseNumericCandidate = (raw: string): number | undefined => {
-    if (raw.length === 0 || (raw.length === 1 && '-,.'.includes(raw))) return undefined;
+    if (!raw) return undefined;
+    const cleaned = raw.replace(/\s/g, '');
 
-    const normalized = Number(raw.replace(',', '.'));
-    return Number.isNaN(normalized) ? undefined : normalized;
+    // In‑progress lone chars
+    if (/^[-.,]$/.test(cleaned)) return undefined;
+
+    // Integer + trailing separator
+    if (/^-?\d+[.,]$/.test(cleaned)) {
+        return Number(cleaned.slice(0, -1));
+    }
+
+    // Strip single trailing separator if any
+    const core = /[.,]$/.test(cleaned) ? cleaned.slice(0, -1) : cleaned;
+    if (core === '' || core === '-') return undefined;
+
+    const normalized = core.replace(',', '.');
+    const n = Number(normalized);
+    return Number.isNaN(n) ? undefined : n;
 };
 
 export const isEmptyValue = (v: any): boolean => v === undefined || v === null || v === '';
