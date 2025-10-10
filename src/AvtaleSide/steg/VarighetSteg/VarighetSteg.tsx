@@ -23,7 +23,7 @@ const VarighetSteg: FunctionComponent = () => {
     const { deltakerFnr, tiltakstype, erRyddeAvtale, opphav } = avtale;
     const { startDato } = avtale.gjeldendeInnhold;
     const cls = BEMHelper('varighetsteg');
-
+    const erArenaAvtaleMedAlleredeEnStartdato = avtale.opphav == 'ARENA' && startDato !== undefined;
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtale.erUfordelt;
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
 
@@ -69,7 +69,11 @@ const VarighetSteg: FunctionComponent = () => {
                             )}
                         </Column>
                         <Column md="6">
-                            <Datovelger datoFelt="startDato" label="Startdato" />
+                            <Datovelger
+                                disabled={erArenaAvtaleMedAlleredeEnStartdato}
+                                datoFelt="startDato"
+                                label="Startdato"
+                            />
                         </Column>
                         <Column md="6">
                             <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
