@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/blocks';
+import { Meta, Story } from '@storybook/addon-docs/blocks';
 
 import * as ArbeidsgiverAvtaleStatuser from './AvtaleStatuserArbeidsgiver.stories';
 
@@ -10,16 +10,22 @@ De forskjellige statusene er UFORDELT, ANNULLERT, AVBRUTT, PÅBEGYNT, MANGLER GO
 
 ## UFORDELT
 
-Avtallen er ufordelt.
+Avtalen er ufordelt.
 Dette skjer når arbeidsgiver har opprettet en avtale men avtalen har enda ikke blitt tilknyttet en veileder
 
 <Story of={ArbeidsgiverAvtaleStatuser.ErUfordelt} />
 
 ## ANNULLERT
 
-Avtallen har blitt annullert av en veileder
+Avtalen har blitt annullert av en veileder
 
 <Story of={ArbeidsgiverAvtaleStatuser.Annullert} />
+
+## Avbrutt
+
+Avtalen har blitt avbrutt av en veileder
+
+<Story of={ArbeidsgiverAvtaleStatuser.Avbrutt} />
 
 ## PÅBEGYNT
 

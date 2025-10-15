@@ -1,6 +1,6 @@
 import ArbeidsgiverAvtaleStatus from '@/AvtaleSide/AvtaleStatus/ArbeidsgiverAvtaleStatus';
-import { Meta, StoryObj } from '@storybook/react';
-import { Avtale } from '@/types/avtale';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { Avtale, AvtaleStatus } from '@/types/avtale';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 const meta = {
@@ -57,6 +57,28 @@ const annullert: Avtale = {
 export const Annullert: Story = {
     name: 'Annullert',
     args: { avtale: annullert },
+};
+
+const avbrutt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
+    erUfordelt: false,
+    status: 'AVBRUTT' as AvtaleStatus,
+    annullertTidspunkt: '2021-08-01',
+    godkjentAvArbeidsgiver: '20-08-01',
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvVeileder: '2021-08-01',
+    avtaleInngått: '2021-08-01',
+    annullertGrunn: 'annulert grunn',
+    gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
+        startDato: '2024-05-01',
+        sluttDato: '2025-04-30',
+    },
+};
+
+export const Avbrutt: Story = {
+    name: 'Avbrutt',
+    args: { avtale: avbrutt },
 };
 
 const påbegynt: Avtale = {
