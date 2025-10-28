@@ -16,6 +16,8 @@ import { VellykketGenerertIsoDatoString, genererFnrdatostringFraFnr } from '@/ut
 import { addYears, differenceInDays } from 'date-fns';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
+import { Alert } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -55,6 +57,14 @@ const VarighetSteg: FunctionComponent = () => {
                         erNavAnsatt={innloggetBruker.erNavAnsatt}
                         className={cls.className}
                     />
+                    {erArenaAvtaleMedAlleredeEnStartdato && (
+                        <Row>
+                            <Alert variant={'warning'}>
+                                Avtalen er importert fra fagsystemet Arena, og oppstartsdato kan derfor ikke endres.
+                            </Alert>
+                            <VerticalSpacer rem={2} />
+                        </Row>
+                    )}
                     <Row className={cls.element('rad')}>
                         <Column md="12">
                             {startDato !== undefined && (
@@ -70,7 +80,7 @@ const VarighetSteg: FunctionComponent = () => {
                         </Column>
                         <Column md="6">
                             <Datovelger
-                                disabled={erArenaAvtaleMedAlleredeEnStartdato}
+                                readOnly={erArenaAvtaleMedAlleredeEnStartdato}
                                 datoFelt="startDato"
                                 label="Startdato"
                             />

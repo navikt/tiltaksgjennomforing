@@ -220,5 +220,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FEIL_KID_NUMMER: 'KID-nummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
     FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
     KAN_IKKE_ENDRE_AVTALE_MED_OPPHAV_ARENA_OG_STARTDATO_ALLEREDE_SATT:
-        ' Avtalen har opphav i Arena og startdato er allerede satt, derfor kan ikke startdato i avtalen endres.',
+        'Avtalen er importert fra fagsystemet Arena, og oppstartsdato kan derfor ikke endres.',
 };
