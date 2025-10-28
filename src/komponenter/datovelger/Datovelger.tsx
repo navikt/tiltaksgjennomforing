@@ -8,9 +8,10 @@ import { AvtaleMinMaxDato } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDat
 interface Props {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
     label: string;
+    readOnly?: boolean;
 }
 
-const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChildren<Props>) => {
+const Datovelger: FunctionComponent<Props> = ({ label, datoFelt, readOnly }: PropsWithChildren<Props>) => {
     const { avtale, settAvtaleInnholdVerdier } = useContext(AvtaleContext);
 
     const fjernTid = (timestamp: string) => timestamp.split('T')[0];
@@ -71,13 +72,13 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt }: PropsWithChil
 
     return (
         <div>
-            <label className="skjemaelement__label">{label}</label>
             <DatePicker {...datepickerProps}>
                 <DatePicker.Input
                     {...inputProps}
+                    readOnly={readOnly}
                     placeholder="dd.mm.åååå"
                     error={hasError && feilmeldingTekst}
-                    label=""
+                    label={label}
                 />
             </DatePicker>
         </div>
