@@ -11,9 +11,10 @@ import { Avtaleinnhold, Beregningsgrunnlag } from '@/types/avtale';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 import styles from './BeregningTilskuddOppsummering.module.less';
+import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 interface Props extends Beregningsgrunnlag, Pick<Avtaleinnhold, 'arbeidsgiverKontonummer' | 'arbeidsgiverKid'> {
-    erVtao?: boolean;
+    UtregningComponent?: React.ComponentType<Props>;
 }
 
 const BeregningTilskuddOppsummering = (props: Props) => {
@@ -27,10 +28,12 @@ const BeregningTilskuddOppsummering = (props: Props) => {
         manedslonn100pst,
         otpSats,
         stillingprosent,
-        erVtao = false,
+        UtregningComponent,
     } = props;
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
+
+    console.log('BeregningTilskuddOppsummering props:', props);
 
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
@@ -47,7 +50,7 @@ const BeregningTilskuddOppsummering = (props: Props) => {
                         </Column>
                     )}
                 </Row>
-                {!erVtao && (
+                {UtregningComponent && (
                     <Row className={styles.row}>
                         <Column md="12" sm="12" xs="12">
                             <Label>Utregning</Label>
@@ -61,7 +64,7 @@ const BeregningTilskuddOppsummering = (props: Props) => {
                                 }}
                             >
                                 <VerticalSpacer rem={1} />
-                                <UtregningPanel {...props} />
+                                <UtregningComponent {...props} />
                             </HvaManglerOppsummering>
                             <VerticalSpacer rem={1.25} />
                             {innloggetBruker.erNavAnsatt &&

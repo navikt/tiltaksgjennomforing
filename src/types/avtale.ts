@@ -270,6 +270,9 @@ export interface Beregningsgrunnlag {
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
     tiltakstype?: TiltaksType;
+    mentorAntallTimer?: number;
+    mentorTimelonn?: number;
+    mentorMaanedslonn?: number;
 }
 
 export interface TilskuddsPerioder {

@@ -8,6 +8,9 @@ import OppfolgingOppsummering from '../oppfølging/OppfolgingOppsummering';
 import RelasjonerOppsummering from '../RelasjonerOppsummering/RelasjonerOppsummering';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
+import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
+import utregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
+import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -23,6 +26,7 @@ const OppsummeringMentor: FunctionComponent<Props> = (props) => (
         <StartOgSluttdatoOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
+        <BeregningTilskuddOppsummering {...props.avtaleinnhold} UtregningComponent={UtregningPanelMentorTilskudd} />
     </>
 );
 

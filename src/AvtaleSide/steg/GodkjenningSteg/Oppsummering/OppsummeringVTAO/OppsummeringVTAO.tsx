@@ -33,7 +33,7 @@ const OppsummeringVTAO: FunctionComponent<Props> = (props) => (
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
-        <BeregningTilskuddOppsummering erVtao {...props.avtaleinnhold} />
+        <BeregningTilskuddOppsummering {...props.avtaleinnhold} />
     </>
 );
 
