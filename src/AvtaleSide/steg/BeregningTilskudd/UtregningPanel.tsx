@@ -80,7 +80,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             labelTekst="Sum utgifter"
                             verdiOperator={<ErlikTegn />}
                             verdi={props.sumLonnsutgifter || 0}
-                            borderTykk={true}
+                            understrek="tykk"
                         />
                         <Utregningsrad
                             labelTekst={props.datoForRedusertProsent ? `Tilskuddsprosent frem til` : 'Tilskuddsprosent'}

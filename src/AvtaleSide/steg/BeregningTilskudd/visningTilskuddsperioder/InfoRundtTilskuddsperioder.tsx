@@ -1,6 +1,7 @@
 import React from 'react';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { BodyShort, Button } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     className: string;
@@ -27,6 +28,7 @@ const InfoRundtTilskuddsperioder: React.FC<Props> = ({
                 {formaterDato(gjeldendeInnholdSluttdato, NORSK_DATO_FORMAT)}. Det tilsvarer{' '}
                 {antallAktiveTilskuddsperioder} tilskuddsperioder.
             </BodyShort>
+            <VerticalSpacer rem={1} />
             <Button size="small" onClick={() => setVisAllePerioder()}>
                 {visAllePerioder ? 'Skjul perioder' : 'Vis alle perioder'}
             </Button>

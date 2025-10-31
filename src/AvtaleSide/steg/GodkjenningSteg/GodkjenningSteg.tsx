@@ -1,6 +1,5 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
@@ -13,9 +12,12 @@ import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
 import { Rolle } from '@/types';
+import { Heading } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
+    visningTilskuddsperioder: FunctionComponent<{}>;
     mentorVinsing?: boolean;
 }
 
@@ -47,31 +49,28 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
         <div className={cls.className}>
             <AvtaleStatus />
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
-                <div className={cls.element('wrapper')}>
-                    {innloggetBruker.rolle === 'DELTAKER' || innloggetBruker.rolle === 'MENTOR' ? (
-                        avtale.avtaleInngått && (
-                            <>
-                                <SkjemaTittel>Oppsummering av inngått avtale</SkjemaTittel>
-                                {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
-                            </>
-                        )
-                    ) : (
-                        <>
-                            <SkjemaTittel>
-                                {avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-                            </SkjemaTittel>
-                            {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
-                        </>
-                    )}
-                </div>
+                {avtale.avtaleInngått ? (
+                    <div className={cls.element('wrapper')}>
+                        <SkjemaTittel>Oppsummering av inngått avtale</SkjemaTittel>
+                        <LagreSomPdfKnapp avtaleId={avtale.id} />
+                    </div>
+                ) : (
+                    innloggetBruker.rolle !== 'DELTAKER' &&
+                    innloggetBruker.rolle !== 'MENTOR' && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
+                )}
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
+                {avtale.tilskuddPeriode.length > 0 && (
+                    <>
+                        <Heading level="2" size="small">
+                            Tilskuddsperioder
+                        </Heading>
+                        <VerticalSpacer rem={1} />
+                        {createElement(props.visningTilskuddsperioder)}
+                    </>
+                )}
             </Innholdsboks>
+
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
-            {avtale.tilskuddPeriode.length > 0 && (
-                <Innholdsboks>
-                    <TilskuddsPerioderOppsummering />
-                </Innholdsboks>
-            )}
             {harGodkjentSelv(avtale, innloggetBruker.rolle) && (
                 <Innholdsboks>
                     <GodkjenningInstruks />

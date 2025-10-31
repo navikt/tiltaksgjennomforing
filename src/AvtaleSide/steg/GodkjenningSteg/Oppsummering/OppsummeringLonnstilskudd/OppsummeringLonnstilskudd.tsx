@@ -26,7 +26,7 @@ const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props) => (
         <VarighetOppsummering {...props.avtaleinnhold} />
         <OppfolgingOppsummering {...props.avtaleinnhold} />
         <Tilrettelegging {...props.avtaleinnhold} />
-        <BeregningTilskuddOppsummering {...props.avtaleinnhold} UtregningComponent={UtregningPanel} />
+        <BeregningTilskuddOppsummering {...props.avtaleinnhold} utregningComponent={UtregningPanel} />
     </>
 );
 

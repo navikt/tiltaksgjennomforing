@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
@@ -15,13 +15,12 @@ import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
+import VisningTilskuddsperioderVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderVtao';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
-
-    // const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
 
     const inputToNumber = (verdi: string | undefined): number | undefined => {
         verdi = verdi?.replace(/,/g, '.');
@@ -67,6 +66,9 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     </Column>
                 </Row>
                 <UtregningPanelMentorTilskudd {...avtale.gjeldendeInnhold} />
+                <VerticalSpacer rem={1} />
+                <VisningTilskuddsperioderVtao />
+                <VerticalSpacer rem={1} />
                 <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
                 </LagreKnapp>

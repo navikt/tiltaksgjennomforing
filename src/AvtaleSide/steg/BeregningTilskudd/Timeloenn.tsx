@@ -28,60 +28,42 @@ const LONN_OPTIONS = (Object.keys(HOURS_PER_UNIT) as LonnType[]).map((unit) => (
     value: unit,
 }));
 
-interface LonnState {
-    lonn: number;
-    type: LonnType;
-}
-
 const Timeloenn: React.FC<Props> = ({ cls }: Props) => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
-    const [lonnState, setLonnState] = useState<LonnState>({ lonn: 780000, type: 'Årslønn' });
+    const [lonn, setLonn] = useState(585000);
+    const [type, setType] = useState<LonnType>('Årslønn');
     const [stillingsprosent, setStillingsprosent] = useState(100);
-    const [beregnetTimelonn, setBeregnetTimelonn] = useState<number>(0);
-
-    //const baseHourly = mentorLoenn / HOURS_PER_UNIT[selectedType];
 
     const handleSelectedTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const newType = e.target.value as LonnType;
-        if (newType === lonnState.type) return;
+        const nyLoennstype = e.target.value as LonnType;
+        if (nyLoennstype === type) return;
 
-        const newAmount = (lonnState.lonn / HOURS_PER_UNIT[lonnState.type]) * HOURS_PER_UNIT[newType];
-        setLonnState({ lonn: newAmount, type: newType });
+        const newLonn = (lonn / HOURS_PER_UNIT[type]) * HOURS_PER_UNIT[nyLoennstype];
+        setLonn(newLonn);
+        setType(nyLoennstype);
     };
 
     const handleMentorLoennChange = (raw: string) => {
-        // Handle culture-specific number formats
-        const cleaned = raw.replace(/\s/g, '').replace(',', '.');
-        const n = parseFloat(cleaned);
-        if (!Number.isNaN(n)) {
-            setLonnState((prevState) => ({ ...prevState, lonn: n }));
-        }
+        setLonn(parseFloat(raw) || 0);
     };
 
     useEffect(() => {
-        let hourly: number;
-
-        if (lonnState.type === 'Timelønn') {
-            hourly = lonnState.lonn;
-        } else {
-            if (stillingsprosent > 0) {
-                hourly = (lonnState.lonn / HOURS_PER_UNIT[lonnState.type]) * (100 / stillingsprosent);
-            } else {
-                hourly = 0;
-            }
-        }
-
-        setBeregnetTimelonn(hourly);
-
-        // Round the value before sending it to the context to match what the context expects.
         const currentTimelonn = avtale.gjeldendeInnhold.mentorTimelonn || 0;
-        if (hourly.toFixed(2) !== currentTimelonn.toFixed(2)) {
-            // Send the full-precision value to the context.
-            settOgKalkulerBeregningsverdier({ mentorTimelonn: hourly });
+        if (beregnetTimelonn !== currentTimelonn) {
+            settOgKalkulerBeregningsverdier({ mentorTimelonn: beregnetTimelonn });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [lonnState, stillingsprosent]); // Dependency on the state object
+    }, [lonn, stillingsprosent]);
+
+    const beregnetTimelonn = (() => {
+        if (type === 'Timelønn') {
+            return lonn;
+        }
+        if (stillingsprosent > 0) {
+            return (lonn / HOURS_PER_UNIT[type]) * (100 / stillingsprosent);
+        }
+        return 0;
+    })();
 
     return (
         <div className={cls.className}>
@@ -91,7 +73,7 @@ const Timeloenn: React.FC<Props> = ({ cls }: Props) => {
                         label="Lønn per arbeidsavtale"
                         name="mentorTimelonn"
                         options={LONN_OPTIONS}
-                        value={lonnState.type}
+                        value={type}
                         onChange={handleSelectedTypeChange}
                         children={''}
                     />
@@ -103,14 +85,14 @@ const Timeloenn: React.FC<Props> = ({ cls }: Props) => {
                     <ValutaInput
                         className="input"
                         name="manedslonn"
-                        label={'Mentors ' + lonnState.type.charAt(0).toLowerCase() + lonnState.type.slice(1)}
+                        label={'Mentors ' + type.charAt(0).toLowerCase() + type.slice(1)}
                         autoComplete={'off'}
-                        value={lonnState.lonn}
+                        value={lonn}
                         onChange={(e) => handleMentorLoennChange(e.target.value)}
                         min={0}
                     />
                 </Column>
-                {lonnState.type !== 'Timelønn' && (
+                {type !== 'Timelønn' && (
                     <Column md="5">
                         <ProsentInput
                             name="lonnstilskuddProsent"
@@ -123,7 +105,7 @@ const Timeloenn: React.FC<Props> = ({ cls }: Props) => {
                 )}
             </Row>
             <VerticalSpacer rem={1.5} />
-            {lonnState.type !== 'Timelønn' && (
+            {type !== 'Timelønn' && (
                 <Row className={cls.element('rad')}>
                     <Column md="7">
                         <ValutaInput value={beregnetTimelonn} label="Beregnet timelønn" readOnly />

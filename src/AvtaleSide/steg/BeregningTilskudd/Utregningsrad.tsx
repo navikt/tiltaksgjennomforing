@@ -11,9 +11,9 @@ interface Props {
     midtrekkeTekst?: ReactNode;
     verdiOperator?: string | ReactNode;
     verdi: string | number;
-    borderTykk?: boolean;
     ikkePenger?: boolean;
     tekstType?: string;
+    understrek?: 'tykk' | 'tynn' | 'ingen';
 }
 
 const cls = BEMHelper('utregningspanel');
@@ -41,7 +41,7 @@ const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
     };
 
     return (
-        <div className={cls.element('utregning-rad', props.borderTykk ? 'tykkbunn' : '')}>
+        <div className={cls.element('utregning-rad', props.understrek ?? 'tynn')}>
             <div className={cls.element('utregning-label')}>
                 <div className={cls.element('label-innhold')}>
                     {setIkon(props.labelIkon)}
