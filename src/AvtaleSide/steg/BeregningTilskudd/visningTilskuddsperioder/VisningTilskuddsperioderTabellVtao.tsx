@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
-import { Table } from '@navikt/ds-react';
-import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
-import BEMHelper from '@/utils/bem';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { addDays } from 'date-fns';
-import { useTilskuddsperiodevisning } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
 import TilskuddsperiodeRadVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/TilskuddsperiodeRadVtao';
+import { useTilskuddsperiodevisning } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import BEMHelper from '@/utils/bem';
+import { erNil } from '@/utils/predicates';
+import { Table } from '@navikt/ds-react';
+import { addDays } from 'date-fns';
+import React, { useContext } from 'react';
 
 interface Properties {
     className: string;
@@ -23,10 +24,9 @@ const VisningTilskuddsperioderTabellVtao: React.FC<Properties> = ({ className }:
         useTilskuddsperiodevisning(avtale);
     const { forste, mellom, siste } = tilskuddsperioder;
 
-    const kreverOppfølgingDato =
-        avtale.kreverOppfolgingFrist !== undefined || avtale.kreverOppfolgingFrist === ''
-            ? addDays(avtale.kreverOppfolgingFrist, 1)
-            : undefined;
+    const kreverOppfølgingDato = erNil(avtale.kreverOppfolgingFrist)
+        ? undefined
+        : addDays(avtale.kreverOppfolgingFrist, 1);
 
     return (
         <>
