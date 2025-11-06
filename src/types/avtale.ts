@@ -1,9 +1,9 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Diskresjonskode } from '@/types/diskresjon';
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
-import { Diskresjonskode } from '@/types/diskresjon';
 
 export type Avtale = Annullering &
     Readonly<AvtaleMetadata> &
@@ -56,6 +56,7 @@ export type AvtaleMinimalListeVisning = {
     erGodkjentTaushetserklæringAvMentor: boolean;
     gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus;
     oppfolgingVarselSendt?: string;
+    kreverOppfolgingFom?: string;
     opprettetTidspunkt: string;
     sistEndret: string;
     diskresjonskode: Diskresjonskode;

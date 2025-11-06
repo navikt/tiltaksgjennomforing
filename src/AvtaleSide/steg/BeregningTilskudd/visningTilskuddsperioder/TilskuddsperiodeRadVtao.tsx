@@ -1,16 +1,15 @@
-import React from 'react';
-import { TilskuddsPeriode } from '@/types/avtale';
-import { addDays, getYear, isWithinInterval } from 'date-fns';
-import { BodyShort, Table } from '@navikt/ds-react';
-import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
+import { TilskuddsPeriode } from '@/types/avtale';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { BodyShort, Table } from '@navikt/ds-react';
+import { addDays, getYear, isWithinInterval } from 'date-fns';
 
 interface Props {
     avtaleOpprettet: Date;
     erNavAnsatt: boolean;
     periode: TilskuddsPeriode;
-    kreverOppfølgingDato?: Date | undefined;
+    kreverOppfølgingDato?: Date;
 }
 
 const TilskuddsperiodeRadVtao = (props: Props) => {
