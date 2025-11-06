@@ -59,7 +59,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
                     innloggetBruker.rolle !== 'MENTOR' && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
                 )}
                 {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
-                {avtale.tilskuddPeriode.length > 0 && (
+                {innloggetBruker.rolle !== 'DELTAKER' && avtale.tilskuddPeriode.length > 0 && (
                     <>
                         <Heading level="2" size="small">
                             Tilskuddsperioder
