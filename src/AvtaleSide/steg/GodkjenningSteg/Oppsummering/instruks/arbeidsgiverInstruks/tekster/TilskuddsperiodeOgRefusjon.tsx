@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Link } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
 import { WalletIcon } from '@navikt/aksel-icons';
+import { Link } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 
 interface Props {
     tiltakstype: TiltaksType;
@@ -44,7 +44,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                             <Link href="https://tiltak-refusjon.nav.no">tiltak-refusjon.nav.no</Link> og via Min Side
                             Arbeidsgiver.
                         </li>
-                        <li>For å bruke løsningen må dere ha tilgang til “inntektsmelding” via Altinn.</li>
+                        <li>For å bruke løsningen må dere ha tilgang til “Tiltaksrefusjon” via Altinn.</li>
                     </ul>
                 </p>
                 <p>NAV forbeholder seg retten til å kontrollere at utbetalte midler brukes i samsvar med avtalen.</p>
@@ -74,7 +74,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
             <p>
                 For å behandle refusjonen må du logge deg inn i refusjonsløsningen:
                 <Link href="https://tiltak-refusjon.nav.no">https://tiltak-refusjon.nav.no</Link>
-                Tilgangen styres via Altinn og du må ha tilgangen “inntektsmelding” for å kunne sende inn refusjonskrav.
+                Tilgangen styres via Altinn og du må ha tilgangen “Tiltaksrefusjon” for å kunne sende inn refusjonskrav.
             </p>
             <p>
                 Siste frist for å sende inn kravet er senest to måneder etter at perioden er over. Hvis fristen ikke
