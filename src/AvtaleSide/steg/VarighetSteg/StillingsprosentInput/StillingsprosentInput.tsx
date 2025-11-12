@@ -10,6 +10,7 @@ interface Props {
     label: string;
     verdi?: number;
     settVerdi: (verdi?: number) => void;
+    description?: string;
     size?: 'medium' | 'small';
 }
 
@@ -60,6 +61,7 @@ function StillingsprosentInput(props: Props) {
             size={props.size}
             type="tel"
             value={formaterNorskeTallFraInput(field.value)}
+            description={props.description}
         />
     );
 }

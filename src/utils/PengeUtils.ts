@@ -4,6 +4,7 @@ const IKKE_NOE_BELOP_TEGN = '—';
 
 function formaterPenger(penger: number | undefined, ikkeNoeBelopTegn: string): string;
 function formaterPenger(penger: number, ikkeNoeBelopTegn?: undefined): string;
+function formaterPenger(penger: number | undefined, ikkeNoeBelopTegn?: undefined): string;
 function formaterPenger(penger: number | undefined, ikkeNoeBelopTegn?: string): string {
     if (!erNil(ikkeNoeBelopTegn) && erNil(penger)) {
         return ikkeNoeBelopTegn;

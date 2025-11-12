@@ -1,68 +1,45 @@
-import { formaterNorskeTall, formaterPenger } from '@/utils';
-import { BodyShort, Label, Heading } from '@navikt/ds-react';
-import React, { FunctionComponent, ReactNode } from 'react';
-import BEMHelper from '../../../utils/bem';
-import './UtregningPanel.less';
+import { Table } from '@navikt/ds-react';
+import React from 'react';
+import { formaterPenger } from '@/utils';
 
-interface Props {
-    labelIkon?: React.ReactNode;
-    labelTekst: string;
-    labelSats?: number;
-    midtrekkeTekst?: ReactNode;
-    verdiOperator?: string | ReactNode;
+interface UtregningsradTabellProps {
+    icon?: React.ReactNode;
+    label: string;
+    midtrekkeTekst?: string;
+    operator?: React.ReactNode;
     verdi: string | number;
+    className?: string;
     ikkePenger?: boolean;
-    tekstType?: string;
-    understrek?: 'tykk' | 'tynn' | 'ingen';
+    fetSkrift?: boolean;
 }
 
-const cls = BEMHelper('utregningspanel');
-
-const Utregningsrad: FunctionComponent<Props> = (props: Props) => {
-    const setIkon = (ikon?: React.ReactNode) => (ikon ? ikon : <div className={cls.element('ikon-placeholder')} />);
-
-    const setOperator = (operator?: string | ReactNode) =>
-        operator ? (
-            <Heading size="medium" className={cls.element('operator')}>
-                {operator}
-            </Heading>
-        ) : null;
-
-    const setLabelSats = (sats?: number) =>
-        sats !== undefined && sats !== null ? (
-            <BodyShort size="small" className={cls.element('label-sats')}>
-                ({formaterNorskeTall(sats * 100)}%)
-            </BodyShort>
-        ) : null;
-
+const Utregningsrad: React.FC<UtregningsradTabellProps> = ({
+    icon,
+    label,
+    midtrekkeTekst,
+    operator,
+    verdi,
+    className,
+    ikkePenger,
+    fetSkrift,
+}) => {
     const parseVerdi = (verdi: string | number) => {
         const verdiSomNumber = parseInt(verdi.toString(), 10);
-        return !isNaN(verdiSomNumber) && !props.ikkePenger ? formaterPenger(verdiSomNumber) : verdi;
+        return !isNaN(verdiSomNumber) && !ikkePenger ? formaterPenger(verdiSomNumber) : verdi;
     };
 
     return (
-        <div className={cls.element('utregning-rad', props.understrek ?? 'tynn')}>
-            <div className={cls.element('utregning-label')}>
-                <div className={cls.element('label-innhold')}>
-                    {setIkon(props.labelIkon)}
-                    {props.tekstType ? (
-                        <Label>{props.labelTekst}</Label>
-                    ) : (
-                        <BodyShort size="small">{props.labelTekst}</BodyShort>
-                    )}
-                </div>
-                {setLabelSats(props.labelSats)}
-                {props.midtrekkeTekst && <BodyShort size="small">{props.midtrekkeTekst}</BodyShort>}
-            </div>
-            <div className={cls.element('utregning-verdi')}>
-                {setOperator(props.verdiOperator)}
-                {props.tekstType ? (
-                    <Label>{parseVerdi(props.verdi)}</Label>
-                ) : (
-                    <BodyShort size="small">{parseVerdi(props.verdi)}</BodyShort>
-                )}
-            </div>
-        </div>
+        <Table.Row className={className}>
+            <Table.DataCell>{icon}</Table.DataCell>
+            <Table.DataCell>{fetSkrift ? <b>{label}</b> : label}</Table.DataCell>
+            <Table.DataCell>{fetSkrift ? <b>{midtrekkeTekst}</b> : midtrekkeTekst}</Table.DataCell>
+            <Table.DataCell className="utregningspanel__operator-cell">
+                <div>{operator}</div>
+            </Table.DataCell>
+            <Table.DataCell align="right" className="utregningspanel__verdi-cell">
+                {fetSkrift ? <b>{parseVerdi(verdi)}</b> : parseVerdi(verdi)}
+            </Table.DataCell>
+        </Table.Row>
     );
 };
 

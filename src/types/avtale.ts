@@ -129,9 +129,8 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
-    mentorLonn?: number;
-    mentorStillingsprosent?: number;
-    mentorloennsberegningTyper?: string;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorValgtLonnstypeBelop?: number;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<
@@ -254,6 +253,8 @@ export interface Stilling {
 
 export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
 
+export type MentorValgtLonnstype = 'ÅRSLØNN' | 'MÅNEDSLØNN' | 'UKELØNN' | 'DAGSLØNN' | 'TIMELØNN';
+
 export interface Beregningsgrunnlag {
     manedslonn?: number;
     feriepengesats?: number;
@@ -271,8 +272,9 @@ export interface Beregningsgrunnlag {
     sumLønnstilskuddRedusert?: number;
     tiltakstype?: TiltaksType;
     mentorAntallTimer?: number;
+    mentorValgtLonnstypeBelop?: number;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
     mentorTimelonn?: number;
-    mentorMaanedslonn?: number;
 }
 
 export interface TilskuddsPerioder {

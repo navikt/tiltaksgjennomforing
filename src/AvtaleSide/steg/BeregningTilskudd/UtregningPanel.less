@@ -1,4 +1,7 @@
 .utregningspanel {
+    .navds-expansioncard__content {
+        padding: 0;
+    }
     &__wrapper {
         margin: 0.25rem;
     }
@@ -71,6 +74,31 @@
     &__label-sats {
         padding-right: 0.5rem;
         width: 100%;
+    }
+
+    &__fet-border-top {
+        border-top: 2px solid black;
+    }
+
+    &__operator-cell {
+        padding: 0;
+
+        & > * {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    &__verdi-cell {
+        padding-left: 0;
+    }
+
+    .navds-table__data-cell svg {
+        font-size: 1.5rem;
+    }
+
+    .navds-table__body > tr:last-child > td {
+        border-bottom: none;
     }
 
     @media (min-width: 768px) {

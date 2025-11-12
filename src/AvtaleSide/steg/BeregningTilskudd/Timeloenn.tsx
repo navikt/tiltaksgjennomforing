@@ -1,123 +1,124 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import ValutaInput from '@/komponenter/form/ValutaInput';
-import ProsentInput from '@/komponenter/form/ProsentInput';
-import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
+import { storForbokstav } from '@/utils/stringUtils';
+import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
+import { Alert, Heading, ReadMore } from '@navikt/ds-react';
 
 interface Props {
     cls: BEMWrapper;
 }
 
 const HOURS_PER_UNIT = Object.freeze({
-    Årslønn: 1950,
-    Månedslønn: 1950 / 12,
-    Ukelønn: 1950 / 52,
-    Dagslønn: 1950 / 260,
-    Timelønn: 1,
+    ÅRSLØNN: 1950,
+    MÅNEDSLØNN: 1950 / 12,
+    UKELØNN: 1950 / 52,
+    DAGSLØNN: 1950 / 260,
+    TIMELØNN: 1,
 } as const);
 
 type LonnType = keyof typeof HOURS_PER_UNIT;
 
 const LONN_OPTIONS = (Object.keys(HOURS_PER_UNIT) as LonnType[]).map((unit) => ({
-    label: unit,
+    label: storForbokstav(unit),
     value: unit,
 }));
 
-const Timeloenn: React.FC<Props> = ({ cls }: Props) => {
+const Timeloenn: React.FC<Props> = () => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
-    const [lonn, setLonn] = useState(585000);
-    const [type, setType] = useState<LonnType>('Årslønn');
-    const [stillingsprosent, setStillingsprosent] = useState(100);
-
     const handleSelectedTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const nyLoennstype = e.target.value as LonnType;
-        if (nyLoennstype === type) return;
+        const nyLonnstype = e.target.value as LonnType;
+        const gammelLonnstype = avtale.gjeldendeInnhold.mentorValgtLonnstype!;
+        const gammeltBelop = avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop || 0;
+        const nyttBelop = (gammeltBelop / HOURS_PER_UNIT[gammelLonnstype]) * HOURS_PER_UNIT[nyLonnstype];
 
-        const newLonn = (lonn / HOURS_PER_UNIT[type]) * HOURS_PER_UNIT[nyLoennstype];
-        setLonn(newLonn);
-        setType(nyLoennstype);
-    };
-
-    const handleMentorLoennChange = (raw: string) => {
-        setLonn(parseFloat(raw) || 0);
+        settOgKalkulerBeregningsverdier({
+            mentorValgtLonnstype: nyLonnstype,
+            mentorValgtLonnstypeBelop: Math.round(nyttBelop),
+        });
     };
 
     useEffect(() => {
-        const currentTimelonn = avtale.gjeldendeInnhold.mentorTimelonn || 0;
-        if (beregnetTimelonn !== currentTimelonn) {
-            settOgKalkulerBeregningsverdier({ mentorTimelonn: beregnetTimelonn });
+        if (!avtale.gjeldendeInnhold.mentorValgtLonnstype) {
+            settOgKalkulerBeregningsverdier({ mentorValgtLonnstype: 'ÅRSLØNN' });
         }
-    }, [lonn, stillingsprosent]);
-
-    const beregnetTimelonn = (() => {
-        if (type === 'Timelønn') {
-            return lonn;
-        }
-        if (stillingsprosent > 0) {
-            return (lonn / HOURS_PER_UNIT[type]) * (100 / stillingsprosent);
-        }
-        return 0;
-    })();
+    }, []);
 
     return (
-        <div className={cls.className}>
-            <Row className={cls.element('rad')}>
+        <>
+            <Row>
                 <Column md="7">
                     <SelectInput
                         label="Lønn per arbeidsavtale"
-                        name="mentorTimelonn"
+                        name="mentorLonnsType"
                         options={LONN_OPTIONS}
-                        value={type}
+                        value={avtale.gjeldendeInnhold.mentorValgtLonnstype}
                         onChange={handleSelectedTypeChange}
                         children={''}
                     />
                 </Column>
             </Row>
             <VerticalSpacer rem={1.5} />
-            <Row className={cls.element('rad')}>
+            <Row>
                 <Column md="7">
                     <ValutaInput
                         className="input"
-                        name="manedslonn"
-                        label={'Mentors ' + type.charAt(0).toLowerCase() + type.slice(1)}
+                        name="mentorLonn"
+                        label={'Mentors ' + (avtale.gjeldendeInnhold.mentorValgtLonnstype || '').toLowerCase()}
                         autoComplete={'off'}
-                        value={lonn}
-                        onChange={(e) => handleMentorLoennChange(e.target.value)}
+                        value={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
+                        onChange={(e) =>
+                            settOgKalkulerBeregningsverdier({
+                                mentorValgtLonnstypeBelop: Math.round(parseFloat(e.target.value)),
+                            })
+                        }
                         min={0}
                     />
                 </Column>
-                {type !== 'Timelønn' && (
+                {avtale.gjeldendeInnhold.mentorValgtLonnstype !== 'TIMELØNN' && (
                     <Column md="5">
-                        <ProsentInput
-                            name="lonnstilskuddProsent"
+                        <StillingsprosentInput
                             label="Stillingsprosent"
-                            value={stillingsprosent}
-                            min={0}
-                            onChange={(e) => setStillingsprosent(parseInt(e.target.value, 10) || 0)}
+                            verdi={avtale.gjeldendeInnhold.stillingprosent}
+                            settVerdi={(e) => settOgKalkulerBeregningsverdier({ stillingprosent: e })}
                         />
                     </Column>
                 )}
             </Row>
             <VerticalSpacer rem={1.5} />
-            {type !== 'Timelønn' && (
-                <Row className={cls.element('rad')}>
+            {avtale.gjeldendeInnhold.mentorValgtLonnstype !== 'TIMELØNN' && (
+                <Row>
                     <Column md="7">
-                        <ValutaInput value={beregnetTimelonn} label="Beregnet timelønn" readOnly />
+                        <ValutaInput
+                            value={avtale.gjeldendeInnhold.mentorTimelonn}
+                            label="Beregnet timelønn"
+                            readOnly
+                        />
                     </Column>
                 </Row>
             )}
+            <VerticalSpacer rem={0.5} />
+            {avtale.gjeldendeInnhold.mentorTimelonn > 750 && (
+                <Alert variant="warning">
+                    <Heading spacing size="small" level="3">
+                        Viktig informasjon
+                    </Heading>
+                    Hvis du er Det finnes allerede registrerte tiltak for denne deltakeren:
+                </Alert>
+            )}
             <div>
-                <LesMerPanel åpneLabel="Slik beregnes timelønn" lukkLabel="Lukk" className={cls.element('LesMerPanel')}>
+                <ReadMore header={'Slik beregnes timelønn'} size={'small'}>
                     <TimeloennHjelpetekst />
-                </LesMerPanel>
+                </ReadMore>
             </div>
-        </div>
+            <VerticalSpacer rem={2} />
+        </>
     );
 };
 export default Timeloenn;

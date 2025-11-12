@@ -9,8 +9,8 @@ import RelasjonerOppsummering from '../RelasjonerOppsummering/RelasjonerOppsumme
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
 import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
-import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;

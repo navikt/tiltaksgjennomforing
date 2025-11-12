@@ -32,8 +32,8 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={2} />
                 <VisningTilskuddsperioderVtao />
                 <VerticalSpacer rem={2} />
-                <Row className={cls.element('rad-kontonummer')}>
-                    <Column md="12" className={cls.element('kontonummer')}>
+                <Row>
+                    <Column md="12">
                         <KidOgKontonummer />
                     </Column>
                 </Row>

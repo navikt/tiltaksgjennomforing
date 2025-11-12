@@ -5,7 +5,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
-import { Heading, BodyShort } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
@@ -14,8 +14,8 @@ import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiver
 import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
-import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import VisningTilskuddsperioderVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderVtao';
+import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
 
@@ -34,11 +34,10 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
             <AvtaleStatus />
             <Innholdsboks className={cls.className}>
                 <SkjemaTittel>Beregning av mentor tilskudd</SkjemaTittel>
-                <BodyShort>
+                <BodyShort spacing>
                     Tilskuddet dekker mentorens ordinære timelønn og ev. sosiale avgifter for de timene som er avtalt
                     for mentoroppgaven.
                 </BodyShort>
-                <VerticalSpacer rem={2} />
                 <PakrevdInputValidering
                     validering={/^\d{0,3}(,5?)?$/}
                     label="Antall timer med mentor per måned"
@@ -49,19 +48,27 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     }}
                 />
                 <VerticalSpacer rem={2} />
-                <Heading size="small">Om mentors lønnsforhold hos arbeidsgiver</Heading>
+                <Heading spacing size="small">
+                    Om mentors lønnsforhold hos arbeidsgiver
+                </Heading>
                 <Timeloenn cls={cls} />
-                <VerticalSpacer rem={2} />
-                <Row className={cls.element('rad')}>
-                    <Column md="5"></Column>
-                    <Column md="5"></Column>
+                <Row>
+                    <Column md="6">
+                        <ObligatoriskTjenestepensjon />
+                    </Column>
                 </Row>
-                <ObligatoriskTjenestepensjon cls={cls} />
-                <Arbeidsgiveravgift cls={cls} />
-                <Feriepenger cls={cls} />
                 <VerticalSpacer rem={2} />
-                <Row className={cls.element('rad-kontonummer')}>
-                    <Column md="12" className={cls.element('kontonummer')}>
+                <Row>
+                    <Column md="6">
+                        <Arbeidsgiveravgift />
+                    </Column>
+                    <Column md="6">
+                        <Feriepenger />
+                    </Column>
+                </Row>
+                <VerticalSpacer rem={2} />
+                <Row>
+                    <Column md="12">
                         <KidOgKontonummer />
                     </Column>
                 </Row>

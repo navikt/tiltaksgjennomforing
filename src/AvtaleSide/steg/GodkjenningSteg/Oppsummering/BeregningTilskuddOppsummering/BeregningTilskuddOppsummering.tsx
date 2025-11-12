@@ -31,8 +31,6 @@ const BeregningTilskuddOppsummering = (props: Props) => {
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    console.log('BeregningTilskuddOppsummering props:', props);
-
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
             <Container fluid={true}>
@@ -56,7 +54,7 @@ const BeregningTilskuddOppsummering = (props: Props) => {
                                 arbeidsgiveravgift,
                                 otpSats,
                                 feriepengesats,
-                                //    lonnstilskuddProsent,
+                                //     lonnstilskuddProsent,
                                 manedslonn,
                             }}
                         >

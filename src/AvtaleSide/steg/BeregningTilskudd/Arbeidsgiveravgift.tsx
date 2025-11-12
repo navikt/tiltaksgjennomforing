@@ -1,15 +1,9 @@
 import React, { useContext } from 'react';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import SelectInput from '@/komponenter/form/SelectInput';
 import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
-import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 
-interface Props {
-    cls: BEMWrapper;
-}
-
-const Arbeidsgiveravgift: React.FC<Props> = ({ cls }: Props) => {
+const Arbeidsgiveravgift: React.FC = () => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
     const arbeidsgiveravgiftAlternativer = (() => {
@@ -25,23 +19,19 @@ const Arbeidsgiveravgift: React.FC<Props> = ({ cls }: Props) => {
     })();
 
     return (
-        <Row className={cls.element('rad')}>
-            <Column md="8" className={cls.element('arbeidsgiveravgift')}>
-                <SelectInput
-                    name="arbeidsgiveravgift"
-                    options={arbeidsgiveravgiftAlternativer}
-                    label="Sats for arbeidsgiveravgift"
-                    size="medium"
-                    children=""
-                    value={avtale.gjeldendeInnhold.arbeidsgiveravgift}
-                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                        settOgKalkulerBeregningsverdier({
-                            arbeidsgiveravgift: parseFloatIfFloatable(event.target.value),
-                        })
-                    }
-                />
-            </Column>
-        </Row>
+        <SelectInput
+            name="arbeidsgiveravgift"
+            options={arbeidsgiveravgiftAlternativer}
+            label="Sats for arbeidsgiveravgift"
+            size="medium"
+            children=""
+            value={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                settOgKalkulerBeregningsverdier({
+                    arbeidsgiveravgift: parseFloatIfFloatable(event.target.value),
+                })
+            }
+        />
     );
 };
 export default Arbeidsgiveravgift;
