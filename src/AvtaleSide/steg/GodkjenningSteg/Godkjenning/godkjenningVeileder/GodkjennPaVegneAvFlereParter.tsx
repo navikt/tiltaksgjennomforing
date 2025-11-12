@@ -49,7 +49,7 @@ function GodkjennPaVegneAvFlereParter() {
     const isIkkeGodkjentAvNoen = !godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker || !godkjentAvArbeidsgiver;
 
-    const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
+    const { register, handleSubmit, formState, watch, getValues } = useForm({
         defaultValues: {
             isInformert: false,
             isSkalGodkjennesPaVegne: false,

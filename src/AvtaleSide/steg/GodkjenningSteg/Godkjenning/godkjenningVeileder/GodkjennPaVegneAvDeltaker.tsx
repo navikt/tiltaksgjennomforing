@@ -44,7 +44,7 @@ function GodkjennPaVegneAvDeltaker() {
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
 
-    const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
+    const { register, handleSubmit, formState, watch, getValues } = useForm({
         defaultValues: {
             isInformert: false,
             isSkalGodkjennesPaVegne: false,

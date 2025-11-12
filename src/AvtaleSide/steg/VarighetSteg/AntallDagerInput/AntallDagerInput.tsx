@@ -15,11 +15,10 @@ interface Props {
 
 const schema = z.object({
     antallDagerPerUke: z.preprocess(
-        parseNorskeTallFraInput,
+        (x: string | undefined): number | undefined => parseNorskeTallFraInput(x),
         z
             .number({
-                error: 'Antall dager være et tall',
-                message: 'Antall dager er påkrevd',
+                error: (err) => (err.input === undefined ? 'Antall dager er påkrevd' : 'Antall dager være et tall'),
             })
             .multipleOf(0.01, 'Antall dager kan maks ha 2 desimaler')
             .min(0.1, 'Antall dager må være større enn 0')
@@ -54,7 +53,7 @@ function AntallDagerInput(props: Props) {
     return (
         <TextField
             {...field}
-            error={formState.errors.antallDagerPerUke?.message}
+            error={<>{formState.errors.antallDagerPerUke?.message}</>}
             label={props.label}
             onChange={onChange}
             size={props.size}
