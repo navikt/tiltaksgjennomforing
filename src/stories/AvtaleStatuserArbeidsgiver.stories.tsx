@@ -1,5 +1,5 @@
 import ArbeidsgiverAvtaleStatus from '@/AvtaleSide/AvtaleStatus/ArbeidsgiverAvtaleStatus';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { Avtale } from '@/types/avtale';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 

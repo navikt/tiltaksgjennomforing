@@ -15,11 +15,10 @@ interface Props {
 
 const schema = z.object({
     antallDagerPerUke: z.preprocess(
-        parseNorskeTallFraInput,
+        (x: string | undefined): number | undefined => parseNorskeTallFraInput(x),
         z
             .number({
-                invalid_type_error: 'Antall dager være et tall',
-                required_error: 'Antall dager er påkrevd',
+                error: (err) => (err.input === undefined ? 'Antall dager er påkrevd' : 'Antall dager være et tall'),
             })
             .multipleOf(0.01, 'Antall dager kan maks ha 2 desimaler')
             .min(0.1, 'Antall dager må være større enn 0')
@@ -27,12 +26,10 @@ const schema = z.object({
     ),
 });
 
-type Schema = { antallDagerPerUke: string };
-
 function AntallDagerInput(props: Props) {
     const { settVerdi, verdi } = props;
 
-    const { formState, control } = useForm<Schema>({
+    const { formState, control } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(schema),
     });
@@ -50,6 +47,8 @@ function AntallDagerInput(props: Props) {
         const { success, data } = schema.safeParse({ antallDagerPerUke });
         settVerdi(success ? data?.antallDagerPerUke : undefined);
     };
+
+    // field.value is unknown, need to assert as string for TextField
 
     return (
         <TextField

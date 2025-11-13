@@ -29,7 +29,7 @@ const schema = z.object({
         .or(z.literal('')),
 });
 
-type Schema = { kid: string };
+type Schema = z.infer<typeof schema>;
 
 const KidOgKontonummer = (props: Props) => {
     const { avtaleId, kid, kontonummer, onChange, visOverskrift } = props;

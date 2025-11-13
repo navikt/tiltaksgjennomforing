@@ -1,5 +1,5 @@
 import MentorAvtaleStatus from '@/AvtaleSide/AvtaleStatus/MentorAvtaleStatus';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { AvtaleStatus } from '@/types/avtale';
 
 const meta = {

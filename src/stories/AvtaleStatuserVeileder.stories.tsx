@@ -1,5 +1,5 @@
 import VeilederAvtaleStatus from '@/AvtaleSide/AvtaleStatus/VeilederAvtaleStatus';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Avtale } from '@/types/avtale';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';

@@ -15,11 +15,11 @@ interface Props {
 
 const schema = z.object({
     stillingsprosent: z.preprocess(
-        parseNorskeTallFraInput,
+        (x: string | undefined): number | undefined => parseNorskeTallFraInput(x),
         z
             .number({
-                invalid_type_error: 'Stillingsprosent være et tall',
-                required_error: 'Stillingsprosent er påkrevd',
+                error: (err) =>
+                    err.input === undefined ? 'Stillingsprosent er påkrevd' : 'Stillingsprosent være et tall',
             })
             .multipleOf(0.01, 'Stillingsprosent kan maks ha 2 desimaler')
             .min(0.1, 'Stillingsprosent må være større enn 0')
@@ -27,12 +27,10 @@ const schema = z.object({
     ),
 });
 
-type Schema = { stillingsprosent: string };
-
 function StillingsprosentInput(props: Props) {
     const { settVerdi, verdi } = props;
 
-    const { formState, control } = useForm<Schema>({
+    const { formState, control } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(schema),
     });

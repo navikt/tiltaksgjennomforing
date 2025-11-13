@@ -1,5 +1,5 @@
 import DeltakerAvtaleStatus from '@/AvtaleSide/AvtaleStatus/DeltakerAvtaleStatus';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { AvtaleStatus } from '@/types/avtale';
 
 const meta = {
