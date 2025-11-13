@@ -53,7 +53,7 @@ function AntallDagerInput(props: Props) {
     return (
         <TextField
             {...field}
-            error={<>{formState.errors.antallDagerPerUke?.message}</>}
+            error={formState.errors.antallDagerPerUke?.message}
             label={props.label}
             onChange={onChange}
             size={props.size}
