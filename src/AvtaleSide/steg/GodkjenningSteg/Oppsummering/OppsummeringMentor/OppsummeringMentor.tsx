@@ -10,30 +10,27 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
 import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringMentor: FunctionComponent<Props> = (props) => {
+const OppsummeringMentor: FunctionComponent<Props> = ({ avtaleinnhold }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const { mentorTimelonn } = avtaleinnhold;
 
     return (
         <>
             <DeltakerInfo oppsummeringside={true} />
-            <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
-            <RelasjonerOppsummering {...props.avtaleinnhold} />
+            <Avtaleparter avtaleinnhold={avtaleinnhold} />
+            <RelasjonerOppsummering {...avtaleinnhold} />
             <VerticalSpacer rem={2.5} />
-            <OmMentorOppsummering {...props.avtaleinnhold} />
-            <StartOgSluttdatoOppsummering {...props.avtaleinnhold} />
-            <OppfolgingOppsummering {...props.avtaleinnhold} />
-            <Tilrettelegging {...props.avtaleinnhold} />
+            <OmMentorOppsummering {...avtaleinnhold} />
+            <StartOgSluttdatoOppsummering {...avtaleinnhold} />
+            <OppfolgingOppsummering {...avtaleinnhold} />
+            <Tilrettelegging {...avtaleinnhold} />
             {innloggetBruker.rolle !== 'DELTAKER' && (
-                <BeregningTilskuddOppsummering
-                    {...props.avtaleinnhold}
-                    utregningComponent={UtregningPanelMentorTilskudd}
-                />
+                <BeregningTilskuddOppsummering {...avtaleinnhold} extraAvhengigFelter={{ mentorTimelonn }} />
             )}
         </>
     );

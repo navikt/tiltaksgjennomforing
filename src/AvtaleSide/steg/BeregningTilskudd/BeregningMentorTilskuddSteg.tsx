@@ -51,7 +51,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 <Heading spacing size="small">
                     Om mentors lønnsforhold hos arbeidsgiver
                 </Heading>
-                <Timeloenn cls={cls} />
+                <Timeloenn />
                 <Row>
                     <Column md="6">
                         <ObligatoriskTjenestepensjon />

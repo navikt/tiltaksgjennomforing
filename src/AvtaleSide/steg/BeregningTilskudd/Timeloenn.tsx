@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -9,10 +8,6 @@ import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { storForbokstav } from '@/utils/stringUtils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import { Alert, Heading, ReadMore } from '@navikt/ds-react';
-
-interface Props {
-    cls: BEMWrapper;
-}
 
 const HOURS_PER_UNIT = Object.freeze({
     ÅRSLØNN: 1950,
@@ -29,13 +24,15 @@ const LONN_OPTIONS = (Object.keys(HOURS_PER_UNIT) as LonnType[]).map((unit) => (
     value: unit,
 }));
 
-const Timeloenn: React.FC<Props> = () => {
+const Timeloenn: React.FC = () => {
     const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+    const { mentorValgtLonnstype, mentorValgtLonnstypeBelop, stillingprosent, mentorTimelonn } =
+        avtale.gjeldendeInnhold;
 
     const handleSelectedTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const nyLonnstype = e.target.value as LonnType;
-        const gammelLonnstype = avtale.gjeldendeInnhold.mentorValgtLonnstype!;
-        const gammeltBelop = avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop || 0;
+        const gammelLonnstype = mentorValgtLonnstype!;
+        const gammeltBelop = mentorValgtLonnstypeBelop || 0;
         const nyttBelop = (gammeltBelop / HOURS_PER_UNIT[gammelLonnstype]) * HOURS_PER_UNIT[nyLonnstype];
 
         settOgKalkulerBeregningsverdier({
@@ -45,10 +42,14 @@ const Timeloenn: React.FC<Props> = () => {
     };
 
     useEffect(() => {
-        if (!avtale.gjeldendeInnhold.mentorValgtLonnstype) {
+        if (!mentorValgtLonnstype) {
             settOgKalkulerBeregningsverdier({ mentorValgtLonnstype: 'ÅRSLØNN' });
         }
     }, []);
+
+    //  Timelønn som er 50% over det norske gjennomsnittet.
+    const TIMELONN_TERSKEL = 547.5;
+    const forHoyTimeLonn = (mentorTimelonn || 0) > TIMELONN_TERSKEL;
 
     return (
         <>
@@ -58,7 +59,7 @@ const Timeloenn: React.FC<Props> = () => {
                         label="Lønn per arbeidsavtale"
                         name="mentorLonnsType"
                         options={LONN_OPTIONS}
-                        value={avtale.gjeldendeInnhold.mentorValgtLonnstype}
+                        value={mentorValgtLonnstype}
                         onChange={handleSelectedTypeChange}
                         children={''}
                     />
@@ -70,9 +71,9 @@ const Timeloenn: React.FC<Props> = () => {
                     <ValutaInput
                         className="input"
                         name="mentorLonn"
-                        label={'Mentors ' + (avtale.gjeldendeInnhold.mentorValgtLonnstype || '').toLowerCase()}
+                        label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
                         autoComplete={'off'}
-                        value={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
+                        value={mentorValgtLonnstypeBelop}
                         onChange={(e) =>
                             settOgKalkulerBeregningsverdier({
                                 mentorValgtLonnstypeBelop: Math.round(parseFloat(e.target.value)),
@@ -81,35 +82,29 @@ const Timeloenn: React.FC<Props> = () => {
                         min={0}
                     />
                 </Column>
-                {avtale.gjeldendeInnhold.mentorValgtLonnstype !== 'TIMELØNN' && (
+                {mentorValgtLonnstype !== 'TIMELØNN' && (
                     <Column md="5">
                         <StillingsprosentInput
                             label="Stillingsprosent"
-                            verdi={avtale.gjeldendeInnhold.stillingprosent}
+                            verdi={stillingprosent}
                             settVerdi={(e) => settOgKalkulerBeregningsverdier({ stillingprosent: e })}
                         />
                     </Column>
                 )}
             </Row>
             <VerticalSpacer rem={1.5} />
-            {avtale.gjeldendeInnhold.mentorValgtLonnstype !== 'TIMELØNN' && (
+            {mentorValgtLonnstype !== 'TIMELØNN' && (
                 <Row>
                     <Column md="7">
-                        <ValutaInput
-                            value={avtale.gjeldendeInnhold.mentorTimelonn}
-                            label="Beregnet timelønn"
-                            readOnly
-                        />
+                        <ValutaInput value={mentorTimelonn} label="Beregnet timelønn" readOnly />
                     </Column>
                 </Row>
             )}
             <VerticalSpacer rem={0.5} />
-            {avtale.gjeldendeInnhold.mentorTimelonn > 750 && (
-                <Alert variant="warning">
-                    <Heading spacing size="small" level="3">
-                        Viktig informasjon
-                    </Heading>
-                    Hvis du er Det finnes allerede registrerte tiltak for denne deltakeren:
+            {forHoyTimeLonn && (
+                <Alert variant="warning" size="small">
+                    <Heading size="xsmall">Kontroller at oppgitt timelønn er korrekt.</Heading>
+                    Timelønnen er mer enn 50% over det norske gjennomsnittet.
                 </Alert>
             )}
             <div>
