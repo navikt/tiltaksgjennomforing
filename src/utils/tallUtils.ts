@@ -26,3 +26,12 @@ export const parseFloatIfFloatable = (verdi: string) => {
     const floatedValue = parseFloat(verdi);
     return !isNaN(floatedValue) ? floatedValue : undefined;
 };
+
+export const inputToNumber = (verdi: string | undefined): number | undefined => {
+    verdi = verdi?.replace(/,/g, '.');
+    if (!isNaN(Number(verdi))) {
+        return Number(verdi);
+    }
+
+    return undefined;
+};

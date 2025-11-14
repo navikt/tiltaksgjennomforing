@@ -15,7 +15,6 @@ import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
-import { TiltaksType } from '@/types';
 
 const cls = BEMHelper('avtaleside');
 
@@ -40,7 +39,6 @@ export interface StegInfo {
 
 const AvtaleSide: FunctionComponent = () => {
     const { mentorFeatureToggle } = useFeatureToggles();
-
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();

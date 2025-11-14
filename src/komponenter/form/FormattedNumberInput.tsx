@@ -2,7 +2,7 @@ import { toNumberOnFocus } from '@/komponenter/form/utils/form-utils';
 import useValidering from '@/komponenter/useValidering';
 import { erNil } from '@/utils/predicates';
 import { TextField, TextFieldProps } from '@navikt/ds-react';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
 const DEFAULT_INPUT_MAX_LENGTH = 524288;
 
@@ -11,7 +11,6 @@ interface FormattedNumberInputProps extends TextFieldProps {
     validatorer: Array<(value: any) => string | undefined>;
     className?: string;
     feil?: React.ReactNode | boolean;
-    id?: string;
     inputClassName?: string;
     inputRef?: ((element: HTMLInputElement | null) => any) | React.RefObject<HTMLInputElement>;
     description?: React.ReactNode;
@@ -28,6 +27,10 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
     const { value, validatorer, toFormatted, onChange, maxLength, max, ...other } = props;
     const [tallVerdi, setVerdi] = React.useState(value);
     const [feil, settFeil, sjekkInputfelt] = useValidering(value, validatorer);
+
+    useEffect(() => {
+        setVerdi(value);
+    }, [value]);
 
     const maximumLength = maxLength ? maxLength : DEFAULT_INPUT_MAX_LENGTH;
     const onChangeOverride = (event: React.ChangeEvent<HTMLInputElement>) => {
