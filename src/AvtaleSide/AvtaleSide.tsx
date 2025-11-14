@@ -8,12 +8,13 @@ import { avtaleTittel } from '@/messages';
 import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('avtaleside');
 
@@ -37,55 +38,50 @@ export interface StegInfo {
 }
 
 const AvtaleSide: FunctionComponent = () => {
-    const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
-    const [aktivtSteg, setAktivtSteg] = useState<StegInfo | undefined>();
+    const { mentorFeatureToggle } = useFeatureToggles();
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const navigate = useNavigate();
+    const { steg } = useParams<{ steg?: string }>();
+
     let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
     if (innloggetBruker.rolle === 'MENTOR') avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
-    const navigate = useNavigate();
-    const { steg } = useParams<any>();
-
-    const erDesktop = windowSize > 768;
-    const godkjentAvVeileder = avtale.godkjentAvVeileder !== null;
+    if (innloggetBruker.rolle !== 'MENTOR' && avtale.tiltakstype === 'MENTOR' && !mentorFeatureToggle)
+        avtaleSteg = hentAvtaleSteg.MENTOR_UTEN_BEREGNING_AV_TILSKUDD;
 
     const erAvtaleLaast =
-        godkjentAvVeileder ||
+        avtale.godkjentAvVeileder !== null ||
         avtale.annullertTidspunkt ||
         innloggetBruker.rolle === 'DELTAKER' ||
         innloggetBruker.rolle === 'MENTOR';
 
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
-    const handleWindowSize = () => setWindowSize(window.innerWidth);
+    const aktivtSteg = useMemo(() => {
+        const aktivtStegId = erAvtaleLaast ? 'godkjenning' : steg;
+        return avtaleSteg.find((steg) => steg.id === aktivtStegId) ?? avtaleSteg[0];
+    }, [avtaleSteg, erAvtaleLaast, steg]);
 
-    useEffect(() => {
-        window.addEventListener('resize', handleWindowSize);
-        return () => window.removeEventListener('resize', handleWindowSize);
-    });
+    const byttBedrift = useCallback(
+        (org: string) => {
+            if (org !== avtale.bedriftNr) {
+                navigate(Path.OVERSIKT);
+            }
+        },
+        [avtale.bedriftNr, navigate],
+    );
 
-    useEffect(() => {
-        const getFilterType = () => (!erAvtaleLaast ? steg : 'godkjenning');
-        setAktivtSteg(avtaleSteg.find((steg) => steg.id === getFilterType()) || avtaleSteg[0]);
-    }, [steg, avtaleSteg, erAvtaleLaast]);
+    const erDesktop = useWindowWidth() > 768;
+
     return aktivtSteg ? (
         <>
             <Dokumenttittel tittel={sideTittel} />
             <VarselModal />
             <Banner
                 undertittel={'Avtalenummer: ' + avtale.avtaleNr}
-                byttetOrg={(org) => {
-                    const searchParams = new URLSearchParams(window.location.search);
-                    searchParams.set('bedrift', org);
-                    searchParams.delete('sokId');
-                    if (avtale.bedriftNr !== org) {
-                        navigate({
-                            pathname: Path.OVERSIKT,
-                            search: searchParams.toString(),
-                        });
-                    }
-                }}
+                byttetOrg={byttBedrift}
                 tekst={sideTittel}
+                valgtOrganisasjon={avtale.bedriftNr}
             />
 
             <div className="avtaleside" role="main">
@@ -120,5 +116,18 @@ const AvtaleSide: FunctionComponent = () => {
         </>
     ) : null;
 };
+
+function useWindowWidth() {
+    const [windowWidth, setWidth] = useState(() => (typeof window === 'undefined' ? 0 : window.innerWidth));
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const handle = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', handle);
+        return () => window.removeEventListener('resize', handle);
+    }, []);
+
+    return windowWidth;
+}
 
 export default AvtaleSide;

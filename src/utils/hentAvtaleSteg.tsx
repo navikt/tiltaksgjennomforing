@@ -14,6 +14,9 @@ import OmMentorSteg from '@/AvtaleSide/steg/OmMentorSteg/OmMentorSteg';
 import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilretteleggingSteg/OppfolgingOgTilretteleggingSteg';
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
+import BeregningMentorTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningMentorTilskuddSteg';
+import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
+import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -42,7 +45,12 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringArbeidstrening} />,
+        komponent: (
+            <GodkjenningSteg
+                oppsummering={OppsummeringArbeidstrening}
+                visningTilskuddsperioder={VisningTilskuddsperioder}
+            />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -75,7 +83,12 @@ const lonnstilskuddSteg: StegInfo[] = [
         id: 'beregningtilskudd',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringLonnstilskudd} />,
+        komponent: (
+            <GodkjenningSteg
+                oppsummering={OppsummeringLonnstilskudd}
+                visningTilskuddsperioder={VisningTilskuddsperioder}
+            />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -103,7 +116,47 @@ const mentorSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
+        komponent: <BeregningMentorTilskuddSteg />,
+        label: 'Beregning av tilskudd',
+        id: 'beregningtilskudd',
+    },
+    {
+        komponent: (
+            <GodkjenningSteg
+                oppsummering={OppsummeringMentor}
+                visningTilskuddsperioder={VisningTilskuddsperioderTabellVtao}
+            />
+        ),
+        label: 'Godkjenning',
+        id: 'godkjenning',
+    },
+];
+
+const mentorStegUtenBeregningAvTilskudd: StegInfo[] = [
+    {
+        komponent: <KontaktinfoSteg />,
+        label: 'Kontaktinformasjon',
+        id: 'kontaktinformasjon',
+    },
+    {
+        komponent: <OmMentorSteg />,
+        label: 'Om mentoren',
+        id: 'mentoren',
+    },
+    {
+        komponent: <VarighetSteg />,
+        label: 'Varighet',
+        id: 'varighet',
+    },
+    {
+        komponent: <OppfolgingTilretteleggingSteg />,
+        label: 'Oppfølging og tilrettelegging',
+        id: 'oppfolging',
+    },
+    {
+        komponent: (
+            <GodkjenningSteg oppsummering={OppsummeringMentor} visningTilskuddsperioder={VisningTilskuddsperioder} />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -111,7 +164,13 @@ const mentorSteg: StegInfo[] = [
 
 const mentorInnsynSteg: StegInfo[] = [
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} mentorVinsing={true} />,
+        komponent: (
+            <GodkjenningSteg
+                oppsummering={OppsummeringMentor}
+                visningTilskuddsperioder={VisningTilskuddsperioder}
+                mentorVinsing={true}
+            />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -133,7 +192,12 @@ const inkluderingTilskuddSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringInkluderingstilskudd} />,
+        komponent: (
+            <GodkjenningSteg
+                oppsummering={OppsummeringInkluderingstilskudd}
+                visningTilskuddsperioder={VisningTilskuddsperioder}
+            />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -166,7 +230,9 @@ const vtaoSteg: StegInfo[] = [
         id: 'beregningtilskudd',
     },
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringVTAO} />,
+        komponent: (
+            <GodkjenningSteg oppsummering={OppsummeringVTAO} visningTilskuddsperioder={VisningTilskuddsperioder} />
+        ),
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -177,6 +243,7 @@ const hentAvtaleSteg = {
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
+    MENTOR_UTEN_BEREGNING_AV_TILSKUDD: mentorStegUtenBeregningAvTilskudd,
     MENTOR_INNSYN: mentorInnsynSteg,
     INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,
