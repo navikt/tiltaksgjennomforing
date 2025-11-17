@@ -85,7 +85,7 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         </Row>
                     </Container>
                     <VerticalSpacer rem={2} />
-                    <ExpansionCard defaultOpen aria-label="Les mer om taushetsplikten til mentor" size="small">
+                    <ExpansionCard aria-label="Les mer om taushetsplikten til mentor" size="small">
                         <ExpansionCard.Header>
                             <Heading level="2" size="small">
                                 Les mer om taushetsplikten til mentor
