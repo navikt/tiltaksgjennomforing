@@ -10,6 +10,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
 import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -18,6 +19,7 @@ interface Props {
 const OppsummeringMentor: FunctionComponent<Props> = ({ avtaleinnhold }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { mentorTimelonn } = avtaleinnhold;
+    const { mentorFeatureToggle } = useFeatureToggles();
 
     return (
         <>
@@ -29,7 +31,7 @@ const OppsummeringMentor: FunctionComponent<Props> = ({ avtaleinnhold }) => {
             <StartOgSluttdatoOppsummering {...avtaleinnhold} />
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />
-            {innloggetBruker.rolle !== 'DELTAKER' && (
+            {mentorFeatureToggle && innloggetBruker.rolle !== 'DELTAKER' && (
                 <BeregningTilskuddOppsummering {...avtaleinnhold} ekstraAvhengigFelter={{ mentorTimelonn }} />
             )}
         </>
