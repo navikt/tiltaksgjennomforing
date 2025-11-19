@@ -35,7 +35,6 @@ const BeregningTilskuddOppsummering = (props: Props) => {
         arbeidsgiveravgift: beregningsgrunnlag.arbeidsgiveravgift,
         otpSats: beregningsgrunnlag.otpSats,
         feriepengesats: beregningsgrunnlag.feriepengesats,
-        manedslonn: beregningsgrunnlag.manedslonn,
         ...(ekstraAvhengigFelter || {}),
     };
 

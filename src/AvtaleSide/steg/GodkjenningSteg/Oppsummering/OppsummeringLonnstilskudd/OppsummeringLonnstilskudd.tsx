@@ -15,7 +15,7 @@ interface Props {
 }
 
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = ({ avtaleinnhold }) => {
-    const { lonnstilskuddProsent } = avtaleinnhold;
+    const { lonnstilskuddProsent, manedslonn } = avtaleinnhold;
 
     return (
         <>
@@ -27,7 +27,10 @@ const OppsummeringLonnstilskudd: FunctionComponent<Props> = ({ avtaleinnhold }) 
             <VarighetOppsummering {...avtaleinnhold} />
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />
-            <BeregningTilskuddOppsummering {...avtaleinnhold} ekstraAvhengigFelter={{ lonnstilskuddProsent }} />
+            <BeregningTilskuddOppsummering
+                {...avtaleinnhold}
+                ekstraAvhengigFelter={{ lonnstilskuddProsent, manedslonn }}
+            />
         </>
     );
 };

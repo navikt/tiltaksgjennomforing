@@ -72,7 +72,7 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
                             <Utregningsrad
                                 className={`${cls.element('fet-border-top')} ${cls.element('fet-skrift')}`}
                                 label="Sum tilskudd for en måned"
-                                verdi={props.sumLonnstilskudd || 0}
+                                verdi={props.sumLonnsutgifter || 0}
                             />
                         </Table.Body>
                     </Table>
