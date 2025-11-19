@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
@@ -22,6 +22,9 @@ const cls = BEMHelper('beregningMentorTilskuddSteg');
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+    const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
+        avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
+    );
 
     return (
         <>
@@ -35,9 +38,10 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 <PakrevdInputValidering
                     validering={/^\d{0,3}(,5?)?$/}
                     label="Antall timer med mentor per måned"
-                    description="Arbeidsgiver er pliktig til å kontakte NAV for å få oppdatert avtalen dersom behovet for antall timer avviker fra det som er avtalt."
-                    verdi={avtale.gjeldendeInnhold.mentorAntallTimer?.toString() ?? ''}
+                    description="Arbeidsgiver er pliktig til å kontakte Nav for å få oppdatert avtalen dersom behovet for antall timer avviker fra det som er avtalt."
+                    verdi={mentorAntallTimerInput}
                     settVerdi={(verdi) => {
+                        setMentorAntallTimerInput(verdi);
                         settOgKalkulerBeregningsverdier({ mentorAntallTimer: inputToNumber(verdi) });
                     }}
                 />
