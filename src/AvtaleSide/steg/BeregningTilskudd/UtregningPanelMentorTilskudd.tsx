@@ -11,15 +11,22 @@ import {
     PlusIcon,
     SackKronerIcon,
 } from '@navikt/aksel-icons';
-import { formaterPenger } from '@/utils';
+import { formaterNorskeTall, formaterPenger } from '@/utils';
 import Utregningsrad from './Utregningsrad';
+import { erNil } from '@/utils/predicates';
 
 const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
     const mentorTimelonn = props.mentorTimelonn ?? 0;
     const antallTimer = props.mentorAntallTimer ?? 0;
 
-    const prosentSats = (sats: number | undefined | null) => `(${(sats || 0) * 100}%)`;
+    const prosentSats = (sats: number | undefined) =>
+        erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)}%)`;
+
+    const manedslonnUtregningTekst =
+        erNil(props.mentorTimelonn) || erNil(props.mentorAntallTimer)
+            ? undefined
+            : `(${formaterPenger(mentorTimelonn)} × ${antallTimer})`;
 
     return (
         <>
@@ -36,7 +43,7 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
                                 className={cls.className}
                                 icon={<SackKronerIcon />}
                                 label="Timelønn × antall timer"
-                                midtrekkeTekst={`(${formaterPenger(mentorTimelonn)} × ${antallTimer})`}
+                                midtrekkeTekst={manedslonnUtregningTekst}
                                 verdi={mentorTimelonn * antallTimer}
                             />
                             <Utregningsrad
@@ -64,13 +71,13 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
                                 verdi={props.arbeidsgiveravgiftBelop || 0}
                             />
                             <Utregningsrad
-                                className={cls.className}
+                                className={`${cls.element('fet-border-bottom')} ${cls.className}`}
                                 label="Sum utgifter"
                                 operator={<EqualsIcon />}
                                 verdi={props.sumLonnsutgifter || 0}
                             />
                             <Utregningsrad
-                                className={`${cls.element('fet-border-top')} ${cls.element('fet-skrift')}`}
+                                className={`${cls.element('fet-skrift')} ${cls.className}`}
                                 label="Sum tilskudd for en måned"
                                 verdi={props.sumLonnsutgifter || 0}
                             />

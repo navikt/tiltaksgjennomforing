@@ -31,12 +31,10 @@ const Utregningsrad: React.FC<UtregningsradProps> = ({
 
     return (
         <Table.Row className={className}>
-            <Table.DataCell>{icon}</Table.DataCell>
+            <Table.DataCell className={cls.element('col-icon')}>{icon}</Table.DataCell>
             <Table.DataCell>{label}</Table.DataCell>
             <Table.DataCell>{midtrekkeTekst}</Table.DataCell>
-            <Table.DataCell className={cls.element('operator-cell')}>
-                <div>{operator}</div>
-            </Table.DataCell>
+            <Table.DataCell className={cls.element('operator-cell')}>{operator}</Table.DataCell>
             <Table.DataCell align="right" className={cls.element('verdi-cell')}>
                 {parseVerdi(verdi)}
             </Table.DataCell>

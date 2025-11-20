@@ -23,20 +23,13 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
             </ExpansionCard.Header>
             <ExpansionCard.Content>
                 <Label>Utregning</Label>
-                {avtale.tiltakstype === 'VTAO' ? (
-                    <BodyShort size="small">
-                        Dagsatsen får du ved å dele "sum tilskudd for en måned" på snitt antall dager i en måned (365,25
-                        / 12 = 30,4375) og ganger med antall dager i perioden.
-                    </BodyShort>
-                ) : (
-                    <BodyShort size="small">
-                        Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum tilskudd for en
-                        måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med antall dager i
-                        perioden.
-                    </BodyShort>
-                )}
+                <BodyShort size="small">
+                    Utregningen baserer seg på tilskudd for en hel måned. Dagsatsen får du ved å dele "sum tilskudd for
+                    en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med antall dager i
+                    perioden.
+                </BodyShort>
                 <InfoRundtRedusertProsentsats className={cls.className} />
-                {avtale.tiltakstype == 'VTAO' ? (
+                {avtale.tiltakstype == 'VTAO' || avtale.tiltakstype == 'MENTOR' ? (
                     <VisningTilskuddsperioderTabellVtao />
                 ) : (
                     <VisningTilskuddsperioderTabell />

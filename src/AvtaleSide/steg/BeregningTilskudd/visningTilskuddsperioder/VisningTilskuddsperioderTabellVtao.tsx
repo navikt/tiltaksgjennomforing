@@ -6,8 +6,7 @@ import { erNil } from '@/utils/predicates';
 import TilskuddsperiodeRadVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/TilskuddsperiodeRadVtao';
 import { useTilskuddsperiodevisning } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formaterPeriode } from '@/utils/datoUtils';
-import { ExpansionCard, Heading, Table } from '@navikt/ds-react';
+import { Table } from '@navikt/ds-react';
 import { useContext } from 'react';
 
 const VisningTilskuddsperioderTabellVtao: React.FC = () => {
@@ -28,79 +27,69 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
     }
 
     return (
-        <ExpansionCard defaultOpen aria-label="Oversikt over tilskuddsperioder" size="small">
-            <ExpansionCard.Header>
-                <Heading level="2" size="small">
-                    Oversikt over tilskudd fra{' '}
-                    {formaterPeriode(avtale.gjeldendeInnhold.startDato!, avtale.gjeldendeInnhold.sluttDato!)}
-                </Heading>
-            </ExpansionCard.Header>
-            <ExpansionCard.Content>
-                <Table size="medium">
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell textSize="small">Periode</Table.HeaderCell>
-                            {innloggetBruker.erNavAnsatt && (
-                                <Table.HeaderCell textSize="small">Status</Table.HeaderCell>
-                            )}
-                            <Table.HeaderCell textSize="small">Beløp</Table.HeaderCell>
-                            <Table.HeaderCell textSize="small">Utbetales</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {forste && (
-                            <>
-                                <TilskuddsperiodeRadVtao
-                                    avtaleOpprettet={avtaleOpprettet}
-                                    erNavAnsatt={erNavAnsatt}
-                                    periode={forste}
-                                    key={forste.id}
-                                    kreverOppfølgingDato={kreverOppfølgingDato}
-                                />
-                                <Table.Row>
-                                    <Table.DataCell textSize="small" colSpan={100}>
-                                        ...
-                                    </Table.DataCell>
-                                </Table.Row>
-                            </>
-                        )}
-                        {mellom.map((periode) => (
+        <>
+            <Table size="medium">
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell textSize="small">Periode</Table.HeaderCell>
+                        {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize="small">Status</Table.HeaderCell>}
+                        <Table.HeaderCell textSize="small">Beløp</Table.HeaderCell>
+                        <Table.HeaderCell textSize="small">Utbetales</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {forste && (
+                        <>
                             <TilskuddsperiodeRadVtao
                                 avtaleOpprettet={avtaleOpprettet}
                                 erNavAnsatt={erNavAnsatt}
-                                periode={periode}
-                                key={periode.id}
+                                periode={forste}
+                                key={forste.id}
                                 kreverOppfølgingDato={kreverOppfølgingDato}
                             />
-                        ))}
-                        {siste && (
-                            <>
-                                <Table.Row>
-                                    <Table.DataCell textSize="small" colSpan={100}>
-                                        ...
-                                    </Table.DataCell>
-                                </Table.Row>
-                                <TilskuddsperiodeRadVtao
-                                    avtaleOpprettet={avtaleOpprettet}
-                                    erNavAnsatt={erNavAnsatt}
-                                    periode={siste}
-                                    key={siste.id}
-                                    kreverOppfølgingDato={kreverOppfølgingDato}
-                                />
-                            </>
-                        )}
-                    </Table.Body>
-                </Table>
-                <VerticalSpacer rem={1} />
-                <InfoRundtTilskuddsperioder
-                    gjeldendeInnholdStartdato={avtale.gjeldendeInnhold.startDato}
-                    gjeldendeInnholdSluttdato={avtale.gjeldendeInnhold.sluttDato}
-                    antallAktiveTilskuddsperioder={antallAktivePerioder}
-                    setVisAllePerioder={toggleAllePerioder}
-                    visAllePerioder={visAllePerioder}
-                />
-            </ExpansionCard.Content>
-        </ExpansionCard>
+                            <Table.Row>
+                                <Table.DataCell textSize="small" colSpan={100}>
+                                    ...
+                                </Table.DataCell>
+                            </Table.Row>
+                        </>
+                    )}
+                    {mellom.map((periode) => (
+                        <TilskuddsperiodeRadVtao
+                            avtaleOpprettet={avtaleOpprettet}
+                            erNavAnsatt={erNavAnsatt}
+                            periode={periode}
+                            key={periode.id}
+                            kreverOppfølgingDato={kreverOppfølgingDato}
+                        />
+                    ))}
+                    {siste && (
+                        <>
+                            <Table.Row>
+                                <Table.DataCell textSize="small" colSpan={100}>
+                                    ...
+                                </Table.DataCell>
+                            </Table.Row>
+                            <TilskuddsperiodeRadVtao
+                                avtaleOpprettet={avtaleOpprettet}
+                                erNavAnsatt={erNavAnsatt}
+                                periode={siste}
+                                key={siste.id}
+                                kreverOppfølgingDato={kreverOppfølgingDato}
+                            />
+                        </>
+                    )}
+                </Table.Body>
+            </Table>
+            <VerticalSpacer rem={1} />
+            <InfoRundtTilskuddsperioder
+                gjeldendeInnholdStartdato={avtale.gjeldendeInnhold.startDato}
+                gjeldendeInnholdSluttdato={avtale.gjeldendeInnhold.sluttDato}
+                antallAktiveTilskuddsperioder={antallAktivePerioder}
+                setVisAllePerioder={toggleAllePerioder}
+                visAllePerioder={visAllePerioder}
+            />
+        </>
     );
 };
 export default VisningTilskuddsperioderTabellVtao;

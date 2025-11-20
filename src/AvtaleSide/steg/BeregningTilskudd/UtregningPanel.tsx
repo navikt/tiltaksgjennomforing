@@ -19,6 +19,7 @@ import {
 import './UtregningPanel.less';
 import Utregningsrad from '@/AvtaleSide/steg/BeregningTilskudd/Utregningsrad';
 import { formaterNorskeTall } from '@/utils';
+import { erNil } from '@/utils/predicates';
 
 const SummeringsRad: React.FC<{ sum: number }> = ({ sum }) => (
     <Table.Row>
@@ -35,20 +36,19 @@ const SummeringsRad: React.FC<{ sum: number }> = ({ sum }) => (
 const TilskuddsprosentRad: React.FC<{ label: string; prosent: number; borderTop?: boolean; cls: BEMWrapper }> = ({
     label,
     prosent,
-    borderTop = false,
     cls,
 }) => (
-    <Table.Row className={borderTop ? cls.element('fet-border-top') : undefined}>
-        <Table.DataCell>
+    <Table.Row>
+        <Table.DataCell className={cls.element('col-icon')}>
             <PieChartIcon />
         </Table.DataCell>
         <Table.DataCell colSpan={2}>{label}</Table.DataCell>
         <Table.DataCell className={cls.element('operator-cell')}>
-            <div>
-                <PercentIcon />
-            </div>
+            <PercentIcon />
         </Table.DataCell>
-        <Table.DataCell align="right">{prosent}</Table.DataCell>
+        <Table.DataCell align="right" className={cls.element('verdi-cell')}>
+            {prosent}
+        </Table.DataCell>
     </Table.Row>
 );
 
@@ -68,7 +68,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     };
 
     const prosentSats = (sats: number | undefined) =>
-        sats !== undefined && sats !== null ? `(${formaterNorskeTall(sats * 100)}%)` : undefined;
+        erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)}%)`;
 
     return (
         <ExpansionCard defaultOpen aria-label="Tilskudd for en måned" size="small">
@@ -120,7 +120,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             verdi={props.arbeidsgiveravgiftBelop || 0}
                         />
                         <Utregningsrad
-                            className={cls.className}
+                            className={`${cls.element('fet-border-bottom')} ${cls.className}`}
                             label="Sum utgifter"
                             operator={<EqualsIcon />}
                             verdi={props.sumLonnsutgifter || 0}
@@ -134,7 +134,6 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                                     : 'Tilskuddsprosent'
                             }
                             prosent={props.lonnstilskuddProsent || 0}
-                            borderTop
                             cls={cls}
                         />
 

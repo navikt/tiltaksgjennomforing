@@ -17,6 +17,7 @@ import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import { inputToNumber } from '@/utils';
 import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
+import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
 
@@ -72,7 +73,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 </Row>
                 <UtregningPanelMentorTilskudd {...avtale.gjeldendeInnhold} />
                 <VerticalSpacer rem={1} />
-                <VisningTilskuddsperioderTabellVtao />
+                <VisningTilskuddsperioder />
                 <VerticalSpacer rem={1} />
                 <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre

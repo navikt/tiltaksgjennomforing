@@ -15,8 +15,8 @@ const TimeloennHjelpetekst: FunctionComponent = () => {
             <BodyLong>Timelønn skal ikke inkludere:</BodyLong>
             <List>
                 <List.Item>Sosiale avgifter som arbeidsgiveravgift, feriepenger og pensjon</List.Item>
-                <List.Item>Bortfall av inntekt for arbeidsgiver (?)</List.Item>
-                <List.Item>Reisegodtgjørelse, bonus++</List.Item>
+                <List.Item>Bortfall av inntekt for arbeidsgiver</List.Item>
+                <List.Item>Reisegodtgjørelse, bonus og lignende</List.Item>
             </List>
             <BodyLong>
                 Eksempel på omregning til timelønn for arbeidstaker som jobber 37,5 timer per uke (1950 timer per år):

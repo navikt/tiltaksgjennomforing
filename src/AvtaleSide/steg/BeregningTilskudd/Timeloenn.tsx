@@ -105,7 +105,7 @@ const Timeloenn: React.FC = () => {
             {forHoyTimeLonn && (
                 <Alert variant="warning" size="small">
                     <Heading size="xsmall">Kontroller at oppgitt timelønn er korrekt.</Heading>
-                    Timelønnen er mer enn 50% over det norske gjennomsnittet.
+                    Timelønnen er mer enn 50% over det norske gjennomsnittet. (2024)
                 </Alert>
             )}
             <div>

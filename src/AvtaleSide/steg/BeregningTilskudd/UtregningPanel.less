@@ -1,10 +1,6 @@
 .utregningspanel {
-    .navds-expansioncard__content {
-        padding: 0;
-    }
-
-    &__fet-border-top {
-        border-top: 2px solid black;
+    &__fet-border-bottom.navds-table__row > .navds-table__data-cell {
+        border-bottom: 1px solid black;
     }
 
     &__fet-skrift {
@@ -14,23 +10,38 @@
     }
 
     &__operator-cell {
-        padding: 0;
-
-        & > * {
-            display: flex;
-            justify-content: flex-end;
-        }
+        width: 30px;
+        max-width: 30px;
     }
 
-    &__verdi-cell {
+    &__verdi-cell.navds-table__data-cell {
         padding-left: 0;
+        white-space: nowrap;
+        width: 1%;
     }
 
     .navds-table__data-cell svg {
+        font-size: 1.2rem;
+    }
+
+    .navds-table__row > .navds-table__data-cell:first-child svg {
         font-size: 1.5rem;
+    }
+
+    .navds-table__body > tr > td {
+        font-size: 1rem;
+    }
+
+    .navds-table__body > tr > td {
+        border-bottom: 1px solid lightgray;
     }
 
     .navds-table__body > tr:last-child > td {
         border-bottom: none;
+    }
+
+    &__col-icon {
+        width: 32px;
+        max-width: 32px;
     }
 }

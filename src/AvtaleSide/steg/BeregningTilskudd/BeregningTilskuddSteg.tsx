@@ -61,8 +61,6 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         <KidOgKontonummer />
                     </Column>
                 </Row>
-
-                <VerticalSpacer rem={2} />
                 <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
                 <VerticalSpacer rem={1.25} />
                 {innloggetBruker.erNavAnsatt &&
