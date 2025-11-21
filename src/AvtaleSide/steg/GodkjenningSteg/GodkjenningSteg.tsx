@@ -17,7 +17,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
-    visningTilskuddsperioder: FunctionComponent;
+    visningTilskuddsperioder?: FunctionComponent;
     mentorVinsing?: boolean;
 }
 
@@ -64,7 +64,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = ({
                     )}
                 </div>
                 <Oppsummering avtaleinnhold={avtale.gjeldendeInnhold} />
-                {!erDeltaker && avtale.tilskuddPeriode.length > 0 && (
+                {VisningTilskuddsperioder && !erDeltaker && avtale.tilskuddPeriode.length > 0 && (
                     <>
                         <Heading level="2" size="small">
                             Tilskuddsperioder

@@ -45,12 +45,7 @@ const arbeidstreningSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: (
-            <GodkjenningSteg
-                oppsummering={OppsummeringArbeidstrening}
-                visningTilskuddsperioder={VisningTilskuddsperioder}
-            />
-        ),
+        komponent: <GodkjenningSteg oppsummering={OppsummeringArbeidstrening} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -154,12 +149,7 @@ const mentorStegUtenBeregningAvTilskudd: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: (
-            <GodkjenningSteg
-                oppsummering={OppsummeringMentor}
-                visningTilskuddsperioder={VisningTilskuddsperioderTabellVtao}
-            />
-        ),
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -195,12 +185,7 @@ const inkluderingTilskuddSteg: StegInfo[] = [
         id: 'oppfolging',
     },
     {
-        komponent: (
-            <GodkjenningSteg
-                oppsummering={OppsummeringInkluderingstilskudd}
-                visningTilskuddsperioder={VisningTilskuddsperioder}
-            />
-        ),
+        komponent: <GodkjenningSteg oppsummering={OppsummeringInkluderingstilskudd} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
