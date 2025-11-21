@@ -14,7 +14,7 @@ const ProsentInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithC
             if (!erTom(v) && min !== undefined && v < min) return 'Må være minst ' + formaterProsent(min);
         },
         (v: any) => {
-            if (!erTom(v) && max !== undefined && v > max) return 'Må være høyst ' + formaterProsent(max);
+            if (!erTom(v) && max !== undefined && v > max) return 'Kan være maks ' + formaterProsent(max);
         },
     ];
 
