@@ -1,7 +1,7 @@
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { BodyLong, Heading, List } from '@navikt/ds-react';
 
-const TausetserklæringTekst = () => {
+const TaushetserklæringTekst = () => {
     return (
         <>
             <Heading level="2" size="xsmall" spacing>
@@ -49,4 +49,4 @@ const TausetserklæringTekst = () => {
         </>
     );
 };
-export default TausetserklæringTekst;
+export default TaushetserklæringTekst;

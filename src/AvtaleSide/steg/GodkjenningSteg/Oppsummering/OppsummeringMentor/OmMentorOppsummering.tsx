@@ -1,5 +1,5 @@
 import MentorIkon from '@/assets/ikoner/mentor.svg?react';
-import TausetserklæringTekst from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst';
+import TaushetserklæringTekst from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -92,7 +92,7 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                             </Heading>
                         </ExpansionCard.Header>
                         <ExpansionCard.Content>
-                            <TausetserklæringTekst />
+                            <TaushetserklæringTekst />
                         </ExpansionCard.Content>
                     </ExpansionCard>
                 </div>
