@@ -16,6 +16,8 @@ import { VellykketGenerertIsoDatoString, genererFnrdatostringFraFnr } from '@/ut
 import { addYears, differenceInDays } from 'date-fns';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
+import { Alert } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -23,7 +25,7 @@ const VarighetSteg: FunctionComponent = () => {
     const { deltakerFnr, tiltakstype, erRyddeAvtale, opphav } = avtale;
     const { startDato } = avtale.gjeldendeInnhold;
     const cls = BEMHelper('varighetsteg');
-
+    const erArenaAvtaleMedAlleredeEnStartdato = avtale.opphav == 'ARENA' && startDato !== undefined;
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtale.erUfordelt;
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
 
@@ -55,6 +57,14 @@ const VarighetSteg: FunctionComponent = () => {
                         erNavAnsatt={innloggetBruker.erNavAnsatt}
                         className={cls.className}
                     />
+                    {erArenaAvtaleMedAlleredeEnStartdato && (
+                        <Row>
+                            <Alert variant={'warning'}>
+                                Avtalen er importert fra fagsystemet Arena, og oppstartsdato kan derfor ikke endres.
+                            </Alert>
+                            <VerticalSpacer rem={2} />
+                        </Row>
+                    )}
                     <Row className={cls.element('rad')}>
                         <Column md="12">
                             {startDato !== undefined && (
@@ -69,7 +79,11 @@ const VarighetSteg: FunctionComponent = () => {
                             )}
                         </Column>
                         <Column md="6">
-                            <Datovelger datoFelt="startDato" label="Startdato" />
+                            <Datovelger
+                                readOnly={erArenaAvtaleMedAlleredeEnStartdato}
+                                datoFelt="startDato"
+                                label="Startdato"
+                            />
                         </Column>
                         <Column md="6">
                             <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
