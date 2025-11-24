@@ -1,11 +1,11 @@
 import MentorIkon from '@/assets/ikoner/mentor.svg?react';
-import TausetserklæringTekst from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst';
+import TaushetserklæringTekst from '@/AvtaleOversikt/Taushetserklæring/TaushetserklæringTekst';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Accordion, Label } from '@navikt/ds-react';
+import { ExpansionCard, Heading, Label } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
@@ -85,16 +85,16 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         </Row>
                     </Container>
                     <VerticalSpacer rem={2} />
-                    <Accordion className="accordion">
-                        <Accordion.Item>
-                            <Accordion.Header>
-                                <Label>Les mer om taushetsplikten til mentor</Label>
-                            </Accordion.Header>
-                            <Accordion.Content>
-                                <TausetserklæringTekst />
-                            </Accordion.Content>
-                        </Accordion.Item>
-                    </Accordion>
+                    <ExpansionCard aria-label="Les mer om taushetsplikten til mentor" size="small">
+                        <ExpansionCard.Header>
+                            <Heading level="2" size="small">
+                                Les mer om taushetsplikten til mentor
+                            </Heading>
+                        </ExpansionCard.Header>
+                        <ExpansionCard.Content>
+                            <TaushetserklæringTekst />
+                        </ExpansionCard.Content>
+                    </ExpansionCard>
                 </div>
             </div>
         </Stegoppsummering>

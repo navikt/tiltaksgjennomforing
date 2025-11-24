@@ -11,7 +11,6 @@ import { Heading } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
-import UtregningPanel from './UtregningPanel';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import HvaMenesMedDette from '@/AvtaleSide/steg/BeregningTilskudd/HvaMenesMedDette';
@@ -21,6 +20,7 @@ import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/Obl
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
 import './BeregningTilskuddSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
+import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -41,16 +41,26 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </Heading>
                 <HvaMenesMedDette className={cls.className} />
                 <Manedslonn cls={cls} />
-                <Feriepenger cls={cls} />
-                <ObligatoriskTjenestepensjon cls={cls} />
-                <Arbeidsgiveravgift cls={cls} />
-                <Row className={cls.element('rad-kontonummer')}>
-                    <Column md="12" className={cls.element('kontonummer')}>
+                <Row className={cls.element('rad')}>
+                    <Column md="8" className={cls.element('feriepenger')}>
+                        <Feriepenger />
+                    </Column>
+                </Row>
+                <Row className={cls.element('rad')}>
+                    <Column md="8" className={cls.element('tjenestepensjon')}>
+                        <ObligatoriskTjenestepensjon />
+                    </Column>
+                </Row>
+                <Row className={cls.element('rad')}>
+                    <Column md="8" className={cls.element('arbeidsgiveravgift')}>
+                        <Arbeidsgiveravgift />
+                    </Column>
+                </Row>
+                <Row>
+                    <Column md="12">
                         <KidOgKontonummer />
                     </Column>
                 </Row>
-
-                <VerticalSpacer rem={2} />
                 <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
                 <VerticalSpacer rem={1.25} />
                 {innloggetBruker.erNavAnsatt &&

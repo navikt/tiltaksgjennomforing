@@ -14,18 +14,25 @@ interface Props {
     avtaleinnhold: Avtaleinnhold;
 }
 
-const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props) => (
-    <>
-        <DeltakerInfo oppsummeringside={true} />
-        <Avtaleparter avtaleinnhold={props.avtaleinnhold} />
-        <RelasjonerOppsummering {...props.avtaleinnhold} />
-        <VerticalSpacer rem={2.5} />
-        <StillingsOppsummeringLonnstilskudd {...props.avtaleinnhold} />
-        <VarighetOppsummering {...props.avtaleinnhold} />
-        <OppfolgingOppsummering {...props.avtaleinnhold} />
-        <Tilrettelegging {...props.avtaleinnhold} />
-        <BeregningTilskuddOppsummering {...props.avtaleinnhold} />
-    </>
-);
+const OppsummeringLonnstilskudd: FunctionComponent<Props> = ({ avtaleinnhold }) => {
+    const { lonnstilskuddProsent, manedslonn } = avtaleinnhold;
+
+    return (
+        <>
+            <DeltakerInfo oppsummeringside={true} />
+            <Avtaleparter avtaleinnhold={avtaleinnhold} />
+            <RelasjonerOppsummering {...avtaleinnhold} />
+            <VerticalSpacer rem={2.5} />
+            <StillingsOppsummeringLonnstilskudd {...avtaleinnhold} />
+            <VarighetOppsummering {...avtaleinnhold} />
+            <OppfolgingOppsummering {...avtaleinnhold} />
+            <Tilrettelegging {...avtaleinnhold} />
+            <BeregningTilskuddOppsummering
+                {...avtaleinnhold}
+                ekstraAvhengigFelter={{ lonnstilskuddProsent, manedslonn }}
+            />
+        </>
+    );
+};
 
 export default OppsummeringLonnstilskudd;
