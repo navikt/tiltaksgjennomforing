@@ -1,0 +1,64 @@
+import { Meta, Canvas, Story } from '@storybook/blocks';
+
+import * as AvtaleOversikt from './AvtaleOversikt.stories';
+import * as HemmeligAdresseVarsel from './HemmeligAdresseVarsel.stories';
+import * as AktsomhetModal from './AktsomhetModal.stories';
+import * as IkkeTilgang403 from './IkkeTilgang403.stories';
+
+<Meta title="Adressesperre/Overordnet" />
+
+# Adressesperre i avtaleløsningen
+
+Følgende prinsipper er fulgt for å støtte brukere med adressesperre i løsningen:
+
+1. Brukere med adressesperre skal likebehandles med andre brukere
+2. Vi minimerer mengden merking for å redusere oppmerksomhet
+3. Tilgang er begrenset med tilgangskontroll
+   a. For Nav-veiledere brukes felles tilgangskontrollsystem
+   b. For arbeidsgiver brukes en altinn-rettighet som arbeidsgiver selv kan dele ut
+   c. I oversiktssiden over alle avtaler tilhørende en bedrift vil vi skjule avtaler man ikke har tilgang til
+   d. Ved direkte oppslag (søk på deltaker eller avtalenummer), informerer vi om tilgang er begrenset grunnet adressesperre
+4. Vi maskerer eller skjuler ikke informasjon, men bruker heller merking og varsler brukere om å utvise aktsomhet.
+   a. Vi har ikke informasjon om deltakers bostedsadresse i løsningen, men
+   b. informasjon om bedriften man jobber på er geolokaliserende
+
+## Oversikten
+
+I oversiktssiden har vi en liten markør som indikerer om en deltaker har addresesperre. Man må ha tilstrekkelig tilgang for å kunne se disse deltakerne.
+Tilstrekkelig tilgang vil være styrt av standard tilgangskontroll for Nav-veileder, og en altinn-rettighet som arbeidsgiver kan tildele.
+
+Hvis man ikke har tilstrekkelig tilgang vil deltakeren være skjult i oversikten.
+
+<Story of={AvtaleOversikt.AvtaleTabellForArbeidsgiver} />
+
+## Aktsomhetsdialogen
+
+Når man er i ferd med å åpne en avtale som tilhører en deltaker med adressesperre vil man få en varseldialog før man kan gå videre:
+
+<Story of={AktsomhetModal.VisAktsomhetModal} />
+
+## Varsel på toppen av avtaler
+
+Når man ser på en avtale tilhørende en deltaker med adressesperre ser man et varselsbanner på toppen av avtalen
+
+<Story of={HemmeligAdresseVarsel.VisHemmeligAdresseVarsel} />
+
+## Feilmelding ved oppslag på deltakere med adressesperre
+
+Følgende feilmeldinger vises når veileder gjør oppslag på en deltaker med (eller avtale tilhørende) adressesperre:
+
+### Kode 6
+
+<Story of={IkkeTilgang403.IkkeTilgangKode6} />
+
+### Kode 7
+
+<Story of={IkkeTilgang403.IkkeTilgangKode7} />
+
+### Egne ansatte
+
+<Story of={IkkeTilgang403.IkkeTilgangEgneAnsatte} />
+
+### Ugradert
+
+<Story of={IkkeTilgang403.IkkeTilgangUgradert} />

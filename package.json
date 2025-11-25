@@ -66,6 +66,8 @@
         "jsdom": "^26.0.0",
         "less": "^4.2.2",
         "lint-staged": "^15.5.0",
+        "msw": "^2.12.2",
+        "msw-storybook-addon": "^2.0.6",
         "prettier": "^3.5.3",
         "storybook": "^8.6.11",
         "svgo": "^3.3.2",
@@ -77,5 +79,10 @@
     "lint-staged": {
         "*.{ts,tsx,js,jsx,mjs,less,css,md}": "npm run prettier:fix",
         "*.svg": "npm run svgo"
+    },
+    "msw": {
+        "workerDirectory": [
+            "public"
+        ]
     }
 }

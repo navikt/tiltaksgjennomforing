@@ -37,6 +37,9 @@ jobs:
         run: npm run prettier
       - name: Kjør tester
         run: npm run test
+      - name: Fjerne mockServiceWorker
+        run: |
+          rm public/mockServiceWorker.js
       - name: Build
         run: npm run build
       - name: Server build
