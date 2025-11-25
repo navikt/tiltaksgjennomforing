@@ -6,6 +6,17 @@ import { http, HttpResponse } from 'msw';
 
 initialize();
 
+const avtaleKreverAkstomhetHandler = [
+    http.get('/tiltaksgjennomforing/api/avtaler/aktsomhet-avtale*/krever-aktsomhet', () => {
+        return HttpResponse.json({ kreverAktsomhet: true });
+    }),
+    http.get('/tiltaksgjennomforing/api/avtaler/*/krever-aktsomhet', () => {
+        return HttpResponse.json({ kreverAktsomhet: false });
+    }),
+];
+
+const generelleMswHandlere = [...avtaleKreverAkstomhetHandler];
+
 const preview: Preview = {
     parameters: {
         actions: { argTypesRegex: '^on[A-Z].*' },
@@ -16,11 +27,7 @@ const preview: Preview = {
             },
         },
         msw: {
-            handlers: [
-                http.get('/tiltaksgjennomforing/api/avtaler/aktsomhet-avtale-1/krever-aktsomhet', () => {
-                    return HttpResponse.json({ kreverAktsomhet: true });
-                }),
-            ],
+            handlers: generelleMswHandlere,
         },
     },
     loaders: [mswLoader],
