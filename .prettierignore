@@ -7,3 +7,4 @@ package-lock.json
 tsconfig.base.json
 tsconfig.json
 tslint.json
+public/mockServiceWorker.js
