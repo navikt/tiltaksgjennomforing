@@ -12,10 +12,6 @@ const reactRouterDecorator: any = (Story: any) => {
         </MemoryRouter>
     );
 };
-// 'IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG'
-//    | 'IKKE_TILGANG_TIL_DELTAKER_FORTROLIG'
-//    | 'IKKE_TILGANG_TIL_DELTAKER_SKJERMET'
-//    | 'IKKE_TILGANG_TIL_DELTAKER_ARBEIDSGIVER'
 
 const meta = {
     title: 'Tiltaksgjennomforing/IkkeTilgang403',
