@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/blocks';
+import { Meta, Story } from '@storybook/addon-docs/blocks';
 
 import * as VeilederAvtaleStatuser from './AvtaleStatuserVeileder.stories';
 
@@ -10,20 +10,20 @@ De forskjellige statusene er UFORDELT, ANNULLERT, AVBRUTT, PÅBEGYNT, MANGLER GO
 
 ## UFORDELT
 
-Avtallen er ufordelt
+Avtalen er ufordelt
 Dette skjer når arbeidsgiver har opprettet en avtale men avtalen har enda ikke blitt tilknyttet en veileder
 
 <Story of={VeilederAvtaleStatuser.ErUfordelt} />
 
 ## ANNULLERT
 
-Avtallen har blitt annullert av en veileder
+Avtalen har blitt annullert av en veileder
 
 <Story of={VeilederAvtaleStatuser.Annullert} />
 
 ## AVBRUTT
 
-Avtalen er blitt avbrutt av en veileder
+Avtalen har blitt avbrutt av en veileder
 
 <Story of={VeilederAvtaleStatuser.Avbrutt} />
 
@@ -33,6 +33,13 @@ Avtale er påbegynt
 Dette skjer når en avtale har blitt tilknyttet en veileder
 
 <Story of={VeilederAvtaleStatuser.Påbegynt} />
+
+## PÅBEGYNT (KODE 6)
+
+Avtale er påbegynt, men deltaker har adressebeskyttelse.
+Dette skjer når en avtale har blitt tilknyttet en veileder
+
+<Story of={VeilederAvtaleStatuser.PåbegyntKode6} />
 
 ## MANGLER GODKJENNING
 
