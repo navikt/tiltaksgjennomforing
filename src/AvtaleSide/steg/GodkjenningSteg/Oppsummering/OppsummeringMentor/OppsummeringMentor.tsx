@@ -31,7 +31,7 @@ const OppsummeringMentor: FunctionComponent<Props> = ({ avtaleinnhold }) => {
             <StartOgSluttdatoOppsummering {...avtaleinnhold} />
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />
-            {mentorFeatureToggle && innloggetBruker.rolle !== 'DELTAKER' && (
+            {mentorFeatureToggle && innloggetBruker.rolle !== 'DELTAKER' && innloggetBruker.rolle !== 'MENTOR' && (
                 <BeregningTilskuddOppsummering {...avtaleinnhold} ekstraAvhengigFelter={{ mentorTimelonn }} />
             )}
         </>
