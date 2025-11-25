@@ -9,12 +9,13 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { BodyShort } from '@navikt/ds-react';
 import ValutaInput from '@/komponenter/form/ValutaInput';
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
 import './omMentorSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { inputToNumber } from '@/utils';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -25,12 +26,6 @@ const OmMentorSteg = () => {
 
     const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
 
-    const inputToNumber = (verdi: string | undefined): number | undefined => {
-        verdi = verdi?.replace(/,/g, '.');
-        if (!isNaN(Number(verdi))) {
-            return Number(verdi);
-        }
-    };
     const cls = BEMHelper('omMentorSteg');
 
     return (

@@ -10,7 +10,7 @@ import { FunctionComponent, useContext } from 'react';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import './BeregningTilskuddSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import VisningTilskuddsperioderVtao from './visningTilskuddsperioder/VisningTilskuddsperioderVtao';
+import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
@@ -30,7 +30,7 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
                     departementet og avtale- og refusjonsløsningen vil automatisk oppdateres når det kommer nye satser.
                 </BodyShort>
                 <VerticalSpacer rem={2} />
-                <VisningTilskuddsperioderVtao />
+                <VisningTilskuddsperioderTabellVtao />
                 <VerticalSpacer rem={2} />
                 <Row className={cls.element('rad-kontonummer')}>
                     <Column md="12" className={cls.element('kontonummer')}>

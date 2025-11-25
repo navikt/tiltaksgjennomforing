@@ -1,23 +1,56 @@
-import ArbeidsgiveravgiftIkon from '@/assets/ikoner/arbeidsgiveravgift.svg?react';
-import ErlikTegn from '@/assets/ikoner/erlikTegn.svg?react';
-import FeriepengerIkon from '@/assets/ikoner/feriepenger.svg?react';
-import GraphRefusjonAvLonnIkon from '@/assets/ikoner/graphRefusjonAvLønn.svg?react';
-import ManedslonnIkon from '@/assets/ikoner/manedsLonn.svg?react';
-import ObligTjenestePensjonIkon from '@/assets/ikoner/obligTjenestepensjon.svg?react';
-import PlussTegn from '@/assets/ikoner/plussTegn.svg?react';
-import ProsentTegn from '@/assets/ikoner/prosentTegn.svg?react';
 import StillingsprosentIkon from '@/assets/ikoner/stillingsprosent.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Beregningsgrunnlag } from '@/types/avtale';
-import BEMHelper from '@/utils/bem';
+import BEMHelper, { BEMWrapper } from '@/utils/bem';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formaterPenger } from '@/utils/PengeUtils';
-import { Accordion, Label } from '@navikt/ds-react';
-import { FunctionComponent, useContext } from 'react';
+import { ExpansionCard, Heading, Table } from '@navikt/ds-react';
+import React, { FunctionComponent, useContext } from 'react';
+import {
+    Buildings2Icon,
+    EqualsIcon,
+    ParasolBeachIcon,
+    PercentIcon,
+    PieChartIcon,
+    PiggybankIcon,
+    PlusIcon,
+    SackKronerIcon,
+} from '@navikt/aksel-icons';
 import './UtregningPanel.less';
-import Utregningsrad from './Utregningsrad';
+import Utregningsrad from '@/AvtaleSide/steg/BeregningTilskudd/Utregningsrad';
 import { formaterNorskeTall } from '@/utils';
+import { erNil } from '@/utils/predicates';
+
+const SummeringsRad: React.FC<{ sum: number }> = ({ sum }) => (
+    <Table.Row>
+        <Table.DataCell aria-hidden="true" />
+        <Table.DataCell>
+            <strong>Sum tilskudd for en måned</strong>
+        </Table.DataCell>
+        <Table.DataCell colSpan={3} align="right">
+            <strong>{`Inntil ${formaterPenger(sum)}`}</strong>
+        </Table.DataCell>
+    </Table.Row>
+);
+
+const TilskuddsprosentRad: React.FC<{ label: string; prosent: number; borderTop?: boolean; cls: BEMWrapper }> = ({
+    label,
+    prosent,
+    cls,
+}) => (
+    <Table.Row>
+        <Table.DataCell className={cls.element('col-icon')}>
+            <PieChartIcon />
+        </Table.DataCell>
+        <Table.DataCell colSpan={2}>{label}</Table.DataCell>
+        <Table.DataCell className={cls.element('operator-cell')}>
+            <PercentIcon />
+        </Table.DataCell>
+        <Table.DataCell align="right" className={cls.element('verdi-cell')}>
+            {prosent}
+        </Table.DataCell>
+    </Table.Row>
+);
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
@@ -34,97 +67,96 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
         return tilskuddsprosent - 10;
     };
 
+    const prosentSats = (sats: number | undefined) =>
+        erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)}%)`;
+
     return (
-        <Accordion className="accordion">
-            <Accordion.Item defaultOpen>
-                <Accordion.Header>
-                    <Label>Tilskudd for en måned</Label>
-                </Accordion.Header>
-                <Accordion.Content>
-                    <div className={cls.element('wrapper')}>
+        <ExpansionCard defaultOpen aria-label="Tilskudd for en måned" size="small">
+            <ExpansionCard.Header>
+                <Heading level="2" size="small">
+                    Tilskudd for en måned
+                </Heading>
+            </ExpansionCard.Header>
+            <ExpansionCard.Content>
+                <Table className={cls.className}>
+                    <Table.Body>
                         <Utregningsrad
-                            labelIkon={<StillingsprosentIkon />}
-                            labelTekst="Stillingsprosent"
-                            verdiOperator={<ProsentTegn />}
-                            verdi={formaterNorskeTall(props.stillingprosent) || 0}
+                            className={cls.className}
+                            icon={<StillingsprosentIkon />}
+                            label="Stillingsprosent"
+                            operator={<PercentIcon />}
+                            verdi={props.stillingprosent || 0}
                             ikkePenger
                         />
                         <Utregningsrad
-                            labelIkon={<ManedslonnIkon />}
-                            labelTekst="Månedslønn"
-                            verdiOperator={<PlussTegn />}
+                            className={cls.className}
+                            icon={<SackKronerIcon />}
+                            label="Månedslønn"
+                            operator={<PlusIcon />}
                             verdi={props.manedslonn || 0}
                         />
                         <Utregningsrad
-                            labelIkon={<FeriepengerIkon />}
-                            labelTekst="Feriepenger"
-                            labelSats={props.feriepengesats}
-                            verdiOperator={<PlussTegn />}
+                            className={cls.className}
+                            icon={<ParasolBeachIcon />}
+                            label="Feriepenger"
+                            midtrekkeTekst={prosentSats(props.feriepengesats)}
+                            operator={<PlusIcon />}
                             verdi={props.feriepengerBelop || 0}
                         />
                         <Utregningsrad
-                            labelIkon={<ObligTjenestePensjonIkon />}
-                            labelTekst="Obligatorisk tjenestepensjon"
-                            labelSats={props.otpSats}
-                            verdiOperator={<PlussTegn />}
+                            className={cls.className}
+                            icon={<PiggybankIcon />}
+                            label="Obligatorisk tjenestepensjon"
+                            midtrekkeTekst={prosentSats(props.otpSats)}
+                            operator={<PlusIcon />}
                             verdi={props.otpBelop || 0}
                         />
                         <Utregningsrad
-                            labelTekst="Arbeidsgiveravgift"
-                            labelIkon={<ArbeidsgiveravgiftIkon />}
-                            verdiOperator={<PlussTegn />}
-                            labelSats={props.arbeidsgiveravgift}
+                            className={cls.className}
+                            icon={<Buildings2Icon />}
+                            label="Arbeidsgiveravgift"
+                            midtrekkeTekst={prosentSats(props.arbeidsgiveravgift)}
+                            operator={<PlusIcon />}
                             verdi={props.arbeidsgiveravgiftBelop || 0}
                         />
                         <Utregningsrad
-                            labelTekst="Sum utgifter"
-                            verdiOperator={<ErlikTegn />}
+                            className={`${cls.element('fet-border-bottom')} ${cls.className}`}
+                            label="Sum utgifter"
+                            operator={<EqualsIcon />}
                             verdi={props.sumLonnsutgifter || 0}
-                            borderTykk={true}
                         />
-                        <Utregningsrad
-                            labelTekst={props.datoForRedusertProsent ? `Tilskuddsprosent frem til` : 'Tilskuddsprosent'}
-                            midtrekkeTekst={
+
+                        {/* Tilskuddsprosent (før eventuell reduksjon) */}
+                        <TilskuddsprosentRad
+                            label={
                                 props.datoForRedusertProsent
-                                    ? formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)
-                                    : null
+                                    ? `Tilskuddsprosent frem til ${formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}`
+                                    : 'Tilskuddsprosent'
                             }
-                            labelIkon={<GraphRefusjonAvLonnIkon />}
-                            ikkePenger
-                            verdiOperator={<ProsentTegn />}
-                            verdi={props.lonnstilskuddProsent || 0}
+                            prosent={props.lonnstilskuddProsent || 0}
+                            cls={cls}
                         />
-                        <Utregningsrad
-                            labelTekst="Sum tilskudd for en måned"
-                            tekstType="element"
-                            verdi={`Inntil ${formaterPenger(props.sumLonnstilskudd || 0)}`}
-                        />
+
+                        <SummeringsRad sum={props.sumLonnstilskudd || 0} />
+
                         {props.datoForRedusertProsent && (
                             <>
-                                <Utregningsrad
-                                    labelTekst={`Tilskuddsprosent fra og med`}
-                                    midtrekkeTekst={formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}
-                                    labelIkon={<GraphRefusjonAvLonnIkon />}
-                                    ikkePenger
-                                    verdiOperator={<ProsentTegn />}
-                                    verdi={
+                                <TilskuddsprosentRad
+                                    label={`Tilskuddsprosent fra og med ${formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}`}
+                                    prosent={
                                         props.lonnstilskuddProsent
                                             ? regnUtRedusertProsent(props.lonnstilskuddProsent)
                                             : 0
                                     }
+                                    cls={cls}
                                 />
-                                <Utregningsrad
-                                    labelTekst="Sum tilskudd for en måned"
-                                    tekstType="element"
-                                    verdi={`Inntil ${formaterPenger(props.sumLønnstilskuddRedusert || 0)}`}
-                                />
+                                <SummeringsRad sum={props.sumLønnstilskuddRedusert || 0} />
                             </>
                         )}
-                        <VerticalSpacer rem={1} />
-                    </div>
-                </Accordion.Content>
-            </Accordion.Item>
-        </Accordion>
+                    </Table.Body>
+                </Table>
+            </ExpansionCard.Content>
+        </ExpansionCard>
     );
 };
 

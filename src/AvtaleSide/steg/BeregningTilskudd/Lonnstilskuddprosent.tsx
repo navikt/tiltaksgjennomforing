@@ -29,7 +29,6 @@ const LonnstilskuddProsent: FunctionComponent<Props> = (props) => {
         return (
             <ProsentInput
                 name="lonnstilskuddProsent"
-                width="S"
                 label=""
                 value={props.lonnstilskuddProsent}
                 onChange={(event: any) => {

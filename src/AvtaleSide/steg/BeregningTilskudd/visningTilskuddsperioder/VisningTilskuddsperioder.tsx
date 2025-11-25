@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
-import { Accordion, BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, ExpansionCard, Heading, Label } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import './visningTilskuddsperioder.less';
 import MeldingArbeidsgiverSokRefusjon from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/MeldingArbeidsgiverSokRefusjon';
@@ -17,35 +17,26 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
     }
 
     return (
-        <div className={cls.className}>
-            <Accordion className={'accordion'}>
-                <Accordion.Item defaultOpen>
-                    <Accordion.Header>Oversikt over tilskudd i perioder</Accordion.Header>
-                    <Accordion.Content>
-                        <Label>Utregning</Label>
-                        {avtale.tiltakstype === 'VTAO' ? (
-                            <BodyShort size="small">
-                                Dagsatsen får du ved å dele "sum tilskudd for en måned" på snitt antall dager i en måned
-                                (365,25 / 12 = 30,4375) og ganger med antall dager i perioden.
-                            </BodyShort>
-                        ) : (
-                            <BodyShort size="small">
-                                Utregningen baserer seg på lønn for en måned. Dagsatsen får du ved å dele "sum tilskudd
-                                for en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med
-                                antall dager i perioden.
-                            </BodyShort>
-                        )}
-                        <InfoRundtRedusertProsentsats className={cls.className} />
-                        {avtale.tiltakstype == 'VTAO' ? (
-                            <VisningTilskuddsperioderTabellVtao className={cls.className} />
-                        ) : (
-                            <VisningTilskuddsperioderTabell className={cls.className} />
-                        )}
-                        <MeldingArbeidsgiverSokRefusjon className={cls.className} avtale={avtale} />
-                    </Accordion.Content>
-                </Accordion.Item>
-            </Accordion>
-        </div>
+        <ExpansionCard defaultOpen aria-label="Oversikt over tilskudd i perioder" size="small">
+            <ExpansionCard.Header>
+                <Heading size="small">Oversikt over tilskudd i perioder</Heading>
+            </ExpansionCard.Header>
+            <ExpansionCard.Content>
+                <Label>Utregning</Label>
+                <BodyShort size="small">
+                    Utregningen baserer seg på tilskudd for en hel måned. Dagsatsen får du ved å dele "sum tilskudd for
+                    en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med antall dager i
+                    perioden.
+                </BodyShort>
+                <InfoRundtRedusertProsentsats className={cls.className} />
+                {avtale.tiltakstype == 'VTAO' || avtale.tiltakstype == 'MENTOR' ? (
+                    <VisningTilskuddsperioderTabellVtao />
+                ) : (
+                    <VisningTilskuddsperioderTabell />
+                )}
+                <MeldingArbeidsgiverSokRefusjon className={cls.className} avtale={avtale} />
+            </ExpansionCard.Content>
+        </ExpansionCard>
     );
 };
 export default VisningTilskuddsperioder;
