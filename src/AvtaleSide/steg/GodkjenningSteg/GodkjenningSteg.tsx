@@ -49,6 +49,9 @@ const GodkjenningSteg: React.FunctionComponent<Props> = ({
 
     const skalViseGodkjenning = avtale.status !== 'ANNULLERT' && (!innloggetBruker.erNavAnsatt || !avtale.erUfordelt);
 
+    const skalViseTilskuddsperioder =
+        VisningTilskuddsperioder && !erDeltaker && !erMentor && avtale.tilskuddPeriode.length > 0;
+
     return (
         <div className={cls.className}>
             <AvtaleStatus />
@@ -60,11 +63,11 @@ const GodkjenningSteg: React.FunctionComponent<Props> = ({
                             <LagreSomPdfKnapp avtaleId={avtale.id} />
                         </>
                     ) : (
-                        !erDeltaker && !erMentor && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
+                        !erMentor && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
                     )}
                 </div>
                 <Oppsummering avtaleinnhold={avtale.gjeldendeInnhold} />
-                {VisningTilskuddsperioder && !erDeltaker && avtale.tilskuddPeriode.length > 0 && (
+                {skalViseTilskuddsperioder && (
                     <>
                         <Heading level="2" size="small">
                             Tilskuddsperioder

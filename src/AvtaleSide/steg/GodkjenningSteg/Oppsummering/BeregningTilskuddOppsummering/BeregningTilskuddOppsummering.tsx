@@ -55,7 +55,6 @@ const BeregningTilskuddOppsummering = (props: Props) => {
                         </Column>
                     )}
                 </Row>
-
                 {UtregningPanelComponent && (
                     <Row className={styles.row}>
                         <Label>Utregning</Label>

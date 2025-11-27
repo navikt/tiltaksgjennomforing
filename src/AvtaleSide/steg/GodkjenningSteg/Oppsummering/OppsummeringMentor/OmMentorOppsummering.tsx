@@ -5,12 +5,15 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { ExpansionCard, Heading, Label } from '@navikt/ds-react';
+import { ExpansionCard, Heading, Label, ReadMore } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import React, { FunctionComponent, useContext } from 'react';
+import { kunStorForbokstav } from '@/utils/stringUtils';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
+import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -21,6 +24,10 @@ const verdi = (tall?: number) => {
 const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
+    const { mentorFeatureToggle } = useFeatureToggles();
+
+    const mentorUkeEllerMåned = mentorFeatureToggle === false ? 'uke' : 'måned';
+
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
             <div>
@@ -63,9 +70,9 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         </Row>
                         <Row className={''}>
                             <Column md="4" sm="6" xs="6">
-                                <Label>Antall timer med mentor per uke</Label>
+                                <Label>Antall timer med mentor per {mentorUkeEllerMåned}</Label>
                                 <SjekkOmVerdiEksisterer
-                                    ariaLabel={'Antall timer med mentor per uke'}
+                                    ariaLabel={`Antall timer med mentor per ${mentorUkeEllerMåned}`}
                                     verdi={verdi(props.mentorAntallTimer)}
                                 />
                             </Column>
@@ -83,6 +90,33 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                                 </Column>
                             )}
                         </Row>
+                        {mentorFeatureToggle && rolle !== 'DELTAKER' && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Row className={''}>
+                                    <Column md="4" sm="6" xs="6">
+                                        <Label>{kunStorForbokstav(props.mentorValgtLonnstype || '')}</Label>
+                                        <SjekkOmVerdiEksisterer
+                                            ariaLabel={`${kunStorForbokstav(props.mentorValgtLonnstype || '')} til mentor`}
+                                            verdi={verdi(props.mentorValgtLonnstypeBelop)}
+                                        />
+                                    </Column>
+                                    <Column md="6" sm="6" xs="6">
+                                        <Label className={cls.element('label')}>Stillingsprosent</Label>
+                                        <SjekkOmVerdiEksisterer
+                                            ariaLabel={'Stillingsprosent til mentor'}
+                                            verdi={verdi(props.stillingprosent)}
+                                        />
+                                    </Column>
+                                </Row>
+                                <VerticalSpacer rem={1} />
+                                <div>
+                                    <ReadMore header={'Slik beregnes timelønn'} size={'small'}>
+                                        <TimeloennHjelpetekst />
+                                    </ReadMore>
+                                </div>
+                            </>
+                        )}
                     </Container>
                     <VerticalSpacer rem={2} />
                     <ExpansionCard aria-label="Les mer om taushetsplikten til mentor" size="small">
