@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
+import React, { FunctionComponent, useContext } from 'react';
+import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { Label } from '@navikt/ds-react';
 
 import HvaManglerOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/HvaManglerOppsummering';
@@ -8,28 +8,25 @@ import Stegoppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Ste
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtaleinnhold, Beregningsgrunnlag } from '@/types/avtale';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
-import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 import styles from './BeregningTilskuddOppsummering.module.less';
-import { AvtaleContext } from '@/AvtaleProvider';
+import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 
 interface Props extends Beregningsgrunnlag, Pick<Avtaleinnhold, 'arbeidsgiverKontonummer' | 'arbeidsgiverKid'> {
     ekstraAvhengigFelter?: Partial<Avtaleinnhold>;
-}
-
-function getUtregningPanelComponentType(
-    tiltakstype: Beregningsgrunnlag['tiltakstype'],
-): React.FC<Beregningsgrunnlag> | null {
-    if (tiltakstype === 'MENTOR') return UtregningPanelMentorTilskudd;
-    if (tiltakstype && tiltakstype !== 'VTAO') return UtregningPanel;
-    return null;
+    utregningPanelKomponent?: FunctionComponent<Beregningsgrunnlag>;
 }
 
 const BeregningTilskuddOppsummering = (props: Props) => {
-    const { arbeidsgiverKid, arbeidsgiverKontonummer, ekstraAvhengigFelter, ...beregningsgrunnlag } = props;
+    const {
+        arbeidsgiverKid,
+        arbeidsgiverKontonummer,
+        ekstraAvhengigFelter,
+        utregningPanelKomponent: Beregningskomponent,
+        ...beregningsgrunnlag
+    } = props;
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale } = useContext(AvtaleContext);
+    const erDeltaker = innloggetBruker.rolle === 'DELTAKER';
 
     const avhengigFelter: Partial<Avtaleinnhold> = {
         arbeidsgiveravgift: beregningsgrunnlag.arbeidsgiveravgift,
@@ -38,11 +35,9 @@ const BeregningTilskuddOppsummering = (props: Props) => {
         ...(ekstraAvhengigFelter || {}),
     };
 
-    const UtregningPanelComponent = getUtregningPanelComponentType(avtale.tiltakstype);
-
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
-            <Container fluid={true}>
+            {!erDeltaker && (
                 <Row className={styles.row}>
                     <Column md="4" sm="6" xs="6">
                         <Label>Kontonummer</Label>
@@ -55,29 +50,29 @@ const BeregningTilskuddOppsummering = (props: Props) => {
                         </Column>
                     )}
                 </Row>
+            )}
 
-                {UtregningPanelComponent && (
-                    <Row className={styles.row}>
-                        <Label>Utregning</Label>
-                        <HvaManglerOppsummering avhengigFelter={avhengigFelter}>
-                            <VerticalSpacer rem={1} />
-                            <UtregningPanelComponent {...beregningsgrunnlag} />
-                        </HvaManglerOppsummering>
-
-                        {innloggetBruker.erNavAnsatt &&
-                            beregningsgrunnlag.manedslonn100pst &&
-                            beregningsgrunnlag.stillingprosent !== undefined &&
-                            beregningsgrunnlag.stillingprosent > 0 &&
-                            beregningsgrunnlag.stillingprosent < 100 && (
-                                <>
-                                    <VerticalSpacer rem={1.25} />
-                                    <Label>Lønn ved 100% stilling </Label>
-                                    {beregningsgrunnlag.manedslonn100pst} kr
-                                </>
-                            )}
-                    </Row>
-                )}
-            </Container>
+            {Beregningskomponent && (
+                <>
+                    <VerticalSpacer rem={1} />
+                    <HvaManglerOppsummering avhengigFelter={avhengigFelter}>
+                        <Beregningskomponent {...beregningsgrunnlag} />
+                    </HvaManglerOppsummering>
+                    {innloggetBruker.erNavAnsatt &&
+                        beregningsgrunnlag.manedslonn100pst &&
+                        beregningsgrunnlag.stillingprosent !== undefined &&
+                        beregningsgrunnlag.stillingprosent > 0 &&
+                        beregningsgrunnlag.stillingprosent < 100 && (
+                            <>
+                                <VerticalSpacer rem={1.25} />
+                                <Label>Lønn ved 100% stilling </Label>
+                                {beregningsgrunnlag.manedslonn100pst} kr
+                            </>
+                        )}
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
+            <VisningTilskuddsperioder />
         </Stegoppsummering>
     );
 };

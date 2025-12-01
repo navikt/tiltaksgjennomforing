@@ -12,13 +12,9 @@ import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
 import { Rolle } from '@/types';
-import { Heading } from '@navikt/ds-react';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
-    visningTilskuddsperioder?: FunctionComponent;
-    mentorVinsing?: boolean;
 }
 
 const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
@@ -36,15 +32,11 @@ const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     }
 };
 
-const GodkjenningSteg: React.FunctionComponent<Props> = ({
-    oppsummering: Oppsummering,
-    visningTilskuddsperioder: VisningTilskuddsperioder,
-}) => {
+const GodkjenningSteg: React.FunctionComponent<Props> = ({ oppsummering: Oppsummering }) => {
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
 
-    const erDeltaker = innloggetBruker.rolle === 'DELTAKER';
     const erMentor = innloggetBruker.rolle === 'MENTOR';
 
     const skalViseGodkjenning = avtale.status !== 'ANNULLERT' && (!innloggetBruker.erNavAnsatt || !avtale.erUfordelt);
@@ -60,19 +52,10 @@ const GodkjenningSteg: React.FunctionComponent<Props> = ({
                             <LagreSomPdfKnapp avtaleId={avtale.id} />
                         </>
                     ) : (
-                        !erDeltaker && !erMentor && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
+                        !erMentor && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
                     )}
                 </div>
                 <Oppsummering avtaleinnhold={avtale.gjeldendeInnhold} />
-                {VisningTilskuddsperioder && !erDeltaker && avtale.tilskuddPeriode.length > 0 && (
-                    <>
-                        <Heading level="2" size="small">
-                            Tilskuddsperioder
-                        </Heading>
-                        <VerticalSpacer rem={1} />
-                        <VisningTilskuddsperioder />
-                    </>
-                )}
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {harGodkjentSelv(avtale, innloggetBruker.rolle) && (

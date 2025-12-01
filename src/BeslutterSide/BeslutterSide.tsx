@@ -3,7 +3,7 @@ import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/Tilbak
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleTittel, tiltakstypeTekst } from '@/messages';
 import BEMHelper from '@/utils/bem';
-import React, { Dispatch, FunctionComponent, SetStateAction, Suspense, useContext, useState } from 'react';
+import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import './BeslutterSide.less';
 import BeslutterPanel from '@/BeslutterSide/beslutterPanel/BeslutterPanel';
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperioder';
@@ -15,7 +15,6 @@ import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsum
 import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
 import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import OppsummeringVTAO from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringVTAO/OppsummeringVTAO';
 
 const cls = BEMHelper('beslutter-side');
@@ -84,7 +83,7 @@ const BeslutterSide: FunctionComponent = () => {
                     </div>
                     <div className={cls.element('wrapper')}>
                         <BeslutterPanel />
-                        <BeslutterTilskuddsPerioder startAnimering={fadeInOut} />
+                        <BeslutterTilskuddsPerioder />
                     </div>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('avtale-wrapper')}>

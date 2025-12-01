@@ -9,6 +9,7 @@ import RelasjonerOppsummering from '../RelasjonerOppsummering/RelasjonerOppsumme
 import StillingsOppsummeringLonnstilskudd from '../StillingsOppsummeringLonnstilskudd/StillingsOppsummeringLonnstilskudd';
 import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import VarighetOppsummering from '../varighet/VarighetOppsummering';
+import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -30,6 +31,7 @@ const OppsummeringLonnstilskudd: FunctionComponent<Props> = ({ avtaleinnhold }) 
             <BeregningTilskuddOppsummering
                 {...avtaleinnhold}
                 ekstraAvhengigFelter={{ lonnstilskuddProsent, manedslonn }}
+                utregningPanelKomponent={UtregningPanel}
             />
         </>
     );

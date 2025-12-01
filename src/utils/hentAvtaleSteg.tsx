@@ -15,8 +15,6 @@ import OppfolgingTilretteleggingSteg from '@/AvtaleSide/steg/OppfolgingOgTilrett
 import StillingSteg from '@/AvtaleSide/steg/StillingSteg/StillingSteg';
 import VarighetSteg from '@/AvtaleSide/steg/VarighetSteg/VarighetSteg';
 import BeregningMentorTilskuddSteg from '@/AvtaleSide/steg/BeregningTilskudd/BeregningMentorTilskuddSteg';
-import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
-import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
 
 const arbeidstreningSteg: StegInfo[] = [
     {
@@ -78,12 +76,7 @@ const lonnstilskuddSteg: StegInfo[] = [
         id: 'beregningtilskudd',
     },
     {
-        komponent: (
-            <GodkjenningSteg
-                oppsummering={OppsummeringLonnstilskudd}
-                visningTilskuddsperioder={VisningTilskuddsperioder}
-            />
-        ),
+        komponent: <GodkjenningSteg oppsummering={OppsummeringLonnstilskudd} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -116,12 +109,7 @@ const mentorSteg: StegInfo[] = [
         id: 'beregningtilskudd',
     },
     {
-        komponent: (
-            <GodkjenningSteg
-                oppsummering={OppsummeringMentor}
-                visningTilskuddsperioder={VisningTilskuddsperioderTabellVtao}
-            />
-        ),
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -157,13 +145,7 @@ const mentorStegUtenBeregningAvTilskudd: StegInfo[] = [
 
 const mentorInnsynSteg: StegInfo[] = [
     {
-        komponent: (
-            <GodkjenningSteg
-                oppsummering={OppsummeringMentor}
-                visningTilskuddsperioder={VisningTilskuddsperioder}
-                mentorVinsing={true}
-            />
-        ),
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
@@ -218,9 +200,7 @@ const vtaoSteg: StegInfo[] = [
         id: 'beregningtilskudd',
     },
     {
-        komponent: (
-            <GodkjenningSteg oppsummering={OppsummeringVTAO} visningTilskuddsperioder={VisningTilskuddsperioder} />
-        ),
+        komponent: <GodkjenningSteg oppsummering={OppsummeringVTAO} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
