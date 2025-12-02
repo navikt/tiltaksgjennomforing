@@ -3,10 +3,7 @@ import React, { FunctionComponent } from 'react';
 import '../instruks.less';
 import BehandlingAvPersonopplysninger from './tekster/BehandlingAvPersonopplysninger';
 
-interface Props {
-    erLaast: boolean;
-}
-const MentorInstruks: FunctionComponent<Props> = () => {
+const MentorInstruks: FunctionComponent = () => {
     return (
         <VeilederpanelMedUtklippstavleIkon>
             <BehandlingAvPersonopplysninger />

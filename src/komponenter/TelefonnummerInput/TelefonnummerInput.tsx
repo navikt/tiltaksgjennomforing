@@ -25,7 +25,7 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props: PropsWithChil
     const norskTlfnrRegex = /^((\+|00)47)?\d{8}$/; // Kan inneholde +47 eller 0047 og må ha 8 siffer
     const norskMobilnummerRegex = /^(((0{2}?)|(\+){1})47)?(4|9)[\d]{7}/;
 
-    const erTiltakMedRefujson = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
+    const erTiltakMedRefusjon = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
         avtale.tiltakstype,
     );
 
@@ -73,7 +73,7 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props: PropsWithChil
                     <InlineMessage status="warning">
                         Det anbefales å bruke et mobilnummer. Vi bruker varsling på SMS for å opplyse om status på
                         avtalen
-                        {erTiltakMedRefujson && ' og frister på når refusjon må sendes inn'}.
+                        {erTiltakMedRefusjon && ' og frister på når refusjon må sendes inn'}.
                     </InlineMessage>
                 </>
             )}
