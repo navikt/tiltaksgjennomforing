@@ -7,12 +7,14 @@ import MeldingArbeidsgiverSokRefusjon from '@/AvtaleSide/steg/BeregningTilskudd/
 import VisningTilskuddsperioderTabell from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabell';
 import InfoRundtRedusertProsentsats from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtRedusertProsentsats';
 import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const VisningTilskuddsperioder: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const cls = BEMHelper('visning-tilskuddsperioder');
+    const erDeltaker = useContext(InnloggetBrukerContext).rolle === 'DELTAKER';
 
-    if (avtale.tilskuddPeriode.length === 0) {
+    if (avtale.tilskuddPeriode.length === 0 || erDeltaker) {
         return null;
     }
 

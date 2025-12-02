@@ -11,6 +11,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -21,6 +22,9 @@ const verdi = (tall?: number) => {
 const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
+    const { mentorFeatureToggle } = useFeatureToggles();
+    const periodeType = mentorFeatureToggle ? 'måned' : 'uke';
+
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
             <div>
@@ -63,9 +67,9 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                         </Row>
                         <Row className={''}>
                             <Column md="4" sm="6" xs="6">
-                                <Label>Antall timer med mentor per uke</Label>
+                                <Label>Antall timer med mentor per {periodeType}</Label>
                                 <SjekkOmVerdiEksisterer
-                                    ariaLabel={'Antall timer med mentor per uke'}
+                                    ariaLabel={`Antall timer med mentor per ${periodeType}`}
                                     verdi={verdi(props.mentorAntallTimer)}
                                 />
                             </Column>

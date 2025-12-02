@@ -74,9 +74,7 @@ const KidOgKontonummer = (props: Props) => {
                     description={
                         <>
                             Hvis kontonummeret ikke stemmer så må det oppdateres hos{' '}
-                            <EksternLenke href="https://www.altinn.no/skjemaoversikt/arbeids--og-velferdsetaten-nav/bankkontonummer-for-refusjoner-fra-nav-til-arbeidsgiver/">
-                                Altinn.
-                            </EksternLenke>
+                            <EksternLenke href="https://www.nav.no/arbeidsgiver/endre-kontonummer">Nav.</EksternLenke>
                         </>
                     }
                     size="medium"
@@ -88,7 +86,7 @@ const KidOgKontonummer = (props: Props) => {
                         onChange({ kontonummer: arbeidsgiverKontonummer, kid });
                     }}
                 >
-                    Hent kontonummer fra Altinn
+                    Hent kontonummer fra Nav
                 </LagreKnapp>
             </div>
             <div className={styles.kid}>

@@ -16,7 +16,6 @@ import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import { inputToNumber } from '@/utils';
-import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
@@ -31,7 +30,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
         <>
             <AvtaleStatus />
             <Innholdsboks className={cls.className}>
-                <SkjemaTittel>Beregning av mentor tilskudd</SkjemaTittel>
+                <SkjemaTittel>Beregning av tilskudd til mentor</SkjemaTittel>
                 <BodyShort spacing>
                     Tilskuddet dekker mentorens ordinære timelønn og ev. sosiale avgifter for de timene som er avtalt
                     for mentoroppgaven.

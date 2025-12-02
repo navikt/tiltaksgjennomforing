@@ -67,17 +67,19 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     avtale.gjeldendeInnhold.stillingprosent !== undefined &&
                     avtale.gjeldendeInnhold.stillingprosent > 0 &&
                     avtale.gjeldendeInnhold.stillingprosent < 100 && (
-                        <ValutaInput
-                            disabled={true}
-                            name="manedslonn100%"
-                            size="small"
-                            label="Lønn ved 100% stilling"
-                            value={avtale.gjeldendeInnhold.manedslonn100pst}
-                        />
+                        <>
+                            <ValutaInput
+                                disabled={true}
+                                name="manedslonn100%"
+                                size="small"
+                                label="Lønn ved 100% stilling"
+                                value={avtale.gjeldendeInnhold.manedslonn100pst}
+                            />
+                            <VerticalSpacer rem={2} />
+                        </>
                     )}
-                <VerticalSpacer rem={2} />
                 <VisningTilskuddsperioder />
-                <VerticalSpacer rem={2} />
+                <VerticalSpacer rem={1} />
                 <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
                 </LagreKnapp>

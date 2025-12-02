@@ -11,6 +11,7 @@ import OmMentorOppsummering from './OmMentorOppsummering';
 import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
@@ -31,8 +32,12 @@ const OppsummeringMentor: FunctionComponent<Props> = ({ avtaleinnhold }) => {
             <StartOgSluttdatoOppsummering {...avtaleinnhold} />
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />
-            {mentorFeatureToggle && innloggetBruker.rolle !== 'DELTAKER' && (
-                <BeregningTilskuddOppsummering {...avtaleinnhold} ekstraAvhengigFelter={{ mentorTimelonn }} />
+            {mentorFeatureToggle && innloggetBruker.rolle !== 'DELTAKER' && innloggetBruker.rolle !== 'MENTOR' && (
+                <BeregningTilskuddOppsummering
+                    {...avtaleinnhold}
+                    ekstraAvhengigFelter={{ mentorTimelonn }}
+                    utregningPanelKomponent={UtregningPanelMentorTilskudd}
+                />
             )}
         </>
     );
