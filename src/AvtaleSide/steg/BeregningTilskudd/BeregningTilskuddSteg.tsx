@@ -78,14 +78,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                             <VerticalSpacer rem={2} />
                         </>
                     )}
-
-                {innloggetBruker.rolle !== 'DELTAKER' && (
-                    <>
-                        <VisningTilskuddsperioder />
-                        <VerticalSpacer rem={1} />
-                    </>
-                )}
-
+                <VisningTilskuddsperioder />
+                <VerticalSpacer rem={1} />
                 <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
                 </LagreKnapp>
