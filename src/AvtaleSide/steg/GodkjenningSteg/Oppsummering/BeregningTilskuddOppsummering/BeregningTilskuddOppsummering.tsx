@@ -65,8 +65,7 @@ const BeregningTilskuddOppsummering = (props: Props) => {
                         beregningsgrunnlag.stillingprosent < 100 && (
                             <>
                                 <VerticalSpacer rem={1.25} />
-                                <Label>Lønn ved 100% stilling </Label>
-                                {beregningsgrunnlag.manedslonn100pst} kr
+                                <Label>Lønn ved 100% stilling: {beregningsgrunnlag.manedslonn100pst} kr</Label>
                             </>
                         )}
                     <VerticalSpacer rem={1} />
