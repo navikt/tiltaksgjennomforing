@@ -5,13 +5,15 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { ExpansionCard, Heading, Label } from '@navikt/ds-react';
+import { ExpansionCard, Heading, Label, ReadMore } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { storForbokstav } from '@/utils/stringUtils';
+import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -87,6 +89,33 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                                 </Column>
                             )}
                         </Row>
+                        {rolle !== 'DELTAKER' && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Row>
+                                    <Column md="4" sm="6" xs="6">
+                                        <Label>{storForbokstav(props.mentorValgtLonnstype || '')}</Label>
+                                        <SjekkOmVerdiEksisterer
+                                            ariaLabel={'Mentors valgte lønn'}
+                                            verdi={verdi(props.mentorValgtLonnstypeBelop)}
+                                        />
+                                    </Column>
+                                    <Column md="6" sm="6" xs="6">
+                                        <Label>Stillingsprosent</Label>
+                                        <SjekkOmVerdiEksisterer
+                                            ariaLabel={'Mentors stillingsprosent'}
+                                            verdi={verdi(props.stillingprosent)}
+                                        />
+                                    </Column>
+                                </Row>
+                                <VerticalSpacer rem={1} />
+                                <div>
+                                    <ReadMore header={'Slik beregnes timelønn'} size={'small'}>
+                                        <TimeloennHjelpetekst />
+                                    </ReadMore>
+                                </div>
+                            </>
+                        )}
                     </Container>
                     <VerticalSpacer rem={2} />
                     <ExpansionCard aria-label="Les mer om taushetsplikten til mentor" size="small">
