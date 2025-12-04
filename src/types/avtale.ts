@@ -235,6 +235,9 @@ export interface Mentorinfo {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorValgtLonnstypeBelop?: number;
+    stillingprosent?: number;
 }
 
 export interface Varighet {
