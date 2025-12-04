@@ -1,13 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { Heading } from '@navikt/ds-react';
+import { Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
@@ -68,14 +67,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     avtale.gjeldendeInnhold.stillingprosent > 0 &&
                     avtale.gjeldendeInnhold.stillingprosent < 100 && (
                         <>
-                            <ValutaInput
-                                disabled={true}
-                                name="manedslonn100%"
-                                size="small"
-                                label="Lønn ved 100% stilling"
-                                value={avtale.gjeldendeInnhold.manedslonn100pst}
-                            />
-                            <VerticalSpacer rem={2} />
+                            <Label>Lønn ved 100% stilling: {avtale.gjeldendeInnhold.manedslonn100pst} kr</Label>
+                            <VerticalSpacer rem={1} />
                         </>
                     )}
                 <VisningTilskuddsperioder />
