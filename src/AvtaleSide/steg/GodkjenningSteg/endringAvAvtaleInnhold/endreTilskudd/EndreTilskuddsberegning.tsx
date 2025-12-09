@@ -7,7 +7,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
-import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, TiltaksType, Varighet } from '@/types/avtale';
+import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
@@ -126,7 +126,6 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                     </div>
 
                     <ProsentInput
-                        name="tjenestepensjon"
                         size="medium"
                         label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
                         min={0}

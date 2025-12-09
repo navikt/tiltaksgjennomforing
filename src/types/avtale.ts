@@ -1,9 +1,9 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Diskresjonskode } from '@/types/diskresjon';
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
-import { Diskresjonskode } from '@/types/diskresjon';
 
 export type Avtale = Annullering &
     Readonly<AvtaleMetadata> &
@@ -56,6 +56,7 @@ export type AvtaleMinimalListeVisning = {
     erGodkjentTaushetserklæringAvMentor: boolean;
     gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus;
     oppfolgingVarselSendt?: string;
+    kreverOppfolgingFom?: string;
     opprettetTidspunkt: string;
     sistEndret: string;
     diskresjonskode: Diskresjonskode;
@@ -129,6 +130,8 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorValgtLonnstypeBelop?: number;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<
@@ -251,6 +254,8 @@ export interface Stilling {
 
 export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
 
+export type MentorValgtLonnstype = 'ÅRSLØNN' | 'MÅNEDSLØNN' | 'UKELØNN' | 'DAGSLØNN' | 'TIMELØNN';
+
 export interface Beregningsgrunnlag {
     manedslonn?: number;
     feriepengesats?: number;
@@ -267,6 +272,10 @@ export interface Beregningsgrunnlag {
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
     tiltakstype?: TiltaksType;
+    mentorAntallTimer?: number;
+    mentorValgtLonnstypeBelop?: number;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorTimelonn?: number;
 }
 
 export interface TilskuddsPerioder {

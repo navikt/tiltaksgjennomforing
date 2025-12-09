@@ -145,7 +145,7 @@ const mentorStegUtenBeregningAvTilskudd: StegInfo[] = [
 
 const mentorInnsynSteg: StegInfo[] = [
     {
-        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} mentorVinsing={true} />,
+        komponent: <GodkjenningSteg oppsummering={OppsummeringMentor} />,
         label: 'Godkjenning',
         id: 'godkjenning',
     },
