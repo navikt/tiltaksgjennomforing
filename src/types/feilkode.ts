@@ -97,7 +97,7 @@ export type Feilkode =
     | 'ROLLE_HAR_IKKE_TILGANG'
     | 'FEIL_KID_NUMMER'
     | 'FØDSELSNUMMER_IKKE_GYLDIG'
-    | 'KAN_IKKE_ENDRE_AVTALE_MED_OPPHAV_ARENA_OG_STARTDATO_ALLEREDE_SATT';
+    | 'KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_UNDER_MIGRERING';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -219,6 +219,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Du er innlogget med en rolle som ikke har tilgang til å utføre denne handlingen. Forsøk å oppfrisk siden og prøv igjen.',
     FEIL_KID_NUMMER: 'KID-nummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
     FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
-    KAN_IKKE_ENDRE_AVTALE_MED_OPPHAV_ARENA_OG_STARTDATO_ALLEREDE_SATT:
-        'Avtalen er importert fra fagsystemet Arena, og oppstartsdato kan derfor ikke endres.',
+    KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_UNDER_MIGRERING:
+        'Avtalen er importert fra gammelt system, og oppstartsdato kan derfor ikke endres.',
 };
