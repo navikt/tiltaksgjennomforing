@@ -61,6 +61,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
         inkluderingstilskuddBegrunnelse: '',
         inkluderingstilskuddTotalBeløp: 0,
         inkluderingstilskuddSats: 149_100,
+        innholdType: 'INNGÅ',
     },
 
     tilskuddPeriode: [],

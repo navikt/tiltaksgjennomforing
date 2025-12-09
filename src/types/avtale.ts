@@ -132,7 +132,24 @@ export type Avtaleinnhold = {
     mentorTimelonn?: number;
     mentorValgtLonnstype?: MentorValgtLonnstype;
     mentorValgtLonnstypeBelop?: number;
+    innholdType: AvtaleInnholdType;
 } & InkluderingsInnhold;
+
+export type AvtaleInnholdType =
+    | 'INNGÅ'
+    | 'LÅSE_OPP'
+    | 'FORLENGE'
+    | 'FORKORTE'
+    | 'ENDRE_MÅL'
+    | 'ENDRE_INKLUDERINGSTILSKUDD'
+    | 'ENDRE_OM_MENTOR'
+    | 'ENDRE_TILSKUDDSBEREGNING'
+    | 'ENDRE_STILLING'
+    | 'ENDRE_KONTAKTINFO'
+    | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
+    | 'ANNULLERE'
+    | 'ENDRET_AV_ARENA'
+    | 'ENDRE_KID_OG_KONTONUMMER';
 
 export type MentorInnhold = Pick<
     Avtaleinnhold,
