@@ -206,6 +206,7 @@ export interface AvtaleMetadata {
     kreverOppfolgingFom?: string;
     kreverOppfolgingFrist?: string;
     feilregistrert: boolean;
+    erOpprettetEllerEndretAvArena: boolean;
 }
 
 export interface RefusjonKontaktperson {

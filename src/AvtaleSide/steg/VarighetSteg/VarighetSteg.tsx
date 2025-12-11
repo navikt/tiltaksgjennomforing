@@ -26,12 +26,11 @@ const VarighetSteg: FunctionComponent = () => {
     const { startDato } = avtale.gjeldendeInnhold;
     const cls = BEMHelper('varighetsteg');
 
-    // Fang opp at avtalen har blitt åpnet opp i forbindelse med arena-migrering.
-    // Når avtalen er godkjent igjen av alle parter vil både status endre seg, og en ny avtaleinnhold-versjon
-    // vil genereres med ny "innholdType".
-    const skalIkkeKunneEndreStartdato =
-        avtale.status === 'MANGLER_GODKJENNING' ||
-        (avtale.status === 'PÅBEGYNT' && avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA');
+    // Under migrering til nytt system vil avtalen gjenåpnes, og da kan
+    // alle felter endres, men vi ønsker å forhindre at startdato kan endres
+    // på disse avtalene, på samme måte som vi ikke tillater endring av startdato
+    // når avtaler er signert og godkjent.
+    const skalIkkeKunneEndreStartdato = avtale.erOpprettetEllerEndretAvArena;
 
     const skalViseEtterregistreringsinstruks =
         opphav !== 'ARENA' && innloggetBruker.erNavAnsatt && !skalIkkeKunneEndreStartdato;
@@ -67,7 +66,7 @@ const VarighetSteg: FunctionComponent = () => {
                         <>
                             <Row>
                                 <Column md="12">
-                                    <Alert variant={'warning'} size="small">
+                                    <Alert variant={'info'} size="small">
                                         Avtalen er importert fra gammel løsning, og oppstartsdato kan derfor ikke
                                         endres.
                                     </Alert>
