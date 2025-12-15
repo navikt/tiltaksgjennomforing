@@ -81,6 +81,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     erRyddeAvtale: false,
     opphav: 'VEILEDER',
     feilregistrert: false,
+    erOpprettetEllerEndretAvArena: false,
 };
 
 export default lonnstilskuddAvtaleMock;

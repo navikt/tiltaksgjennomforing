@@ -99,6 +99,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     erRyddeAvtale: false,
     opphav: 'VEILEDER',
     feilregistrert: false,
+    erOpprettetEllerEndretAvArena: false,
 };
 
 export default arbeidstreningAvtaleMock;

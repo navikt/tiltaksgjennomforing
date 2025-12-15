@@ -96,7 +96,8 @@ export type Feilkode =
     | 'KAN_IKKE_ENDRE_OKONOMI_UGYLDIG_INPUT'
     | 'ROLLE_HAR_IKKE_TILGANG'
     | 'FEIL_KID_NUMMER'
-    | 'FØDSELSNUMMER_IKKE_GYLDIG';
+    | 'FØDSELSNUMMER_IKKE_GYLDIG'
+    | 'KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -218,4 +219,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Du er innlogget med en rolle som ikke har tilgang til å utføre denne handlingen. Forsøk å oppfrisk siden og prøv igjen.',
     FEIL_KID_NUMMER: 'KID-nummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
     FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
+    KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA:
+        'Avtalen er importert fra gammelt system, og oppstartsdato kan derfor ikke endres.',
 };
