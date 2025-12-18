@@ -11,7 +11,7 @@ interface Props {
 }
 
 const erAutomatiskUtbetalingAvRefusjon = (avtale: Avtale) => {
-    return avtale.tiltakstype === 'VTAO';
+    return avtale.tiltakstype === 'VTAO' || avtale.tiltakstype === 'MENTOR';
 };
 
 const MeldingArbeidsgiverSokRefusjon: React.FC<Props> = ({ className, avtale }: Props) => {
