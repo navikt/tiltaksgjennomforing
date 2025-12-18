@@ -10,24 +10,26 @@ jobs:
   build:
     permissions:
       contents: read
-      id-token: write 
+      id-token: write
     name: Bygg og deploy
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Konfigurer Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # ratchet:actions/setup-node@v4
         with:
           node-version: 20
       - name: Frontend npm install
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Frontend - test, lint og build
         run: npm run build-storybook
       - name: Push docker image to GAR
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@791ebb6f74b82849c742a9bc9c97abe44c6c111f # ratchet:nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: arbeidsgiver
@@ -45,9 +47,11 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Deploy til dev-gcp
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-dev-gcp-storybook.yaml

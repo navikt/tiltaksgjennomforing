@@ -17,18 +17,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Setup node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # ratchet:actions/setup-node@v3
         with:
           registry-url: 'https://npm.pkg.github.com'
       - name: Install
-        run: npm ci
+        run: npm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Server install
         working-directory: ./server
-        run: npm ci
+        run: npm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Typescript
@@ -48,7 +50,7 @@ jobs:
         run: |
           rm dist/client/assets/*.map
       - name: Push docker image to GAR
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@791ebb6f74b82849c742a9bc9c97abe44c6c111f # ratchet:nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: arbeidsgiver
@@ -64,9 +66,9 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
       - name: Deploy til dev-gcp intern
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-gcp-intern.yaml
@@ -82,9 +84,9 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
       - name: Deploy til dev-gcp ekstern
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-gcp-ekstern.yaml
@@ -100,9 +102,9 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
       - name: Deploy til dev-gcp
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp-labs.yaml
@@ -119,9 +121,9 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
       - name: Deploy til prod-gcp intern
-        uses: nais/deploy/actions/deploy@v2
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
           RESOURCE: nais/nais-gcp-intern.yaml
@@ -137,12 +139,12 @@ jobs:
       contents: read
       id-token: write
     steps:
-      -   name: Sjekk ut kode
-          uses: actions/checkout@v4
-      -   name: Deploy til prod-gcp ekstern
-          uses: nais/deploy/actions/deploy@v2
-          env:
-            CLUSTER: prod-gcp
-            RESOURCE: nais/nais-gcp-ekstern.yaml
-            VARS: nais/prod-gcp-ekstern.yaml
-            VAR: image=${{ needs.build.outputs.image }}
+      - name: Sjekk ut kode
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
+      - name: Deploy til prod-gcp ekstern
+        uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # ratchet:nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: nais/nais-gcp-ekstern.yaml
+          VARS: nais/prod-gcp-ekstern.yaml
+          VAR: image=${{ needs.build.outputs.image }}
