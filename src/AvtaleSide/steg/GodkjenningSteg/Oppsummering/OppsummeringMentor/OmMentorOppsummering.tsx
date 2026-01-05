@@ -89,12 +89,12 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                                 </Column>
                             )}
                         </Row>
-                        {rolle !== 'DELTAKER' && (
+                        {mentorFeatureToggle && rolle !== 'DELTAKER' && (
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Row>
                                     <Column md="4" sm="6" xs="6">
-                                        <Label>{storForbokstav(props.mentorValgtLonnstype || '')}</Label>
+                                        <Label>{storForbokstav(props.mentorValgtLonnstype || 'Årslønn')}</Label>
                                         <SjekkOmVerdiEksisterer
                                             ariaLabel={'Mentors valgte lønn'}
                                             verdi={verdi(props.mentorValgtLonnstypeBelop)}
