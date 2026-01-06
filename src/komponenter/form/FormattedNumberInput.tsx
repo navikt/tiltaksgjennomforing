@@ -37,10 +37,6 @@ const FormattedNumberInput: FunctionComponent<FormattedNumberInputProps> = (
     const [tallVerdi, setVerdi] = useState(value);
     const [feil, settFeil, sjekkInputfelt] = useValidering(value, validatorer);
 
-    useEffect(() => {
-        setVerdi(value);
-    }, [value]);
-
     const maximumLength = maxLength ? maxLength : DEFAULT_INPUT_MAX_LENGTH;
     const onChangeOverride = (event: ChangeEvent<HTMLInputElement>) => {
         const originalVerdi = event.target.value.replace(',', '.');

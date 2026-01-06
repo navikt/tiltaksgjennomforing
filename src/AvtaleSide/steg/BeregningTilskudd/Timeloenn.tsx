@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import ValutaInput from '@/komponenter/form/ValutaInput';
+import ValutaInput, { formaterValuta } from '@/komponenter/form/ValutaInput';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { storForbokstav } from '@/utils/stringUtils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
-import { Alert, Heading, ReadMore } from '@navikt/ds-react';
+import { Alert, Heading, ReadMore, TextField } from '@navikt/ds-react';
 
 const HOURS_PER_UNIT = Object.freeze({
     ÅRSLØNN: 1950,
@@ -97,7 +97,7 @@ const Timeloenn: React.FC = () => {
             {mentorValgtLonnstype !== 'TIMELØNN' && (
                 <Row>
                     <Column md="7">
-                        <ValutaInput value={mentorTimelonn} label="Beregnet timelønn" readOnly />
+                        <TextField value={formaterValuta(mentorTimelonn)} label="Beregnet timelønn" readOnly />
                     </Column>
                 </Row>
             )}
