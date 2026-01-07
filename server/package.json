@@ -5,7 +5,7 @@
     "homepage": "/tiltaksgjennomforing",
     "scripts": {
         "build": "esbuild src/server.ts --bundle --platform=node --outfile=../dist/server/index.cjs --packages=external",
-        "postbuild": "cp -r node_modules ../dist/server",
+        "dist": "cp -r node_modules ../dist/server",
         "server": "node ../dist/server/index.cjs --openssl-legacy-provider",
         "start": "echo 'Use npm run start:labs, npm run start:ekstern or npm run start:intern'",
         "start:labs": "cross-env LABS=true npm run server",
