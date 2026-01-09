@@ -41,7 +41,7 @@
         "react-hook-form": "^7.55.0",
         "react-loading-skeleton": "^3.5.0",
         "react-responsive": "^10.0.1",
-        "react-router-dom": "^6.30.0",
+        "react-router-dom": "^6.30.3",
         "react-select": "^5.10.1",
         "swr": "^2.3.3",
         "zod": "^3.24.2"
