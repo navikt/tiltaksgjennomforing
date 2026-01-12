@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { ViteDevServer } from 'vite';
 
+import { notifikasjonsRespons } from './server/src/mock/notifikasjon-bruker-api';
+
 const envProperties = {
     APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
     APIGW_HEADER: process.env.APIGW_HEADER,
@@ -94,70 +96,8 @@ export default () => ({
         });
 
         middlewares.use('/tiltaksgjennomforing/notifikasjon-bruker-api', async (_, res) => {
-            const notifikasjonsRespons = {
-                data: {
-                    notifikasjoner: {
-                        feilAltinn: false,
-                        feilDigiSyfo: false,
-                        notifikasjoner: [
-                            {
-                                __typename: 'Beskjed',
-                                brukerKlikk: {
-                                    id: '16120101181-69b474d1-0274-4928-aa76-87128f1fa462',
-                                    klikketPaa: false,
-                                    __typename: 'BrukerKlikk',
-                                },
-                                virksomhet: {
-                                    navn: 'MAURA OG KOLBU REGNSKAP',
-                                    virksomhetsnummer: '910825518',
-                                    __typename: 'Virksomhet',
-                                },
-                                lenke: 'https://tiltaksgjennomforing.ekstern.dev.nav.no/tiltaksgjennomforing/avtale/1d7978b5-1ecd-4f53-a031-816cff844ca7?part=ARBEIDSGIVER',
-                                tekst: 'Avtale om Midlertidig lønnstilskudd godkjent.',
-                                merkelapp: 'Lønnstilskudd',
-                                opprettetTidspunkt: '2025-02-27T09:17:16.159985Z',
-                                sorteringTidspunkt: '2025-02-27T09:17:16.159985Z',
-                                id: '69b474d1-0274-4928-aa76-87128f1fa462',
-                                sak: {
-                                    tittel: 'Avtale om Midlertidig lønnstilskudd for Usymmetrisk Skogmarihand',
-                                    __typename: 'SakMetadata',
-                                },
-                            },
-                            {
-                                __typename: 'Oppgave',
-                                brukerKlikk: {
-                                    id: '16120101181-c85c94b6-ba0f-4879-8984-021e2bdc2c33',
-                                    klikketPaa: false,
-                                    __typename: 'BrukerKlikk',
-                                },
-                                virksomhet: {
-                                    navn: 'MAURA OG KOLBU REGNSKAP',
-                                    virksomhetsnummer: '910825518',
-                                    __typename: 'Virksomhet',
-                                },
-                                lenke: 'https://tiltaksgjennomforing.ekstern.dev.nav.no/tiltaksgjennomforing/avtale/1d7978b5-1ecd-4f53-a031-816cff844ca7?part=ARBEIDSGIVER',
-                                tekst: 'Ny avtale om Midlertidig lønnstilskudd opprettet. Åpne avtalen og fyll ut innholdet.',
-                                merkelapp: 'Lønnstilskudd',
-                                opprettetTidspunkt: '2025-02-27T08:16:22.667501Z',
-                                sorteringTidspunkt: '2025-02-27T08:16:22.667501Z',
-                                paaminnelseTidspunkt: null,
-                                utgaattTidspunkt: null,
-                                utfoertTidspunkt: '2025-02-27T08:18:03.072167Z',
-                                tilstand: 'UTFOERT',
-                                id: 'c85c94b6-ba0f-4879-8984-021e2bdc2c33',
-                                frist: null,
-                                sak: {
-                                    tittel: 'Avtale om Midlertidig lønnstilskudd for Usymmetrisk Skogmarihand',
-                                    __typename: 'SakMetadata',
-                                },
-                            },
-                        ],
-                        __typename: 'NotifikasjonerResultat',
-                    },
-                },
-            };
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(notifikasjonsRespons));
+            res.end(JSON.stringify(notifikasjonsRespons()));
         });
     },
 });
