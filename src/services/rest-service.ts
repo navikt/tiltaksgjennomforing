@@ -645,3 +645,15 @@ export const endreKidOgKontonummer = async (
     );
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
+
+export const oppdaterMentorFnr = async (
+    avtaleId: string,
+    data: { sistEndret: string; mentorFnr: string },
+): Promise<Avtale> => {
+    await api.patch(`/avtaler/${avtaleId}/oppdater-mentor-fnr`, data, {
+        headers: {
+            'If-Unmodified-Since': data.sistEndret,
+        },
+    });
+    return await hentAvtale(avtaleId);
+};
