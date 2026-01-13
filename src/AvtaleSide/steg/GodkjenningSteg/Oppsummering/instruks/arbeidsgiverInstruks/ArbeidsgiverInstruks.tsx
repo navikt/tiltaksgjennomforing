@@ -14,9 +14,11 @@ import TilskuddsperiodeOgRefusjon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsum
 import Refusjon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Refusjon';
 import HvaSierRegelverket from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/HvaSierRegelverket';
 import Taushetsplikt from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Taushetsplikt';
+import TilskuddsperiodeOgRefusjonMentor from './tekster/TilskuddsperiodeOgRefusjonMentor';
 
 const cls = BEMHelper('instruks');
 interface Props {
+    mentorFeatureToggle: boolean;
     erLaast: boolean;
     tiltakstype: TiltaksType;
 }
@@ -53,7 +55,10 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
                     <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
-                    <Refusjon tiltakstype={tiltakstype} />
+                    {tiltakstype === 'MENTOR' && (
+                        <TilskuddsperiodeOgRefusjonMentor mentorFeatureToggle={props.mentorFeatureToggle} />
+                    )}
+                    <Refusjon mentorFeatureToggle={props.mentorFeatureToggle} tiltakstype={tiltakstype} />
                     <BehandlingAvPersonopplysninger tiltakstype={tiltakstype} />
                     <Taushetsplikt />
                     <HvaSierRegelverket tiltakstype={tiltakstype} href={oppfolgingLenker[props.tiltakstype]} />
