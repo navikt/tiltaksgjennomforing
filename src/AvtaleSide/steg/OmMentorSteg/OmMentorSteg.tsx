@@ -28,7 +28,7 @@ const OmMentorSteg = () => {
 
     useEffect(() => {
         setMentorFnr(avtaleContext.avtale.mentorFnr);
-    }, [avtaleContext]);
+    }, [avtaleContext.avtale]);
 
     const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
 
@@ -54,7 +54,7 @@ const OmMentorSteg = () => {
                                     setMentorFnr(verdi);
                                     setMentorError(undefined);
                                 }}
-                            />{' '}
+                            />
                             <Button
                                 style={{ marginTop: '39px' }}
                                 disabled={avtaleContext.underLagring || mentorFnr === avtaleContext.avtale.mentorFnr}
