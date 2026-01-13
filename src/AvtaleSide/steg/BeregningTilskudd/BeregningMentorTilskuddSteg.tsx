@@ -1,10 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BEMHelper from '@/utils/bem';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -15,16 +14,13 @@ import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
-import { inputToNumber } from '@/utils';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
+import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorAntallTimerPerMnd';
 
 const cls = BEMHelper('beregningMentorTilskuddSteg');
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
-    const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
-        avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
-    );
 
     return (
         <>
@@ -35,14 +31,10 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     Tilskuddet dekker mentorens ordinære timelønn og ev. sosiale avgifter for de timene som er avtalt
                     for mentoroppgaven.
                 </BodyShort>
-                <PakrevdInputValidering
-                    validering={/^\d{0,3}(,5?)?$/}
-                    label="Antall timer med mentor per måned"
-                    description="Arbeidsgiver er pliktig til å kontakte Nav for å få oppdatert avtalen dersom behovet for antall timer avviker fra det som er avtalt."
-                    verdi={mentorAntallTimerInput}
-                    settVerdi={(verdi) => {
-                        setMentorAntallTimerInput(verdi);
-                        settOgKalkulerBeregningsverdier({ mentorAntallTimer: inputToNumber(verdi) });
+                <MentorAntallTimerPerMnd
+                    verdi={avtale.gjeldendeInnhold.mentorAntallTimer}
+                    settVerdi={(mentorAntallTimer) => {
+                        settOgKalkulerBeregningsverdier({ mentorAntallTimer });
                     }}
                 />
                 <VerticalSpacer rem={2} />
