@@ -650,10 +650,9 @@ export const oppdaterMentorFnr = async (
     avtaleId: string,
     data: { sistEndret: string; mentorFnr: string },
 ): Promise<Avtale> => {
-    await api.patch(`/avtaler/${avtaleId}/oppdater-mentor-fnr`, data, {
+    return await api.patch(`/avtaler/${avtaleId}/oppdater-mentor-fnr`, data, {
         headers: {
             'If-Unmodified-Since': data.sistEndret,
         },
     });
-    return await hentAvtale(avtaleId);
 };
