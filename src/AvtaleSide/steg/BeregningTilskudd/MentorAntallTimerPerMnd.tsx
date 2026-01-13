@@ -20,7 +20,7 @@ const schema = z.object({
         parseNorskeTallFraInput,
         z
             .number({
-                invalid_type_error: 'Antall timer være et tall',
+                invalid_type_error: 'Antall timer må være et tall',
                 required_error: 'Antall timer er påkrevd',
             })
             .min(1, 'Antall timer må være større enn 0')
