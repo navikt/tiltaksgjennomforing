@@ -25,9 +25,8 @@ const OppfolgingOgVarighet: FunctionComponent<Props> = ({ tiltakstype, eksternLe
                 </p>
             ) : (
                 <p>
-                    Dere som arbeidsgiver og NAV skal følge opp deltaker. Din oppgave er å følge opp i det daglige
-                    arbeidet og se at arbeidet er i tråd med avtalen som er inngått. Varigheten på tiltaket skal
-                    vurderes ut fra deltakers behov.
+                    Som arbeidsgiver skal dere følge opp deltaker i det daglige arbeidet og påse at arbeidet er i tråd
+                    med avtalen som er inngått. Varigheten på tiltaket skal vurderes ut fra deltakerens behov.
                     {tiltakstype !== 'ARBEIDSTRENING' && (
                         <BodyShort size="small">
                             Tilskuddet reguleres av{' '}

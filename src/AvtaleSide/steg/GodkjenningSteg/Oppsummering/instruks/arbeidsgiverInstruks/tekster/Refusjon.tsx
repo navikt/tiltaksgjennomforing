@@ -5,11 +5,15 @@ import { WalletIcon } from '@navikt/aksel-icons';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
+    mentorFeatureToggle: boolean;
     tiltakstype: TiltaksType;
 }
 
-const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
+const Refusjon: FunctionComponent<Props> = ({ mentorFeatureToggle, tiltakstype }) => {
     if (!['MENTOR', 'INKLUDERINGSTILSKUDD'].includes(tiltakstype)) {
+        return null;
+    }
+    if (tiltakstype === 'MENTOR' && !mentorFeatureToggle) {
         return null;
     }
     return (
