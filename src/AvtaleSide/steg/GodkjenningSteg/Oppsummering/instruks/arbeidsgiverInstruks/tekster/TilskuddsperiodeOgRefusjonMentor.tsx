@@ -23,7 +23,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ mentorFeatureTog
                 avtalen dersom det skjer endringer.
             </p>
             <p>
-                Nav forplikter seg økonomisk per godkjente tilskuddsperiode. Midler innvilges for èn måned av gangen, og
+                Nav forplikter seg økonomisk per godkjente tilskuddsperiode. Midler innvilges for én måned av gangen, og
                 kan avvike fra den avtalte perioden for tiltaksgjennomføringen.
             </p>
             <p>
