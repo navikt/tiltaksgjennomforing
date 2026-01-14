@@ -11,7 +11,7 @@ import React, { FunctionComponent, useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 import { storForbokstav } from '@/utils/stringUtils';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 

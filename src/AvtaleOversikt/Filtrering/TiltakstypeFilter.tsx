@@ -1,6 +1,5 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { TiltaksType } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';

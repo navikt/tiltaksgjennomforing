@@ -12,6 +12,7 @@ import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
 import { Rolle } from '@/types';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 interface Props {
     oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
@@ -36,10 +37,13 @@ const GodkjenningSteg: React.FunctionComponent<Props> = ({ oppsummering: Oppsumm
     const cls = BEMHelper('godkjenningSteg');
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
     const erMentor = innloggetBruker.rolle === 'MENTOR';
-
-    const skalViseGodkjenning = avtale.status !== 'ANNULLERT' && (!innloggetBruker.erNavAnsatt || !avtale.erUfordelt);
+    const skalViseGodkjenning =
+        avtale.status !== 'ANNULLERT' &&
+        (!innloggetBruker.erNavAnsatt || !avtale.erUfordelt) &&
+        !erSkrivebeskyttet(avtale);
 
     return (
         <div className={cls.className}>

@@ -10,7 +10,7 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
 import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 interface Props {

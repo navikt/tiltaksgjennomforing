@@ -4,7 +4,6 @@ import { TiltaksType } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useFilterGammel } from './useFilterGammel';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilterGammel: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
