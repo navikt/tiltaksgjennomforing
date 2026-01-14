@@ -7,9 +7,9 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Button, TextField } from '@navikt/ds-react';
 import ValutaInput from '@/komponenter/form/ValutaInput';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
 import './omMentorSteg.less';
@@ -23,10 +23,20 @@ const OmMentorSteg = () => {
     const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
         avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
     );
+    const [mentorFnr, setMentorFnr] = useState<string | undefined>(undefined);
+    const [mentorError, setMentorError] = useState<string | undefined>(undefined);
+
+    useEffect(() => {
+        setMentorFnr(avtaleContext.avtale.mentorFnr);
+    }, [avtaleContext.avtale]);
 
     const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
 
     const cls = BEMHelper('omMentorSteg');
+
+    // TODO: Dette kan fjernes når alle mentor-avtaler er "migrert ferdig" eller annullert med feilregistrering
+    const kanRedigereMentorFnr =
+        avtaleContext.avtale.opphav === 'ARENA' && avtaleContext.avtale.godkjentAvMentor === null;
 
     return (
         <>
@@ -34,19 +44,66 @@ const OmMentorSteg = () => {
             <Innholdsboks className={cls.className}>
                 <SkjemaTittel>Om mentoren</SkjemaTittel>
                 <div className={cls.element('rad')}>
-                    <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
+                    {kanRedigereMentorFnr ? (
+                        <>
+                            <PakrevdInput
+                                label="Fødselsnummer"
+                                error={mentorError}
+                                verdi={mentorFnr ?? ''}
+                                settVerdi={(verdi) => {
+                                    setMentorFnr(verdi);
+                                    setMentorError(undefined);
+                                }}
+                            />
+                            <Button
+                                style={{ marginTop: '39px' }}
+                                disabled={avtaleContext.underLagring || mentorFnr === avtaleContext.avtale.mentorFnr}
+                                variant="secondary"
+                                size="small"
+                                onClick={async () => {
+                                    try {
+                                        if (mentorFnr && mentorFnr.length === 11) {
+                                            await avtaleContext.oppdaterMentorFnr({ mentorFnr });
+                                        }
+                                    } catch (error) {
+                                        setMentorError('Feil ved oppdatering av fødselsnummer' + error);
+                                    }
+                                }}
+                            >
+                                Oppdater
+                            </Button>
+                        </>
+                    ) : (
+                        <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
+                    )}
                 </div>
                 <div className={cls.element('rad')}>
-                    <PakrevdInput
-                        label="Fornavn"
-                        verdi={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
-                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
-                    />
-                    <PakrevdInput
-                        label="Etternavn"
-                        verdi={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
-                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorEtternavn', verdi)}
-                    />
+                    {kanRedigereMentorFnr ? (
+                        <TextField
+                            label="Fornavn"
+                            readOnly={true}
+                            value={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
+                        />
+                    ) : (
+                        <PakrevdInput
+                            label="Fornavn"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
+                        />
+                    )}
+                    {kanRedigereMentorFnr ? (
+                        <TextField
+                            label="Etternavn"
+                            readOnly={true}
+                            value={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
+                        />
+                    ) : (
+                        <PakrevdInput
+                            label="Etternavn"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorEtternavn', verdi)}
+                        />
+                    )}
                 </div>
                 <div className={cls.element('rad')}>
                     <TelefonnummerInput
