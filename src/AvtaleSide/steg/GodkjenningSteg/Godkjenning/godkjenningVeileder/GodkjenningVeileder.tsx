@@ -6,10 +6,10 @@ import GodkjennPaVegneAvFlereParter from './GodkjennPaVegneAvFlereParter';
 
 const GodkjenningVeileder = () => {
     const {
-        avtale: { opphav },
+        avtale: { opphav, tiltakstype },
     } = useAvtale();
 
-    if (opphav === 'ARENA') {
+    if (opphav === 'ARENA' && tiltakstype !== 'MENTOR') {
         return <GodkjennPaVegneAvFlereParter />;
     }
 
