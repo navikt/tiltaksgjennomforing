@@ -13,31 +13,34 @@ interface Props {
     isOpen: boolean;
     lukkModal: () => void;
     avtaleInnhold: AvtaleVersjon;
+    visInnholdFraEtterMigrering?: boolean;
     tiltakstype: TiltaksType;
 }
 
-const VersjonModal: React.FunctionComponent<Props> = (props) => {
+const VersjonModal = (props: Props) => {
+    const { avtaleInnhold, visInnholdFraEtterMigrering, tiltakstype, lukkModal, isOpen } = props;
+
     const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {
-        ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={props.avtaleInnhold} />,
-        MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        MENTOR: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
-        INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        VTAO: <OppsummeringVTAO avtaleinnhold={props.avtaleInnhold} />,
+        ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={avtaleInnhold} />,
+        MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />,
+        VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />,
+        MENTOR: (
+            <OppsummeringMentor
+                avtaleinnhold={avtaleInnhold}
+                visInnholdFraEtterMigrering={visInnholdFraEtterMigrering}
+            />
+        ),
+        INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={avtaleInnhold} />,
+        SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />,
+        VTAO: <OppsummeringVTAO avtaleinnhold={avtaleInnhold} />,
     };
 
     return (
-        <Modal
-            className="versjon__modal"
-            aria-label="Versjon modal"
-            open={props.isOpen}
-            onClose={() => props.lukkModal()}
-        >
+        <Modal className="versjon__modal" aria-label="Versjon modal" open={isOpen} onClose={() => lukkModal()}>
             <Modal.Header>
-                <SkjemaTittel>Versjon {props.avtaleInnhold.versjon}</SkjemaTittel>
+                <SkjemaTittel>Versjon {avtaleInnhold.versjon}</SkjemaTittel>
             </Modal.Header>
-            <Modal.Body>{oppsummeringType[props.tiltakstype]}</Modal.Body>
+            <Modal.Body>{oppsummeringType[tiltakstype]}</Modal.Body>
         </Modal>
     );
 };

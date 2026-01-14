@@ -21,11 +21,16 @@ const verdi = (tall?: number) => {
     return tall === null || tall === undefined ? '' : tall.toString();
 };
 
-const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
+interface Props extends Mentorinfo {
+    visInnholdFraEtterMigrering: boolean;
+}
+
+const OmMentorOppsummering = (props: Props) => {
+    const { visInnholdFraEtterMigrering } = props;
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
     const { mentorFeatureToggle } = useFeatureToggles();
-    const periodeType = mentorFeatureToggle ? 'måned' : 'uke';
+    const periodeType = visInnholdFraEtterMigrering && mentorFeatureToggle ? 'måned' : 'uke';
 
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
@@ -89,7 +94,7 @@ const OmMentorOppsummering: FunctionComponent<Mentorinfo> = (props) => {
                                 </Column>
                             )}
                         </Row>
-                        {mentorFeatureToggle && rolle !== 'DELTAKER' && (
+                        {visInnholdFraEtterMigrering && mentorFeatureToggle && rolle !== 'DELTAKER' && (
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Row>
