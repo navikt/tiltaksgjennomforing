@@ -1,4 +1,4 @@
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Link } from '@navikt/ds-react';
 import { useContext } from 'react';
 
 import { AvtaleContext } from '@/AvtaleProvider';
@@ -12,6 +12,7 @@ import { Avtale, TiltaksType } from '@/types/avtale';
 import { formaterDato, NORSK_DATO_FORMAT_FULL, tidSidenTidspunkt } from '@/utils/datoUtils';
 import { erNil } from '@/utils/predicates';
 import OppfolgingKreves from './OppfolgingKreves';
+import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
 
 interface Props {
     avtale: Avtale;
@@ -74,27 +75,21 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 
 const arenaMigreringTekst = (tiltakstype: TiltaksType) => (
     <>
-        <BodyShort size="small">
+        <BodyShort size="small" spacing={true}>
             Avtalen er opprettet fra fagsystemet (Arena) hvor deltakeren har status som gjennomføres eller godkjent
             tiltaksplass.
         </BodyShort>
-
-        <VerticalSpacer rem={1} />
-        <BodyShort size="small">
+        <BodyShort size="small" spacing={true}>
             Avtalen er ufullstendig og må fylles ut og godkjennes for at den skal settes som gjennomføres.
         </BodyShort>
-
         {tiltakstype === 'VTAO' && (
             <>
-                <VerticalSpacer rem={1} />
-                <BodyShort size="small">
+                <BodyShort size="small" spacing={true}>
                     Sjekk at avtalen er opprettet på riktig virksomhetsnummer hos arbeidsgiver, da utbetalingene går
                     automatisk.
                 </BodyShort>
             </>
         )}
-
-        <VerticalSpacer rem={1} />
         <BodyShort size="small">
             Du kan godkjenne på vegne av både arbeidsgiver og deltaker.
             <br />
@@ -106,6 +101,7 @@ const arenaMigreringTekst = (tiltakstype: TiltaksType) => (
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
     const { overtaAvtale } = useContext(AvtaleContext);
+    const { data } = useAvtaleKreverAktsomhet(avtale.id);
 
     const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
 
@@ -128,7 +124,9 @@ function VeilederAvtaleStatus(props: Props) {
                 body={
                     <div style={{ textAlign: 'center' }}>
                         {avtale.opphav === 'ARBEIDSGIVER' && (
-                            <BodyShort size="small">Avtalen er opprettet av arbeidsgiver.</BodyShort>
+                            <BodyShort size="small" spacing={true}>
+                                Avtalen er opprettet av arbeidsgiver.
+                            </BodyShort>
                         )}
                         {avtale.opphav === 'ARENA' && arenaMigreringTekst(avtale.tiltakstype)}
                         <VerticalSpacer rem={1.5} />
@@ -148,7 +146,7 @@ function VeilederAvtaleStatus(props: Props) {
                     header="Avtalen er annullert"
                     body={
                         <>
-                            <BodyShort size="small">
+                            <BodyShort size="small" spacing={true}>
                                 Du eller en annen veileder har annullert avtalen{' '}
                                 {formaterDato(avtale.annullertTidspunkt!)}.
                             </BodyShort>
@@ -172,14 +170,24 @@ function VeilederAvtaleStatus(props: Props) {
                     header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder"
                     body={
                         <>
-                            <BodyShort size="small">
-                                Avtalen er nå tilgjengelig for arbeidsgiver på Min Side Arbeidsgiver.
-                            </BodyShort>
-                            <BodyShort size="small">
+                            {data?.kreverAktsomhet ? (
+                                <BodyShort size="small" spacing={true}>
+                                    <strong>OBS: </strong>Avtalen gjelder bruker med adressebeskyttelse, og vil kun være
+                                    tilgjengelig for arbeidsgiver ved å gå til <q>Min Side Arbeidsgiver</q> og trykke på
+                                    lenken <q>Avtaler om Tiltak</q>.
+                                </BodyShort>
+                            ) : (
+                                <BodyShort size="small" spacing={true}>
+                                    Avtalen er nå tilgjengelig for arbeidsgiver på Min Side Arbeidsgiver.
+                                </BodyShort>
+                            )}
+                            <BodyShort size="small" spacing={true}>
                                 Det sendes foreløpig ikke en automatisk SMS, men du kan dele denne lenken med
-                                arbeidsgiver <strong>https://arbeidsgiver.nav.no/tiltaksgjennomforing</strong>
+                                arbeidsgiver{' '}
+                                <Link href="https://arbeidsgiver.nav.no/tiltaksgjennomforing">
+                                    https://arbeidsgiver.nav.no/tiltaksgjennomforing
+                                </Link>
                             </BodyShort>
-                            <VerticalSpacer rem={1} />
                             <BodyShort size="small">
                                 Deltaker får en automatisk SMS når arbeidsgiver har godkjent avtalen.
                             </BodyShort>
@@ -293,7 +301,7 @@ function VeilederAvtaleStatus(props: Props) {
                             header="Venter på godkjenning av avtalen fra deltaker"
                             body={
                                 <BodyShort size="small">
-                                    Avtalen må godkjennes av deltaker.
+                                    Avtalen må godkjennes av deltaker.{' '}
                                     {avtale.godkjentAvArbeidsgiver && (
                                         <>
                                             Deltaker fikk en varsling på min side på NAV.no om å godkjenne avtalen for{' '}
@@ -355,12 +363,11 @@ function VeilederAvtaleStatus(props: Props) {
                         header="Avtalen er ferdig utfylt og godkjent"
                         body={
                             <>
-                                <BodyShort size="small">
+                                <BodyShort size="small" spacing={true}>
                                     Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.
                                     Tiltaket starter{' '}
                                     {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
                                 </BodyShort>
-                                <VerticalSpacer rem={1} />
                                 <BodyShort size="small">
                                     Alle parter har nå godkjent avtalen og beslutter har godkjent tilskudd. Deltaker får
                                     nå et vedtaksbrev på min side Personbruker. Arbeidsgiver og eller kontaktperson for
@@ -380,12 +387,11 @@ function VeilederAvtaleStatus(props: Props) {
                         header="Avtalen er ferdig utfylt og godkjent"
                         body={
                             <>
-                                <BodyShort size="small">
+                                <BodyShort size="small" spacing={true}>
                                     Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.{' '}
                                     Tiltaket starter{' '}
                                     {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
                                 </BodyShort>
-                                <VerticalSpacer rem={1} />
                                 <BodyShort size="small">
                                     Alle parter har nå godkjent avtalen.{' '}
                                     {avtale.opphav !== 'ARENA' && (
@@ -405,12 +411,11 @@ function VeilederAvtaleStatus(props: Props) {
                     header="Avtalen er ferdig utfylt og godkjent"
                     body={
                         <>
-                            <BodyShort size="small">
+                            <BodyShort size="small" spacing={true}>
                                 Avtale ble inngått {formaterDato(avtale.avtaleInngått!, NORSK_DATO_FORMAT_FULL)}.{' '}
                                 Tiltaket starter{' '}
                                 {formaterDato(avtale.gjeldendeInnhold.startDato!, NORSK_DATO_FORMAT_FULL)}.
                             </BodyShort>
-                            <VerticalSpacer rem={1} />
                             <BodyShort size="small">
                                 Alle parter har nå godkjent avtalen. Du må fullføre registreringen i Arena. Avtalen
                                 journalføres automatisk i Gosys.

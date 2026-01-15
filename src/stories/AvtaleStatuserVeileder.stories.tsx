@@ -1,7 +1,8 @@
 import VeilederAvtaleStatus from '@/AvtaleSide/AvtaleStatus/VeilederAvtaleStatus';
-import { Meta, StoryObj } from '@storybook/react';
+import { http, HttpResponse } from 'msw';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Avtale } from '@/types/avtale';
+import { Avtale, AvtaleStatus } from '@/types/avtale';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 const meta = {
@@ -15,6 +16,15 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const kreverAktsomhetHandler = [
+    http.get('/tiltaksgjennomforing/api/avtaler/1/krever-aktsomhet', () => {
+        return HttpResponse.json({ kreverAktsomhet: false });
+    }),
+    http.get('/tiltaksgjennomforing/api/avtaler/6/krever-aktsomhet', () => {
+        return HttpResponse.json({ kreverAktsomhet: true });
+    }),
+];
 
 const erUfordelt: Avtale = {
     ...lonnstilskuddAvtaleMock,
@@ -79,7 +89,12 @@ const erUfordelt: Avtale = {
 };
 
 export const ErUfordelt: Story = {
-    name: 'Annullert',
+    name: 'Er ufordelt',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: erUfordelt },
 };
 
@@ -147,7 +162,84 @@ const annullert: Avtale = {
 
 export const Annullert: Story = {
     name: 'Annullert',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: annullert },
+};
+
+const avbrutt: Avtale = {
+    ...lonnstilskuddAvtaleMock,
+    erUfordelt: false,
+    status: 'AVBRUTT' as AvtaleStatus,
+    annullertTidspunkt: '2021-08-01',
+    tiltakstype: 'MIDLERTIDIG_LONNSTILSKUDD',
+    tilskuddPeriode: [
+        {
+            beløp: 23324,
+            startDato: '2023-05-03',
+            sluttDato: '2023-05-31',
+            lonnstilskuddProsent: 60,
+            id: '370b1f98-9431-4286-98ce-1cc61c824cb2',
+            godkjentAvNavIdent: undefined,
+            godkjentTidspunkt: undefined,
+            enhet: undefined,
+            enhetsnavn: undefined,
+            avslagsårsaker: new Set([]),
+            avslagsforklaring: undefined,
+            avslåttAvNavIdent: undefined,
+            avslåttTidspunkt: undefined,
+            løpenummer: 1,
+            status: 'UBEHANDLET',
+            refusjonStatus: undefined,
+            aktiv: true,
+            kanBesluttesFom: '-999999999-01-01',
+            kanBehandles: true,
+        },
+    ],
+    godkjentAvDeltaker: '2021-08-01',
+    godkjentAvArbeidsgiver: '20-08-01',
+    godkjentAvVeileder: '2021-08-01',
+    gjeldendeTilskuddsperiode: {
+        beløp: 23324,
+        startDato: '2023-05-03',
+        sluttDato: '2023-05-31',
+        lonnstilskuddProsent: 60,
+        id: '370b1f98-9431-4286-98ce-1cc61c824cb2',
+        godkjentAvNavIdent: undefined,
+        godkjentTidspunkt: undefined,
+        enhet: undefined,
+        enhetsnavn: undefined,
+        avslagsårsaker: new Set([]),
+        avslagsforklaring: undefined,
+        avslåttAvNavIdent: undefined,
+        avslåttTidspunkt: undefined,
+        løpenummer: 1,
+        status: 'UBEHANDLET',
+        refusjonStatus: undefined,
+        aktiv: true,
+        kanBesluttesFom: '-999999999-01-01',
+        kanBehandles: true,
+    },
+    avtaleInngått: '2021-08-01',
+    annullertGrunn: 'annulert grunn',
+    gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
+        startDato: '2021-08-01',
+        sluttDato: '2021-08-01',
+    },
+};
+
+export const Avbrutt: Story = {
+    name: 'Avbrutt',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
+    args: { avtale: avbrutt },
 };
 
 const påbegynt: Avtale = {
@@ -214,7 +306,22 @@ const påbegynt: Avtale = {
 
 export const Påbegynt: Story = {
     name: 'Påbegynt',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: påbegynt },
+};
+
+export const PåbegyntKode6: Story = {
+    name: 'Påbegynt - kode 6',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
+    args: { avtale: { ...påbegynt, id: '6' } },
 };
 
 const manglerGodkjenningVeilederHarGodkjent: Avtale = {
@@ -281,6 +388,11 @@ const manglerGodkjenningVeilederHarGodkjent: Avtale = {
 
 export const ManglerGodkjenningVeilederHarGodkjent: Story = {
     name: 'Mangler Godkjenning Veileder har godkjent men manger godkjenning av Beslutter',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningVeilederHarGodkjent },
 };
 
@@ -348,7 +460,12 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor: Avtale =
 };
 
 export const ManglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor: Story = {
-    name: 'Mangler Godkjenning Arbeidisgiver og Deltaker har godkjent men manger signerig fra Mentor',
+    name: 'Mangler Godkjenning Arbeidsgiver og Deltaker har godkjent men manger signering fra Mentor',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningArbeidsgiverOgDeltakerHarGodkjentMenIkkeMentor },
 };
 
@@ -417,6 +534,11 @@ const manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent: Avtale = {
 
 export const ManglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent: Story = {
     name: ' Mangler Godkjenning Deltaker og Arbeidsgiver og Mentor har godkjent avtalen',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningDeltakerOgArbeidsgiverOgMentorHarGodkjent },
 };
 
@@ -485,6 +607,11 @@ const manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor: Avtale =
 
 export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor: Story = {
     name: ' Mangler Godkjenning Deltaker og Arbeidsgiver og Mentor har godkjent avtalen',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgMentor },
 };
 
@@ -552,6 +679,11 @@ const manglerGodkjenningDeltakerHarGodkjent: Avtale = {
 
 export const ManglerGodkjenningDeltakerHarGodkjent: Story = {
     name: 'Mangler Godkjenning Deltaker har godkjent men manger godkjenning av Arbeidsgiver',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningDeltakerHarGodkjent },
 };
 
@@ -620,6 +752,11 @@ const manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor: Avtale =
 
 export const ManglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor: Story = {
     name: ' Mangler Godkjenning Deltaker og Arbeidsgiver og Mentor har godkjent avtalen',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjentMenIkkeDeltakerogMentor },
 };
 
@@ -686,7 +823,12 @@ const manglerGodkjenningArbeidsgiverHarGodkjent: Avtale = {
 };
 
 export const ManglerGodkjenningArbeidsgiverHarGodkjent: Story = {
-    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren',
+    name: 'Mangler Godkjenning Arbeidsgiver har godkjent men manger godkjenning av Deltakeren',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningArbeidsgiverHarGodkjent },
 };
 
@@ -754,7 +896,12 @@ const manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent: Avtale = 
 };
 
 export const ManglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent: Story = {
-    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    name: 'Mangler Godkjenning Arbeidsgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningArbeidsgiverOgDeltakerOgMentorHarIkkeGodkjent },
 };
 
@@ -821,7 +968,12 @@ const manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent: Avtale = {
 };
 
 export const ManglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent: Story = {
-    name: 'Mangler Godkjenning Arbeidisgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    name: 'Mangler Godkjenning Arbeidsgiver har godkjent men manger godkjenning av Deltakeren og Veileder',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: manglerGodkjenningArbeidsgiverOgDeltakerHarIkkeGodkjent },
 };
 
@@ -889,6 +1041,11 @@ const klarForOppstartUteforArena: Avtale = {
 
 export const KlarForOppstartUteforArena: Story = {
     name: 'Klar For Oppstart',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: klarForOppstartUteforArena },
 };
 
@@ -956,6 +1113,11 @@ const klarForOppstartArena: Avtale = {
 
 export const KlarForOppstartArena: Story = {
     name: 'Klar For Oppstart',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: klarForOppstartArena },
 };
 
@@ -1023,6 +1185,11 @@ const gjennomføres: Avtale = {
 
 export const Gjennomføres: Story = {
     name: 'Gjennomføres',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: gjennomføres },
 };
 
@@ -1090,5 +1257,10 @@ const avsluttet: Avtale = {
 
 export const Avsluttet: Story = {
     name: 'Avsluttet',
+    parameters: {
+        msw: {
+            handlers: kreverAktsomhetHandler,
+        },
+    },
     args: { avtale: avsluttet },
 };
