@@ -17,6 +17,7 @@ const FortsettTiltak: FunctionComponent = () => {
 
     const [modalApen, setModalApen] = useState(false);
     const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
+    const harKommendeOppfolging = !erNil(avtale.kreverOppfolgingFom);
 
     useEffect(() => {
         if (modalApen) {
@@ -83,11 +84,13 @@ const FortsettTiltak: FunctionComponent = () => {
                             Det er ikke nødvendig å følge opp avtalen enda.
                         </BodyShort>
                         {sisteOppfølgingTekst}
-                        <BodyShort size="small" spacing>
-                            Neste oppfølging kan utføres fra og med{' '}
-                            {formaterDato(avtale.kreverOppfolgingFom!, NORSK_DATO_FORMAT_FULL)} og må utføres innen{' '}
-                            {formaterDato(avtale.kreverOppfolgingFrist!, NORSK_DATO_FORMAT_FULL)}
-                        </BodyShort>
+                        {harKommendeOppfolging && (
+                            <BodyShort size="small" spacing>
+                                Neste oppfølging kan utføres fra og med{' '}
+                                {formaterDato(avtale.kreverOppfolgingFom!, NORSK_DATO_FORMAT_FULL)} og må utføres innen{' '}
+                                {formaterDato(avtale.kreverOppfolgingFrist!, NORSK_DATO_FORMAT_FULL)}
+                            </BodyShort>
+                        )}
                     </>
                 )}
             </BekreftelseModal>
