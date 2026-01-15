@@ -13,7 +13,7 @@ const Refusjon: FunctionComponent<Props> = ({ mentorFeatureToggle, tiltakstype }
     if (!['MENTOR', 'INKLUDERINGSTILSKUDD'].includes(tiltakstype)) {
         return null;
     }
-    if (tiltakstype === 'MENTOR' && !mentorFeatureToggle) {
+    if (tiltakstype === 'MENTOR' && mentorFeatureToggle) {
         return null;
     }
     return (
