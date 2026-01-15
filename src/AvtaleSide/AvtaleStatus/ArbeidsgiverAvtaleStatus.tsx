@@ -23,7 +23,9 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                 body={
                     <>
                         <BodyShort size="small" align="center">
-                            Forsøk igjen om et par timer.
+                            Avtalen er midlertidig låst for endinger på grunn av teknisk oppgradering.
+                            <br />
+                            Beklager ulempen dette medfører. Vennligst forsøk igjen om et par timer.
                         </BodyShort>
                         <VerticalSpacer rem={1.5} />
                     </>
