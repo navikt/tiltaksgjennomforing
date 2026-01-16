@@ -49,7 +49,7 @@ const TaushetserklæringModal: FunctionComponent<TaushetserklæringProps> = ({
         >
             {erMentorSkrivebeskyttet && (
                 <Alert variant={'warning'}>
-                    Teknisk oppgradering av fagsystemet pågår.
+                    Oppgradering av tjenesten pågår.
                     <br />
                     Signering av taushetserklæring er midlertidig utilgjengelig.
                     <br />

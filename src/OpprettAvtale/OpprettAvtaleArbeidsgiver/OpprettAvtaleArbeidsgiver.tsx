@@ -109,7 +109,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                 {migreringSkrivebeskyttet && (
                     <>
                         <Alert variant={'warning'}>
-                            Migrering av fagsystemet pågår.
+                            Oppgradering av tjenesten pågår.
                             <br />
                             Noen tiltakstyper vil være utilgjengelige for opprettelse i denne periode.
                             <br />

@@ -19,7 +19,7 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     if (erSkrivebeskyttet(avtale)) {
         return (
             <StatusPanel
-                header="Teknisk oppgradering av fagsystem"
+                header="Oppgradering av tjenesten pågår"
                 body={
                     <>
                         <BodyShort size="small" align="center">

@@ -121,11 +121,10 @@ function VeilederAvtaleStatus(props: Props) {
     if (erSkrivebeskyttet(avtale)) {
         return (
             <StatusPanel
-                header="Oppgradering av fagsystemet"
+                header="Migrering fra Arena pågår"
                 body={
                     <BodyShort size="small" align="center">
-                        Migrering fra Arena pågår. Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk igjen
-                        om et par timer.
+                        Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk igjen om et par timer.
                     </BodyShort>
                 }
             />
