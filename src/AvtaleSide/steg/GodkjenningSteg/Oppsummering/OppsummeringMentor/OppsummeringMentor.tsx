@@ -15,9 +15,12 @@ import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/Ut
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
+    visInnholdFraEtterMigrering?: boolean;
 }
 
-const OppsummeringMentor: FunctionComponent<Props> = ({ avtaleinnhold }) => {
+const OppsummeringMentor: FunctionComponent<Props> = (props: Props) => {
+    const { avtaleinnhold, visInnholdFraEtterMigrering = true } = props;
+
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { mentorTimelonn } = avtaleinnhold;
     const { mentorFeatureToggle } = useFeatureToggles();
@@ -28,17 +31,20 @@ const OppsummeringMentor: FunctionComponent<Props> = ({ avtaleinnhold }) => {
             <Avtaleparter avtaleinnhold={avtaleinnhold} />
             <RelasjonerOppsummering {...avtaleinnhold} />
             <VerticalSpacer rem={2.5} />
-            <OmMentorOppsummering {...avtaleinnhold} />
+            <OmMentorOppsummering {...avtaleinnhold} visInnholdFraEtterMigrering={visInnholdFraEtterMigrering} />
             <StartOgSluttdatoOppsummering {...avtaleinnhold} />
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />
-            {mentorFeatureToggle && innloggetBruker.rolle !== 'DELTAKER' && innloggetBruker.rolle !== 'MENTOR' && (
-                <BeregningTilskuddOppsummering
-                    {...avtaleinnhold}
-                    ekstraAvhengigFelter={{ mentorTimelonn }}
-                    utregningPanelKomponent={UtregningPanelMentorTilskudd}
-                />
-            )}
+            {visInnholdFraEtterMigrering &&
+                mentorFeatureToggle &&
+                innloggetBruker.rolle !== 'DELTAKER' &&
+                innloggetBruker.rolle !== 'MENTOR' && (
+                    <BeregningTilskuddOppsummering
+                        {...avtaleinnhold}
+                        ekstraAvhengigFelter={{ mentorTimelonn }}
+                        utregningPanelKomponent={UtregningPanelMentorTilskudd}
+                    />
+                )}
         </>
     );
 };
