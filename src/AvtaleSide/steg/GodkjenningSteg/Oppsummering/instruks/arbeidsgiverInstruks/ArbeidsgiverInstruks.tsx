@@ -24,15 +24,6 @@ interface Props {
 }
 const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
     const { erLaast, tiltakstype } = props;
-    const oppfolgingLenker: { [key in TiltaksType]: string } = {
-        MIDLERTIDIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_9',
-        VARIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_10',
-        SOMMERJOBB: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_8',
-        INKLUDERINGSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_11',
-        ARBEIDSTRENING: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap3',
-        MENTOR: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap5',
-        VTAO: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/KAPITTEL_14#KAPITTEL_14',
-    };
     return (
         <>
             {!erLaast && (
@@ -48,10 +39,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
 
                     <VerticalSpacer rem={2} />
                     <ArbeidsmiljLoven tiltakstype={tiltakstype} />
-                    <OppfolgingOgVarighet
-                        tiltakstype={tiltakstype}
-                        eksternLenke={oppfolgingLenker[props.tiltakstype]}
-                    />
+                    <OppfolgingOgVarighet tiltakstype={tiltakstype} />
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
                     <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
@@ -61,7 +49,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                     <Refusjon mentorFeatureToggle={props.mentorFeatureToggle} tiltakstype={tiltakstype} />
                     <BehandlingAvPersonopplysninger tiltakstype={tiltakstype} />
                     <Taushetsplikt />
-                    <HvaSierRegelverket tiltakstype={tiltakstype} href={oppfolgingLenker[props.tiltakstype]} />
+                    <HvaSierRegelverket tiltakstype={tiltakstype} />
                 </div>
             </VeilederpanelMedUtklippstavle>
         </>

@@ -16,7 +16,6 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ mentorFeatureTog
             svgIkon={<WalletIcon title="Tilskuddsperiode og refusjon" />}
             headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
         >
-            <p>Tilskuddet reguleres av forskrift for arbeidsmarkedstiltak.</p>
             <p>
                 Tilskuddet dekker mentorens ordinære timelønn for de timene som er avtalt for mentoroppgaven.
                 Arbeidsgiver er pliktig til å oppgi korrekt timelønn og antall timer, og kontakte Nav for å få oppdatert
