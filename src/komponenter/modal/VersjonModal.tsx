@@ -8,6 +8,7 @@ import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import { Modal } from '@navikt/ds-react';
 import React from 'react';
 import './VersjonModal.less';
+import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
 
 interface Props {
     isOpen: boolean;
@@ -20,27 +21,18 @@ interface Props {
 const VersjonModal = (props: Props) => {
     const { avtaleInnhold, visInnholdFraEtterMigrering, tiltakstype, lukkModal, isOpen } = props;
 
-    const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {
-        ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={avtaleInnhold} />,
-        MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />,
-        VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />,
-        MENTOR: (
-            <OppsummeringMentor
-                avtaleinnhold={avtaleInnhold}
-                visInnholdFraEtterMigrering={visInnholdFraEtterMigrering}
-            />
-        ),
-        INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={avtaleInnhold} />,
-        SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />,
-        VTAO: <OppsummeringVTAO avtaleinnhold={avtaleInnhold} />,
-    };
-
     return (
         <Modal className="versjon__modal" aria-label="Versjon modal" open={isOpen} onClose={() => lukkModal()}>
             <Modal.Header>
                 <SkjemaTittel>Versjon {avtaleInnhold.versjon}</SkjemaTittel>
             </Modal.Header>
-            <Modal.Body>{oppsummeringType[tiltakstype]}</Modal.Body>
+            <Modal.Body>
+                <Oppsummering
+                    tiltakstype={tiltakstype}
+                    avtaleInnhold={avtaleInnhold}
+                    visInnholdFraEtterMigrering={visInnholdFraEtterMigrering ?? true}
+                />
+            </Modal.Body>
         </Modal>
     );
 };
