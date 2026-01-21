@@ -8,6 +8,7 @@ import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 interface Props {
     className: string;
@@ -34,6 +35,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     setUgyldigAvtaletype,
     className,
 }) => {
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
     const cls = BEMHelper(className);
 
     return (
@@ -56,6 +58,7 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
                             name="tiltakstype"
                             value={tiltakstype}
                             checked={valgtTiltaksType === tiltakstype}
+                            disabled={erSkrivebeskyttet(tiltakstype)}
                             onChange={() => {
                                 setTiltaksType(tiltakstype);
                                 setUgyldigAvtaletype(false);

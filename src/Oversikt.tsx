@@ -7,6 +7,7 @@ import BeslutterOversikt from './BeslutterOversikt/BeslutterOversikt';
 
 const Oversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
+
     if (innloggetBruker.rolle === 'BESLUTTER') {
         return (
             <FiltreringProviderGammel>

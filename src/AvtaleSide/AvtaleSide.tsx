@@ -14,7 +14,7 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 const cls = BEMHelper('avtaleside');
 
@@ -39,22 +39,26 @@ export interface StegInfo {
 
 const AvtaleSide: FunctionComponent = () => {
     const { mentorFeatureToggle } = useFeatureToggles();
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
     const { steg } = useParams<{ steg?: string }>();
 
     let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
-    if (innloggetBruker.rolle === 'MENTOR') avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
-    if (innloggetBruker.rolle !== 'MENTOR' && avtale.tiltakstype === 'MENTOR' && !mentorFeatureToggle)
+    if (innloggetBruker.rolle === 'MENTOR') {
+        avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
+    }
+    if (innloggetBruker.rolle !== 'MENTOR' && avtale.tiltakstype === 'MENTOR' && !mentorFeatureToggle) {
         avtaleSteg = hentAvtaleSteg.MENTOR_UTEN_BEREGNING_AV_TILSKUDD;
+    }
 
     const erAvtaleLaast =
         avtale.godkjentAvVeileder !== null ||
         avtale.annullertTidspunkt ||
         innloggetBruker.rolle === 'DELTAKER' ||
-        innloggetBruker.rolle === 'MENTOR';
-
+        innloggetBruker.rolle === 'MENTOR' ||
+        erSkrivebeskyttet(avtale);
     const sideTittel = avtaleTittel[avtale.tiltakstype];
 
     const aktivtSteg = useMemo(() => {

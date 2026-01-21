@@ -22,7 +22,7 @@ import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/re
 import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { tiltakstypeTekst } from '@/messages';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
@@ -34,6 +34,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const navigate = useNavigate();
+    const { migreringSkrivebeskyttet } = useFeatureToggles();
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -104,6 +106,18 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" />
             <div className={cls.className}>
+                {migreringSkrivebeskyttet && (
+                    <>
+                        <Alert variant={'warning'}>
+                            Oppgradering av tjenesten pågår.
+                            <br />
+                            Noen tiltakstyper vil være utilgjengelige for opprettelse i denne periode.
+                            <br />
+                            Beklager ulempen. Vennligst forsøk igjen om et par timer.
+                        </Alert>
+                        <VerticalSpacer rem={1} />
+                    </>
+                )}
                 <Innholdsboks>
                     <Heading level="2" size="medium">
                         Før du oppretter en avtale
@@ -135,6 +149,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                                     key={tiltakType}
                                     name="tiltakstype"
                                     value={tiltakType}
+                                    disabled={erSkrivebeskyttet(tiltakType)}
                                     checked={valgtTiltaksType === tiltakType}
                                     onChange={() => {
                                         setTiltaksType(tiltakType);

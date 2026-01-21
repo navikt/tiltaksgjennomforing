@@ -7,12 +7,32 @@ import { Avtale } from '@/types/avtale';
 import { formaterDato } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 interface Props {
     avtale: Avtale;
 }
 
 const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
+
+    if (erSkrivebeskyttet(avtale)) {
+        return (
+            <StatusPanel
+                header="Oppgradering av tjenesten pågår"
+                body={
+                    <>
+                        <BodyShort size="small" align="center">
+                            Avtalen er midlertidig låst for endinger på grunn av teknisk oppgradering.
+                            <br />
+                            Beklager ulempen dette medfører. Vennligst forsøk igjen om et par timer.
+                        </BodyShort>
+                    </>
+                }
+            />
+        );
+    }
+
     if (avtale.erUfordelt) {
         return (
             <StatusPanel

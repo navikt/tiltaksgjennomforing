@@ -1,7 +1,6 @@
 import { BodyShort } from '@navikt/ds-react';
-import { useContext } from 'react';
 
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
@@ -12,6 +11,7 @@ import { Avtale, TiltaksType } from '@/types/avtale';
 import { formaterDato, NORSK_DATO_FORMAT_FULL, tidSidenTidspunkt } from '@/utils/datoUtils';
 import { erNil } from '@/utils/predicates';
 import OppfolgingKreves from './OppfolgingKreves';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 interface Props {
     avtale: Avtale;
@@ -105,7 +105,8 @@ const arenaMigreringTekst = (tiltakstype: TiltaksType) => (
 
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
-    const { overtaAvtale } = useContext(AvtaleContext);
+    const { overtaAvtale } = useAvtale();
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
     const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
 
@@ -116,6 +117,19 @@ function VeilederAvtaleStatus(props: Props) {
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
+
+    if (erSkrivebeskyttet(avtale)) {
+        return (
+            <StatusPanel
+                header="Migrering fra Arena pågår"
+                body={
+                    <BodyShort size="small" align="center">
+                        Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk igjen om et par timer.
+                    </BodyShort>
+                }
+            />
+        );
+    }
 
     if (skalViseReturnertTilskuddsperiode) {
         return <TilskuddsperioderReturnert />;

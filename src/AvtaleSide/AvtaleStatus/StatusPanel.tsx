@@ -7,7 +7,7 @@ import HvemHarGodkjentModal from './HvemHarGodkjentModal';
 import './StatusPanel.less';
 
 const cls = BEMHelper('statusPanel');
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 interface Props {
     header: string;

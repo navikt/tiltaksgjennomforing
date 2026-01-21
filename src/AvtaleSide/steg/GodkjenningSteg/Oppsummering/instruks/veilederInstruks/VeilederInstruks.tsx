@@ -12,7 +12,7 @@ import LonnstilskuddVeilederTekst from './tekster/LonnstilskuddVeilederTekst';
 import SommerjobbVeilederTekst from './tekster/SommerjobbVeilederTekst';
 import ArbeidstreningVeilederTekst from './tekster/ArbeidstreningVeilederTekst';
 import VTAOVeilederTekst from './tekster/VTAOVeilederTekst';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 import MentorVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/MentorVeilederTekst';
 
 const cls = BEMHelper('instruks');

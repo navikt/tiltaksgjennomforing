@@ -19,10 +19,12 @@ import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInn
 import './OppgaveLenker.css';
 import FortsettTiltak from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/FortsettTiltak/FortsettTiltak';
 import EndreKidOgKontonummer from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endre-kid-og-kontoummer';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
     const erNavIdenterLike = innloggetBruker.identifikator === avtale.veilederNavIdent;
     const erVeileder = innloggetBruker.rolle === 'VEILEDER';
@@ -42,7 +44,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'VTAO';
 
-    if (!erVeileder) {
+    if (!erVeileder || erSkrivebeskyttet(avtale)) {
         return <Varsellogg />;
     }
 

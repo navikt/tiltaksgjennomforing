@@ -11,7 +11,7 @@ import { Avtale } from '@/types';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { useAvtale } from '@/AvtaleProvider';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 import './Banner.less';
 

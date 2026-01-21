@@ -14,7 +14,7 @@ import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/Vis
 import BEMHelper from '@/utils/bem';
 import './omMentorSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 import { inputToNumber } from '@/utils';
 
 const OmMentorSteg = () => {
