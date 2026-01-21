@@ -116,7 +116,7 @@ const ForlengAvtale = () => {
                     )}
                     {!kanForlenges && (
                         <Alert variant="warning">
-                            Denne er en eldre avtale som ble opprettet før overgang til ny refusjonsløsning og kan
+                            Dette er en eldre avtale som ble opprettet før overgang til ny refusjonsløsning og kan
                             derfor ikke forlenges.
                             <br />
                             Vennligst opprett en ny avtale.
