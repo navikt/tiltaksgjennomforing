@@ -5,7 +5,7 @@ import DeltakerInstruks from './deltakerInstruks/DeltakerInstruks';
 import ArbeidsgiverInstruks from './arbeidsgiverInstruks/ArbeidsgiverInstruks';
 import VeilederInstruks from './veilederInstruks/VeilederInstruks';
 import MentorInstruks from './mentorInstruks/MentorInstruks';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 const GodkjenningInstruks: FunctionComponent = () => {
     const { rolle } = useContext(InnloggetBrukerContext);
