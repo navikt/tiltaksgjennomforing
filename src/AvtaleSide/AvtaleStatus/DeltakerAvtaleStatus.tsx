@@ -27,7 +27,6 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                             <br />
                             Beklager ulempen dette medfører. Vennligst forsøk igjen om et par timer.
                         </BodyShort>
-                        <VerticalSpacer rem={1.5} />
                     </>
                 }
             />
