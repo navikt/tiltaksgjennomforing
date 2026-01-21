@@ -1,22 +1,19 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
-import { Avtale, Avtaleinnhold } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import React, { FunctionComponent, useContext } from 'react';
+import React from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
 import { Rolle } from '@/types';
+import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
-
-interface Props {
-    oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
-}
 
 const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     switch (rolle) {
@@ -33,10 +30,10 @@ const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     }
 };
 
-const GodkjenningSteg: React.FunctionComponent<Props> = ({ oppsummering: Oppsummering }) => {
+const GodkjenningSteg = () => {
     const cls = BEMHelper('godkjenningSteg');
-    const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale } = useContext(AvtaleContext);
+    const innloggetBruker = useInnloggetBruker();
+    const { avtale } = useAvtale();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
     const erMentor = innloggetBruker.rolle === 'MENTOR';
@@ -59,7 +56,7 @@ const GodkjenningSteg: React.FunctionComponent<Props> = ({ oppsummering: Oppsumm
                         !erMentor && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
                     )}
                 </div>
-                <Oppsummering avtaleinnhold={avtale.gjeldendeInnhold} />
+                <Oppsummering avtale={avtale} />
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {harGodkjentSelv(avtale, innloggetBruker.rolle) && (
