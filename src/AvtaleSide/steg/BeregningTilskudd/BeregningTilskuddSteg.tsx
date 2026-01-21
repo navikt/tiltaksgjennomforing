@@ -26,7 +26,7 @@ const cls = BEMHelper('beregningTilskuddSteg');
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
 
-    const { avtale, lagreAvtale } = useContext(AvtaleContext);
+    const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
     return (
         <>
@@ -42,17 +42,26 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <Manedslonn cls={cls} />
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('feriepenger')}>
-                        <Feriepenger />
+                        <Feriepenger
+                            sats={avtale.gjeldendeInnhold.feriepengesats}
+                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                        />
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('tjenestepensjon')}>
-                        <ObligatoriskTjenestepensjon />
+                        <ObligatoriskTjenestepensjon
+                            sats={avtale.gjeldendeInnhold.otpSats}
+                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                        />
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('arbeidsgiveravgift')}>
-                        <Arbeidsgiveravgift />
+                        <Arbeidsgiveravgift
+                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                        />
                     </Column>
                 </Row>
                 <Row>

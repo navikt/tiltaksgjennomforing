@@ -1,13 +1,25 @@
-import React, { useContext, useEffect } from 'react';
-import { AvtaleContext } from '@/AvtaleProvider';
+import React, { useEffect } from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import ValutaInput, { formaterValuta } from '@/komponenter/form/ValutaInput';
+import { formaterValuta } from '@/komponenter/form/ValutaInput';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { storForbokstav } from '@/utils/stringUtils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import { Alert, Heading, ReadMore, TextField } from '@navikt/ds-react';
+import KronerInput from '@/AvtaleSide/steg/BeregningTilskudd/KronerInput';
+
+type TimeloennProps = {
+    stillingsprosent: number | undefined;
+    mentorValgtLonnstype: LonnType | undefined;
+    mentorValgtLonnstypeBelop: number | undefined;
+    mentorTimelonn: number | undefined;
+    onChange: (value: {
+        stillingprosent?: number;
+        mentorValgtLonnstype?: LonnType;
+        mentorValgtLonnstypeBelop?: number;
+    }) => void;
+};
 
 const HOURS_PER_UNIT = Object.freeze({
     ÅRSLØNN: 1950,
@@ -27,18 +39,26 @@ const LONN_OPTIONS = (Object.keys(HOURS_PER_UNIT) as LonnType[]).map((unit) => (
 //  Timelønn som er 50% over det norske gjennomsnittet. Hentet fra SSB 2024
 const TIMELONN_TERSKEL = 547.5;
 
-const Timeloenn: React.FC = () => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
-    const { mentorValgtLonnstype, mentorValgtLonnstypeBelop, stillingprosent, mentorTimelonn } =
-        avtale.gjeldendeInnhold;
-
+const Timeloenn: React.FC<TimeloennProps> = ({
+    stillingsprosent,
+    mentorValgtLonnstype,
+    mentorValgtLonnstypeBelop,
+    mentorTimelonn,
+    onChange,
+}) => {
     const handleSelectedTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const nyLonnstype = e.target.value as LonnType;
-        const gammelLonnstype = mentorValgtLonnstype!;
-        const gammeltBelop = mentorValgtLonnstypeBelop || 0;
+
+        if (!mentorValgtLonnstype) {
+            onChange({ mentorValgtLonnstype: nyLonnstype });
+            return;
+        }
+
+        const gammelLonnstype = mentorValgtLonnstype;
+        const gammeltBelop = mentorValgtLonnstypeBelop ?? 0;
         const nyttBelop = (gammeltBelop / HOURS_PER_UNIT[gammelLonnstype]) * HOURS_PER_UNIT[nyLonnstype];
 
-        settOgKalkulerBeregningsverdier({
+        onChange({
             mentorValgtLonnstype: nyLonnstype,
             mentorValgtLonnstypeBelop: Math.round(nyttBelop),
         });
@@ -46,7 +66,7 @@ const Timeloenn: React.FC = () => {
 
     useEffect(() => {
         if (!mentorValgtLonnstype) {
-            settOgKalkulerBeregningsverdier({ mentorValgtLonnstype: 'ÅRSLØNN' });
+            onChange({ mentorValgtLonnstype: 'ÅRSLØNN' });
         }
     }, []);
 
@@ -55,7 +75,7 @@ const Timeloenn: React.FC = () => {
     return (
         <>
             <Row>
-                <Column md="7">
+                <Column md="5">
                     <SelectInput
                         label="Lønn per arbeidsavtale"
                         name="mentorLonnsType"
@@ -68,38 +88,33 @@ const Timeloenn: React.FC = () => {
             </Row>
             <VerticalSpacer rem={1.5} />
             <Row>
-                <Column md="7">
-                    <ValutaInput
-                        className="input"
-                        name="mentorLonn"
+                <Column md="5">
+                    <KronerInput
                         label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
-                        autoComplete={'off'}
-                        value={mentorValgtLonnstypeBelop}
-                        onChange={(e) =>
-                            settOgKalkulerBeregningsverdier({
-                                mentorValgtLonnstypeBelop: Math.round(parseFloat(e.target.value)),
-                            })
-                        }
-                        min={0}
+                        verdi={mentorValgtLonnstypeBelop}
+                        settVerdi={(nyVerdi) => onChange({ mentorValgtLonnstypeBelop: nyVerdi })}
                     />
                 </Column>
                 {mentorValgtLonnstype !== 'TIMELØNN' && (
                     <Column md="5">
                         <StillingsprosentInput
                             label="Stillingsprosent"
-                            verdi={stillingprosent}
-                            settVerdi={(e) => settOgKalkulerBeregningsverdier({ stillingprosent: e })}
+                            verdi={stillingsprosent}
+                            settVerdi={(nyVerdi) => onChange({ stillingprosent: nyVerdi })}
                         />
                     </Column>
                 )}
             </Row>
-            <VerticalSpacer rem={1.5} />
+
             {mentorValgtLonnstype !== 'TIMELØNN' && (
-                <Row>
-                    <Column md="7">
-                        <TextField value={formaterValuta(mentorTimelonn)} label="Beregnet timelønn" readOnly />
-                    </Column>
-                </Row>
+                <>
+                    <VerticalSpacer rem={1.5} />
+                    <Row>
+                        <Column md="5">
+                            <TextField value={formaterValuta(mentorTimelonn)} label="Beregnet timelønn" readOnly />
+                        </Column>
+                    </Row>
+                </>
             )}
             <VerticalSpacer rem={0.5} />
             {forHoyTimeLonn && (

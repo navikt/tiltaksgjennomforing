@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import { AvtaleContext } from '@/AvtaleProvider';
 import { formaterNorskeTall } from '@/utils';
 
-const ObligatoriskTjenestepensjon: React.FC = () => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+type ObligatoriskTjenestepensjonProps = {
+    sats: number | undefined;
+    onChange: (sats: number | undefined) => void;
+};
+
+const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = ({ sats, onChange }) => {
     return (
         <ProsentInput
             name="tjenestepensjon"
@@ -14,15 +17,9 @@ const ObligatoriskTjenestepensjon: React.FC = () => {
             maxLength={4}
             autoComplete={'off'}
             description={'Fra 0 - 30%'}
-            value={
-                avtale.gjeldendeInnhold.otpSats !== undefined && avtale.gjeldendeInnhold.otpSats !== null
-                    ? formaterNorskeTall(avtale.gjeldendeInnhold.otpSats * 100)
-                    : ''
-            }
+            value={sats !== undefined && sats !== null ? formaterNorskeTall(sats * 100) : ''}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                settOgKalkulerBeregningsverdier({
-                    otpSats: event.target.value === '' ? undefined : parseFloat(event.target.value) / 100,
-                });
+                onChange(event.target.value === '' ? undefined : parseFloat(event.target.value) / 100);
             }}
         />
     );

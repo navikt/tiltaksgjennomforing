@@ -9,7 +9,6 @@ import {
     ReactNode,
     RefObject,
     SyntheticEvent,
-    useEffect,
     useState,
 } from 'react';
 
