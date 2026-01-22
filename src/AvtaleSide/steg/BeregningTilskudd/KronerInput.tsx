@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { TextField } from '@navikt/ds-react';
 import * as z from 'zod';
 import { formaterNorskeTallFraInput, parseNorskeTallFraInput } from '@/utils';
@@ -31,28 +31,19 @@ type Schema = { belop: string };
 function KronerInput(props: Props) {
     const { settVerdi, verdi } = props;
     const [isFocused, setIsFocused] = useState(false);
-    const previousVerdiRef = useRef<number | undefined>(verdi);
 
     const { formState, control } = useForm<Schema>({
         mode: 'onBlur',
         resolver: zodResolver(schema),
+        values: {
+            belop: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
+        },
     });
 
     const { field } = useController({
         control,
         name: 'belop',
-        defaultValue: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
     });
-
-    useEffect(() => {
-        if (previousVerdiRef.current !== verdi) {
-            previousVerdiRef.current = verdi;
-            const newValue = formaterNorskeTallFraInput(verdi?.toString() ?? '');
-            if (field.value !== newValue) {
-                field.onChange(newValue);
-            }
-        }
-    }, [verdi, field]);
 
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         const belop = e.target.value;

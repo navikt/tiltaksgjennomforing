@@ -1,18 +1,19 @@
 import React from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
+import { erNil } from '@/utils/predicates';
 
 type ArbeidsgiveravgiftProps = {
-    sats: number | undefined;
-    onChange: (sats: number | undefined) => void;
+    sats?: number;
+    onChange: (sats?: number) => void;
 };
 
-const Arbeidsgiveravgift: React.FC<ArbeidsgiveravgiftProps> = ({ sats, onChange }) => {
+const Arbeidsgiveravgift: React.FC<ArbeidsgiveravgiftProps> = (props: ArbeidsgiveravgiftProps) => {
+    const { sats, onChange } = props;
+
     const arbeidsgiveravgiftAlternativer = (() => {
         const satser = [0, 0.051, 0.064, 0.079, 0.106, 0.141];
-        const hasValue = sats !== null && sats !== undefined;
-
-        const satserVerdier = hasValue ? [] : [{ label: 'Velg', value: '' }];
+        const satserVerdier = !erNil(sats) ? [] : [{ label: 'Velg', value: '' }];
         satser.forEach((sats: number) =>
             satserVerdier.push({
                 label: formaterNorskeTall(sats * 100) + ' %',

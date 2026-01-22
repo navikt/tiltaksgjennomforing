@@ -43,7 +43,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     mentorValgtLonnstype={avtale.gjeldendeInnhold.mentorValgtLonnstype}
                     mentorValgtLonnstypeBelop={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
                     mentorTimelonn={avtale.gjeldendeInnhold.mentorTimelonn}
-                    onChange={settOgKalkulerBeregningsverdier}
+                    onChange={(value) => settOgKalkulerBeregningsverdier(value)}
                 />
 
                 <Row>

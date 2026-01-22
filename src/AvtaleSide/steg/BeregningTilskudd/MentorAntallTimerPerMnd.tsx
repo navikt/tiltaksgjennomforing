@@ -4,10 +4,9 @@ import { Alert, Heading, TextField } from '@navikt/ds-react';
 import { useController, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import '@/AvtaleSide/steg/BeregningTilskudd/MentorAntallTimerPerMnd.less';
+import styles from './MentorAntallTimerPerMnd.module.less';
 import { formaterNorskeTallFraInput, parseNorskeTallFraInput } from '@/utils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import BEMHelper from '@/utils/bem';
 
 interface Props {
     verdi?: number;
@@ -31,8 +30,6 @@ const schema = z.object({
 });
 
 type Schema = { mentorAntallTimerPerMnd: string };
-
-const cls = BEMHelper('mentorAntallTimerPerMnd');
 
 function MentorAntallTimerPerMnd(props: Props) {
     const { settVerdi, verdi } = props;
@@ -61,7 +58,7 @@ function MentorAntallTimerPerMnd(props: Props) {
     return (
         <>
             <TextField
-                className={cls.element('antall-timer-input')}
+                className={styles.antallTimerInput}
                 {...field}
                 error={formState.errors.mentorAntallTimerPerMnd?.message}
                 label="Antall timer med mentor per måned"

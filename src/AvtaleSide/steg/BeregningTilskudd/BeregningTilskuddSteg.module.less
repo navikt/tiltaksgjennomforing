@@ -1,0 +1,56 @@
+@import (reference) '../../../tiltak_variabler.less';
+
+.valutaInput {
+    width: 50%;
+    :global(> .input) {
+        margin-top: 1rem;
+    }
+}
+
+.alert {
+    margin-top: 1rem;
+}
+
+.tilskuddsprosentHeading,
+.tilskuddsprosent {
+    margin-bottom: 1.25rem;
+}
+
+.rad {
+    margin-bottom: 2rem;
+}
+
+.tjenestepensjon,
+.arbeidsgiveravgift,
+.feriepenger {
+    :global(.navds-form-field) {
+        :global(> input),
+        :global(> div) {
+            width: 55%;
+        }
+    }
+}
+
+.lonnTittel {
+    padding-bottom: 0.5rem;
+}
+
+.otpSats {
+    position: relative;
+
+    &Label {
+        position: absolute;
+        bottom: 0.675rem;
+        left: 3rem;
+    }
+}
+
+.lonnPerMndSeksjon {
+    &:nth-child(n) {
+        margin-bottom: 0.5rem;
+
+        :global(> ul) {
+            margin: 0.5rem 0;
+        }
+    }
+}

@@ -3,11 +3,15 @@ import ProsentInput from '@/komponenter/form/ProsentInput';
 import { formaterNorskeTall } from '@/utils';
 
 type ObligatoriskTjenestepensjonProps = {
-    sats: number | undefined;
-    onChange: (sats: number | undefined) => void;
+    sats?: number;
+    onChange: (sats?: number) => void;
 };
 
-const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = ({ sats, onChange }) => {
+const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = (
+    props: ObligatoriskTjenestepensjonProps,
+) => {
+    const { sats, onChange } = props;
+
     return (
         <ProsentInput
             name="tjenestepensjon"
