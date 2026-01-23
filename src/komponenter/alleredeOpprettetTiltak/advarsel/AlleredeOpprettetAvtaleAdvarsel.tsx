@@ -38,14 +38,14 @@ const AlleredeOpprettetAvtaleAdvarsel: React.FC<Props> = ({ alleredeRegistrertAv
                     {avtalerSomIkkeErIverksatt.length > 0 && (
                         <li className={cls.element('list-element')}>
                             <div className={cls.element('list-element-content')}>
-                                {avtalerSomIkkeErIverksatt.length} som er under utfylding{' '}
+                                {avtalerSomIkkeErIverksatt.length} som er under utfylling{' '}
                             </div>
                         </li>
                     )}
                     {avtalerSomErIverksatt.length > 0 && (
                         <li className={cls.element('list-element')}>
                             <div className={cls.element('list-element-content')}>
-                                {avtalerSomErIverksatt.length} som er i gangsatt{' '}
+                                {avtalerSomErIverksatt.length} som er igangsatt{' '}
                             </div>
                         </li>
                     )}
