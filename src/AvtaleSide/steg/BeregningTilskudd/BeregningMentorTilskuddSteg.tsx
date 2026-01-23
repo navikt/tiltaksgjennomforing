@@ -1,5 +1,4 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import BEMHelper from '@/utils/bem';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
@@ -7,7 +6,6 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/ObligatoriskTjenestepensjon';
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
 import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
@@ -16,8 +14,7 @@ import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorAntallTimerPerMnd';
-
-const cls = BEMHelper('beregningMentorTilskuddSteg');
+import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
@@ -25,7 +22,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     return (
         <>
             <AvtaleStatus />
-            <Innholdsboks className={cls.className}>
+            <Innholdsboks>
                 <SkjemaTittel>Beregning av tilskudd til mentor</SkjemaTittel>
                 <BodyShort spacing>
                     Tilskuddet dekker mentorens ordinære timelønn og ev. sosiale avgifter for de timene som er avtalt
@@ -41,19 +38,35 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 <Heading spacing size="small">
                     Om mentors lønnsforhold hos arbeidsgiver
                 </Heading>
-                <Timeloenn />
+                <Timeloenn
+                    stillingsprosent={avtale.gjeldendeInnhold.stillingprosent}
+                    mentorValgtLonnstype={avtale.gjeldendeInnhold.mentorValgtLonnstype}
+                    mentorValgtLonnstypeBelop={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
+                    mentorTimelonn={avtale.gjeldendeInnhold.mentorTimelonn}
+                    onChange={(value) => settOgKalkulerBeregningsverdier(value)}
+                />
+
                 <Row>
-                    <Column md="6">
-                        <ObligatoriskTjenestepensjon />
+                    <Column md="5">
+                        <ObligatoriskTjenestepensjon
+                            sats={avtale.gjeldendeInnhold.otpSats}
+                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                        />
                     </Column>
                 </Row>
-                <VerticalSpacer rem={2} />
+                <VerticalSpacer rem={1.5} />
                 <Row>
-                    <Column md="6">
-                        <Arbeidsgiveravgift />
+                    <Column md="5">
+                        <Arbeidsgiveravgift
+                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                        />
                     </Column>
-                    <Column md="6">
-                        <Feriepenger />
+                    <Column md="5">
+                        <Feriepenger
+                            sats={avtale.gjeldendeInnhold.feriepengesats}
+                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                        />
                     </Column>
                 </Row>
                 <VerticalSpacer rem={2} />

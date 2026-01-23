@@ -1,14 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
-import { AvtaleContext } from '@/AvtaleProvider';
+import { erNil } from '@/utils/predicates';
 
-const Arbeidsgiveravgift: React.FC = () => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+type ArbeidsgiveravgiftProps = {
+    sats?: number;
+    onChange: (sats?: number) => void;
+};
+
+const Arbeidsgiveravgift: React.FC<ArbeidsgiveravgiftProps> = (props: ArbeidsgiveravgiftProps) => {
+    const { sats, onChange } = props;
 
     const arbeidsgiveravgiftAlternativer = (() => {
         const satser = [0, 0.051, 0.064, 0.079, 0.106, 0.141];
-        const satserVerdier = [{ label: 'Velg', value: '' }];
+        const satserVerdier = !erNil(sats) ? [] : [{ label: 'Velg', value: '' }];
         satser.forEach((sats: number) =>
             satserVerdier.push({
                 label: formaterNorskeTall(sats * 100) + ' %',
@@ -25,12 +30,10 @@ const Arbeidsgiveravgift: React.FC = () => {
             label="Sats for arbeidsgiveravgift"
             size="medium"
             children=""
-            value={avtale.gjeldendeInnhold.arbeidsgiveravgift}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                settOgKalkulerBeregningsverdier({
-                    arbeidsgiveravgift: parseFloatIfFloatable(event.target.value),
-                })
-            }
+            value={sats?.toString() ?? ''}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                onChange(parseFloatIfFloatable(event.target.value));
+            }}
         />
     );
 };

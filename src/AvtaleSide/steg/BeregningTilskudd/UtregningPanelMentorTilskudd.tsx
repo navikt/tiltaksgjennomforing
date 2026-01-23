@@ -21,12 +21,12 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
     const antallTimer = props.mentorAntallTimer ?? 0;
 
     const prosentSats = (sats: number | undefined) =>
-        erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)}%)`;
+        erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)} %)`;
 
     const manedslonnUtregningTekst =
         erNil(props.mentorTimelonn) || erNil(props.mentorAntallTimer)
             ? undefined
-            : `(${formaterPenger(mentorTimelonn)} × ${antallTimer})`;
+            : `(${formaterPenger(mentorTimelonn)} × ${antallTimer} ${antallTimer === 1 ? 'time' : 'timer'})`;
 
     return (
         <>

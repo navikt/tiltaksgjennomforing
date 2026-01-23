@@ -1,4 +1,4 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
@@ -25,8 +25,7 @@ const cls = BEMHelper('beregningTilskuddSteg');
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-
-    const { avtale, lagreAvtale } = useContext(AvtaleContext);
+    const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useAvtale();
 
     return (
         <>
@@ -42,17 +41,26 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <Manedslonn cls={cls} />
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('feriepenger')}>
-                        <Feriepenger />
+                        <Feriepenger
+                            sats={avtale.gjeldendeInnhold.feriepengesats}
+                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                        />
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('tjenestepensjon')}>
-                        <ObligatoriskTjenestepensjon />
+                        <ObligatoriskTjenestepensjon
+                            sats={avtale.gjeldendeInnhold.otpSats}
+                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                        />
                     </Column>
                 </Row>
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('arbeidsgiveravgift')}>
-                        <Arbeidsgiveravgift />
+                        <Arbeidsgiveravgift
+                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                        />
                     </Column>
                 </Row>
                 <Row>

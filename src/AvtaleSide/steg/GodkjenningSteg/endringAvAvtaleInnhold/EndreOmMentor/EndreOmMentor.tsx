@@ -11,8 +11,10 @@ import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Link } from '@navikt/ds-react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import React, { FunctionComponent, useContext, useState } from 'react';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 const EndreOmMentor: FunctionComponent = () => {
+    const { mentorFeatureToggle } = useFeatureToggles();
     const [modalApen, setModalApen] = useState(false);
     const avtaleContext = useContext(AvtaleContext);
 
@@ -119,33 +121,37 @@ const EndreOmMentor: FunctionComponent = () => {
                             feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                         />
                     </Container>
-                    <VerticalSpacer rem={2} />
-                    <Container fluid={true}>
-                        <Row className="begge__tekst">
-                            <Column md="6">
-                                <PakrevdInputValidering
-                                    validering={/^\d{0,3}(,5?)?$/}
-                                    label="Antall timer med mentor per uke"
-                                    verdi={mentorAntallTimerInput}
-                                    settVerdi={(verdi) => {
-                                        setMentorAntallTimerInput(verdi);
-                                        setMentorInfo({
-                                            ...mentorInfo,
-                                            mentorAntallTimer: inputToNumber(verdi),
-                                        });
-                                    }}
-                                />
-                                <PakrevdInputValidering
-                                    validering={/^\d{0,3}$/}
-                                    label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
-                                    verdi={mentorInfo.mentorTimelonn?.toFixed(0)}
-                                    settVerdi={(verdi) =>
-                                        setMentorInfo({ ...mentorInfo, mentorTimelonn: inputToNumber(verdi) })
-                                    }
-                                />
-                            </Column>
-                        </Row>
-                    </Container>
+                    {!mentorFeatureToggle && (
+                        <>
+                            <VerticalSpacer rem={2} />
+                            <Container fluid={true}>
+                                <Row className="begge__tekst">
+                                    <Column md="6">
+                                        <PakrevdInputValidering
+                                            validering={/^\d{0,3}(,5?)?$/}
+                                            label="Antall timer med mentor per uke"
+                                            verdi={mentorAntallTimerInput}
+                                            settVerdi={(verdi) => {
+                                                setMentorAntallTimerInput(verdi);
+                                                setMentorInfo({
+                                                    ...mentorInfo,
+                                                    mentorAntallTimer: inputToNumber(verdi),
+                                                });
+                                            }}
+                                        />
+                                        <PakrevdInputValidering
+                                            validering={/^\d{0,3}$/}
+                                            label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
+                                            verdi={mentorInfo.mentorTimelonn?.toFixed(0)}
+                                            settVerdi={(verdi) =>
+                                                setMentorInfo({ ...mentorInfo, mentorTimelonn: inputToNumber(verdi) })
+                                            }
+                                        />
+                                    </Column>
+                                </Row>
+                            </Container>
+                        </>
+                    )}
                 </div>
             </BekreftelseModal>
         </>

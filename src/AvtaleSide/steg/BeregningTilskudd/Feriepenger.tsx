@@ -1,12 +1,16 @@
-import React, { useContext } from 'react';
-import { AvtaleContext } from '@/AvtaleProvider';
+import React from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
+import { erNil } from '@/utils/predicates';
 
-const Feriepenger: React.FC = () => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+type FeriepengerProps = {
+    sats?: number;
+    onChange: (sats?: number) => void;
+};
 
-    const feriepengeAlternativer = [{ label: 'Velg', value: '' }].concat(
+const Feriepenger: React.FC<FeriepengerProps> = (props: FeriepengerProps) => {
+    const { sats, onChange } = props;
+    const feriepengeAlternativer = (!erNil(sats) ? [] : [{ label: 'Velg', value: '' }]).concat(
         [0, 0.102, 0.12, 0.125, 0.143].map((sats: number) => ({
             label: formaterNorskeTall(sats * 100) + ' %',
             value: sats.toString(),
@@ -19,9 +23,9 @@ const Feriepenger: React.FC = () => {
             name="feriepengesats"
             size="medium"
             options={feriepengeAlternativer}
-            value={avtale.gjeldendeInnhold.feriepengesats + ''}
+            value={sats?.toString() ?? ''}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                settOgKalkulerBeregningsverdier({ feriepengesats: parseFloatIfFloatable(event.target.value) });
+                onChange(parseFloatIfFloatable(event.target.value));
             }}
             children=""
         />
