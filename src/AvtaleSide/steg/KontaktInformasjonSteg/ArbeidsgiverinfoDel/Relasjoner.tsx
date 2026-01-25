@@ -34,8 +34,12 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
     };
 
     const { rolle } = useContext(InnloggetBrukerContext);
+    // På arbeidstrening og for VTAO kunne veileder endre familierelasjon på avtalene som ble opprettet i Arena,
+    // men for mentor skal avtalene gjenåpnes og behandles på nytt av alle parter.
     const isKanEndreFamilierelasjon =
-        rolle !== 'VEILEDER' || avtale.tiltakstype === 'SOMMERJOBB' || avtale.opphav === 'ARENA';
+        rolle !== 'VEILEDER' ||
+        avtale.tiltakstype === 'SOMMERJOBB' ||
+        (avtale.opphav === 'ARENA' && avtale.tiltakstype !== 'MENTOR');
 
     return (
         <div className={cls.className}>
