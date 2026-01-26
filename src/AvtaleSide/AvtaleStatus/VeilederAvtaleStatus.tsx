@@ -72,33 +72,33 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
     return 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER';
 };
 
-const arenaMigreringTekst = (tiltakstype: TiltaksType) => (
+const arenaMigreringTekst = (avtale: Avtale) => (
     <>
         <BodyShort size="small">
-            Avtalen er opprettet fra fagsystemet (Arena) hvor deltakeren har status som gjennomføres eller godkjent
-            tiltaksplass.
+            Avtalen er ${avtale.opphav === 'ARENA' ? 'opprettet fra ' : 'oppdatert av '}
+            fagsystemet (Arena) hvor deltakeren har status som gjennomføres eller godkjent tiltaksplass.
         </BodyShort>
-
         <VerticalSpacer rem={1} />
         <BodyShort size="small">
-            Avtalen er ufullstendig og må fylles ut og godkjennes for at den skal settes som gjennomføres.
+            $
+            {avtale.opphav === 'ARENA' && (
+                <>
+                    Avtalen er ufullstendig og må fylles ut og godkjennes av alle parter for at den skal settes som
+                    gjennomføres.
+                </>
+            )}
+            $
+            {avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA' && (
+                <>
+                    Avtalen har fått nye felter. For at avtalen skal kunne settes som gjennomføres må alt fylles ut og
+                    godkjennes på nytt av alle parter.
+                </>
+            )}
         </BodyShort>
-
-        {tiltakstype === 'VTAO' && (
-            <>
-                <VerticalSpacer rem={1} />
-                <BodyShort size="small">
-                    Sjekk at avtalen er opprettet på riktig virksomhetsnummer hos arbeidsgiver, da utbetalingene går
-                    automatisk.
-                </BodyShort>
-            </>
-        )}
-
         <VerticalSpacer rem={1} />
         <BodyShort size="small">
-            Du kan godkjenne på vegne av både arbeidsgiver og deltaker.
-            <br />
-            De får ingen automatisk varsling om å godkjenne avtalen.
+            Sjekk at avtalen ${avtale.opphav === 'ARENA' ? 'er opprettet på ' : 'inneholder '}
+            riktig virksomhetsnummer hos arbeidsgiver, da utbetalingene går automatisk.
         </BodyShort>
     </>
 );
@@ -144,7 +144,8 @@ function VeilederAvtaleStatus(props: Props) {
                         {avtale.opphav === 'ARBEIDSGIVER' && (
                             <BodyShort size="small">Avtalen er opprettet av arbeidsgiver.</BodyShort>
                         )}
-                        {avtale.opphav === 'ARENA' && arenaMigreringTekst(avtale.tiltakstype)}
+                        {(avtale.opphav === 'ARENA' || avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA') &&
+                            arenaMigreringTekst(avtale)}
                         <VerticalSpacer rem={1.5} />
                         <LagreKnapp lagre={() => overtaAvtale()} suksessmelding="Avtale tildelt">
                             Overta avtale
@@ -172,12 +173,9 @@ function VeilederAvtaleStatus(props: Props) {
                 />
             );
         case 'PÅBEGYNT': {
-            if (avtale.opphav === 'ARENA') {
+            if (avtale.opphav === 'ARENA' || avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA') {
                 return (
-                    <StatusPanel
-                        header="Avtalen er ufullstendig og må fylles ut"
-                        body={arenaMigreringTekst(avtale.tiltakstype)}
-                    />
+                    <StatusPanel header="Avtalen er ufullstendig og må fylles ut" body={arenaMigreringTekst(avtale)} />
                 );
             }
 
