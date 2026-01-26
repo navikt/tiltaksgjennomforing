@@ -13,6 +13,7 @@ import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksist
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { storForbokstav } from '@/utils/stringUtils';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -25,6 +26,7 @@ interface Props extends Mentorinfo {
 }
 
 const OmMentorOppsummering = (props: Props) => {
+    const { mentorFeatureToggle } = useFeatureToggles();
     const { visInnholdFraEtterMigrering } = props;
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
@@ -78,7 +80,7 @@ const OmMentorOppsummering = (props: Props) => {
                                     verdi={verdi(props.mentorAntallTimer)}
                                 />
                             </Column>
-                            {rolle !== 'DELTAKER' && !visInnholdFraEtterMigrering && (
+                            {!mentorFeatureToggle && !visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
                                 <Column md="6" sm="6" xs="6">
                                     <Label className={cls.element('label')}>
                                         Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
@@ -92,7 +94,7 @@ const OmMentorOppsummering = (props: Props) => {
                                 </Column>
                             )}
                         </Row>
-                        {visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
+                        {mentorFeatureToggle && visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Row>
