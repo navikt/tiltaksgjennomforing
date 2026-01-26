@@ -7,11 +7,10 @@ import { Mentorinfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { ExpansionCard, Heading, Label, ReadMore } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import React, { FunctionComponent, useContext } from 'react';
+import { useContext } from 'react';
 import { AvtaleinfoFeltSjekk } from '../AvtaleinfoFeltSjekk/AvtaleinfoFeltSjekk';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
-import { useFeatureToggles } from '@/FeatureToggles';
 import { storForbokstav } from '@/utils/stringUtils';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 
@@ -29,8 +28,7 @@ const OmMentorOppsummering = (props: Props) => {
     const { visInnholdFraEtterMigrering } = props;
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const { mentorFeatureToggle } = useFeatureToggles();
-    const periodeType = visInnholdFraEtterMigrering && mentorFeatureToggle ? 'måned' : 'uke';
+    const periodeType = visInnholdFraEtterMigrering ? 'måned' : 'uke';
 
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
@@ -80,7 +78,7 @@ const OmMentorOppsummering = (props: Props) => {
                                     verdi={verdi(props.mentorAntallTimer)}
                                 />
                             </Column>
-                            {rolle !== 'DELTAKER' && (
+                            {rolle !== 'DELTAKER' && !visInnholdFraEtterMigrering && (
                                 <Column md="6" sm="6" xs="6">
                                     <Label className={cls.element('label')}>
                                         Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
@@ -94,7 +92,7 @@ const OmMentorOppsummering = (props: Props) => {
                                 </Column>
                             )}
                         </Row>
-                        {visInnholdFraEtterMigrering && mentorFeatureToggle && rolle !== 'DELTAKER' && (
+                        {visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Row>
