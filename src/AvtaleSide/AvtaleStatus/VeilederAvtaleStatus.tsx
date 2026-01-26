@@ -86,7 +86,7 @@ const arenaMigreringTekst = (avtale: Avtale) => (
                     gjennomføres.
                 </>
             )}
-            {avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA' && (
+            {avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA' && avtale.opphav !== 'ARENA' && (
                 <>
                     Avtalen har fått nye felter. For at avtalen skal kunne settes som gjennomføres må alt fylles ut og
                     godkjennes på nytt av alle parter.
