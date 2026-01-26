@@ -132,6 +132,7 @@ export type Avtaleinnhold = {
     mentorTimelonn?: number;
     mentorValgtLonnstype?: MentorValgtLonnstype;
     mentorValgtLonnstypeBelop?: number;
+    innholdType: AvtaleInnholdType;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<
@@ -155,7 +156,9 @@ export type TilskuddPeriodeStatus =
     | 'ANNULLERT'
     | 'BEHANDLET_I_ARENA'
     | 'OPPFØLGING_KREVES';
+
 export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV';
+
 export type AvtaleStatus =
     | 'ANNULLERT'
     | 'PÅBEGYNT'
@@ -165,6 +168,22 @@ export type AvtaleStatus =
     | 'GJENNOMFØRES'
     | 'AVSLUTTET'
     | 'OPPFØLGING_KREVES';
+
+export type AvtaleInnholdType =
+    | 'INNGÅ'
+    | 'LÅSE_OPP'
+    | 'FORLENGE'
+    | 'FORKORTE'
+    | 'ENDRE_MÅL'
+    | 'ENDRE_INKLUDERINGSTILSKUDD'
+    | 'ENDRE_TILSKUDDSBEREGNING'
+    | 'ENDRE_STILLING'
+    | 'ENDRE_KONTAKTINFO'
+    | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
+    | 'ENDRE_OM_MENTOR'
+    | 'ENDRET_AV_ARENA'
+    | 'ENDRE_KID_OG_KONTONUMMER'
+    | 'ANNULLERE';
 
 export type Avtaleopphav = 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
 
@@ -377,25 +396,8 @@ export interface RelasjonerInfo {
     familietilknytningForklaring?: string;
 }
 
-export type InnholdType =
-    | 'INNGÅ'
-    | 'LÅSE_OPP'
-    | 'FORLENGE'
-    | 'FORKORTE'
-    | 'ENDRE_MÅL'
-    | 'ENDRE_INKLUDERINGSTILSKUDD'
-    | 'ENDRE_TILSKUDDSBEREGNING'
-    | 'ENDRE_STILLING'
-    | 'ENDRE_KONTAKTINFO'
-    | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
-    | 'ENDRE_OM_MENTOR'
-    | 'ENDRET_AV_ARENA'
-    | 'ENDRE_KID_OG_KONTONUMMER'
-    | 'ANNULLERE';
+export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number } & Godkjenninger;
 
-export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
-
-export type AvtalelisteRessurs = Nettressurs<AvtaleMinimalListeVisning[]>;
 export type PageableAvtalelisteRessurs = Nettressurs<PageableAvtaleMinimal>;
 export type AvtalelisteMinimalForBeslutterRessurs = Nettressurs<AvtaleMinimalForBeslutter[]>;
 
