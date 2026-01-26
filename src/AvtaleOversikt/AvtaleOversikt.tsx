@@ -1,4 +1,4 @@
-import { omit, Pagination, Select } from '@navikt/ds-react';
+import { Alert, omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
@@ -31,12 +31,14 @@ import { litenForbokstav } from '@/utils/stringUtils';
 import { fjernTommeFelterFraObjekt } from '@/utils';
 import './AvtaleOversikt.less';
 import { FiltreringContext } from './Filtrering/FiltreringProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const AvtaleOversikt: FunctionComponent = () => {
-    const innloggetBruker = useContext(InnloggetBrukerContext);
+    const innloggetBruker = useInnloggetBruker();
+    const { mentorFeatureToggle } = useFeatureToggles();
 
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
@@ -211,6 +213,21 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+                {mentorFeatureToggle && innloggetBruker.rolle === 'DELTAKER' && (
+                    <Alert variant={'warning'}>
+                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for deg som
+                        har avtale om mentor. Hvis du opplever at noe ikke stemmer, så ta kontakt med din veileder.
+                    </Alert>
+                )}
+                {mentorFeatureToggle && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                    <Alert variant={'warning'}>
+                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for de som
+                        har avtaler om mentor.
+                        <br />
+                        Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på telefonen:{' '}
+                        <text>55&nbsp;55&nbsp;33&nbsp;36&nbsp;</text>
+                    </Alert>
+                )}
                 <div
                     style={layout.stylingAvFilterOgTabell}
                     className={cls.element('filter-og-tabell')}
