@@ -13,12 +13,10 @@ import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksist
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { storForbokstav } from '@/utils/stringUtils';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import { formaterTimer } from '@/utils/datoUtils';
 
 const cls = BEMHelper('mentorOppsummering');
-
-const verdi = (tall?: number) => {
-    return tall === null || tall === undefined ? '' : tall.toString();
-};
 
 interface Props extends Mentorinfo {
     visInnholdFraEtterMigrering: boolean;
@@ -75,7 +73,7 @@ const OmMentorOppsummering = (props: Props) => {
                                 <Label>Antall timer med mentor per {periodeType}</Label>
                                 <SjekkOmVerdiEksisterer
                                     ariaLabel={`Antall timer med mentor per ${periodeType}`}
-                                    verdi={verdi(props.mentorAntallTimer)}
+                                    verdi={props.mentorAntallTimer ? formaterTimer(props.mentorAntallTimer) : undefined}
                                 />
                             </Column>
                             {rolle !== 'DELTAKER' && !visInnholdFraEtterMigrering && (
@@ -87,7 +85,7 @@ const OmMentorOppsummering = (props: Props) => {
                                         ariaLabel={
                                             'Kroner beløp for timelønn inkludert Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon'
                                         }
-                                        verdi={verdi(props.mentorTimelonn)}
+                                        verdi={formaterPenger(props.mentorTimelonn, IKKE_NOE_BELOP_TEGN)}
                                     />
                                 </Column>
                             )}
@@ -100,14 +98,14 @@ const OmMentorOppsummering = (props: Props) => {
                                         <Label>{storForbokstav(props.mentorValgtLonnstype || 'Årslønn')}</Label>
                                         <SjekkOmVerdiEksisterer
                                             ariaLabel={'Mentors valgte lønn'}
-                                            verdi={verdi(props.mentorValgtLonnstypeBelop)}
+                                            verdi={formaterPenger(props.mentorValgtLonnstypeBelop, IKKE_NOE_BELOP_TEGN)}
                                         />
                                     </Column>
                                     <Column md="6" sm="6" xs="6">
                                         <Label>Stillingsprosent</Label>
                                         <SjekkOmVerdiEksisterer
                                             ariaLabel={'Mentors stillingsprosent'}
-                                            verdi={verdi(props.stillingprosent)}
+                                            verdi={props.stillingprosent ? `${props.stillingprosent}%` : undefined}
                                         />
                                     </Column>
                                 </Row>
