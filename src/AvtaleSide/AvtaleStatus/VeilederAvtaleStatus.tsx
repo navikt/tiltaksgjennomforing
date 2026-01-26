@@ -75,19 +75,17 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
 const arenaMigreringTekst = (avtale: Avtale) => (
     <>
         <BodyShort size="small">
-            Avtalen er ${avtale.opphav === 'ARENA' ? 'opprettet fra ' : 'oppdatert av '}
+            Avtalen er {avtale.opphav === 'ARENA' ? 'opprettet fra ' : 'oppdatert av '}
             fagsystemet (Arena) hvor deltakeren har status som gjennomføres eller godkjent tiltaksplass.
         </BodyShort>
         <VerticalSpacer rem={1} />
         <BodyShort size="small">
-            $
             {avtale.opphav === 'ARENA' && (
                 <>
                     Avtalen er ufullstendig og må fylles ut og godkjennes av alle parter for at den skal settes som
                     gjennomføres.
                 </>
             )}
-            $
             {avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA' && (
                 <>
                     Avtalen har fått nye felter. For at avtalen skal kunne settes som gjennomføres må alt fylles ut og
@@ -97,7 +95,7 @@ const arenaMigreringTekst = (avtale: Avtale) => (
         </BodyShort>
         <VerticalSpacer rem={1} />
         <BodyShort size="small">
-            Sjekk at avtalen ${avtale.opphav === 'ARENA' ? 'er opprettet på ' : 'inneholder '}
+            Sjekk at avtalen {avtale.opphav === 'ARENA' ? 'er opprettet på ' : 'inneholder '}
             riktig virksomhetsnummer hos arbeidsgiver, da utbetalingene går automatisk.
         </BodyShort>
     </>
