@@ -24,6 +24,7 @@ const schema = z.object({
                 invalid_type_error: 'Antall timer må være et tall',
                 required_error: 'Antall timer er påkrevd',
             })
+            .int('Antall timer må være et heltall')
             .min(1, 'Antall timer må være større enn 0')
             .max(999, 'Antall timer kan ikke overstige 999 timer'),
     ),
@@ -64,7 +65,6 @@ function MentorAntallTimerPerMnd(props: Props) {
                 label="Antall timer med mentor per måned"
                 onChange={onChange}
                 type="tel"
-                value={value}
                 description="Arbeidsgiver er pliktig til å kontakte Nav for å få oppdatert avtalen dersom behovet for antall timer avviker fra det som er avtalt."
             />
             {(value ?? 0) > NORMAL_ARBEIDSTID_PER_MND && (
