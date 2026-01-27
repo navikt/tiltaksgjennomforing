@@ -10,12 +10,13 @@ import {
 } from '@/types/avtale';
 import { ApiError, AutentiseringError } from '@/types/errors';
 import { Maalkategori } from '@/types/maalkategorier';
-import React, { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
+import React, { FunctionComponent, PropsWithChildren, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import OpphevGodkjenningerModal from './komponenter/modal/OpphevGodkjenningerModal';
 import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
+import { debounce } from '@navikt/ds-react';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
     const noenHarGodkjent = Boolean(
@@ -37,6 +38,7 @@ export type SettAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>
 
 export type SettFlereAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
 type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
+type SettOgKalkulerBeregningsverdierDebounced = (endringer: Partial<Beregningsgrunnlag>) => void;
 
 export interface Context {
     avtale: Avtale;
@@ -57,6 +59,7 @@ export interface Context {
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
+    settOgKalkulerBeregningsverdierDebounced: SettOgKalkulerBeregningsverdierDebounced;
     settOgKalkulerBeregningsverdier: SettOgKalkulerBeregningsverdier;
     settAvtaleInnholdVerdi: SettAvtaleInnholdVerdi;
     settAvtaleInnholdVerdier: SettFlereAvtaleInnholdVerdier;
@@ -79,6 +82,9 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const visFeilmelding = useContext(FeilVarselContext);
     const [mellomLagring, setMellomLagring] = useState<TemporaryLagring | undefined>(undefined);
     const [underLagring, setUnderLagring] = useState(false);
+    const requestVersionRef = useRef(0);
+    const avtaleRef = useRef(avtale);
+    avtaleRef.current = avtale;
 
     const bekreftOpphevGodkjenninger = async (): Promise<void> => {
         await RestService.opphevGodkjenninger(avtale);
@@ -150,20 +156,44 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         }
     };
 
-    const settOgKalkulerBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
-        if (noenHarGodkjentMenIkkeInngått(avtale)) {
-            setOpphevGodkjenningerModalIsOpen(true);
-        } else {
+    const settOgKalkulerBeregningsverdier = useCallback(
+        async (endringer: Partial<Beregningsgrunnlag>) => {
+            const currentAvtale = avtaleRef.current;
+            if (noenHarGodkjentMenIkkeInngått(currentAvtale)) {
+                setOpphevGodkjenningerModalIsOpen(true);
+                return;
+            }
+
+            const currentVersion = ++requestVersionRef.current;
+            const nyAvtale = {
+                ...currentAvtale,
+                gjeldendeInnhold: { ...currentAvtale.gjeldendeInnhold, ...endringer },
+            };
+
+            // Oppdater state umiddelbart med brukerens input og marker endringer som ulagret
+            setAvtale(nyAvtale);
+            setUlagredeEndringer(true);
+
             try {
-                const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, ...endringer } };
-                settAvtaleInnholdVerdier(endringer);
                 const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
-                settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
+                // Kun oppdater hvis dette er den nyeste forespørselen
+                if (currentVersion === requestVersionRef.current) {
+                    setAvtale((prevAvtale) => ({
+                        ...prevAvtale,
+                        gjeldendeInnhold: avtaleEtterDryRun.gjeldendeInnhold,
+                    }));
+                }
             } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }
-        }
-    };
+        },
+        [visFeilmelding],
+    );
+
+    const settOgKalkulerBeregningsverdierDebounced = useMemo(
+        () => debounce(settOgKalkulerBeregningsverdier, 250),
+        [settOgKalkulerBeregningsverdier],
+    );
 
     const utforHandlingHvisRedigerbar = (callback: () => void): void => {
         if (noenHarGodkjentMenIkkeInngått(avtale)) {
@@ -277,6 +307,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const avtaleContext: Context = {
         avtale,
         settAvtaleInnholdVerdi,
+        settOgKalkulerBeregningsverdierDebounced,
         settOgKalkulerBeregningsverdier,
         settAvtaleInnholdVerdier,
         hentAvtale,

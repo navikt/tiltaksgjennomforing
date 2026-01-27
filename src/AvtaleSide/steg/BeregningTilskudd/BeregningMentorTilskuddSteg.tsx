@@ -17,7 +17,8 @@ import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorA
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
-    const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+    const { avtale, lagreAvtale, settOgKalkulerBeregningsverdierDebounced, settOgKalkulerBeregningsverdier } =
+        useContext(AvtaleContext);
 
     return (
         <>
@@ -31,7 +32,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 <MentorAntallTimerPerMnd
                     verdi={avtale.gjeldendeInnhold.mentorAntallTimer}
                     settVerdi={(mentorAntallTimer) => {
-                        settOgKalkulerBeregningsverdier({ mentorAntallTimer });
+                        settOgKalkulerBeregningsverdierDebounced({ mentorAntallTimer });
                     }}
                 />
                 <VerticalSpacer rem={2} />
@@ -43,14 +44,15 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     mentorValgtLonnstype={avtale.gjeldendeInnhold.mentorValgtLonnstype}
                     mentorValgtLonnstypeBelop={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
                     mentorTimelonn={avtale.gjeldendeInnhold.mentorTimelonn}
-                    onChange={(value) => settOgKalkulerBeregningsverdier(value)}
+                    onChangeImmediate={(value) => settOgKalkulerBeregningsverdier(value)}
+                    onChangeDebounced={(value) => settOgKalkulerBeregningsverdierDebounced(value)}
                 />
 
                 <Row>
                     <Column md="5">
                         <ObligatoriskTjenestepensjon
                             sats={avtale.gjeldendeInnhold.otpSats}
-                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                            onChange={(otpSats) => settOgKalkulerBeregningsverdierDebounced({ otpSats })}
                         />
                     </Column>
                 </Row>
