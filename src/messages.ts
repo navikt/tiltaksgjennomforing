@@ -165,7 +165,7 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
         case 'ENDRE_OM_MENTOR':
             return 'om mentor endret av veileder';
         case 'ENDRET_AV_ARENA':
-            return 'dato og arbeidstid synkronisert med fagsystem (Arena)';
+            return 'synkronisert med fagsystem';
         case 'ENDRE_KID_OG_KONTONUMMER':
             return 'betalingsinformasjon endret';
         case 'ANNULLERE':
