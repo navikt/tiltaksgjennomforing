@@ -66,9 +66,9 @@ const VarighetSteg: FunctionComponent = () => {
                         <>
                             <Row>
                                 <Column md="12">
-                                    <Alert variant={'info'} size="small">
-                                        Avtalen er importert fra gammel løsning, og oppstartsdato kan derfor ikke
-                                        endres.
+                                    <Alert variant="info" size="small">
+                                        Avtalen er {avtale.opphav === 'ARENA' ? 'importert fra ' : 'synkronisert med '}
+                                        gammel løsning, og oppstartsdato kan derfor ikke endres.
                                     </Alert>
                                 </Column>
                             </Row>
