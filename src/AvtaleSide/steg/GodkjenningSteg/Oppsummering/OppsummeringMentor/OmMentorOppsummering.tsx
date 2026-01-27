@@ -30,7 +30,7 @@ const OmMentorOppsummering = (props: Props) => {
     const { visInnholdFraEtterMigrering } = props;
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const periodeType = visInnholdFraEtterMigrering ? 'måned' : 'uke';
+    const periodeType = visInnholdFraEtterMigrering && mentorFeatureToggle ? 'måned' : 'uke';
 
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
