@@ -24,7 +24,7 @@ const schema = z.object({
                 invalid_type_error: 'Antall timer må være et tall',
                 required_error: 'Antall timer er påkrevd',
             })
-            .int('Antlla timer må være et heltall')
+            .int('Antall timer må være et heltall')
             .min(1, 'Antall timer må være større enn 0')
             .max(999, 'Antall timer kan ikke overstige 999 timer'),
     ),
