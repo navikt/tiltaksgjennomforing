@@ -16,6 +16,7 @@ import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
+import { debounce } from '@navikt/ds-react';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
     const noenHarGodkjent = Boolean(
@@ -37,6 +38,7 @@ export type SettAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>
 
 export type SettFlereAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
 type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
+type SettOgKalkulerBeregningsverdierDebounced = (endringer: Partial<Beregningsgrunnlag>) => void;
 
 export interface Context {
     avtale: Avtale;
@@ -57,6 +59,7 @@ export interface Context {
     lagreMaal: (maal: Maal) => Promise<void>;
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
+    settOgKalkulerBeregningsverdierDebounced: SettOgKalkulerBeregningsverdierDebounced;
     settOgKalkulerBeregningsverdier: SettOgKalkulerBeregningsverdier;
     settAvtaleInnholdVerdi: SettAvtaleInnholdVerdi;
     settAvtaleInnholdVerdier: SettFlereAvtaleInnholdVerdier;
@@ -164,6 +167,8 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
             }
         }
     };
+
+    const settOgKalkulerBeregningsverdierDebounced = debounce(settOgKalkulerBeregningsverdier, 250);
 
     const utforHandlingHvisRedigerbar = (callback: () => void): void => {
         if (noenHarGodkjentMenIkkeInngått(avtale)) {
@@ -277,6 +282,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
     const avtaleContext: Context = {
         avtale,
         settAvtaleInnholdVerdi,
+        settOgKalkulerBeregningsverdierDebounced,
         settOgKalkulerBeregningsverdier,
         settAvtaleInnholdVerdier,
         hentAvtale,

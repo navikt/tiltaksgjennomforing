@@ -14,7 +14,12 @@ type TimeloennProps = {
     mentorValgtLonnstype: LonnType | undefined;
     mentorValgtLonnstypeBelop: number | undefined;
     mentorTimelonn: number | undefined;
-    onChange: (value: {
+    onChangeImmediate: (value: {
+        stillingprosent?: number;
+        mentorValgtLonnstype?: LonnType;
+        mentorValgtLonnstypeBelop?: number;
+    }) => void;
+    onChangeDebounced: (value: {
         stillingprosent?: number;
         mentorValgtLonnstype?: LonnType;
         mentorValgtLonnstypeBelop?: number;
@@ -44,13 +49,14 @@ const Timeloenn: React.FC<TimeloennProps> = ({
     mentorValgtLonnstype,
     mentorValgtLonnstypeBelop,
     mentorTimelonn,
-    onChange,
+    onChangeImmediate,
+    onChangeDebounced,
 }) => {
     const handleSelectedTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const nyLonnstype = e.target.value as LonnType;
 
         if (!mentorValgtLonnstype) {
-            onChange({ mentorValgtLonnstype: nyLonnstype });
+            onChangeImmediate({ mentorValgtLonnstype: nyLonnstype });
             return;
         }
 
@@ -58,7 +64,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
         const gammeltBelop = mentorValgtLonnstypeBelop ?? 0;
         const nyttBelop = (gammeltBelop / HOURS_PER_UNIT[gammelLonnstype]) * HOURS_PER_UNIT[nyLonnstype];
 
-        onChange({
+        onChangeImmediate({
             mentorValgtLonnstype: nyLonnstype,
             mentorValgtLonnstypeBelop: Math.round(nyttBelop),
         });
@@ -66,7 +72,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
 
     useEffect(() => {
         if (!mentorValgtLonnstype) {
-            onChange({ mentorValgtLonnstype: 'ÅRSLØNN' });
+            onChangeImmediate({ mentorValgtLonnstype: 'ÅRSLØNN' });
         }
     }, []);
 
@@ -92,7 +98,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                     <KronerInput
                         label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
                         verdi={mentorValgtLonnstypeBelop}
-                        settVerdi={(nyVerdi) => onChange({ mentorValgtLonnstypeBelop: nyVerdi })}
+                        settVerdi={(nyVerdi) => onChangeDebounced({ mentorValgtLonnstypeBelop: nyVerdi })}
                     />
                 </Column>
                 {mentorValgtLonnstype !== 'TIMELØNN' && (
@@ -100,7 +106,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                         <StillingsprosentInput
                             label="Stillingsprosent"
                             verdi={stillingsprosent}
-                            settVerdi={(nyVerdi) => onChange({ stillingprosent: nyVerdi })}
+                            settVerdi={(nyVerdi) => onChangeDebounced({ stillingprosent: nyVerdi })}
                         />
                     </Column>
                 )}

@@ -124,7 +124,8 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                             mentorValgtLonnstype={nyBeregning.mentorValgtLonnstype}
                             mentorValgtLonnstypeBelop={nyBeregning.mentorValgtLonnstypeBelop}
                             mentorTimelonn={nyAvtale.gjeldendeInnhold.mentorTimelonn}
-                            onChange={settOgKalkulerBeregningsverdier}
+                            onChangeImmediate={settOgKalkulerBeregningsverdier}
+                            onChangeDebounced={settOgKalkulerBeregningsverdier}
                         />
 
                         <Row>
