@@ -41,6 +41,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
                     {forste && (
                         <>
                             <TilskuddsperiodeRadVtao
+                                skalViseSatsForTidligereAar={avtale.tiltakstype === 'VTAO'}
                                 avtaleOpprettet={avtaleOpprettet}
                                 erNavAnsatt={erNavAnsatt}
                                 periode={forste}
