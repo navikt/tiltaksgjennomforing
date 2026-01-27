@@ -72,10 +72,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
 
     const forHoyTimeLonn = (mentorTimelonn || 0) > TIMELONN_TERSKEL;
 
-    const debouncedOnChange = useMemo(
-        () => debounce(onChange, 250),
-        [onChange]
-    );
+    const debouncedOnChange = useMemo(() => debounce(onChange, 1000), [onChange]);
 
     return (
         <>
