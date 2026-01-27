@@ -64,7 +64,7 @@ function MentorAntallTimerPerMnd(props: Props) {
                 label="Antall timer med mentor per måned"
                 onChange={onChange}
                 type="tel"
-                value={value}
+                value={value || field.value}
                 description="Arbeidsgiver er pliktig til å kontakte Nav for å få oppdatert avtalen dersom behovet for antall timer avviker fra det som er avtalt."
             />
             {(value ?? 0) > NORMAL_ARBEIDSTID_PER_MND && (
