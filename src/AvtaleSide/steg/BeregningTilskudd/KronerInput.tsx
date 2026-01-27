@@ -35,9 +35,7 @@ function KronerInput(props: Props) {
     const { formState, control } = useForm<Schema>({
         mode: 'onBlur',
         resolver: zodResolver(schema),
-        values: {
-            belop: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
-        },
+        values: isFocused ? undefined : { belop: formaterNorskeTallFraInput(verdi?.toString() ?? '') },
     });
 
     const { field } = useController({
