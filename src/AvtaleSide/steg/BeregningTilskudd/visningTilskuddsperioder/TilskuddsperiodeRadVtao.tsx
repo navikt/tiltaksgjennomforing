@@ -42,13 +42,20 @@ const TilskuddsperiodeRadVtao = (props: Props) => {
                     <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
                 </Table.DataCell>
             )}
-            <Table.DataCell align="right" textSize="small">
-                {periodeStatus !== 'BEHANDLET_I_ARENA' && formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
-            </Table.DataCell>
-            <Table.DataCell textSize="small">
-                {periodeStatus !== 'BEHANDLET_I_ARENA' &&
-                    formaterDato(addDays(new Date(periode.sluttDato), 3), NORSK_DATO_FORMAT)}
-            </Table.DataCell>
+            {periodeStatus === 'BEHANDLET_I_ARENA' ? (
+                <Table.DataCell colSpan={2} align="center" textSize="small">
+                    Behandlet tidligere
+                </Table.DataCell>
+            ) : (
+                <>
+                    <Table.DataCell align="right" textSize="small">
+                        {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
+                    </Table.DataCell>
+                    <Table.DataCell textSize="small">
+                        {formaterDato(addDays(new Date(periode.sluttDato), 3), NORSK_DATO_FORMAT)}
+                    </Table.DataCell>
+                </>
+            )}
         </Table.Row>
     );
 };
