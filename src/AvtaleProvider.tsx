@@ -58,6 +58,7 @@ export interface Context {
     setMellomLagring: (maalInput: TemporaryLagring | undefined) => void;
     mellomLagring: TemporaryLagring | undefined;
     settOgKalkulerBeregningsverdier: SettOgKalkulerBeregningsverdier;
+    settOgKalkulerMentorBeregningsverdier: SettOgKalkulerBeregningsverdier;
     settAvtaleInnholdVerdi: SettAvtaleInnholdVerdi;
     settAvtaleInnholdVerdier: SettFlereAvtaleInnholdVerdier;
     slettMaal: (maal: Maal) => Promise<void>;
@@ -159,6 +160,30 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
                 settAvtaleInnholdVerdier(endringer);
                 const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
                 settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
+            } catch (error: any) {
+                handterFeil(error, visFeilmelding);
+            }
+        }
+    };
+
+    const settOgKalkulerMentorBeregningsverdier = async (endringer: Partial<Beregningsgrunnlag>) => {
+        if (noenHarGodkjentMenIkkeInngått(avtale)) {
+            setOpphevGodkjenningerModalIsOpen(true);
+        } else {
+            try {
+                const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, ...endringer } };
+                settAvtaleInnholdVerdier(endringer);
+                const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
+                const { mentorTimelonn, feriepengerBelop, otpBelop, arbeidsgiveravgiftBelop, sumLonnsutgifter } =
+                    avtaleEtterDryRun.gjeldendeInnhold;
+                settAvtaleInnholdVerdier({
+                    ...endringer,
+                    mentorTimelonn,
+                    feriepengerBelop,
+                    otpBelop,
+                    arbeidsgiveravgiftBelop,
+                    sumLonnsutgifter,
+                });
             } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }
@@ -278,6 +303,7 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         avtale,
         settAvtaleInnholdVerdi,
         settOgKalkulerBeregningsverdier,
+        settOgKalkulerMentorBeregningsverdier,
         settAvtaleInnholdVerdier,
         hentAvtale,
         annullerAvtale,

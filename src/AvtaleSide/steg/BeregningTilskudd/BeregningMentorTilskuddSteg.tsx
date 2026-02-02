@@ -17,7 +17,7 @@ import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorA
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
-    const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+    const { avtale, lagreAvtale, settOgKalkulerMentorBeregningsverdier } = useContext(AvtaleContext);
 
     return (
         <>
@@ -31,7 +31,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 <MentorAntallTimerPerMnd
                     verdi={avtale.gjeldendeInnhold.mentorAntallTimer}
                     settVerdi={(mentorAntallTimer) => {
-                        settOgKalkulerBeregningsverdier({ mentorAntallTimer });
+                        settOgKalkulerMentorBeregningsverdier({ mentorAntallTimer });
                     }}
                 />
                 <VerticalSpacer rem={2} />
@@ -43,14 +43,14 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     mentorValgtLonnstype={avtale.gjeldendeInnhold.mentorValgtLonnstype}
                     mentorValgtLonnstypeBelop={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
                     mentorTimelonn={avtale.gjeldendeInnhold.mentorTimelonn}
-                    onChange={(value) => settOgKalkulerBeregningsverdier(value)}
+                    onChange={(value) => settOgKalkulerMentorBeregningsverdier(value)}
                 />
 
                 <Row>
                     <Column md="5">
                         <ObligatoriskTjenestepensjon
                             sats={avtale.gjeldendeInnhold.otpSats}
-                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                            onChange={(otpSats) => settOgKalkulerMentorBeregningsverdier({ otpSats })}
                         />
                     </Column>
                 </Row>
@@ -59,13 +59,15 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     <Column md="5">
                         <Arbeidsgiveravgift
                             sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
-                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                            onChange={(arbeidsgiveravgift) =>
+                                settOgKalkulerMentorBeregningsverdier({ arbeidsgiveravgift })
+                            }
                         />
                     </Column>
                     <Column md="5">
                         <Feriepenger
                             sats={avtale.gjeldendeInnhold.feriepengesats}
-                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                            onChange={(feriepengesats) => settOgKalkulerMentorBeregningsverdier({ feriepengesats })}
                         />
                     </Column>
                 </Row>
