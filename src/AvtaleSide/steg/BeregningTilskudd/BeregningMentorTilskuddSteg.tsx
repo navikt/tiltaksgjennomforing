@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { BodyShort, Heading } from '@navikt/ds-react';
@@ -15,9 +15,32 @@ import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/Ut
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorAntallTimerPerMnd';
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
+import * as RestService from '@/services/rest-service';
+import useSWR from 'swr';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+
+    const { data: beregninger } = useSWR(
+        avtale
+            ? [
+                  `/avtaler/${avtale.id}/dry-run`,
+                  avtale.gjeldendeInnhold.otpSats,
+                  avtale.gjeldendeInnhold.mentorValgtLonnstype,
+                  avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop,
+                  avtale.gjeldendeInnhold.feriepengesats,
+                  avtale.gjeldendeInnhold.arbeidsgiveravgift,
+                  avtale.gjeldendeInnhold.mentorAntallTimer,
+                  avtale.gjeldendeInnhold.stillingprosent,
+              ]
+            : null,
+        ([_key]) => RestService.lagreAvtaleDryRun(avtale),
+        {
+            refreshInterval: 0,
+            dedupingInterval: 500,
+            revalidateOnFocus: false,
+        },
+    );
 
     return (
         <>
@@ -42,7 +65,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     stillingsprosent={avtale.gjeldendeInnhold.stillingprosent}
                     mentorValgtLonnstype={avtale.gjeldendeInnhold.mentorValgtLonnstype}
                     mentorValgtLonnstypeBelop={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
-                    mentorTimelonn={avtale.gjeldendeInnhold.mentorTimelonn}
+                    mentorTimelonn={beregninger?.gjeldendeInnhold.mentorTimelonn}
                     onChange={(value) => settOgKalkulerBeregningsverdier(value)}
                 />
 
@@ -75,7 +98,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                         <KidOgKontonummer />
                     </Column>
                 </Row>
-                <UtregningPanelMentorTilskudd {...avtale.gjeldendeInnhold} />
+                <UtregningPanelMentorTilskudd {...beregninger?.gjeldendeInnhold} />
                 <VerticalSpacer rem={1} />
                 <VisningTilskuddsperioder />
                 <VerticalSpacer rem={1} />

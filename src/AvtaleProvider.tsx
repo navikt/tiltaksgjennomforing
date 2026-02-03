@@ -157,8 +157,10 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
             try {
                 const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, ...endringer } };
                 settAvtaleInnholdVerdier(endringer);
-                const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
-                settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
+                if (avtale.tiltakstype !== 'MENTOR') {
+                    const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
+                    settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
+                }
             } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }
