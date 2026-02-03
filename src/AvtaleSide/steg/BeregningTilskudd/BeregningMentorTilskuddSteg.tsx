@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext, useEffect } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { BodyShort, Heading } from '@navikt/ds-react';
@@ -17,23 +17,26 @@ import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorA
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import * as RestService from '@/services/rest-service';
 import useSWR from 'swr';
+import { useSWRKeyDebounce } from '@/utils/useSWRKeyDebounce';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
+    const keys = useSWRKeyDebounce(
+        [
+            avtale.gjeldendeInnhold.otpSats,
+            avtale.gjeldendeInnhold.mentorValgtLonnstype,
+            avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop,
+            avtale.gjeldendeInnhold.feriepengesats,
+            avtale.gjeldendeInnhold.arbeidsgiveravgift,
+            avtale.gjeldendeInnhold.mentorAntallTimer,
+            avtale.gjeldendeInnhold.stillingprosent,
+        ],
+        300,
+    );
+
     const { data: beregninger } = useSWR(
-        avtale
-            ? [
-                  `/avtaler/${avtale.id}/dry-run`,
-                  avtale.gjeldendeInnhold.otpSats,
-                  avtale.gjeldendeInnhold.mentorValgtLonnstype,
-                  avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop,
-                  avtale.gjeldendeInnhold.feriepengesats,
-                  avtale.gjeldendeInnhold.arbeidsgiveravgift,
-                  avtale.gjeldendeInnhold.mentorAntallTimer,
-                  avtale.gjeldendeInnhold.stillingprosent,
-              ]
-            : null,
+        avtale ? [`/avtaler/${avtale.id}/dry-run`, ...keys] : null,
         ([_key]) => RestService.lagreAvtaleDryRun(avtale),
         {
             refreshInterval: 0,
