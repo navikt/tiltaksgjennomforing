@@ -13,7 +13,6 @@ import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksist
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { storForbokstav } from '@/utils/stringUtils';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
-import { useFeatureToggles } from '@/FeatureToggles';
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -26,11 +25,10 @@ interface Props extends Mentorinfo {
 }
 
 const OmMentorOppsummering = (props: Props) => {
-    const { mentorFeatureToggle } = useFeatureToggles();
     const { visInnholdFraEtterMigrering } = props;
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const periodeType = visInnholdFraEtterMigrering && mentorFeatureToggle ? 'måned' : 'uke';
+    const periodeType = visInnholdFraEtterMigrering ? 'måned' : 'uke';
 
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
@@ -80,7 +78,7 @@ const OmMentorOppsummering = (props: Props) => {
                                     verdi={verdi(props.mentorAntallTimer)}
                                 />
                             </Column>
-                            {!mentorFeatureToggle && !visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
+                            {!visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
                                 <Column md="6" sm="6" xs="6">
                                     <Label className={cls.element('label')}>
                                         Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
@@ -94,7 +92,7 @@ const OmMentorOppsummering = (props: Props) => {
                                 </Column>
                             )}
                         </Row>
-                        {mentorFeatureToggle && visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
+                        {visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Row>
