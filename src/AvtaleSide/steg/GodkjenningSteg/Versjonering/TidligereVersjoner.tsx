@@ -24,7 +24,9 @@ const TidligereVersjoner = (props: Props) => {
     const avtaleInnhold = sorterteVersjoner[currentVersjon > 0 ? currentVersjon - 1 : 0];
     const versjonErEtterArenaMigrering = useMemo(() => {
         const arenaVersjon = sorterteVersjoner.find((v) => v.innholdType === 'ENDRET_AV_ARENA');
-        return arenaVersjon ? avtaleInnhold.versjon >= arenaVersjon.versjon : true;
+        return arenaVersjon
+            ? avtaleInnhold.versjon >= arenaVersjon.versjon && !!avtaleInnhold.mentorValgtLonnstype
+            : true;
     }, [sorterteVersjoner, avtaleInnhold]);
 
     return (
