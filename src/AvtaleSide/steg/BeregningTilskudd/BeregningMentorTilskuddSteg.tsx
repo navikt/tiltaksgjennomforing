@@ -17,28 +17,32 @@ import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorA
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import * as RestService from '@/services/rest-service';
 import useSWR from 'swr';
+import { useSWRKeyDebounce } from '@/utils/useSWRKeyDebounce';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
 
+    const keys = useSWRKeyDebounce(
+        [
+            avtale.gjeldendeInnhold.otpSats,
+            avtale.gjeldendeInnhold.mentorValgtLonnstype,
+            avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop,
+            avtale.gjeldendeInnhold.feriepengesats,
+            avtale.gjeldendeInnhold.arbeidsgiveravgift,
+            avtale.gjeldendeInnhold.mentorAntallTimer,
+            avtale.gjeldendeInnhold.stillingprosent,
+        ],
+        300,
+    );
+
     const { data: beregninger } = useSWR(
-        avtale
-            ? [
-                  `/avtaler/${avtale.id}/dry-run`,
-                  avtale.gjeldendeInnhold.otpSats,
-                  avtale.gjeldendeInnhold.mentorValgtLonnstype,
-                  avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop,
-                  avtale.gjeldendeInnhold.feriepengesats,
-                  avtale.gjeldendeInnhold.arbeidsgiveravgift,
-                  avtale.gjeldendeInnhold.mentorAntallTimer,
-                  avtale.gjeldendeInnhold.stillingprosent,
-              ]
-            : null,
+        avtale ? [`/avtaler/${avtale.id}/dry-run`, ...keys] : null,
         ([_key]) => RestService.lagreAvtaleDryRun(avtale),
         {
             refreshInterval: 0,
             dedupingInterval: 500,
             revalidateOnFocus: false,
+            keepPreviousData: true,
         },
     );
 
