@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formaterValuta } from '@/komponenter/form/ValutaInput';
