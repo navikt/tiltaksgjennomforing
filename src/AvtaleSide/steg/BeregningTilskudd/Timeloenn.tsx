@@ -61,6 +61,12 @@ const Timeloenn: React.FC<TimeloennProps> = ({
 
     const forHoyTimeLonn = (mentorTimelonn || 0) > TIMELONN_TERSKEL;
 
+    useEffect(() => {
+        if (!mentorValgtLonnstype) {
+            onChange({ mentorValgtLonnstype: 'ÅRSLØNN' });
+        }
+    }, [onChange, mentorValgtLonnstype]);
+
     return (
         <>
             <Row>

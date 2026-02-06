@@ -45,12 +45,6 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
         },
     );
 
-    useEffect(() => {
-        if (!avtale.gjeldendeInnhold.mentorValgtLonnstype) {
-            settOgKalkulerBeregningsverdier({ mentorValgtLonnstype: 'ÅRSLØNN' });
-        }
-    }, [avtale.gjeldendeInnhold.mentorValgtLonnstype]);
-
     return (
         <>
             <AvtaleStatus />
