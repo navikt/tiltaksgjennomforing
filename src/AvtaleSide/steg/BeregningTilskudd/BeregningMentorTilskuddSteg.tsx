@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { BodyShort, Heading } from '@navikt/ds-react';
@@ -40,11 +40,16 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
         ([_key]) => RestService.lagreAvtaleDryRun(avtale),
         {
             refreshInterval: 0,
-            //dedupingInterval: 500,
             revalidateOnFocus: false,
             keepPreviousData: true,
         },
     );
+
+    useEffect(() => {
+        if (!avtale.gjeldendeInnhold.mentorValgtLonnstype) {
+            settOgKalkulerBeregningsverdier({ mentorValgtLonnstype: 'ÅRSLØNN' });
+        }
+    }, [avtale.gjeldendeInnhold.mentorValgtLonnstype]);
 
     return (
         <>
@@ -70,7 +75,6 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     mentorTimelonn={beregninger?.gjeldendeInnhold.mentorTimelonn}
                     onChange={(value) => settOgKalkulerBeregningsverdier(value)}
                 />
-
                 <Row>
                     <Column md="5">
                         <ObligatoriskTjenestepensjon

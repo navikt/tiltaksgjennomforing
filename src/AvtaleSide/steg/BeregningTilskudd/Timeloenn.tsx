@@ -11,7 +11,7 @@ import KronerInput from '@/AvtaleSide/steg/BeregningTilskudd/KronerInput';
 
 type TimeloennProps = {
     stillingsprosent: number | undefined;
-    mentorValgtLonnstype: LonnType | undefined;
+    mentorValgtLonnstype: LonnType;
     mentorValgtLonnstypeBelop: number | undefined;
     mentorTimelonn: number | undefined;
     onChange: (value: {
@@ -49,11 +49,6 @@ const Timeloenn: React.FC<TimeloennProps> = ({
     const handleSelectedTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const nyLonnstype = e.target.value as LonnType;
 
-        if (!mentorValgtLonnstype) {
-            onChange({ mentorValgtLonnstype: nyLonnstype });
-            return;
-        }
-
         const gammelLonnstype = mentorValgtLonnstype;
         const gammeltBelop = mentorValgtLonnstypeBelop ?? 0;
         const nyttBelop = (gammeltBelop / HOURS_PER_UNIT[gammelLonnstype]) * HOURS_PER_UNIT[nyLonnstype];
@@ -63,12 +58,6 @@ const Timeloenn: React.FC<TimeloennProps> = ({
             mentorValgtLonnstypeBelop: Math.round(nyttBelop),
         });
     };
-
-    useEffect(() => {
-        if (!mentorValgtLonnstype) {
-            onChange({ mentorValgtLonnstype: 'ÅRSLØNN' });
-        }
-    }, []);
 
     const forHoyTimeLonn = (mentorTimelonn || 0) > TIMELONN_TERSKEL;
 
@@ -105,7 +94,6 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                     </Column>
                 )}
             </Row>
-
             {mentorValgtLonnstype !== 'TIMELØNN' && (
                 <>
                     <VerticalSpacer rem={1.5} />

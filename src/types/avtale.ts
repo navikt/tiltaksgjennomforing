@@ -130,7 +130,7 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
-    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorValgtLonnstype: MentorValgtLonnstype;
     mentorValgtLonnstypeBelop?: number;
     innholdType: AvtaleInnholdType;
 } & InkluderingsInnhold;
