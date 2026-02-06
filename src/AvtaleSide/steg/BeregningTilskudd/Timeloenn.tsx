@@ -6,7 +6,7 @@ import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennH
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { storForbokstav } from '@/utils/stringUtils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
-import { Alert, debounce, Heading, ReadMore, TextField } from '@navikt/ds-react';
+import { Alert, Heading, ReadMore, TextField } from '@navikt/ds-react';
 import KronerInput from '@/AvtaleSide/steg/BeregningTilskudd/KronerInput';
 
 type TimeloennProps = {
@@ -72,8 +72,6 @@ const Timeloenn: React.FC<TimeloennProps> = ({
 
     const forHoyTimeLonn = (mentorTimelonn || 0) > TIMELONN_TERSKEL;
 
-    const debouncedOnChange = useMemo(() => debounce(onChange, 1000), [onChange]);
-
     return (
         <>
             <Row>
@@ -94,7 +92,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                     <KronerInput
                         label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
                         verdi={mentorValgtLonnstypeBelop}
-                        settVerdi={(nyVerdi) => debouncedOnChange({ mentorValgtLonnstypeBelop: nyVerdi })}
+                        settVerdi={(nyVerdi) => onChange({ mentorValgtLonnstypeBelop: nyVerdi })}
                     />
                 </Column>
                 {mentorValgtLonnstype !== 'TIMELØNN' && (

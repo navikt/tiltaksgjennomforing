@@ -32,7 +32,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
             avtale.gjeldendeInnhold.mentorAntallTimer,
             avtale.gjeldendeInnhold.stillingprosent,
         ],
-        300,
+        50,
     );
 
     const { data: beregninger } = useSWR(
@@ -40,7 +40,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
         ([_key]) => RestService.lagreAvtaleDryRun(avtale),
         {
             refreshInterval: 0,
-            dedupingInterval: 500,
+            //dedupingInterval: 500,
             revalidateOnFocus: false,
             keepPreviousData: true,
         },
