@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { BodyShort, Heading } from '@navikt/ds-react';
@@ -45,6 +45,12 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
             keepPreviousData: true,
         },
     );
+
+    useEffect(() => {
+        if (!avtale.gjeldendeInnhold.mentorValgtLonnstype) {
+            settOgKalkulerBeregningsverdier({ mentorValgtLonnstype: 'ÅRSLØNN' });
+        }
+    }, [avtale.gjeldendeInnhold.mentorValgtLonnstype]);
 
     return (
         <>
