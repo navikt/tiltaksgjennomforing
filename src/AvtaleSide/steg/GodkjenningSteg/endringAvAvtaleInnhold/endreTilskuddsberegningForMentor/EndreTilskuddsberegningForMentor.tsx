@@ -15,6 +15,7 @@ import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtal
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorAntallTimerPerMnd';
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
+import { erNil } from '@/utils/predicates';
 
 export type EndreTilskuddsberegningForMentorFelter = Pick<
     Beregningsgrunnlag,
@@ -121,12 +122,13 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                         </Heading>
                         <Timeloenn
                             stillingsprosent={nyBeregning.stillingprosent}
-                            mentorValgtLonnstype={nyBeregning.mentorValgtLonnstype}
+                            mentorValgtLonnstype={
+                                erNil(nyBeregning.mentorValgtLonnstype) ? 'ÅRSLØNN' : nyBeregning.mentorValgtLonnstype
+                            }
                             mentorValgtLonnstypeBelop={nyBeregning.mentorValgtLonnstypeBelop}
                             mentorTimelonn={nyAvtale.gjeldendeInnhold.mentorTimelonn}
                             onChange={settOgKalkulerBeregningsverdier}
                         />
-
                         <Row>
                             <Column md="5">
                                 <ObligatoriskTjenestepensjon
