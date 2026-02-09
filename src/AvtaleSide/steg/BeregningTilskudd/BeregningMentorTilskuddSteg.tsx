@@ -18,6 +18,7 @@ import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import * as RestService from '@/services/rest-service';
 import useSWR from 'swr';
 import { useSWRKeyDebounce } from '@/utils/useSWRKeyDebounce';
+import { erNil } from '@/utils/predicates';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
@@ -64,7 +65,11 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 </Heading>
                 <Timeloenn
                     stillingsprosent={avtale.gjeldendeInnhold.stillingprosent}
-                    mentorValgtLonnstype={avtale.gjeldendeInnhold.mentorValgtLonnstype}
+                    mentorValgtLonnstype={
+                        erNil(avtale.gjeldendeInnhold.mentorValgtLonnstype)
+                            ? 'ÅRSLØNN'
+                            : avtale.gjeldendeInnhold.mentorValgtLonnstype
+                    }
                     mentorValgtLonnstypeBelop={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
                     mentorTimelonn={beregninger?.gjeldendeInnhold.mentorTimelonn}
                     onChange={(value) => settOgKalkulerBeregningsverdier(value)}
