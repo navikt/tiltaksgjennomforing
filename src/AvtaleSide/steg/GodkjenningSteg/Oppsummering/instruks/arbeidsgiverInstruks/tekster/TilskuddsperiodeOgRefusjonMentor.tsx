@@ -3,14 +3,7 @@ import { WalletIcon } from '@navikt/aksel-icons';
 import { Link } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 
-interface Props {
-    mentorFeatureToggle: boolean;
-}
-
-const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ mentorFeatureToggle }) => {
-    if (!mentorFeatureToggle) {
-        return null;
-    }
+const TilskuddsperiodeOgRefusjonMentor: FunctionComponent = () => {
     return (
         <IkonTekstRad
             svgIkon={<WalletIcon title="Tilskuddsperiode og refusjon" />}
@@ -42,4 +35,4 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ mentorFeatureTog
         </IkonTekstRad>
     );
 };
-export default TilskuddsperiodeOgRefusjon;
+export default TilskuddsperiodeOgRefusjonMentor;

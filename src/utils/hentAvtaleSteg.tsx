@@ -206,7 +206,6 @@ const hentAvtaleSteg = {
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
-    MENTOR_UTEN_BEREGNING_AV_TILSKUDD: mentorStegUtenBeregningAvTilskudd,
     MENTOR_INNSYN: mentorInnsynSteg,
     INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,

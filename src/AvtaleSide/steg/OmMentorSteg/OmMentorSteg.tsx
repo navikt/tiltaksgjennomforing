@@ -4,33 +4,24 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import { BodyShort, Button, TextField } from '@navikt/ds-react';
-import ValutaInput from '@/komponenter/form/ValutaInput';
+import { Button, TextField } from '@navikt/ds-react';
 import React, { useContext, useEffect, useState } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
 import './omMentorSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import { useFeatureToggles } from '@/FeatureToggles';
-import { inputToNumber } from '@/utils';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
-    const { mentorFeatureToggle } = useFeatureToggles();
-    const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
-        avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
-    );
+
     const [mentorFnr, setMentorFnr] = useState<string | undefined>(undefined);
     const [mentorError, setMentorError] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         setMentorFnr(avtaleContext.avtale.mentorFnr);
     }, [avtaleContext.avtale]);
-
-    const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
 
     const cls = BEMHelper('omMentorSteg');
 
@@ -121,52 +112,6 @@ const OmMentorSteg = () => {
                         feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                     />
                 </div>
-
-                {!mentorFeatureToggle && (
-                    <>
-                        <div className={cls.element('rad')}>
-                            <PakrevdInputValidering
-                                validering={/^\d{0,3}(,5?)?$/}
-                                label="Antall timer med mentor per uke"
-                                verdi={mentorAntallTimerInput}
-                                settVerdi={(verdi) => {
-                                    setMentorAntallTimerInput(verdi);
-                                    avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', inputToNumber(verdi));
-                                }}
-                            />
-                            <ValutaInput
-                                min={0}
-                                className="input"
-                                name="Timelønn"
-                                size="medium"
-                                label="Timelønn*"
-                                autoComplete={'off'}
-                                value={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                    settForHøyTimelønn(undefined);
-                                }}
-                                onBlur={(event) => {
-                                    if (/^\d{0,4}(\.\d{0,2})?$/.test(event.target.value)) {
-                                        avtaleContext.settAvtaleInnholdVerdi(
-                                            'mentorTimelonn',
-                                            Math.round(parseFloat(event.target.value)),
-                                        );
-                                    } else {
-                                        avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', undefined);
-                                        settForHøyTimelønn('Overskrider maks timelønn');
-                                    }
-                                }}
-                                error={forHøyTimelønn}
-                            />
-                        </div>
-                        <div>
-                            <VerticalSpacer rem={0.75} />
-                            <BodyShort size="small">
-                                *Inkludert feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
-                            </BodyShort>
-                        </div>
-                    </>
-                )}
                 <VerticalSpacer rem={2} />
                 <LagreKnapp lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre

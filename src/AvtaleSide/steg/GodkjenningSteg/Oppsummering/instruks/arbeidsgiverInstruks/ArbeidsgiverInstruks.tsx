@@ -18,7 +18,6 @@ import TilskuddsperiodeOgRefusjonMentor from './tekster/TilskuddsperiodeOgRefusj
 
 const cls = BEMHelper('instruks');
 interface Props {
-    mentorFeatureToggle: boolean;
     erLaast: boolean;
     tiltakstype: TiltaksType;
 }
@@ -43,10 +42,8 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
                     <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
-                    {tiltakstype === 'MENTOR' && (
-                        <TilskuddsperiodeOgRefusjonMentor mentorFeatureToggle={props.mentorFeatureToggle} />
-                    )}
-                    <Refusjon mentorFeatureToggle={props.mentorFeatureToggle} tiltakstype={tiltakstype} />
+                    {tiltakstype === 'MENTOR' && <TilskuddsperiodeOgRefusjonMentor />}
+                    <Refusjon tiltakstype={tiltakstype} />
                     <BehandlingAvPersonopplysninger tiltakstype={tiltakstype} />
                     <Taushetsplikt />
                     <HvaSierRegelverket tiltakstype={tiltakstype} />

@@ -2,7 +2,6 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
@@ -11,19 +10,10 @@ import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Link } from '@navikt/ds-react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import { useFeatureToggles } from '@/FeatureToggles';
 
 const EndreOmMentor: FunctionComponent = () => {
-    const { mentorFeatureToggle } = useFeatureToggles();
     const [modalApen, setModalApen] = useState(false);
     const avtaleContext = useContext(AvtaleContext);
-
-    const inputToNumber = (input: string | undefined): number | undefined => {
-        input = input?.replace(/,/g, '.');
-        if (!isNaN(Number(input))) {
-            return Number(input);
-        }
-    };
 
     const [mentorInfo, setMentorInfo] = useState({
         mentorFornavn: avtaleContext.avtale.gjeldendeInnhold.mentorFornavn,
@@ -33,13 +23,11 @@ const EndreOmMentor: FunctionComponent = () => {
         mentorAntallTimer: avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer,
         mentorTimelonn: avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn,
     });
-    const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
-        mentorInfo.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
-    );
 
     const lukkModal = () => {
         setModalApen(false);
     };
+
     const kallEndreOmMentor = async () => {
         await endreOmMentor(avtaleContext.avtale, mentorInfo);
         await avtaleContext.hentAvtale();
@@ -121,37 +109,6 @@ const EndreOmMentor: FunctionComponent = () => {
                             feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                         />
                     </Container>
-                    {!mentorFeatureToggle && (
-                        <>
-                            <VerticalSpacer rem={2} />
-                            <Container fluid={true}>
-                                <Row className="begge__tekst">
-                                    <Column md="6">
-                                        <PakrevdInputValidering
-                                            validering={/^\d{0,3}(,5?)?$/}
-                                            label="Antall timer med mentor per uke"
-                                            verdi={mentorAntallTimerInput}
-                                            settVerdi={(verdi) => {
-                                                setMentorAntallTimerInput(verdi);
-                                                setMentorInfo({
-                                                    ...mentorInfo,
-                                                    mentorAntallTimer: inputToNumber(verdi),
-                                                });
-                                            }}
-                                        />
-                                        <PakrevdInputValidering
-                                            validering={/^\d{0,3}$/}
-                                            label="Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon"
-                                            verdi={mentorInfo.mentorTimelonn?.toFixed(0)}
-                                            settVerdi={(verdi) =>
-                                                setMentorInfo({ ...mentorInfo, mentorTimelonn: inputToNumber(verdi) })
-                                            }
-                                        />
-                                    </Column>
-                                </Row>
-                            </Container>
-                        </>
-                    )}
                 </div>
             </BekreftelseModal>
         </>

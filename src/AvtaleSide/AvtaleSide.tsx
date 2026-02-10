@@ -14,7 +14,7 @@ import './AvtaleSide.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
-import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Alert, Link } from '@navikt/ds-react';
 
@@ -40,7 +40,6 @@ export interface StegInfo {
 }
 
 const AvtaleSide: FunctionComponent = () => {
-    const { mentorFeatureToggle } = useFeatureToggles();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -50,9 +49,6 @@ const AvtaleSide: FunctionComponent = () => {
     let avtaleSteg: StegInfo[] = hentAvtaleSteg[avtale.tiltakstype];
     if (innloggetBruker.rolle === 'MENTOR') {
         avtaleSteg = hentAvtaleSteg.MENTOR_INNSYN;
-    }
-    if (innloggetBruker.rolle !== 'MENTOR' && avtale.tiltakstype === 'MENTOR' && !mentorFeatureToggle) {
-        avtaleSteg = hentAvtaleSteg.MENTOR_UTEN_BEREGNING_AV_TILSKUDD;
     }
 
     const erAvtaleLaast =
@@ -93,30 +89,28 @@ const AvtaleSide: FunctionComponent = () => {
             <div className="avtaleside" role="main">
                 {
                     <div className={erAvtaleLaast ? cls.element('innhold') : cls.element('')}>
-                        {mentorFeatureToggle &&
-                            innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-                            avtale.tiltakstype === 'MENTOR' && (
-                                <>
-                                    <VerticalSpacer rem={1} />
-                                    <Alert variant="warning" className={cls.element('alert')}>
-                                        <p>
-                                            Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme
-                                            endringer for de som har avtaler om tilskudd til mentor.
-                                        </p>
-                                        <p>
-                                            Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS
-                                            på telefonen:{' '}
-                                            <Link
-                                                href="tel:55553336"
-                                                aria-label="Telefon til NKS, telefonnummer 55 55 33 36"
-                                            >
-                                                55&nbsp;55&nbsp;33&nbsp;36
-                                            </Link>
-                                        </p>
-                                    </Alert>
-                                    <VerticalSpacer rem={1} />
-                                </>
-                            )}
+                        {innloggetBruker.rolle === 'ARBEIDSGIVER' && avtale.tiltakstype === 'MENTOR' && (
+                            <>
+                                <VerticalSpacer rem={1} />
+                                <Alert variant="warning" className={cls.element('alert')}>
+                                    <p>
+                                        Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme
+                                        endringer for de som har avtaler om tilskudd til mentor.
+                                    </p>
+                                    <p>
+                                        Hvis dere opplever at noe ikke stemmer, så ta kontakt med veileder eller NKS på
+                                        telefonen:{' '}
+                                        <Link
+                                            href="tel:55553336"
+                                            aria-label="Telefon til NKS, telefonnummer 55 55 33 36"
+                                        >
+                                            55&nbsp;55&nbsp;33&nbsp;36
+                                        </Link>
+                                    </p>
+                                </Alert>
+                                <VerticalSpacer rem={1} />
+                            </>
+                        )}
                         {erAvtaleLaast && (
                             <div className={cls.element('innhold')}>
                                 <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />

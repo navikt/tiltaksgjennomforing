@@ -31,15 +31,12 @@ import { litenForbokstav } from '@/utils/stringUtils';
 import { fjernTommeFelterFraObjekt } from '@/utils';
 import './AvtaleOversikt.less';
 import { FiltreringContext } from './Filtrering/FiltreringProvider';
-import { useFeatureToggles } from '@/FeatureToggles';
 
 const cls = BEMHelper('avtaleoversikt');
 const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useInnloggetBruker();
-    const { mentorFeatureToggle } = useFeatureToggles();
-
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -213,14 +210,14 @@ const AvtaleOversikt: FunctionComponent = () => {
 
             <BannerNAVAnsatt tekst={oversiktTekst} />
             <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
-                {mentorFeatureToggle && innloggetBruker.rolle === 'DELTAKER' && (
+                {innloggetBruker.rolle === 'DELTAKER' && (
                     <Alert variant={'warning'}>
                         Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for deg som
                         har avtale om tilskudd til mentor. Hvis du opplever at noe ikke stemmer, så ta kontakt med din
                         veileder.
                     </Alert>
                 )}
-                {mentorFeatureToggle && innloggetBruker.rolle === 'ARBEIDSGIVER' && (
+                {innloggetBruker.rolle === 'ARBEIDSGIVER' && (
                     <Alert variant="warning" className={cls.element('alert')}>
                         <p>
                             Vi har gjort tekniske oppdateringer i systemene våre og det kan forekomme endringer for de
