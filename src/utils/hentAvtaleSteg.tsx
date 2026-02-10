@@ -110,34 +110,6 @@ const mentorSteg: StegInfo[] = [
     },
 ];
 
-const mentorStegUtenBeregningAvTilskudd: StegInfo[] = [
-    {
-        komponent: <KontaktinfoSteg />,
-        label: 'Kontaktinformasjon',
-        id: 'kontaktinformasjon',
-    },
-    {
-        komponent: <OmMentorSteg />,
-        label: 'Om mentoren',
-        id: 'mentoren',
-    },
-    {
-        komponent: <VarighetSteg />,
-        label: 'Varighet',
-        id: 'varighet',
-    },
-    {
-        komponent: <OppfolgingTilretteleggingSteg />,
-        label: 'Oppfølging og tilrettelegging',
-        id: 'oppfolging',
-    },
-    {
-        komponent: <GodkjenningSteg />,
-        label: 'Godkjenning',
-        id: 'godkjenning',
-    },
-];
-
 const mentorInnsynSteg: StegInfo[] = [
     {
         komponent: <GodkjenningSteg />,
