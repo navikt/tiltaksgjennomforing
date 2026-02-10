@@ -76,7 +76,7 @@ const OmMentorOppsummering = (props: Props) => {
                                     verdi={props.mentorAntallTimer ? formaterTimer(props.mentorAntallTimer) : undefined}
                                 />
                             </Column>
-                            {rolle !== 'DELTAKER' && !visInnholdFraEtterMigrering && (
+                            {!visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
                                 <Column md="6" sm="6" xs="6">
                                     <Label className={cls.element('label')}>
                                         Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
