@@ -10,6 +10,10 @@ import {
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
+export const formaterTimer = (timer: number): string => {
+    return `${timer} ${timer === 1 ? 'time' : 'timer'}`;
+};
+
 const units: Array<{ unit: keyof Duration; single: string; plural: string }> = [
     { unit: 'years', single: 'år', plural: 'år' },
     { unit: 'months', single: 'måned', plural: 'måneder' },
