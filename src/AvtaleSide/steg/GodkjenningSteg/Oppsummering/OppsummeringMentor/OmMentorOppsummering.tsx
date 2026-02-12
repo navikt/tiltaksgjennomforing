@@ -103,7 +103,7 @@ const OmMentorOppsummering = (props: Props) => {
                                             verdi={verdi(props.mentorValgtLonnstypeBelop)}
                                         />
                                     </Column>
-                                    {props.mentorValgtLonnstype != 'TIMELØNN' && (
+                                    {props.mentorValgtLonnstype !== 'TIMELØNN' && (
                                         <Column md="6" sm="6" xs="6">
                                             <Label>Stillingsprosent</Label>
                                             <SjekkOmVerdiEksisterer
