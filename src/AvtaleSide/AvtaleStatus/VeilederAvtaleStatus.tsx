@@ -82,8 +82,9 @@ const arenaMigreringTekst = (avtale: Avtale) => (
         <BodyShort size="small">
             {avtale.opphav === 'ARENA' && (
                 <>
-                    Avtalen er ufullstendig og må fylles ut og godkjennes av alle parter for at den skal settes som
-                    gjennomføres.
+                    Avtalen er ufullstendig og må fylles ut og godkjennes av alle parter før den kan settes som
+                    gjennomføres. Den vil ikke være synlig for de andre partene inntil alle felter, unntatt familiær
+                    tilknytning, er fylt ut.
                 </>
             )}
             {avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA' && avtale.opphav !== 'ARENA' && (
