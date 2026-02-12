@@ -103,13 +103,15 @@ const OmMentorOppsummering = (props: Props) => {
                                             verdi={verdi(props.mentorValgtLonnstypeBelop)}
                                         />
                                     </Column>
-                                    <Column md="6" sm="6" xs="6">
-                                        <Label>Stillingsprosent</Label>
-                                        <SjekkOmVerdiEksisterer
-                                            ariaLabel={'Mentors stillingsprosent'}
-                                            verdi={verdi(props.stillingprosent)}
-                                        />
-                                    </Column>
+                                    {props.mentorValgtLonnstype != 'TIMELØNN' && (
+                                        <Column md="6" sm="6" xs="6">
+                                            <Label>Stillingsprosent</Label>
+                                            <SjekkOmVerdiEksisterer
+                                                ariaLabel={'Mentors stillingsprosent'}
+                                                verdi={verdi(props.stillingprosent)}
+                                            />
+                                        </Column>
+                                    )}
                                 </Row>
                                 <VerticalSpacer rem={1} />
                                 <div>
