@@ -1,4 +1,4 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import { AvtaleContext, noenHarGodkjentMenIkkeInngått } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
@@ -33,13 +33,14 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
             avtale.gjeldendeInnhold.mentorAntallTimer,
             avtale.gjeldendeInnhold.stillingprosent,
         ],
-        50,
+        250,
     );
 
     const { data: beregninger } = useSWR(
-        avtale ? [`/avtaler/${avtale.id}/dry-run`, ...keys] : null,
+        avtale && !noenHarGodkjentMenIkkeInngått(avtale) ? [`/avtaler/${avtale.id}/dry-run`, ...keys] : null,
         ([_key]) => RestService.lagreAvtaleDryRun(avtale),
         {
+            fallbackData: avtale,
             refreshInterval: 0,
             revalidateOnFocus: false,
             keepPreviousData: true,
