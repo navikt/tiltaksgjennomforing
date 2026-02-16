@@ -10,7 +10,6 @@ import Tilrettelegging from '../tilrettelegging/Tilrettelegging';
 import OmMentorOppsummering from './OmMentorOppsummering';
 import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { useFeatureToggles } from '@/FeatureToggles';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 
 interface Props {
@@ -23,7 +22,6 @@ const OppsummeringMentor: FunctionComponent<Props> = (props: Props) => {
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { mentorTimelonn } = avtaleinnhold;
-    const { mentorFeatureToggle } = useFeatureToggles();
 
     return (
         <>
@@ -36,7 +34,6 @@ const OppsummeringMentor: FunctionComponent<Props> = (props: Props) => {
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />
             {visInnholdFraEtterMigrering &&
-                mentorFeatureToggle &&
                 innloggetBruker.rolle !== 'DELTAKER' &&
                 innloggetBruker.rolle !== 'MENTOR' && (
                     <BeregningTilskuddOppsummering

@@ -13,11 +13,9 @@ import './forlengAvtale.less';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { addDays } from 'date-fns';
-import { useFeatureToggles } from '@/FeatureToggles';
 
 const ForlengAvtale = () => {
     const { avtale, hentAvtale } = useAvtale();
-    const { mentorFeatureToggle } = useFeatureToggles();
     const cls = BEMHelper('forlengAvtale');
 
     const [modalApen, setModalApen] = useState(false);
@@ -27,8 +25,7 @@ const ForlengAvtale = () => {
 
     // Kan trygt anta at sluttdato er satt ved forlenging av avtale
     const naavaerendeSluttDato = avtale.gjeldendeInnhold.sluttDato!;
-    const kanForlenges =
-        mentorFeatureToggle && avtale.tiltakstype === 'MENTOR' ? avtale.tilskuddPeriode.length > 0 : true;
+    const kanForlenges = avtale.tiltakstype === 'MENTOR' ? avtale.tilskuddPeriode.length > 0 : true;
 
     const forleng = async (): Promise<void> => {
         if (sluttDato) {

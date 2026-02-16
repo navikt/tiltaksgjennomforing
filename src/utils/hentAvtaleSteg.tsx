@@ -110,34 +110,6 @@ const mentorSteg: StegInfo[] = [
     },
 ];
 
-const mentorStegUtenBeregningAvTilskudd: StegInfo[] = [
-    {
-        komponent: <KontaktinfoSteg />,
-        label: 'Kontaktinformasjon',
-        id: 'kontaktinformasjon',
-    },
-    {
-        komponent: <OmMentorSteg />,
-        label: 'Om mentoren',
-        id: 'mentoren',
-    },
-    {
-        komponent: <VarighetSteg />,
-        label: 'Varighet',
-        id: 'varighet',
-    },
-    {
-        komponent: <OppfolgingTilretteleggingSteg />,
-        label: 'Oppfølging og tilrettelegging',
-        id: 'oppfolging',
-    },
-    {
-        komponent: <GodkjenningSteg />,
-        label: 'Godkjenning',
-        id: 'godkjenning',
-    },
-];
-
 const mentorInnsynSteg: StegInfo[] = [
     {
         komponent: <GodkjenningSteg />,
@@ -206,7 +178,6 @@ const hentAvtaleSteg = {
     VARIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MIDLERTIDIG_LONNSTILSKUDD: lonnstilskuddSteg,
     MENTOR: mentorSteg,
-    MENTOR_UTEN_BEREGNING_AV_TILSKUDD: mentorStegUtenBeregningAvTilskudd,
     MENTOR_INNSYN: mentorInnsynSteg,
     INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,

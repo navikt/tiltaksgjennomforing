@@ -5,15 +5,11 @@ import { WalletIcon } from '@navikt/aksel-icons';
 import React, { FunctionComponent } from 'react';
 
 interface Props {
-    mentorFeatureToggle: boolean;
     tiltakstype: TiltaksType;
 }
 
-const Refusjon: FunctionComponent<Props> = ({ mentorFeatureToggle, tiltakstype }) => {
-    if (!['MENTOR', 'INKLUDERINGSTILSKUDD'].includes(tiltakstype)) {
-        return null;
-    }
-    if (tiltakstype === 'MENTOR' && mentorFeatureToggle) {
+const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
+    if (tiltakstype !== 'INKLUDERINGSTILSKUDD') {
         return null;
     }
     return (
@@ -28,16 +24,9 @@ const Refusjon: FunctionComponent<Props> = ({ mentorFeatureToggle, tiltakstype }
                 tilskuddsperioden er over.
             </p>
             <p>
-                {tiltakstype === 'MENTOR' && (
-                    <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/mentor">
-                        Refusjonsskjema for mentortilskudd
-                    </EksternLenke>
-                )}
-                {tiltakstype === 'INKLUDERINGSTILSKUDD' && (
-                    <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd">
-                        Refusjonsskjema for inkluderingstilskudd
-                    </EksternLenke>
-                )}
+                <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd">
+                    Refusjonsskjema for inkluderingstilskudd
+                </EksternLenke>
             </p>
         </IkonTekstRad>
     );

@@ -6,7 +6,6 @@ export const FeatureToggleProviderInitialState = {
     visNedetidBanner: false,
     visHvemHarGodkjent: false,
     pabegyntAvtaleRyddeJobb: false,
-    mentorFeatureToggle: false,
     migreringSkrivebeskyttet: false,
 } as const;
 
