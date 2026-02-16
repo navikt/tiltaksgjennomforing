@@ -27,7 +27,7 @@
         "@navikt/ds-css": "^7.34.0",
         "@navikt/ds-react": "^7.34.0",
         "@navikt/navspa": "^6.0.1",
-        "axios": "^1.8.4",
+        "axios": "^1.13.5",
         "axios-retry": "4.5.0",
         "classnames": "^2.5.1",
         "date-fns": "^4.1.0",
