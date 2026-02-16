@@ -163,7 +163,22 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
                 }
 
                 const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
-                settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
+
+                if (nyAvtale.tiltakstype !== 'MENTOR') {
+                    settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
+                    return;
+                }
+
+                const { mentorTimelonn, feriepengerBelop, otpBelop, arbeidsgiveravgiftBelop, sumLonnsutgifter } =
+                    avtaleEtterDryRun.gjeldendeInnhold;
+                settAvtaleInnholdVerdier({
+                    ...endringer,
+                    mentorTimelonn,
+                    feriepengerBelop,
+                    otpBelop,
+                    arbeidsgiveravgiftBelop,
+                    sumLonnsutgifter,
+                });
             } catch (error: any) {
                 handterFeil(error, visFeilmelding);
             }
