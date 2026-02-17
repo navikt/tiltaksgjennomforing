@@ -18,9 +18,9 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
         useTilskuddsperiodevisning(avtale);
     const { forste, mellom, siste } = tilskuddsperioder;
 
-    const kreverOppfølgingDato = erNil(avtale.kreverOppfolgingFrist)
+    const dagenEtterOppfolgingsfrist = erNil(avtale.kommendeOppfolging)
         ? undefined
-        : addDays(avtale.kreverOppfolgingFrist, 1);
+        : addDays(avtale.kommendeOppfolging.oppfolgingsfrist, 1);
 
     if (avtale.tilskuddPeriode.length === 0) {
         return null;
@@ -46,7 +46,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
                                 erNavAnsatt={erNavAnsatt}
                                 periode={forste}
                                 key={forste.id}
-                                kreverOppfølgingDato={kreverOppfølgingDato}
+                                kreverOppfølgingDato={dagenEtterOppfolgingsfrist}
                             />
                             <Table.Row>
                                 <Table.DataCell textSize="small" colSpan={100}>
@@ -61,7 +61,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
                             erNavAnsatt={erNavAnsatt}
                             periode={periode}
                             key={periode.id}
-                            kreverOppfølgingDato={kreverOppfølgingDato}
+                            kreverOppfølgingDato={dagenEtterOppfolgingsfrist}
                         />
                     ))}
                     {siste && (
@@ -76,7 +76,7 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
                                 erNavAnsatt={erNavAnsatt}
                                 periode={siste}
                                 key={siste.id}
-                                kreverOppfølgingDato={kreverOppfølgingDato}
+                                kreverOppfølgingDato={dagenEtterOppfolgingsfrist}
                             />
                         </>
                     )}

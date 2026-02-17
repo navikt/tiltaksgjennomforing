@@ -7,11 +7,9 @@ import { AvtaleMinimalListeVisning } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
 import BEMHelper from '@/utils/bem';
-import { erNil } from '@/utils/predicates';
 import { kunStorForbokstav } from '@/utils/stringUtils';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
 import { BodyShort, Table } from '@navikt/ds-react';
-import { isBefore } from 'date-fns';
 import { FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { generatePath, useNavigate } from 'react-router-dom';
@@ -23,7 +21,7 @@ const cls = BEMHelper('avtaletabell');
 const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
     const erGjeldendeTilskuddsperiodeReturnert = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     const erAnnullert = avtale.status === 'ANNULLERT';
-    const kreverOppfølging = !erNil(avtale.kreverOppfolgingFom) && isBefore(avtale.kreverOppfolgingFom, new Date());
+    const kreverOppfølging = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
 
     return (
         <>
