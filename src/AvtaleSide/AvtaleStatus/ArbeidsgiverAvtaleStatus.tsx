@@ -46,10 +46,11 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
         case 'ANNULLERT':
             return (
                 <StatusPanel
-                    header={'Avtalen er annullert'}
+                    header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert avtalen {formaterDato(avtale.annullertTidspunkt!)}.
+                            Veileder har annullert avtalen
+                            {avtale.annullertTidspunkt && ` ${formaterDato(avtale.annullertTidspunkt)}`}.
                         </BodyShort>
                     }
                 />

@@ -40,8 +40,9 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert avtalen {formaterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
-                            {avtale.annullertGrunn}.
+                            Veileder har annullert avtalen
+                            {avtale.annullertTidspunkt && ` ${formaterDato(avtale.annullertTidspunkt)}`}.
+                            {avtale.annullertGrunn && ` Årsak: ${avtale.annullertGrunn}.`}
                         </BodyShort>
                     }
                 />
