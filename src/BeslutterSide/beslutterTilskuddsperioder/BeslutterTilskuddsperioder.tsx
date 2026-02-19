@@ -106,9 +106,10 @@ const BeslutterTilskuddsPerioder: FunctionComponent = () => {
         );
     };
 
+    // Tilskuddsperioder som er etter en oppfølgingsfrist er låst inntil veileder har utført oppfølging.
     const periodeKreverOppfølging = (periode: TilskuddsPeriode) => {
-        if (erNil(avtale.kreverOppfolgingFrist)) return false;
-        return isWithinInterval(addDays(avtale.kreverOppfolgingFrist, 1), {
+        if (erNil(avtale.kommendeOppfolging)) return false;
+        return isWithinInterval(addDays(avtale.kommendeOppfolging.oppfolgingsfrist, 1), {
             start: periode.startDato,
             end: periode.sluttDato,
         });
