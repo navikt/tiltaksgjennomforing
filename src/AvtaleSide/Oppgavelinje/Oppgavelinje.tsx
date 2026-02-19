@@ -48,7 +48,7 @@ const OppgaveLinje: React.FunctionComponent = () => {
         }
     };
 
-    const avtaleAnnullert = avtaleContext.avtale.annullertTidspunkt;
+    const avtaleAnnullert = avtaleContext.avtale.status === 'ANNULLERT';
     const visKunHendelseslog = avtaleAnnullert || innloggetBruker.rolle !== 'VEILEDER';
 
     return (

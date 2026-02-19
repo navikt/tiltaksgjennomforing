@@ -53,7 +53,7 @@ const AvtaleSide: FunctionComponent = () => {
 
     const erAvtaleLaast =
         avtale.godkjentAvVeileder !== null ||
-        avtale.annullertTidspunkt ||
+        avtale.status === 'ANNULLERT' ||
         innloggetBruker.rolle === 'DELTAKER' ||
         innloggetBruker.rolle === 'MENTOR' ||
         erSkrivebeskyttet(avtale);

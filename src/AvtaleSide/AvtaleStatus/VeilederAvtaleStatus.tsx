@@ -163,10 +163,12 @@ function VeilederAvtaleStatus(props: Props) {
                     body={
                         <>
                             <BodyShort size="small">
-                                Du eller en annen veileder har annullert avtalen{' '}
-                                {formaterDato(avtale.annullertTidspunkt!)}.
+                                Du eller en annen veileder har annullert avtalen
+                                {avtale.annullertTidspunkt && ` ${formaterDato(avtale.annullertTidspunkt)}`}.
                             </BodyShort>
-                            <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                            {avtale.annullertGrunn && (
+                                <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                            )}
                         </>
                     }
                 />
