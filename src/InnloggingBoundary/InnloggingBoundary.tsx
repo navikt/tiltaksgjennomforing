@@ -51,9 +51,8 @@ const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
         setCookie(INNLOGGET_PART, innloggetPartIUrl, { path: '/tiltaksgjennomforing' });
         urlParametere.delete('part');
         navigate({ search: urlParametere.toString() });
-    }
-
-    if (!cookies[INNLOGGET_PART]) {
+        return null;
+    } else if (!cookies[INNLOGGET_PART]) {
         return <Innloggingside innloggingskilder={innloggingskilder} />;
     }
 
