@@ -99,7 +99,7 @@ const ForlengAvtale = () => {
                             <Fieldset legend="sluttdato" error={feil}>
                                 <DatovelgerForlengOgForkort
                                     datoFelt="sluttDato"
-                                    label="Velg ny sluttdato for avtalen"
+                                    legend="Velg ny sluttdato for avtalen"
                                     onChangeHåndtereNyDato={onDatoChange}
                                     minDate={formaterDato(addDays(naavaerendeSluttDato, 1).toISOString(), 'yyyy-MM-dd')}
                                 />
