@@ -2,61 +2,114 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import SlikVilTilskuddsperioderSeUt from '@/AvtaleSide/Oppgavelinje/SlikVilTilskuddsperioderSeUt';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { forkortAvtale, forkortAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
-import { BodyShort, Fieldset, Label, Link, Radio, RadioGroup } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import { BodyShort, debounce, Label, Link, Radio, RadioGroup, Textarea } from '@navikt/ds-react';
+import React, { FunctionComponent, useContext, useEffect, useMemo, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
-import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, formaterDatoHvisDefinert, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import './forkortAvtale.less';
-import { addDays, format } from 'date-fns';
+import { addDays } from 'date-fns';
+import * as z from 'zod';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const grunn = ['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'] as const;
+const grunnSchema = z.enum(grunn, { errorMap: () => ({ message: 'Grunn må velges' }) });
+
+const schema = (min: Date, max: Date) =>
+    z
+        .object({
+            grunn: grunnSchema,
+            sluttDato: z.preprocess(
+                (value) => (!value || value === '' ? undefined : value),
+                z.coerce
+                    .date({ errorMap: () => ({ message: 'Sluttdato må ha formatet dd.mm.åååå' }) })
+                    .max(max, { message: `Sluttdato kan senest være ${formaterDato(max, NORSK_DATO_FORMAT)}` })
+                    .min(min, { message: `Sluttdato kan tidligst være ${formaterDato(min, NORSK_DATO_FORMAT)}` }),
+            ),
+            annetGrunn: z.string().max(500, 'Begrunnelse kan ikke være lengre enn 500 tegn').optional(),
+        })
+        .refine((data) => (data.grunn === 'Annet' ? data.annetGrunn && data.annetGrunn.trim().length : true), {
+            message: 'Begrunnelse må fylles ut når "Annet" er valgt',
+            path: ['annetGrunn'],
+        });
+
+type Schema = { grunn: z.infer<typeof grunnSchema>; sluttDato: string; annetGrunn?: string };
 
 const ForkortAvtale: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
     const cls = BEMHelper('forkortAvtale');
 
     const [modalApen, setModalApen] = useState(false);
-    const [sluttDato, setSluttDato] = useState<string | undefined>();
-    const [datoFeil, setDatoFeil] = useState<string>();
-    const [grunn, setGrunn] = useState<string>('');
-    const [annetGrunn, setAnnetGrunn] = useState<string>();
-    // Hvis man skal forkorte, kan vi gå ut fra at start og sluttdato alltid er satt
-    const naavaerendeDato = avtaleContext.avtale.gjeldendeInnhold.sluttDato!;
-    const startDato = avtaleContext.avtale.gjeldendeInnhold.startDato!;
-
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
-    const forkort = async (): Promise<void> => {
-        if (!sluttDato) {
-            setDatoFeil('Dato må fylles ut');
-            return;
-        }
-        await forkortAvtale(avtaleContext.avtale, sluttDato, grunn, annetGrunn);
-        await avtaleContext.hentAvtale();
-        lukkModal();
-    };
+    const minDate = new Date(avtaleContext.avtale.gjeldendeInnhold.startDato!);
+    const maxDate = addDays(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, -1);
 
-    const onDatoChange = async (dato: string | undefined): Promise<void> => {
-        setSluttDato(dato);
-        setDatoFeil(undefined);
-        if (dato) {
-            try {
-                const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, dato);
-                setTilskuddsperioder(nyAvtale.tilskuddPeriode);
-            } catch (error: any) {
-                handterFeil(error, (feilmelding: string) => setDatoFeil(feilmelding));
+    const { formState, register, control, watch, trigger, getValues, setError, subscribe } = useForm<Schema>({
+        mode: 'onBlur',
+        resolver: zodResolver(schema(minDate, maxDate)),
+        defaultValues: {
+            grunn: grunn[0],
+            sluttDato: formaterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, 'yyyy-MM-dd'),
+            annetGrunn: '',
+        },
+    });
+
+    const dryRun = useMemo(() => {
+        let gammelSluttDato: string | undefined = undefined;
+
+        return debounce(async (nySluttDato: string, isValid?: boolean) => {
+            if (nySluttDato === gammelSluttDato) {
+                return;
             }
-        }
-    };
+            if (!isValid) {
+                setTilskuddsperioder([]);
+                return;
+            }
+            try {
+                const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, nySluttDato);
+                setTilskuddsperioder(nyAvtale.tilskuddPeriode);
+                gammelSluttDato = nySluttDato;
+            } catch (error: any) {
+                handterFeil(error, (message) => {
+                    setError('sluttDato', { message });
+                });
+            }
+        }, 500);
+    }, [avtaleContext.avtale, setTilskuddsperioder, setError]);
+
+    useEffect(() => {
+        const unsubscribe = subscribe({
+            formState: { values: true, isValid: true },
+            callback: ({ values, errors }) => {
+                dryRun(values.sluttDato, !errors?.sluttDato);
+            },
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [subscribe]);
 
     const lukkModal = (): void => {
         setModalApen(false);
         setTilskuddsperioder([]);
-        setSluttDato(undefined);
+    };
+
+    const forkort = async () => {
+        const isValid = await trigger(); // Revalidate all fields
+        if (!isValid) {
+            return;
+        }
+        const { sluttDato, grunn, annetGrunn } = getValues();
+        await forkortAvtale(avtaleContext.avtale, sluttDato, grunn, annetGrunn);
+        await avtaleContext.hentAvtale();
+        lukkModal();
     };
 
     return (
@@ -93,58 +146,58 @@ const ForkortAvtale: FunctionComponent = () => {
                 <div className={cls.className}>
                     <div className={cls.element('navarende-sluttdato')}>
                         <Label>Nåværende sluttdato for avtalen</Label>
-                        <BodyShort size="small">{formaterDato(naavaerendeDato, NORSK_DATO_FORMAT)}</BodyShort>
+                        <VerticalSpacer rem={0.5} />
+                        <BodyShort>
+                            {formaterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, NORSK_DATO_FORMAT)}
+                        </BodyShort>
                     </div>
 
-                    <Fieldset
-                        legend="Velg ny sluttdato for avtalen"
-                        error={datoFeil}
-                        title="Velg ny sluttdato for avtalen"
-                    >
-                        <DatovelgerForlengOgForkort
-                            datoFelt="sluttDato"
-                            label=""
-                            onChangeHåndtereNyDato={onDatoChange}
-                            minDate={formaterDato(startDato, 'yyyy-MM-dd')}
-                            maxDate={format(addDays(naavaerendeDato, -1), 'yyyy-MM-dd')}
-                        />
-                    </Fieldset>
+                    <Controller
+                        name="sluttDato"
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <DatovelgerForlengOgForkort
+                                legend="Velg ny sluttdato for avtalen"
+                                value={value}
+                                onChangeHåndtereNyDato={(dato?: string) => {
+                                    onChange(dato);
+                                    onBlur();
+                                }}
+                                minDate={formaterDato(minDate, 'yyyy-MM-dd')}
+                                maxDate={formaterDato(maxDate, 'yyyy-MM-dd')}
+                                error={formState.errors.sluttDato?.message}
+                            />
+                        )}
+                    />
+
                     <VerticalSpacer rem={1} />
-                    <Fieldset legend="Hvorfor forkortes avtalen?" title="Hvorfor forkortes avtalen?">
-                        {[
-                            'Begynt i arbeid',
-                            'Fått tilbud om annet tiltak',
-                            'Syk',
-                            'Ikke møtt',
-                            'Fullført',
-                            'Annet',
-                        ].map((label: string, index: number) => (
-                            <RadioGroup legend="" key={index} value={grunn}>
-                                <Radio
-                                    key={label}
-                                    name="grunn"
-                                    value={label}
-                                    checked={label === grunn}
-                                    onChange={(event) => {
-                                        setGrunn(event.currentTarget.value);
-                                        setAnnetGrunn(undefined);
-                                    }}
-                                    role="menuitemradio"
-                                >
-                                    {label}
-                                </Radio>
+                    <Controller
+                        name="grunn"
+                        control={control}
+                        render={({ field: { onChange, value } }) => (
+                            <RadioGroup
+                                legend="Hvorfor forkortes avtalen?"
+                                value={value}
+                                onChange={onChange}
+                                error={formState.errors.grunn?.message}
+                            >
+                                {grunn.map((label: string) => (
+                                    <Radio key={label} name="grunn" value={label} role="menuitemradio">
+                                        {label}
+                                    </Radio>
+                                ))}
                             </RadioGroup>
-                        ))}
-                    </Fieldset>
-                    <VerticalSpacer rem={1} />
-                    {grunn === 'Annet' && (
-                        <PakrevdTextarea
+                        )}
+                    />
+                    {watch('grunn') === 'Annet' && (
+                        <Textarea
                             label=""
-                            verdi={annetGrunn}
+                            aria-label="Begrunnelse"
                             placeholder="Begrunnelse (påkrevd)"
-                            settVerdi={(verdi) => setAnnetGrunn(verdi)}
-                            maxLengde={500}
-                            feilmelding="Begrunnelse er påkrevd"
+                            error={formState.errors.annetGrunn?.message}
+                            maxLength={500}
+                            role="textbox"
+                            {...register('annetGrunn')}
                         />
                     )}
                     <VerticalSpacer rem={2} />

@@ -6,7 +6,7 @@ import { forlengAvtale, forlengAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Notes } from '@navikt/ds-icons/cjs';
-import { Alert, BodyShort, Fieldset, Label, Link } from '@navikt/ds-react';
+import { Alert, BodyShort, Label, Link } from '@navikt/ds-react';
 import React, { useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './forlengAvtale.less';
@@ -18,14 +18,14 @@ const ForlengAvtale = () => {
     const { avtale, hentAvtale } = useAvtale();
     const cls = BEMHelper('forlengAvtale');
 
-    const [modalApen, setModalApen] = useState(false);
-    const [sluttDato, setSluttDato] = useState<string | undefined>();
-    const [feil, setFeil] = useState<string>();
-    const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
-
     // Kan trygt anta at sluttdato er satt ved forlenging av avtale
     const naavaerendeSluttDato = avtale.gjeldendeInnhold.sluttDato!;
     const kanForlenges = avtale.tiltakstype === 'MENTOR' ? avtale.tilskuddPeriode.length > 0 : true;
+
+    const [modalApen, setModalApen] = useState(false);
+    const [sluttDato, setSluttDato] = useState<string | undefined>(naavaerendeSluttDato);
+    const [feil, setFeil] = useState<string>();
+    const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const forleng = async (): Promise<void> => {
         if (sluttDato) {
@@ -96,14 +96,13 @@ const ForlengAvtale = () => {
                                     {formaterDato(naavaerendeSluttDato, NORSK_DATO_FORMAT)}
                                 </BodyShort>
                             </div>
-                            <Fieldset legend="sluttdato" error={feil}>
-                                <DatovelgerForlengOgForkort
-                                    datoFelt="sluttDato"
-                                    label="Velg ny sluttdato for avtalen"
-                                    onChangeHåndtereNyDato={onDatoChange}
-                                    minDate={formaterDato(addDays(naavaerendeSluttDato, 1).toISOString(), 'yyyy-MM-dd')}
-                                />
-                            </Fieldset>
+                            <DatovelgerForlengOgForkort
+                                value={sluttDato}
+                                legend="Velg ny sluttdato for avtalen"
+                                onChangeHåndtereNyDato={onDatoChange}
+                                minDate={formaterDato(addDays(naavaerendeSluttDato, 1).toISOString(), 'yyyy-MM-dd')}
+                                error={feil}
+                            />
                             <VerticalSpacer rem={2} />
                             <SlikVilTilskuddsperioderSeUt
                                 overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"
