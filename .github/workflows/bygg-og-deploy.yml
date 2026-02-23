@@ -18,38 +18,47 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
-      - name: Setup node.js
-        uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          registry-url: 'https://npm.pkg.github.com'
+          version: "latest"
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          registry-url: https://npm.pkg.github.com/
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yamlB
       - name: Install
-        run: npm ci
+        run: pnpm install --frozen-lockfile --prefer-offline
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        shell: bash
       - name: Server install
         working-directory: ./server
-        run: npm ci
+        run: pnpm install --frozen-lockfile --prefer-offline
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        shell: bash
       - name: Typescript
-        run: npm run ts
+        run: pnpm run ts
       - name: Prettier
-        run: npm run prettier
+        run: pnpm run prettier
       - name: Kjør tester
-        run: npm run test
+        run: pnpm run test
       - name: Build
-        run: npm run build
+        run: pnpm run build
       - name: Server build
         working-directory: ./server
-        run: npm run build
+        run: pnpm run build
       - name: Installer avhengigheter for produksjon
-        run: npm ci --production
+        run: pnpm install --prod --frozen-lockfile
         working-directory: ./server
       - name: Kopier node-modules til server
-        run: npm run dist
+        run: pnpm run dist
         working-directory: ./server
       - name: Sentry release
-        run: npm run release
+        run: pnpm run release
       - name: Fjerne source maps
         run: |
           rm dist/client/assets/*.map

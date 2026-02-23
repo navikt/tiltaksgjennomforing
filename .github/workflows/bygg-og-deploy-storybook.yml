@@ -10,7 +10,7 @@ jobs:
   build:
     permissions:
       contents: read
-      id-token: write 
+      id-token: write
     name: Bygg og deploy
     runs-on: ubuntu-latest
     outputs:
@@ -18,14 +18,24 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
-      - name: Konfigurer Node
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "latest"
+      - name: Setup node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Frontend npm install
-        run: npm ci
+          node-version: lts/*
+          registry-url: https://npm.pkg.github.com/
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Frontend pnpm install
+        run: pnpm install --frozen-lockfile --prefer-offline
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        shell: bash
       - name: Frontend - test, lint og build
-        run: npm run build-storybook
+        run: pnpm run build-storybook
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0
         id: docker-build-push

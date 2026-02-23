@@ -13,22 +13,30 @@ jobs:
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
-      - name: Setup node.js
-        uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          registry-url: 'https://npm.pkg.github.com'
+          version: "latest"
+      - name: Setup node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+#          registry-url: https://npm.pkg.github.com/
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+#          scope: "@navikt"
       - name: Install
-        run: npm ci
+        run: pnpm install --frozen-lockfile --prefer-offline
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Server install
         working-directory: ./server
-        run: npm ci
+        run: pnpm install --frozen-lockfile --prefer-offline
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Typescript
-        run: npm run ts
+        run: pnpm run ts
       - name: Prettier
-        run: npm run prettier
+        run: pnpm run prettier
       - name: Kjør tester
-        run: npm run test
+        run: pnpm run test
