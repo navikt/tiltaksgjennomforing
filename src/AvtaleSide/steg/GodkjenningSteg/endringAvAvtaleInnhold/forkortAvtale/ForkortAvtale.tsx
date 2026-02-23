@@ -55,7 +55,7 @@ const ForkortAvtale: FunctionComponent = () => {
         resolver: zodResolver(schema(minDate, maxDate)),
         defaultValues: {
             grunn: grunn[0],
-            sluttDato: minDate.toDateString(),
+            sluttDato: formaterDato(minDate, 'yyyy-MM-dd'),
             annetGrunn: '',
         },
     });

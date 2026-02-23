@@ -2,9 +2,8 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
 import { DatePicker, Fieldset, useDatepicker } from '@navikt/ds-react';
 import { useContext } from 'react';
-import { formaterDatoHvisDefinert } from '@/utils/datoUtils';
 import { ISODateString } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
-import { addDays } from 'date-fns';
+import { addDays, format } from 'date-fns';
 
 interface Props {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
@@ -27,21 +26,17 @@ const DatovelgerForlengOgForkort = (props: Props) => {
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
         onValidate: (val) => {
             if (val.isBefore && minDate) {
-                return onChangeHåndtereNyDato(
-                    formaterDatoHvisDefinert(addDays(minDate, -1).toDateString(), 'yyyy-MM-dd'),
-                );
+                return onChangeHåndtereNyDato(format(addDays(minDate, -1), 'yyyy-MM-dd'));
             }
             if (val.isAfter && maxDate) {
-                return onChangeHåndtereNyDato(
-                    formaterDatoHvisDefinert(addDays(maxDate, 1).toDateString(), 'yyyy-MM-dd'),
-                );
+                return onChangeHåndtereNyDato(format(addDays(maxDate, 1), 'yyyy-MM-dd'));
             }
             if (val.isInvalid) {
                 return onChangeHåndtereNyDato('Invalid');
             }
         },
         onDateChange: (dato) => {
-            onChangeHåndtereNyDato(formaterDatoHvisDefinert(dato?.toDateString(), 'yyyy-MM-dd'));
+            onChangeHåndtereNyDato(dato ? format(dato, 'yyyy-MM-dd') : undefined);
         },
     });
 
