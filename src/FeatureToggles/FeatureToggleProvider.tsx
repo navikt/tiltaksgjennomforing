@@ -7,6 +7,7 @@ export const FeatureToggleProviderInitialState = {
     visHvemHarGodkjent: false,
     pabegyntAvtaleRyddeJobb: false,
     migreringSkrivebeskyttet: false,
+    firearigLonnstilskudd: false,
 } as const;
 
 export type Feature = keyof typeof FeatureToggleProviderInitialState;

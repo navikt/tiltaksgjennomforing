@@ -147,7 +147,8 @@ export type TiltaksType =
     | 'MENTOR'
     | 'INKLUDERINGSTILSKUDD'
     | 'SOMMERJOBB'
-    | 'VTAO';
+    | 'VTAO'
+    | 'FIREARIG_LONNSTILSKUDD';
 
 export type TilskuddPeriodeStatus =
     | 'UBEHANDLET'
