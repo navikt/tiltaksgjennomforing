@@ -17,6 +17,7 @@ import useInnlogget from './useInnlogget';
 
 const dekoratorConfig = decoratorconfig();
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflate-decorator-v3');
+const GYLDIGE_PARTER = ['ARBEIDSGIVER', 'DELTAKER', 'MENTOR', 'VEILEDER', 'BESLUTTER'];
 
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
@@ -43,18 +44,16 @@ const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
     const [cookies, setCookie] = useCookies();
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
 
-    if (!cookies[INNLOGGET_PART]) {
-        const urlParametere = new URLSearchParams(window.location.search);
+    const urlParametere = new URLSearchParams(window.location.search);
+    const innloggetPartIUrl = (urlParametere.get('part') || '').toUpperCase();
 
-        const innloggetPart = (urlParametere.get('part') || '').toUpperCase();
-
-        if (['ARBEIDSGIVER', 'DELTAKER', 'MENTOR', 'VEILEDER', 'BESLUTTER'].includes(innloggetPart)) {
-            setCookie(INNLOGGET_PART, innloggetPart, { path: '/tiltaksgjennomforing' });
-            urlParametere.delete('part');
-            navigate({ search: urlParametere.toString() });
-        } else {
-            return <Innloggingside innloggingskilder={innloggingskilder} />;
-        }
+    if (GYLDIGE_PARTER.includes(innloggetPartIUrl) && innloggetPartIUrl !== cookies[INNLOGGET_PART]) {
+        setCookie(INNLOGGET_PART, innloggetPartIUrl, { path: '/tiltaksgjennomforing' });
+        urlParametere.delete('part');
+        navigate({ search: urlParametere.toString() });
+        return null;
+    } else if (!cookies[INNLOGGET_PART]) {
+        return <Innloggingside innloggingskilder={innloggingskilder} />;
     }
 
     if (uinnlogget) {

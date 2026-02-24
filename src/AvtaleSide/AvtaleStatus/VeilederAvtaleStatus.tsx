@@ -7,9 +7,8 @@ import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderReturnert from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderReturnert';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale, TiltaksType } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import { formaterDato, NORSK_DATO_FORMAT_FULL, tidSidenTidspunkt } from '@/utils/datoUtils';
-import { erNil } from '@/utils/predicates';
 import OppfolgingKreves from './OppfolgingKreves';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
@@ -107,7 +106,7 @@ function VeilederAvtaleStatus(props: Props) {
     const { overtaAvtale } = useAvtale();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
-    const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
+    const kreverOppfølging = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
@@ -163,10 +162,12 @@ function VeilederAvtaleStatus(props: Props) {
                     body={
                         <>
                             <BodyShort size="small">
-                                Du eller en annen veileder har annullert avtalen{' '}
-                                {formaterDato(avtale.annullertTidspunkt!)}.
+                                Du eller en annen veileder har annullert avtalen
+                                {avtale.annullertTidspunkt && ` ${formaterDato(avtale.annullertTidspunkt)}`}.
                             </BodyShort>
-                            <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                            {avtale.annullertGrunn && (
+                                <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                            )}
                         </>
                     }
                 />
@@ -433,7 +434,7 @@ function VeilederAvtaleStatus(props: Props) {
         }
         case 'GJENNOMFØRES': {
             if (kreverOppfølging) {
-                return <OppfolgingKreves oppfølgingsFrist={avtale.kreverOppfolgingFrist} />;
+                return <OppfolgingKreves oppfølgingsFrist={avtale.kommendeOppfolging?.oppfolgingsfrist} />;
             } else {
                 return (
                     <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />

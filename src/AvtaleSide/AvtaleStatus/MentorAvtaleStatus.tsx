@@ -21,8 +21,8 @@ const MentorAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert avtalen{' '}
-                            {formaterDato(avtale.annullertTidspunkt!, NORSK_DATO_OG_TID_FORMAT_FULL)}.
+                            Veileder har annullert avtalen
+                            {avtale.annullertTidspunkt && ` ${formaterDato(avtale.annullertTidspunkt)}`}.
                         </BodyShort>
                     }
                 />
