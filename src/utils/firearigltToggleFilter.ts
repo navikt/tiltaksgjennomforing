@@ -1,6 +1,6 @@
 import { TiltaksType } from '@/types/avtale';
 
-export const tiltakToggleFilter = (vtaoTiltakToggle: boolean): TiltaksType[] =>
+export const tiltakToggleFilter = (firearigLonnstilskuddAktivert: boolean): TiltaksType[] =>
     [
         'ARBEIDSTRENING',
         'INKLUDERINGSTILSKUDD',
