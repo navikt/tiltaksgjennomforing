@@ -1,8 +1,9 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { Alert, BodyShort, RadioGroup, Radio } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Alert, RadioGroup, Radio, InfoCard, List } from '@navikt/ds-react';
+import { ExclamationmarkTriangleIcon } from '@navikt/aksel-icons';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import BekreftelseModal from './BekreftelseModal';
 
 interface Props {
@@ -45,23 +46,32 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
             avbrytelseTekst="Behold avtale"
         >
             <>
-                <BodyShort>
-                    Annullering brukes for tilfeller der tiltaket aldri ble noe av. Når du annullerer avtalen, blir
-                    innholdet låst, og den blir markert som "annullert" i din oversikt. Du kan ikke redigere eller
-                    gjenopprette den etterpå.
-                </BodyShort>
-                <VerticalSpacer rem={1} />
-                {avtaleContext.avtale.opphav === 'ARENA' && (
-                    <>
-                        <Alert variant="warning">
-                            Annullering av denne avtalen kan generere en vurder konsekvens for ytelse oppgave, som du må
-                            følge opp.
-                        </Alert>
-                        <VerticalSpacer rem={1} />
-                    </>
-                )}
+                <InfoCard data-color="warning">
+                    <InfoCard.Header icon={<ExclamationmarkTriangleIcon />}>
+                        <InfoCard.Title>Vær varsom</InfoCard.Title>
+                    </InfoCard.Header>
+                    <InfoCard.Content>
+                        <List>
+                            <List.Item>
+                                Annullering brukes kun for tilfeller der tiltaket aldri ble påbegynt, og det ikke er
+                                utbetalt noe til arbeidsgiver
+                            </List.Item>
+                            <List.Item>
+                                Når avtalen annulleres, låses innholdet. Den kan ikke redigeres eller gjenopprettes
+                                etter dette.
+                            </List.Item>
+                            <List.Item>Eventuell historikk i Arena slettes.</List.Item>
+                            {avtaleContext.avtale.opphav === 'ARENA' && (
+                                <List.Item>
+                                    Annullering av denne avtalen kan generere en vurder konsekvens for ytelse oppgave,
+                                    som du må følge opp.
+                                </List.Item>
+                            )}
+                        </List>
+                    </InfoCard.Content>
+                </InfoCard>
+                <VerticalSpacer rem={1.5} />
                 <div role="menu">
-                    <VerticalSpacer rem={1.25} />
                     <RadioGroup
                         legend="Valg av grunn for annullering av avtalen"
                         title="Hvorfor annulleres avtalen?"

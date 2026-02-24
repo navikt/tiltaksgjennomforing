@@ -1,5 +1,7 @@
-import { Express } from 'express';
+import { Express, NextFunction } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+
+import { notifikasjonsRespons } from '../mock/notifikasjon-bruker-api';
 
 export const setup = (app: Express) => {
     const apiUrl = 'http://tiltaksgjennomforing-api-labs';
@@ -36,6 +38,11 @@ export const setup = (app: Express) => {
         res.clearCookie('fake-tokenx-idtoken');
         res.clearCookie('fake-aad-idtoken');
         res.redirect('/tiltaksgjennomforing');
+    });
+
+    app.use('/tiltaksgjennomforing/notifikasjon-bruker-api', (req, res, next: NextFunction) => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(notifikasjonsRespons()));
     });
 
     app.use(

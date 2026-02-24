@@ -65,6 +65,7 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     inkluderingstilskuddBegrunnelse: 'Begrunnelse for inkluderingstilskudd',
     inkluderingstilskuddTotalBeløp: 'Totalbeløp for inkluderingstilskudd',
     inkluderingstilskuddSats: 'Årlig gjeldende inkluderingstilskuddsats',
+    innholdType: 'INNGÅ',
 };
 
 export const inkluderingstilskuddtypeTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {
@@ -85,6 +86,7 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     INKLUDERINGSTILSKUDD: 'inkluderingstilskudd',
     SOMMERJOBB: 'sommerjobb',
     VTAO: 'varig tilrettelagt arbeid i ordinær virksomhet',
+    FIREARIG_LONNSTILSKUDD: 'fireårig lønnstilskudd for unge',
 };
 
 export const tiltakstypeTekstKort: { [key in TiltaksType]: string } = { ...tiltakstypeTekst, VTAO: 'VTA-O' };
@@ -97,6 +99,7 @@ export const avtaleTittel: { [key in TiltaksType]: string } = {
     INKLUDERINGSTILSKUDD: 'Avtale om inkluderingstilskudd',
     SOMMERJOBB: 'Avtale om sommerjobb',
     VTAO: 'Avtale om varig tilrettelagt arbeid i ordinær virksomhet',
+    FIREARIG_LONNSTILSKUDD: 'Avtale om fireårig lønnstilskudd for unge',
 };
 
 export const stillingstype: { [key in Stillingstype]: string } = {
@@ -164,7 +167,7 @@ export const innholdTypeTekst: (avtaleVersjon: AvtaleVersjon) => string = (avtal
         case 'ENDRE_OM_MENTOR':
             return 'om mentor endret av veileder';
         case 'ENDRET_AV_ARENA':
-            return 'dato og arbeidstid synkronisert med fagsystem (Arena)';
+            return 'synkronisert med fagsystem';
         case 'ENDRE_KID_OG_KONTONUMMER':
             return 'betalingsinformasjon endret';
         case 'ANNULLERE':

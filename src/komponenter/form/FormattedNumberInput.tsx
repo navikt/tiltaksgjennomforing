@@ -2,7 +2,15 @@ import { toNumberOnFocus } from '@/komponenter/form/utils/form-utils';
 import useValidering from '@/komponenter/useValidering';
 import { erNil } from '@/utils/predicates';
 import { TextField, TextFieldProps } from '@navikt/ds-react';
-import React, { PropsWithChildren } from 'react';
+import {
+    ChangeEvent,
+    FunctionComponent,
+    PropsWithChildren,
+    ReactNode,
+    RefObject,
+    SyntheticEvent,
+    useState,
+} from 'react';
 
 const DEFAULT_INPUT_MAX_LENGTH = 524288;
 
@@ -10,11 +18,10 @@ interface FormattedNumberInputProps extends TextFieldProps {
     toFormatted: (value: any) => string;
     validatorer: Array<(value: any) => string | undefined>;
     className?: string;
-    feil?: React.ReactNode | boolean;
-    id?: string;
+    feil?: ReactNode | boolean;
     inputClassName?: string;
-    inputRef?: ((element: HTMLInputElement | null) => any) | React.RefObject<HTMLInputElement>;
-    description?: React.ReactNode;
+    inputRef?: ((element: HTMLInputElement | null) => any) | RefObject<HTMLInputElement>;
+    description?: ReactNode;
     name?: string;
     mini?: boolean;
 }
@@ -22,15 +29,15 @@ interface FormattedNumberInputProps extends TextFieldProps {
 /**
  * Testet via: FormattedNumberInput.spec.txs ///
  */
-const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> = (
+const FormattedNumberInput: FunctionComponent<FormattedNumberInputProps> = (
     props: PropsWithChildren<FormattedNumberInputProps>,
 ) => {
     const { value, validatorer, toFormatted, onChange, maxLength, max, ...other } = props;
-    const [tallVerdi, setVerdi] = React.useState(value);
+    const [tallVerdi, setVerdi] = useState(value);
     const [feil, settFeil, sjekkInputfelt] = useValidering(value, validatorer);
 
     const maximumLength = maxLength ? maxLength : DEFAULT_INPUT_MAX_LENGTH;
-    const onChangeOverride = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeOverride = (event: ChangeEvent<HTMLInputElement>) => {
         const originalVerdi = event.target.value.replace(',', '.');
         if (originalVerdi.length === 0) {
             applyOnChange(event, '');
@@ -46,7 +53,7 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
         }
     };
 
-    const applyOnChange = (event: React.ChangeEvent<HTMLInputElement>, targetValue: string) => {
+    const applyOnChange = (event: ChangeEvent<HTMLInputElement>, targetValue: string) => {
         if (onChange) {
             event.target.value = targetValue;
             onChange(event);
@@ -54,7 +61,7 @@ const FormattedNumberInput: React.FunctionComponent<FormattedNumberInputProps> =
         }
     };
 
-    const onBlur = (event: React.SyntheticEvent<HTMLInputElement>) => {
+    const onBlur = (event: SyntheticEvent<HTMLInputElement>) => {
         settFeil(undefined);
         if (event.target instanceof HTMLInputElement && sjekkInputfelt()) {
             event.target.type = 'text';

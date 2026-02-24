@@ -3,25 +3,36 @@ import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import KlarForOppstart from '@/AvtaleSide/AvtaleStatus/KlarForOppstart';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale, Avtaleinnhold } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import { formaterDato } from '@/utils/datoUtils';
 import { BodyShort } from '@navikt/ds-react';
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 interface Props {
-    avtale: Pick<
-        Avtale,
-        | 'status'
-        | 'annullertTidspunkt'
-        | 'godkjentAvDeltaker'
-        | 'godkjentAvArbeidsgiver'
-        | 'godkjentAvVeileder'
-        | 'avtaleInngått'
-        | 'annullertGrunn'
-    > & { gjeldendeInnhold: Pick<Avtaleinnhold, 'startDato' | 'sluttDato'> };
+    avtale: Avtale;
 }
 
 const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
+
+    if (erSkrivebeskyttet(avtale)) {
+        return (
+            <StatusPanel
+                header="Oppgradering av tjenesten pågår"
+                body={
+                    <>
+                        <BodyShort size="small" align="center">
+                            Avtalen er midlertidig låst for endinger på grunn av teknisk oppgradering.
+                            <br />
+                            Beklager ulempen dette medfører. Vennligst forsøk igjen om et par timer.
+                        </BodyShort>
+                    </>
+                }
+            />
+        );
+    }
+
     switch (avtale.status) {
         case 'ANNULLERT':
             return (
@@ -29,8 +40,9 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                     header="Avtalen er annullert"
                     body={
                         <BodyShort size="small">
-                            Veileder har annullert avtalen {formaterDato(avtale.annullertTidspunkt!)}. Årsak:{' '}
-                            {avtale.annullertGrunn}.
+                            Veileder har annullert avtalen
+                            {avtale.annullertTidspunkt && ` ${formaterDato(avtale.annullertTidspunkt)}`}.
+                            {avtale.annullertGrunn && ` Årsak: ${avtale.annullertGrunn}.`}
                         </BodyShort>
                     }
                 />

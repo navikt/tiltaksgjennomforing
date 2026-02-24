@@ -13,7 +13,7 @@ import OpprettAvtaleArbeidsgiver from '@/OpprettAvtale/OpprettAvtaleArbeidsgiver
 import OpprettAvtaleVeileder from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import Oversikt from '@/Oversikt';
 import RedirectEtterLogin from '@/RedirectEtterLogin';
-import { FeatureToggleProvider } from '@/FeatureToggleProvider';
+import { FeatureToggleProvider } from '@/FeatureToggles';
 import { FeilVarselProvider } from '@/FeilVarselProvider';
 import { NotifikasjonWidgetProvider } from '@/NotifikasjonWidgetProvider';
 import { VarselOmNedetid } from '@/InnloggingBoundary/VarselOmNedetid';
@@ -35,7 +35,6 @@ export enum Path {
     AVTALE_STEG = '/avtale/:avtaleId/:steg',
     AVTALE_BESLUTTER = '/avtale/:avtaleId/beslutter',
     AVTALE_BESLUTTER_TILSKUDDSPERIODE = '/avtale/:avtaleId/beslutter/:tilskuddsperiodeId',
-    AVTALE_SLETT = '/avtale/:avtaleId/slett',
 }
 
 const router = createBrowserRouter(

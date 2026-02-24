@@ -1,39 +1,31 @@
-import React, { useContext } from 'react';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
+import React from 'react';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import { BEMWrapper } from '@/utils/bem';
-import { AvtaleContext } from '@/AvtaleProvider';
 import { formaterNorskeTall } from '@/utils';
 
-interface Props {
-    cls: BEMWrapper;
-}
+type ObligatoriskTjenestepensjonProps = {
+    sats?: number;
+    onChange: (sats?: number) => void;
+};
 
-const ObligatoriskTjenestepensjon: React.FC<Props> = ({ cls }: Props) => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = (
+    props: ObligatoriskTjenestepensjonProps,
+) => {
+    const { sats, onChange } = props;
+
     return (
-        <Row className={cls.element('rad')}>
-            <Column md="8" className={cls.element('tjenestepensjon')}>
-                <ProsentInput
-                    name="tjenestepensjon"
-                    label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
-                    min={0}
-                    max={30}
-                    maxLength={4}
-                    autoComplete={'off'}
-                    value={
-                        avtale.gjeldendeInnhold.otpSats !== undefined && avtale.gjeldendeInnhold.otpSats !== null
-                            ? formaterNorskeTall(avtale.gjeldendeInnhold.otpSats * 100)
-                            : ''
-                    }
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        settOgKalkulerBeregningsverdier({
-                            otpSats: event.target.value === '' ? undefined : parseFloat(event.target.value) / 100,
-                        });
-                    }}
-                />
-            </Column>
-        </Row>
+        <ProsentInput
+            name="tjenestepensjon"
+            label={'Obligatorisk tjenestepensjon'}
+            min={0}
+            max={30}
+            maxLength={4}
+            autoComplete={'off'}
+            description={'Fra 0 - 30%'}
+            value={sats !== undefined && sats !== null ? formaterNorskeTall(sats * 100) : ''}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                onChange(event.target.value === '' ? undefined : parseFloat(event.target.value) / 100);
+            }}
+        />
     );
 };
 export default ObligatoriskTjenestepensjon;

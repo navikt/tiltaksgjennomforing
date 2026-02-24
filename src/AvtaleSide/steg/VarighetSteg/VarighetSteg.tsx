@@ -16,6 +16,8 @@ import { VellykketGenerertIsoDatoString, genererFnrdatostringFraFnr } from '@/ut
 import { addYears, differenceInDays } from 'date-fns';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
+import { Alert } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -23,6 +25,15 @@ const VarighetSteg: FunctionComponent = () => {
     const { deltakerFnr, tiltakstype, erRyddeAvtale, opphav } = avtale;
     const { startDato } = avtale.gjeldendeInnhold;
     const cls = BEMHelper('varighetsteg');
+
+    // Under migrering til nytt system vil avtalen gjenåpnes, og da kan
+    // alle felter endres, men vi ønsker å forhindre at startdato kan endres
+    // på disse avtalene, på samme måte som vi ikke tillater endring av startdato
+    // når avtaler er signert og godkjent.
+    const skalIkkeKunneEndreStartdato = avtale.erOpprettetEllerEndretAvArena;
+
+    const skalViseEtterregistreringsinstruks =
+        opphav !== 'ARENA' && innloggetBruker.erNavAnsatt && !skalIkkeKunneEndreStartdato;
 
     const erArbeidsgiverOgUfordelt = !innloggetBruker.erNavAnsatt && avtale.erUfordelt;
     const [sommerjobbDeltakerOver30VedStartdato, setSommerjobbDeltakerOver30VedStartdato] = useState(false);
@@ -50,11 +61,20 @@ const VarighetSteg: FunctionComponent = () => {
                             <VarighetIngress tiltakstype={avtale.tiltakstype} className={cls.className} />
                         </Column>
                     </Row>
-                    <EtterregistreringInstruks
-                        opphav={opphav}
-                        erNavAnsatt={innloggetBruker.erNavAnsatt}
-                        className={cls.className}
-                    />
+                    {skalViseEtterregistreringsinstruks && <EtterregistreringInstruks className={cls.className} />}
+                    {skalIkkeKunneEndreStartdato && (
+                        <>
+                            <Row>
+                                <Column md="12">
+                                    <Alert variant="info" size="small">
+                                        Avtalen er {avtale.opphav === 'ARENA' ? 'importert fra ' : 'synkronisert med '}
+                                        gammel løsning, og oppstartsdato kan derfor ikke endres.
+                                    </Alert>
+                                </Column>
+                            </Row>
+                            <VerticalSpacer rem={2} />
+                        </>
+                    )}
                     <Row className={cls.element('rad')}>
                         <Column md="12">
                             {startDato !== undefined && (
@@ -69,7 +89,7 @@ const VarighetSteg: FunctionComponent = () => {
                             )}
                         </Column>
                         <Column md="6">
-                            <Datovelger datoFelt="startDato" label="Startdato" />
+                            <Datovelger readOnly={skalIkkeKunneEndreStartdato} datoFelt="startDato" label="Startdato" />
                         </Column>
                         <Column md="6">
                             <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />

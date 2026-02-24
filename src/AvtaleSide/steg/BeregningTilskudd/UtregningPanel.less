@@ -1,97 +1,47 @@
 .utregningspanel {
-    &__wrapper {
-        margin: 0.25rem;
+    &__fet-border-bottom.navds-table__row > .navds-table__data-cell {
+        border-bottom: 1px solid black;
     }
 
-    &__operator {
-        line-height: 1.5625rem;
-        color: #979797;
-    }
-
-    &__utregning-rad {
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        min-height: 3.5rem;
-        height: 100%;
-        border-bottom: 1px solid #c6c2bf;
-
-        svg {
-            min-width: 1.25rem;
-            min-height: 1.25rem;
-            margin-right: 0.5rem;
-        }
-
-        &--tykkbunn {
-            border-bottom: 1.25px solid #3e3832;
+    &__fet-skrift {
+        td {
+            font-weight: bold;
         }
     }
 
-    &__label-innhold {
-        height: 100%;
+    &__operator-cell {
+        width: 30px;
+        max-width: 30px;
     }
 
-    &__utregning-label,
-    &__label-innhold {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        svg {
-            display: none;
-        }
-    }
-    &__utregning-label {
-        flex-direction: column;
+    &__verdi-cell.navds-table__data-cell {
+        padding-left: 0;
+        white-space: nowrap;
+        width: 1%;
     }
 
-    &__utregning-verdi svg {
-        padding-bottom: 0.275rem;
+    .navds-table__data-cell svg {
+        font-size: 1.2rem;
     }
 
-    &__utregning-verdi {
-        width: 40%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-    &__sum {
-        text-align: end;
-        min-width: 4rem;
+    .navds-table__row > .navds-table__data-cell:first-child svg {
+        font-size: 1.5rem;
     }
 
-    &__label-sats {
-        padding-right: 0.5rem;
-        width: 100%;
+    .navds-table__body > tr > td {
+        font-size: 1rem;
     }
 
-    @media (min-width: 768px) {
-        &__label-sats {
-            width: unset;
-        }
+    .navds-table__body > tr > td {
+        border-bottom: 1px solid lightgray;
+    }
 
-        &__utregning-rad {
-            height: 3.5rem;
-        }
+    .navds-table__body > tr:last-child > td {
+        border-bottom: none;
+    }
 
-        &__ikon-placeholder {
-            width: 1.25rem;
-            height: 1.25rem;
-            margin-right: 0.5rem;
-        }
-        &__utregning-label {
-            flex-direction: row;
-        }
-        &__utregning-verdi {
-            width: 75%;
-        }
-        &__sum {
-            margin-left: 1rem;
-            min-width: 5rem;
-        }
-        &__label-innhold {
-            svg {
-                display: inline-block;
-            }
-        }
+    &__col-icon {
+        width: 32px;
+        max-width: 32px;
     }
 }

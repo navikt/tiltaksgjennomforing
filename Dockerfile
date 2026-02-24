@@ -1,5 +1,4 @@
-FROM gcr.io/distroless/nodejs22-debian12
-
+FROM gcr.io/distroless/nodejs24-debian13
 COPY ./dist .
 COPY ./server /server
 COPY package.json package.json

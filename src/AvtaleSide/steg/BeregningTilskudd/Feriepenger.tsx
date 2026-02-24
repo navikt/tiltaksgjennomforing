@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { BEMWrapper } from '@/utils/bem';
-import { AvtaleContext } from '@/AvtaleProvider';
+import React from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
+import { erNil } from '@/utils/predicates';
 
-interface Props {
-    cls: BEMWrapper;
-}
-const Feriepenger: React.FC<Props> = ({ cls }: Props) => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+type FeriepengerProps = {
+    sats?: number;
+    onChange: (sats?: number) => void;
+};
 
-    const feriepengeAlternativer = [{ label: 'Velg', value: '' }].concat(
+const Feriepenger: React.FC<FeriepengerProps> = (props: FeriepengerProps) => {
+    const { sats, onChange } = props;
+    const feriepengeAlternativer = (!erNil(sats) ? [] : [{ label: 'Velg', value: '' }]).concat(
         [0, 0.102, 0.12, 0.125, 0.143].map((sats: number) => ({
             label: formaterNorskeTall(sats * 100) + ' %',
             value: sats.toString(),
@@ -19,21 +18,17 @@ const Feriepenger: React.FC<Props> = ({ cls }: Props) => {
     );
 
     return (
-        <Row className={cls.element('rad')}>
-            <Column md="8" className={cls.element('feriepenger')}>
-                <SelectInput
-                    label="Sats for feriepenger"
-                    name="feriepengesats"
-                    size="medium"
-                    options={feriepengeAlternativer}
-                    value={avtale.gjeldendeInnhold.feriepengesats + ''}
-                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                        settOgKalkulerBeregningsverdier({ feriepengesats: parseFloatIfFloatable(event.target.value) });
-                    }}
-                    children=""
-                />
-            </Column>
-        </Row>
+        <SelectInput
+            label="Sats for feriepenger"
+            name="feriepengesats"
+            size="medium"
+            options={feriepengeAlternativer}
+            value={sats?.toString() ?? ''}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                onChange(parseFloatIfFloatable(event.target.value));
+            }}
+            children=""
+        />
     );
 };
 export default Feriepenger;

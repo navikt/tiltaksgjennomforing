@@ -64,6 +64,8 @@ export interface Context {
     utforHandlingHvisRedigerbar: (callback: () => void) => void;
     sendTilbakeTilBeslutter: () => Promise<void>;
     oppdatereAvtaleContext: (oppdatertAvtale: Avtale) => void;
+    oppdaterMentorFnr: (data: { mentorFnr: string }) => Promise<void>;
+    underLagring: boolean;
 }
 
 export const AvtaleContext = React.createContext<Context>({} as Context);
@@ -155,6 +157,11 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
             try {
                 const nyAvtale = { ...avtale, gjeldendeInnhold: { ...avtale.gjeldendeInnhold, ...endringer } };
                 settAvtaleInnholdVerdier(endringer);
+
+                if (avtale.tiltakstype === 'MENTOR') {
+                    return;
+                }
+
                 const avtaleEtterDryRun = await RestService.lagreAvtaleDryRun(nyAvtale);
                 settAvtaleInnholdVerdier(avtaleEtterDryRun.gjeldendeInnhold);
             } catch (error: any) {
@@ -249,6 +256,29 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         await hentAvtale(avtale.id);
     };
 
+    // TODO: Fjern etter migreringsjobb er ferdig og ingen mentorfnr mangler
+    const oppdaterMentorFnr = async (data: { mentorFnr: string }) => {
+        setUnderLagring(true);
+        try {
+            const oppdatertAvtale = await RestService.oppdaterMentorFnr(avtale.id, {
+                sistEndret: avtale.sistEndret,
+                mentorFnr: data.mentorFnr,
+            });
+            setAvtale({
+                ...avtale,
+                sistEndret: oppdatertAvtale.sistEndret,
+                mentorFnr: oppdatertAvtale.mentorFnr,
+                gjeldendeInnhold: {
+                    ...avtale.gjeldendeInnhold,
+                    mentorFornavn: oppdatertAvtale.gjeldendeInnhold.mentorFornavn,
+                    mentorEtternavn: oppdatertAvtale.gjeldendeInnhold.mentorEtternavn,
+                },
+            });
+        } finally {
+            setUnderLagring(false);
+        }
+    };
+
     const avtaleContext: Context = {
         avtale,
         settAvtaleInnholdVerdi,
@@ -273,6 +303,8 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         setMellomLagring,
         sendTilbakeTilBeslutter,
         oppdatereAvtaleContext,
+        oppdaterMentorFnr,
+        underLagring,
     };
 
     return (

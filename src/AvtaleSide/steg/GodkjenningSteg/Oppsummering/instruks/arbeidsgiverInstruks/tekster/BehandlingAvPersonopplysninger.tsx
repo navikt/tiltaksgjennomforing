@@ -29,8 +29,8 @@ const BehandlingAvPersonopplysninger: FunctionComponent<Props> = ({ tiltakstype 
             <ul style={{ paddingInlineStart: '1.5rem' }}>
                 <li>Taushetsbelagte og sensitive opplysninger skal kun sendes til NAV gjennom sikre kanaler.</li>
                 <li>
-                    Av hensyn til personvernet vil dere ikke ha tilgang til denne avtalen i NAVs systemer mer enn 12
-                    uker etter at tiltaket/arbeidsforholdet er avsluttet.
+                    Av hensyn til personvernet stenges tilgangen til den digitale avtalen 12 uker etter at tiltaket
+                    avsluttes.
                 </li>
             </ul>
         </IkonTekstRad>

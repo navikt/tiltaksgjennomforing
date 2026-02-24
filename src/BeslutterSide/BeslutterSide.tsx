@@ -3,20 +3,14 @@ import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/Tilbak
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { avtaleTittel, tiltakstypeTekst } from '@/messages';
 import BEMHelper from '@/utils/bem';
-import React, { Dispatch, FunctionComponent, SetStateAction, Suspense, useContext, useState } from 'react';
+import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useState } from 'react';
 import './BeslutterSide.less';
 import BeslutterPanel from '@/BeslutterSide/beslutterPanel/BeslutterPanel';
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperioder';
 import { Accordion, Heading } from '@navikt/ds-react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
-import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
-import { TiltaksType } from '@/types/avtale';
-import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
-import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
-import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import OppsummeringVTAO from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringVTAO/OppsummeringVTAO';
+import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
 
 const cls = BEMHelper('beslutter-side');
 
@@ -61,16 +55,6 @@ const BeslutterSide: FunctionComponent = () => {
         setVisEnhetFeil,
     };
 
-    const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {
-        ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={avtale.gjeldendeInnhold} />,
-        MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
-        VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
-        MENTOR: <OppsummeringMentor avtaleinnhold={avtale.gjeldendeInnhold} />,
-        INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
-        SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={avtale.gjeldendeInnhold} />,
-        VTAO: <OppsummeringVTAO avtaleinnhold={avtale.gjeldendeInnhold} />,
-    };
-
     return (
         <>
             <TilskuddsperiodeContext.Provider value={context}>
@@ -84,7 +68,7 @@ const BeslutterSide: FunctionComponent = () => {
                     </div>
                     <div className={cls.element('wrapper')}>
                         <BeslutterPanel />
-                        <BeslutterTilskuddsPerioder startAnimering={fadeInOut} />
+                        <BeslutterTilskuddsPerioder />
                     </div>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('avtale-wrapper')}>
@@ -95,7 +79,7 @@ const BeslutterSide: FunctionComponent = () => {
                                     <Innholdsboks>
                                         <Heading size="large">{avtaleTittel[avtale.tiltakstype]}</Heading>
                                         <VerticalSpacer rem={2} />
-                                        {oppsummeringType[avtale.tiltakstype]}
+                                        <Oppsummering avtale={avtale} />
                                     </Innholdsboks>
                                 </Accordion.Content>
                             </Accordion.Item>

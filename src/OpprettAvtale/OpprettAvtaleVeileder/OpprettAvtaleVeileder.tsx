@@ -16,7 +16,6 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { AlleredeRegistrertAvtale, TiltaksType } from '@/types/avtale';
-import { FeilVarselContext } from '@/FeilVarselProvider';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { Path } from '@/Router';
 import { handterFeil } from '@/utils/apiFeilUtils';
@@ -26,7 +25,7 @@ import {
     opprettMentorAvtale,
     sjekkOmDeltakerAlleredeErRegistrertPaaTiltak,
 } from '@/services/rest-service';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 import { validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 
@@ -49,6 +48,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>();
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useContext(AlleredeOpprettetAvtaleContext);
+    const { migreringSkrivebeskyttet } = useFeatureToggles();
 
     const navigate = useNavigate();
 
@@ -182,6 +182,18 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             <Heading size="large" className={cls.element('innholdstittel')}>
                 Opprett avtale
             </Heading>
+            {migreringSkrivebeskyttet && (
+                <>
+                    <Alert variant={'warning'}>
+                        Migrering fra Arena pågår.
+                        <br />
+                        Noen tiltakstyper vil være utilgjengelige for opprettelse i denne periode.
+                        <br />
+                        Beklager ulempen. Vennligst forsøk igjen om et par timer.
+                    </Alert>
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
             <InformasjonsboksTopVeilederOppretterAvtale />
             <TiltaksTypeRadioPanel
                 className={cls.className}

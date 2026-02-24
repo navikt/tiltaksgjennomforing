@@ -1,25 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Table } from '@navikt/ds-react';
 import InfoRundtTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtTilskuddsperioder';
-import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { useTilskuddsperiodevisning } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import TilskuddsperiodeTabellRad from './TilskuddsperiodeTabellRad';
 
-interface Properties {
-    className: string;
-}
-
-const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Properties) => {
+const VisningTilskuddsperioderTabell: React.FC = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
     const { tilskuddsperioder, visAllePerioder, toggleAllePerioder, antallAktivePerioder } =
         useTilskuddsperiodevisning(avtale);
     const { forste, mellom, siste } = tilskuddsperioder;
 
-    const cls = BEMHelper(className);
     return (
         <>
             <Table size="medium">
@@ -82,7 +76,6 @@ const VisningTilskuddsperioderTabell: React.FC<Properties> = ({ className }: Pro
             </Table>
             <VerticalSpacer rem={1} />
             <InfoRundtTilskuddsperioder
-                className={cls.className}
                 gjeldendeInnholdStartdato={avtale.gjeldendeInnhold.startDato}
                 gjeldendeInnholdSluttdato={avtale.gjeldendeInnhold.sluttDato}
                 antallAktiveTilskuddsperioder={antallAktivePerioder}

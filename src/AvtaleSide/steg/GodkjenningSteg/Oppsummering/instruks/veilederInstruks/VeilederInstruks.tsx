@@ -12,6 +12,7 @@ import LonnstilskuddVeilederTekst from './tekster/LonnstilskuddVeilederTekst';
 import SommerjobbVeilederTekst from './tekster/SommerjobbVeilederTekst';
 import ArbeidstreningVeilederTekst from './tekster/ArbeidstreningVeilederTekst';
 import VTAOVeilederTekst from './tekster/VTAOVeilederTekst';
+import MentorVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/MentorVeilederTekst';
 
 const cls = BEMHelper('instruks');
 
@@ -20,7 +21,7 @@ interface Props {
 }
 
 const VeilederInstruks = (props: Props) => {
-    const { tiltakstype, opphav } = props.avtale;
+    const { tiltakstype } = props.avtale;
 
     if (tiltakstype === 'SOMMERJOBB') {
         return (
@@ -66,6 +67,16 @@ const VeilederInstruks = (props: Props) => {
         );
     }
 
+    if (tiltakstype === 'MENTOR') {
+        return (
+            <VeilederpanelMedUtklippstavle>
+                <div className={cls.element('subheader')}>
+                    <Label>Hva skjer videre:</Label>
+                </div>
+                <MentorVeilederTekst />
+            </VeilederpanelMedUtklippstavle>
+        );
+    }
     return (
         <VeilederpanelMedUtklippstavle>
             <div className={cls.element('subheader')}>

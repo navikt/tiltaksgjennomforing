@@ -3,35 +3,18 @@ import { formaterProsent } from '@/utils/formaterProsent';
 import React, { PropsWithChildren } from 'react';
 import { TextFieldProps } from '@navikt/ds-react';
 
-export interface InputProps extends TextFieldProps {
-    width?: 'fullbredde' | 'XXL' | 'XL' | 'L' | 'M' | 'S' | 'XS' | 'XXS';
-    className?: string;
-    feil?: React.ReactNode | boolean;
-    id?: string;
-    inputClassName?: string;
-    inputRef?: ((element: HTMLInputElement | null) => any) | React.RefObject<HTMLInputElement>;
-    description?: React.ReactNode;
-    name?: string;
-    mini?: boolean;
-}
-
-const ProsentInput: React.FunctionComponent<InputProps> = (props: PropsWithChildren<InputProps>) => {
+const ProsentInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithChildren<TextFieldProps>) => {
     const { step = 1, max, min, size, ...other } = props;
+    const erTom = (v: any) => v === undefined || v === null || v === '';
     const validatorer = [
         (v: any) => {
-            if (!v) {
-                return 'Feltet er påkrevd';
-            }
+            if (erTom(v)) return 'Feltet er påkrevd';
         },
         (v: any) => {
-            if (v && min && v < min) {
-                return 'Må være over ' + formaterProsent(min);
-            }
+            if (!erTom(v) && min !== undefined && v < min) return 'Må være minst ' + formaterProsent(min);
         },
         (v: any) => {
-            if (v && max && v > max) {
-                return 'Må være under ' + formaterProsent(max);
-            }
+            if (!erTom(v) && max !== undefined && v > max) return 'Kan være maks ' + formaterProsent(max);
         },
     ];
 

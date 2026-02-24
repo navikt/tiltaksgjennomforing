@@ -45,6 +45,12 @@ jobs:
       - name: Server build
         working-directory: ./server
         run: npm run build
+      - name: Installer avhengigheter for produksjon
+        run: npm ci --production
+        working-directory: ./server
+      - name: Kopier node-modules til server
+        run: npm run dist
+        working-directory: ./server
       - name: Sentry release
         run: npm run release
       - name: Fjerne source maps

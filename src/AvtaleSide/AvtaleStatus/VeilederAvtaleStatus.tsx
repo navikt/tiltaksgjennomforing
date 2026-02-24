@@ -1,18 +1,18 @@
 import { BodyShort, Link } from '@navikt/ds-react';
 import { useContext } from 'react';
 
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
 import Gjennomføres from '@/AvtaleSide/AvtaleStatus/Gjennomføres';
 import StatusPanel from '@/AvtaleSide/AvtaleStatus/StatusPanel';
 import TilskuddsperioderReturnert from '@/AvtaleSide/steg/GodkjenningSteg/TilskuddsperioderReturnert';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale, TiltaksType } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import { formaterDato, NORSK_DATO_FORMAT_FULL, tidSidenTidspunkt } from '@/utils/datoUtils';
-import { erNil } from '@/utils/predicates';
 import OppfolgingKreves from './OppfolgingKreves';
 import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 interface Props {
     avtale: Avtale;
@@ -73,37 +73,43 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
     return 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER';
 };
 
-const arenaMigreringTekst = (tiltakstype: TiltaksType) => (
+const arenaMigreringTekst = (avtale: Avtale) => (
     <>
-        <BodyShort size="small" spacing={true}>
-            Avtalen er opprettet fra fagsystemet (Arena) hvor deltakeren har status som gjennomføres eller godkjent
-            tiltaksplass.
-        </BodyShort>
-        <BodyShort size="small" spacing={true}>
-            Avtalen er ufullstendig og må fylles ut og godkjennes for at den skal settes som gjennomføres.
-        </BodyShort>
-        {tiltakstype === 'VTAO' && (
-            <>
-                <BodyShort size="small" spacing={true}>
-                    Sjekk at avtalen er opprettet på riktig virksomhetsnummer hos arbeidsgiver, da utbetalingene går
-                    automatisk.
-                </BodyShort>
-            </>
-        )}
         <BodyShort size="small">
-            Du kan godkjenne på vegne av både arbeidsgiver og deltaker.
-            <br />
-            De får ingen automatisk varsling om å godkjenne avtalen.
+            Avtalen er {avtale.opphav === 'ARENA' ? 'opprettet fra ' : 'oppdatert av '}
+            fagsystemet (Arena) hvor deltakeren har status som gjennomføres eller godkjent tiltaksplass.
+        </BodyShort>
+        <VerticalSpacer rem={1} />
+        <BodyShort size="small">
+            {avtale.opphav === 'ARENA' && (
+                <>
+                    Avtalen er ufullstendig og må fylles ut og godkjennes av alle parter før den kan settes som
+                    gjennomføres. Den vil ikke være synlig for de andre partene inntil alle felter, unntatt familiær
+                    tilknytning, er fylt ut.
+                </>
+            )}
+            {avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA' && avtale.opphav !== 'ARENA' && (
+                <>
+                    Avtalen har fått nye felter. For at avtalen skal kunne settes som gjennomføres må alt fylles ut og
+                    godkjennes på nytt av alle parter.
+                </>
+            )}
+        </BodyShort>
+        <VerticalSpacer rem={1} />
+        <BodyShort size="small">
+            Sjekk at avtalen {avtale.opphav === 'ARENA' ? 'er opprettet på ' : 'inneholder '}
+            riktig virksomhetsnummer hos arbeidsgiver, da utbetalingene går automatisk.
         </BodyShort>
     </>
 );
 
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
-    const { overtaAvtale } = useContext(AvtaleContext);
     const { data } = useAvtaleKreverAktsomhet(avtale.id);
+    const { overtaAvtale } = useAvtale();
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
-    const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
+    const kreverOppfølging = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
 
     const skalViseReturnertTilskuddsperiode =
         avtale.godkjentAvVeileder &&
@@ -112,6 +118,19 @@ function VeilederAvtaleStatus(props: Props) {
             (t) => t.status === 'AVSLÅTT' && t.løpenummer === avtale.gjeldendeTilskuddsperiode?.løpenummer,
         ) &&
         avtale.gjeldendeTilskuddsperiode?.status !== 'GODKJENT';
+
+    if (erSkrivebeskyttet(avtale)) {
+        return (
+            <StatusPanel
+                header="Migrering fra Arena pågår"
+                body={
+                    <BodyShort size="small" align="center">
+                        Denne avtalen kan ikke redigeres mens migrering pågår. Forsøk igjen om et par timer.
+                    </BodyShort>
+                }
+            />
+        );
+    }
 
     if (skalViseReturnertTilskuddsperiode) {
         return <TilskuddsperioderReturnert />;
@@ -128,7 +147,8 @@ function VeilederAvtaleStatus(props: Props) {
                                 Avtalen er opprettet av arbeidsgiver.
                             </BodyShort>
                         )}
-                        {avtale.opphav === 'ARENA' && arenaMigreringTekst(avtale.tiltakstype)}
+                        {(avtale.opphav === 'ARENA' || avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA') &&
+                            arenaMigreringTekst(avtale)}
                         <VerticalSpacer rem={1.5} />
                         <LagreKnapp lagre={() => overtaAvtale()} suksessmelding="Avtale tildelt">
                             Overta avtale
@@ -146,22 +166,21 @@ function VeilederAvtaleStatus(props: Props) {
                     header="Avtalen er annullert"
                     body={
                         <>
-                            <BodyShort size="small" spacing={true}>
-                                Du eller en annen veileder har annullert avtalen{' '}
-                                {formaterDato(avtale.annullertTidspunkt!)}.
+                            <BodyShort size="small">
+                                Du eller en annen veileder har annullert avtalen
+                                {avtale.annullertTidspunkt && ` ${formaterDato(avtale.annullertTidspunkt)}`}.
                             </BodyShort>
-                            <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                            {avtale.annullertGrunn && (
+                                <BodyShort size="small">Årsak: {avtale.annullertGrunn}.</BodyShort>
+                            )}
                         </>
                     }
                 />
             );
         case 'PÅBEGYNT': {
-            if (avtale.opphav === 'ARENA') {
+            if (avtale.opphav === 'ARENA' || avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA') {
                 return (
-                    <StatusPanel
-                        header="Avtalen er ufullstendig og må fylles ut"
-                        body={arenaMigreringTekst(avtale.tiltakstype)}
-                    />
+                    <StatusPanel header="Avtalen er ufullstendig og må fylles ut" body={arenaMigreringTekst(avtale)} />
                 );
             }
 
@@ -427,7 +446,7 @@ function VeilederAvtaleStatus(props: Props) {
         }
         case 'GJENNOMFØRES': {
             if (kreverOppfølging) {
-                return <OppfolgingKreves oppfølgingsFrist={avtale.kreverOppfolgingFrist} />;
+                return <OppfolgingKreves oppfølgingsFrist={avtale.kommendeOppfolging?.oppfolgingsfrist} />;
             } else {
                 return (
                     <Gjennomføres avtaleInngått={avtale.avtaleInngått} startDato={avtale.gjeldendeInnhold.startDato} />

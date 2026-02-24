@@ -1,96 +1,120 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import BEMHelper from '@/utils/bem';
+import { AvtaleContext, noenHarGodkjentMenIkkeInngått } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import ValutaInput from '@/komponenter/form/ValutaInput';
-import PakrevdInputValidering from '@/komponenter/PakrevdInputValidering/PakrevdInputValidering';
-import { Heading } from '@navikt/ds-react';
+import { BodyShort, Heading } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
 import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/ObligatoriskTjenestepensjon';
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
+import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
+import { Column, Row } from '@/komponenter/NavGrid/Grid';
+import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
+import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
-
-const cls = BEMHelper('beregningMentorTilskuddSteg');
+import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorAntallTimerPerMnd';
+import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
+import * as RestService from '@/services/rest-service';
+import useSWR from 'swr';
+import { useSWRKeyDebounce } from '@/utils/useSWRKeyDebounce';
+import { erNil } from '@/utils/predicates';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
-    const avtaleContext = useContext(AvtaleContext);
-    const [mentorAntallTimerInput, setMentorAntallTimerInput] = useState<string>(
-        avtaleContext.avtale.gjeldendeInnhold.mentorAntallTimer?.toString().replace(/\./g, ',') ?? '',
+    const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
+
+    const keys = useSWRKeyDebounce(
+        [
+            avtale.gjeldendeInnhold.otpSats,
+            avtale.gjeldendeInnhold.mentorValgtLonnstype,
+            avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop,
+            avtale.gjeldendeInnhold.feriepengesats,
+            avtale.gjeldendeInnhold.arbeidsgiveravgift,
+            avtale.gjeldendeInnhold.mentorAntallTimer,
+            avtale.gjeldendeInnhold.stillingprosent,
+        ],
+        250,
     );
 
-    const [forHøyTimelønn, settForHøyTimelønn] = useState<string | undefined>(undefined);
+    const { data: beregninger } = useSWR(
+        avtale && !noenHarGodkjentMenIkkeInngått(avtale) ? [`/avtaler/${avtale.id}/dry-run`, ...keys] : null,
+        ([_key]) => RestService.lagreAvtaleDryRun(avtale),
+        {
+            fallbackData: avtale,
+            refreshInterval: 0,
+            revalidateOnFocus: false,
+            keepPreviousData: true,
+        },
+    );
 
-    const inputToNumber = (verdi: string | undefined): number | undefined => {
-        verdi = verdi?.replace(/,/g, '.');
-        if (!isNaN(Number(verdi))) {
-            return Number(verdi);
+    useEffect(() => {
+        if (!avtale.gjeldendeInnhold.mentorValgtLonnstype) {
+            settOgKalkulerBeregningsverdier({ mentorValgtLonnstype: 'ÅRSLØNN' });
         }
-    };
+    }, [avtale.gjeldendeInnhold.mentorValgtLonnstype]);
 
     return (
         <>
             <AvtaleStatus />
-            <Innholdsboks className={cls.className}>
-                <SkjemaTittel>Beregning av mentor tilskudd</SkjemaTittel>
-                <Heading level="3" size="small" className={cls.element('lonn-tittel')}>
-                    Antall timer med mentor per måned og mentor timelønn
+            <Innholdsboks>
+                <SkjemaTittel>Beregning av tilskudd til mentor</SkjemaTittel>
+                <BodyShort spacing>
+                    Tilskuddet dekker mentorens ordinære timelønn og ev. sosiale avgifter for de timene som er avtalt
+                    for mentoroppgaven.
+                </BodyShort>
+                <MentorAntallTimerPerMnd
+                    verdi={avtale.gjeldendeInnhold.mentorAntallTimer}
+                    settVerdi={(mentorAntallTimer) => settOgKalkulerBeregningsverdier({ mentorAntallTimer })}
+                />
+                <VerticalSpacer rem={2} />
+                <Heading spacing size="small">
+                    Om mentors lønnsforhold hos arbeidsgiver
                 </Heading>
+                <Timeloenn
+                    stillingsprosent={avtale.gjeldendeInnhold.stillingprosent}
+                    mentorValgtLonnstype={
+                        erNil(avtale.gjeldendeInnhold.mentorValgtLonnstype)
+                            ? 'ÅRSLØNN'
+                            : avtale.gjeldendeInnhold.mentorValgtLonnstype
+                    }
+                    mentorValgtLonnstypeBelop={avtale.gjeldendeInnhold.mentorValgtLonnstypeBelop}
+                    mentorTimelonn={beregninger?.gjeldendeInnhold.mentorTimelonn}
+                    onChange={(value) => settOgKalkulerBeregningsverdier(value)}
+                />
+                <Row>
+                    <Column md="5">
+                        <ObligatoriskTjenestepensjon
+                            sats={avtale.gjeldendeInnhold.otpSats}
+                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                        />
+                    </Column>
+                </Row>
+                <VerticalSpacer rem={1.5} />
+                <Row>
+                    <Column md="5">
+                        <Arbeidsgiveravgift
+                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                        />
+                    </Column>
+                    <Column md="5">
+                        <Feriepenger
+                            sats={avtale.gjeldendeInnhold.feriepengesats}
+                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                        />
+                    </Column>
+                </Row>
                 <VerticalSpacer rem={2} />
-                <div className={cls.element('rad')}>
-                    <PakrevdInputValidering
-                        validering={/^\d{0,3}(,5?)?$/}
-                        label="Antall timer med mentor per måned"
-                        verdi={mentorAntallTimerInput}
-                        settVerdi={(verdi) => {
-                            setMentorAntallTimerInput(verdi);
-                            avtaleContext.settAvtaleInnholdVerdi('mentorAntallTimer', inputToNumber(verdi));
-                        }}
-                    />
-                    <VerticalSpacer rem={2} />
-                    <ValutaInput
-                        min={0}
-                        className="input"
-                        name="Timelønn"
-                        size="medium"
-                        label="Timelønn*"
-                        autoComplete={'off'}
-                        value={avtaleContext.avtale.gjeldendeInnhold.mentorTimelonn}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            settForHøyTimelønn(undefined);
-                        }}
-                        onBlur={(event) => {
-                            if (/^\d{0,4}(\.\d{0,2})?$/.test(event.target.value)) {
-                                avtaleContext.settAvtaleInnholdVerdi(
-                                    'mentorTimelonn',
-                                    Math.round(parseFloat(event.target.value)),
-                                );
-                            } else {
-                                avtaleContext.settAvtaleInnholdVerdi('mentorTimelonn', undefined);
-                                settForHøyTimelønn('Overskrider maks timelønn');
-                            }
-                        }}
-                        error={forHøyTimelønn}
-                    />
-                </div>
-                <VerticalSpacer rem={2} />
-                <Feriepenger cls={cls} />
-                <VerticalSpacer rem={2} />
-                <ObligatoriskTjenestepensjon cls={cls} />
-                <VerticalSpacer rem={2} />
-                <Arbeidsgiveravgift cls={cls} />
-                {/*<VerticalSpacer rem={2} />*/}
-                {/*<UtregningPanel*/}
-                {/*    {...avtaleContext.avtale.gjeldendeInnhold}*/}
-                {/*    tiltakstype={avtaleContext.avtale.tiltakstype}*/}
-                {/*/>*/}
-                <VerticalSpacer rem={2} />
+                <Row>
+                    <Column md="12">
+                        <KidOgKontonummer />
+                    </Column>
+                </Row>
+                <UtregningPanelMentorTilskudd {...beregninger?.gjeldendeInnhold} />
+                <VerticalSpacer rem={1} />
                 <VisningTilskuddsperioder />
-                <VerticalSpacer rem={2} />
-                <LagreKnapp lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'}>
+                <VerticalSpacer rem={1} />
+                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
                 </LagreKnapp>
             </Innholdsboks>

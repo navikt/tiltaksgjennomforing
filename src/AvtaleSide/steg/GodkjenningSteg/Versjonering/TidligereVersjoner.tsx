@@ -21,6 +21,13 @@ const TidligereVersjoner = (props: Props) => {
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
     const sorterteVersjoner = useMemo(() => Array.from(versjoner).sort((a, b) => a.versjon - b.versjon), [versjoner]);
+    const avtaleInnhold = sorterteVersjoner[currentVersjon > 0 ? currentVersjon - 1 : 0];
+    const versjonErEtterArenaMigrering = useMemo(() => {
+        const arenaVersjon = sorterteVersjoner.find((v) => v.innholdType === 'ENDRET_AV_ARENA');
+        return arenaVersjon
+            ? avtaleInnhold.versjon >= arenaVersjon.versjon && !!avtaleInnhold.mentorValgtLonnstype
+            : true;
+    }, [sorterteVersjoner, avtaleInnhold]);
 
     return (
         <>
@@ -28,11 +35,11 @@ const TidligereVersjoner = (props: Props) => {
                 Alle versjoner av avtalen
             </Heading>
             <div>
-                {sorterteVersjoner.map((avtaleVersjon: AvtaleVersjon, index: number) => {
+                {sorterteVersjoner.map((avtaleVersjon: AvtaleVersjon) => {
                     return (
                         <LinkPanel
                             className={cls.className}
-                            key={index}
+                            key={avtaleVersjon.versjon}
                             href={'#'}
                             onClick={() => {
                                 setCurrentVersjon(avtaleVersjon.versjon);
@@ -59,7 +66,8 @@ const TidligereVersjoner = (props: Props) => {
             <VersjonModal
                 isOpen={isOpen}
                 lukkModal={() => setOpen(false)}
-                avtaleInnhold={sorterteVersjoner[currentVersjon > 0 ? currentVersjon - 1 : 0]}
+                avtaleInnhold={avtaleInnhold}
+                visInnholdFraEtterMigrering={versjonErEtterArenaMigrering}
                 tiltakstype={props.tiltakstype}
             />
         </>

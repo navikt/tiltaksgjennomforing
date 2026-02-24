@@ -16,7 +16,8 @@ const FortsettTiltak: FunctionComponent = () => {
     const [sisteOppfolgingVarsel, setSisteOppfolgingVarsel] = useState<Varsel | undefined>(undefined);
 
     const [modalApen, setModalApen] = useState(false);
-    const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
+    const harKommendeOppfolging = !erNil(avtale.kommendeOppfolging);
+    const oppfolgingKanUtfores = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
 
     useEffect(() => {
         if (modalApen) {
@@ -30,7 +31,7 @@ const FortsettTiltak: FunctionComponent = () => {
         }
     }, [avtale.id, modalApen]);
 
-    const bekrefterOppgfølgingAvAvtale = async (): Promise<void> => {
+    const bekrefterOppfølgingAvAvtale = async (): Promise<void> => {
         await oppdatereOppfølgingAvAvtale(avtale);
         setModalApen(false);
         await hentAvtale(avtale.id);
@@ -65,10 +66,10 @@ const FortsettTiltak: FunctionComponent = () => {
                 bekreftelseTekst="Fortsett tiltak"
                 oversiktTekst="Fortsett tiltak"
                 modalIsOpen={modalApen}
-                bekreftOnClick={kreverOppfølging ? bekrefterOppgfølgingAvAvtale : undefined}
+                bekreftOnClick={oppfolgingKanUtfores ? bekrefterOppfølgingAvAvtale : undefined}
                 lukkModal={() => setModalApen(false)}
             >
-                {kreverOppfølging && (
+                {oppfolgingKanUtfores && (
                     <>
                         {sisteOppfølgingTekst}
                         <BodyShort size="small">
@@ -77,17 +78,20 @@ const FortsettTiltak: FunctionComponent = () => {
                         </BodyShort>
                     </>
                 )}
-                {!kreverOppfølging && (
+                {!oppfolgingKanUtfores && (
                     <>
                         <BodyShort size="small" spacing>
                             Det er ikke nødvendig å følge opp avtalen enda.
                         </BodyShort>
                         {sisteOppfølgingTekst}
-                        <BodyShort size="small" spacing>
-                            Neste oppfølging kan utføres fra og med{' '}
-                            {formaterDato(avtale.kreverOppfolgingFom!, NORSK_DATO_FORMAT_FULL)} og må utføres innen{' '}
-                            {formaterDato(avtale.kreverOppfolgingFrist!, NORSK_DATO_FORMAT_FULL)}
-                        </BodyShort>
+                        {harKommendeOppfolging && (
+                            <BodyShort size="small" spacing>
+                                Neste oppfølging kan utføres fra og med{' '}
+                                {formaterDato(avtale.kommendeOppfolging.oppfolgingstarter, NORSK_DATO_FORMAT_FULL)} og
+                                må utføres innen{' '}
+                                {formaterDato(avtale.kommendeOppfolging.oppfolgingsfrist, NORSK_DATO_FORMAT_FULL)}
+                            </BodyShort>
+                        )}
                     </>
                 )}
             </BekreftelseModal>

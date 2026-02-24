@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
 import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
-import { Feature, FeatureToggles } from '@/FeatureToggleProvider';
+import { Feature, FeatureToggles, FeatureToggleVariants } from '@/FeatureToggles';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
 import { basename } from '@/Router';
@@ -31,7 +31,6 @@ import {
 import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError, IkkeTilgangError } from '@/types/errors';
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
-import { Variants } from '@/types/unleash-variant';
 import { Varsel } from '@/types/varsel';
 
 const api = axios.create({
@@ -364,7 +363,8 @@ export const hentFeatureToggles = async (featureToggles: Feature[]): Promise<Fea
     const response = await api.get(featureTogglePath(featureToggles));
     return response.data;
 };
-export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Promise<Variants> => {
+
+export const hentFeatureTogglesVarianter = async (featureToggles: Feature[]): Promise<FeatureToggleVariants> => {
     const response = await api.get(featureToggleVariantPath(featureToggles));
     return response.data;
 };
@@ -644,4 +644,16 @@ export const endreKidOgKontonummer = async (
         },
     );
     await mutate(`/avtaler/${avtale.id}/versjoner`);
+};
+
+export const oppdaterMentorFnr = async (
+    avtaleId: string,
+    data: { sistEndret: string; mentorFnr: string },
+): Promise<Avtale> => {
+    const resultat = await api.patch(`/avtaler/${avtaleId}/oppdater-mentor-fnr`, data, {
+        headers: {
+            'If-Unmodified-Since': data.sistEndret,
+        },
+    });
+    return resultat.data;
 };

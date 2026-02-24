@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
-    if (!['MENTOR', 'INKLUDERINGSTILSKUDD'].includes(tiltakstype)) {
+    if (tiltakstype !== 'INKLUDERINGSTILSKUDD') {
         return null;
     }
     return (
@@ -24,16 +24,9 @@ const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
                 tilskuddsperioden er over.
             </p>
             <p>
-                {tiltakstype === 'MENTOR' && (
-                    <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/mentor">
-                        Refusjonsskjema for mentortilskudd
-                    </EksternLenke>
-                )}
-                {tiltakstype === 'INKLUDERINGSTILSKUDD' && (
-                    <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd">
-                        Refusjonsskjema for inkluderingstilskudd
-                    </EksternLenke>
-                )}
+                <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd">
+                    Refusjonsskjema for inkluderingstilskudd
+                </EksternLenke>
             </p>
         </IkonTekstRad>
     );

@@ -15,6 +15,7 @@ const visArbeidsmiljoLov = (tiltakstype: TiltaksType) => {
         'ARBEIDSTRENING',
         'SOMMERJOBB',
         'VTAO',
+        'MENTOR',
     ];
     return tiltakstyper.includes(tiltakstype);
 };
@@ -41,6 +42,12 @@ const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
                     arbeidstid, vern mot diskriminering og straff ved overtredelse av lovens bestemmelser.
                 </p>
             )}
+            {tiltakstype === 'MENTOR' && (
+                <p>
+                    Mentoren er ansatt hos dere, og arbeidsmiljølovens bestemmelser gjelder. Det skal inngås
+                    arbeidskontrakt i henhold til loven.
+                </p>
+            )}
             {deltakerenErAnsatt(tiltakstype) && (
                 <p>
                     Deltakeren er ansatt hos dere, og arbeidsmiljølovens bestemmelser gjelder. Det skal inngås
@@ -52,6 +59,11 @@ const Arbeidsmiljøloven: FunctionComponent<Props> = ({ tiltakstype }) => {
                     Les mer om arbeidsmiljøloven her
                 </EksternLenke>
             </p>
+            {tiltakstype === 'MENTOR' && (
+                <p>
+                    For å få utbetalt mentortilskudd, stilles det krav om at mentor skal heve lønn i tilskuddsperioden.
+                </p>
+            )}
         </IkonTekstRad>
     );
 };

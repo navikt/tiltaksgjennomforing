@@ -73,6 +73,7 @@ const arbeidstreningAvtaleMock: Avtale = {
         inkluderingstilskuddBegrunnelse: '',
         inkluderingstilskuddTotalBeløp: 0,
         inkluderingstilskuddSats: 149_100,
+        innholdType: 'INNGÅ',
     },
 
     tilskuddPeriode: tilskuddsPeriode,
@@ -99,6 +100,7 @@ const arbeidstreningAvtaleMock: Avtale = {
     erRyddeAvtale: false,
     opphav: 'VEILEDER',
     feilregistrert: false,
+    erOpprettetEllerEndretAvArena: false,
 };
 
 export default arbeidstreningAvtaleMock;

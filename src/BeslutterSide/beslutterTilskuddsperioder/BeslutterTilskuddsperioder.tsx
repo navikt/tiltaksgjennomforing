@@ -1,8 +1,8 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
-import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT_FULL, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { formaterProsent } from '@/utils/formaterProsent';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
-import React, { FunctionComponent, useContext, useRef, useState, useEffect } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useRef, useState } from 'react';
 import EtikettStatus from '../EtikettStatus';
 import BEMHelper from '@/utils/bem';
 import './beslutterTilskuddsperioder.less';
@@ -16,16 +16,17 @@ import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/Tilskudds
 import { addDays, addMonths, isWithinInterval } from 'date-fns';
 import { erNil } from '@/utils/predicates';
 
-interface Props {
-    startAnimering: () => void;
-}
-
-const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
+const BeslutterTilskuddsPerioder: FunctionComponent = () => {
     const { avtale, godkjennTilskudd } = useContext<Context>(AvtaleContext);
     const { enhet, setVisEnhetFeil, setVisReturModal: setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
     const { gjeldendeTilskuddsperiode } = avtale;
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
     const gjeldendeTilskuddsperiodeRef = useRef<HTMLTableRowElement | null>(null);
+
+    const skalViseSats =
+        avtale.tiltakstype === 'SOMMERJOBB' ||
+        avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD';
 
     // Gjeldende tilskuddsperiode er "behandlet" når den har status "godkjent".
     // Statuser som "annullert" og "behandlet i arena" vil føre til at en tilskuddsperiode
@@ -105,9 +106,10 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
         );
     };
 
+    // Tilskuddsperioder som er etter en oppfølgingsfrist er låst inntil veileder har utført oppfølging.
     const periodeKreverOppfølging = (periode: TilskuddsPeriode) => {
-        if (erNil(avtale.kreverOppfolgingFrist)) return false;
-        return isWithinInterval(addDays(avtale.kreverOppfolgingFrist, 1), {
+        if (erNil(avtale.kommendeOppfolging)) return false;
+        return isWithinInterval(addDays(avtale.kommendeOppfolging.oppfolgingsfrist, 1), {
             start: periode.startDato,
             end: periode.sluttDato,
         });
@@ -125,7 +127,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                             <th>Nr</th>
                             <th>Periode</th>
                             <th>Beløp</th>
-                            <th>Sats</th>
+                            {skalViseSats && <th>Sats</th>}
                             <th>Besluttes f.o.m.</th>
                             <th>Kostnadssted</th>
                             <th>Status</th>
@@ -150,7 +152,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent<Props> = (props) => {
                                             {formaterPeriode(periode.startDato, periode.sluttDato, 'dd.MM.yy')}
                                         </td>
                                         <td>{formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}</td>
-                                        <td>{formaterProsent(periode.lonnstilskuddProsent)}</td>
+                                        {skalViseSats && <td>{formaterProsent(periode.lonnstilskuddProsent)}</td>}
                                         <td>{formaterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
                                         <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
                                         <td>

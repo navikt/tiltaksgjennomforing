@@ -1,6 +1,7 @@
 import DeltakerAvtaleStatus from '@/AvtaleSide/AvtaleStatus/DeltakerAvtaleStatus';
 import { Meta, StoryObj } from '@storybook/react-vite';
 import { AvtaleStatus } from '@/types/avtale';
+import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
 const meta = {
     title: 'Tiltaksgjennomforing/Statuser/Deltaker',
@@ -15,6 +16,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const annullert = {
+    ...lonnstilskuddAvtaleMock,
     status: 'ANNULLERT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvDeltaker: '20-08-01',
@@ -22,6 +24,7 @@ const annullert = {
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -51,6 +54,7 @@ export const Avbrutt: Story = {
 };
 
 const påbegynt = {
+    ...lonnstilskuddAvtaleMock,
     status: 'PÅBEGYNT' as AvtaleStatus,
     annullertTidspunkt: '2021-08-01',
     godkjentAvDeltaker: '20-08-01',
@@ -58,6 +62,7 @@ const påbegynt = {
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -69,6 +74,7 @@ export const Påbegynt: Story = {
 };
 
 const manglerGodkjenningDeltakerHarGodkjent = {
+    ...lonnstilskuddAvtaleMock,
     status: 'MANGLER_GODKJENNING' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '2024-05-03T12:26:24.40876',
@@ -78,6 +84,7 @@ const manglerGodkjenningDeltakerHarGodkjent = {
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -101,6 +108,7 @@ export const ManglerGodkjenningDeltakerHarGodkjentMenIkkeArbeidsgiverOgVeileder:
 };
 
 const manglerGodkjenningDeltakerHarIkkeGodkjent = {
+    ...lonnstilskuddAvtaleMock,
     status: 'MANGLER_GODKJENNING' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
@@ -108,6 +116,7 @@ const manglerGodkjenningDeltakerHarIkkeGodkjent = {
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -119,6 +128,7 @@ export const ManglerGodkjenningDeltakerHarIkkeGodkjent: Story = {
 };
 
 const klarForOppstart = {
+    ...lonnstilskuddAvtaleMock,
     status: 'KLAR_FOR_OPPSTART' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
@@ -126,6 +136,7 @@ const klarForOppstart = {
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -137,6 +148,7 @@ export const KlarForOppstart: Story = {
 };
 
 const gjennomføres = {
+    ...lonnstilskuddAvtaleMock,
     status: 'GJENNOMFØRES' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
@@ -144,6 +156,7 @@ const gjennomføres = {
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },
@@ -155,6 +168,7 @@ export const Gjennomføres: Story = {
 };
 
 const avsluttet = {
+    ...lonnstilskuddAvtaleMock,
     status: 'AVSLUTTET' as AvtaleStatus,
     annullertTidspunkt: '',
     godkjentAvDeltaker: '',
@@ -162,6 +176,7 @@ const avsluttet = {
     annullertGrunn: 'annulert grunn',
     avbruttDato: '2021-08-01',
     gjeldendeInnhold: {
+        ...lonnstilskuddAvtaleMock.gjeldendeInnhold,
         startDato: '2021-08-01',
         sluttDato: '2021-08-01',
     },

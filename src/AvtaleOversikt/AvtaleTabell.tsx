@@ -1,29 +1,27 @@
-import { FunctionComponent, useState } from 'react';
-import { useNavigate, generatePath } from 'react-router-dom';
-import MediaQuery from 'react-responsive';
-
-import './AvtaleTabell.less';
 import AvtaleTabellRadHeader from '@/AvtaleOversikt/AvtaleTabellRadHeader';
-import BEMHelper from '@/utils/bem';
-import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
-import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
-import { AvtaleMinimalListeVisning } from '@/types/avtale';
-import { BodyShort, Table } from '@navikt/ds-react';
-import { ChevronRightIcon } from '@navikt/aksel-icons';
-import { InnloggetBruker } from '@/types/innlogget-bruker';
-import { Path } from '@/Router';
-import { Varsel } from '@/types/varsel';
-import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
-import { kunStorForbokstav } from '@/utils/stringUtils';
-import { erNil } from '@/utils/predicates';
 import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
+import StatusIkon from '@/komponenter/StatusIkon/StatusIkon';
+import { avtaleStatusTekst, tiltakstypeTekstKort } from '@/messages';
+import { Path } from '@/Router';
+import { AvtaleMinimalListeVisning } from '@/types/avtale';
+import { InnloggetBruker } from '@/types/innlogget-bruker';
+import { Varsel } from '@/types/varsel';
+import BEMHelper from '@/utils/bem';
+import { kunStorForbokstav } from '@/utils/stringUtils';
+import { ChevronRightIcon } from '@navikt/aksel-icons';
+import { BodyShort, Table } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
+import MediaQuery from 'react-responsive';
+import { generatePath, useNavigate } from 'react-router-dom';
+import './AvtaleTabell.less';
+import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 
 const cls = BEMHelper('avtaletabell');
 
 const hentAvtaleStatus = (avtale: AvtaleMinimalListeVisning, erNavAnsatt: boolean): JSX.Element => {
     const erGjeldendeTilskuddsperiodeReturnert = avtale.gjeldendeTilskuddsperiodeStatus === 'AVSLÅTT';
     const erAnnullert = avtale.status === 'ANNULLERT';
-    const kreverOppfølging = !erNil(avtale.oppfolgingVarselSendt);
+    const kreverOppfølging = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
 
     return (
         <>

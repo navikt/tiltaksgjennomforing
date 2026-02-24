@@ -14,6 +14,7 @@ import TilskuddsperiodeOgRefusjon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsum
 import Refusjon from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Refusjon';
 import HvaSierRegelverket from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/HvaSierRegelverket';
 import Taushetsplikt from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Taushetsplikt';
+import TilskuddsperiodeOgRefusjonMentor from './tekster/TilskuddsperiodeOgRefusjonMentor';
 
 const cls = BEMHelper('instruks');
 interface Props {
@@ -22,15 +23,6 @@ interface Props {
 }
 const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
     const { erLaast, tiltakstype } = props;
-    const oppfolgingLenker: { [key in TiltaksType]: string } = {
-        MIDLERTIDIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_9',
-        VARIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_10',
-        SOMMERJOBB: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_8',
-        INKLUDERINGSTILSKUDD: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598#KAPITTEL_11',
-        ARBEIDSTRENING: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap3',
-        MENTOR: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap5',
-        VTAO: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/KAPITTEL_14#KAPITTEL_14',
-    };
     return (
         <>
             {!erLaast && (
@@ -46,17 +38,15 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
 
                     <VerticalSpacer rem={2} />
                     <ArbeidsmiljLoven tiltakstype={tiltakstype} />
-                    <OppfolgingOgVarighet
-                        tiltakstype={tiltakstype}
-                        eksternLenke={oppfolgingLenker[props.tiltakstype]}
-                    />
+                    <OppfolgingOgVarighet tiltakstype={tiltakstype} />
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
                     <FolketrygdlovenEgenmeldingOgSykmelding tiltakstype={tiltakstype} />
                     <TilskuddsperiodeOgRefusjon tiltakstype={tiltakstype} />
+                    {tiltakstype === 'MENTOR' && <TilskuddsperiodeOgRefusjonMentor />}
                     <Refusjon tiltakstype={tiltakstype} />
                     <BehandlingAvPersonopplysninger tiltakstype={tiltakstype} />
                     <Taushetsplikt />
-                    <HvaSierRegelverket tiltakstype={tiltakstype} href={oppfolgingLenker[props.tiltakstype]} />
+                    <HvaSierRegelverket tiltakstype={tiltakstype} />
                 </div>
             </VeilederpanelMedUtklippstavle>
         </>

@@ -9,5 +9,4 @@ export enum Path {
     AVTALE_STEG = '/avtale/:avtaleId/:steg',
     AVTALE_BESLUTTER = '/avtale/:avtaleId/beslutter',
     AVTALE_BESLUTTER_TILSKUDDSPERIODE = '/avtale/:avtaleId/beslutter/:tilskuddsperiodeId',
-    AVTALE_SLETT = '/avtale/:avtaleId/slett',
 }

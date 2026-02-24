@@ -34,8 +34,7 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
     };
 
     const { rolle } = useContext(InnloggetBrukerContext);
-    const isKanEndreFamilierelasjon =
-        rolle !== 'VEILEDER' || avtale.tiltakstype === 'SOMMERJOBB' || avtale.opphav === 'ARENA';
+    const isKanEndreFamilierelasjon = rolle !== 'VEILEDER' || avtale.tiltakstype === 'SOMMERJOBB';
 
     return (
         <div className={cls.className}>

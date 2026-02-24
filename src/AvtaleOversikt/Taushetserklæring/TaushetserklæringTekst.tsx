@@ -1,7 +1,7 @@
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { BodyLong, Heading, List } from '@navikt/ds-react';
 
-const TausetserklæringTekst = () => {
+const TaushetserklæringTekst = () => {
     return (
         <>
             <Heading level="2" size="xsmall" spacing>
@@ -33,7 +33,10 @@ const TausetserklæringTekst = () => {
                 Brudd på taushetsplikten kan medføre straffeansvar og/eller reaksjoner fra din arbeidsgiver.
             </BodyLong>
 
-            <List as="ul" title="Følgende lovbestemmelser regulerer taushetsplikten for NAV:" size="small">
+            <Heading level="2" size="xsmall">
+                Følgende lovbestemmelser regulerer taushetsplikten for NAV:
+            </Heading>
+            <List as="ul" size="small">
                 <List.Item>
                     <EksternLenke href="https://lovdata.no/lov/1967-02-10/§13">
                         Forvaltningsloven §§ 13– 13e og 13g
@@ -46,4 +49,4 @@ const TausetserklæringTekst = () => {
         </>
     );
 };
-export default TausetserklæringTekst;
+export default TaushetserklæringTekst;

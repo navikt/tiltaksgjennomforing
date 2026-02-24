@@ -1,14 +1,15 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
-import { useFeatureToggles } from '@/FeatureToggleProvider';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { TiltaksType } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
     const { endreFilter, filtre } = useFilter();
+    const { firearigLonnstilskudd } = useFeatureToggles();
 
     const alleTiltakstyperBeslutter: OptionProps[] = [
         { value: '', label: 'Alle' },
@@ -16,6 +17,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
         { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
+        firearigLonnstilskudd ? { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' } : null,
     ].filter((x) => x !== null) as OptionProps[];
 
     const alleTiltakstyper: OptionProps[] = [
@@ -27,6 +29,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'MENTOR', label: 'Mentor' },
         { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
         { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
+        firearigLonnstilskudd ? { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' } : null,
     ].filter((x) => x !== null) as OptionProps[];
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;

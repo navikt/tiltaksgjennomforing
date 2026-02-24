@@ -1,8 +1,10 @@
 import useValidering from '@/komponenter/useValidering';
-import { Alert, TextField } from '@navikt/ds-react';
-import React, { PropsWithChildren, useState } from 'react';
+import { TextField, InlineMessage } from '@navikt/ds-react';
+import React, { PropsWithChildren, useContext, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './TelefonnummerInput.less';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { AvtaleContext } from '@/AvtaleProvider';
 
 interface Props {
     className?: string;
@@ -14,13 +16,18 @@ interface Props {
 }
 
 const TelefonnummerInput: React.FunctionComponent<Props> = (props: PropsWithChildren<Props>) => {
+    const { avtale } = useContext(AvtaleContext);
     const cls = BEMHelper('telefonnummer-input-container');
-    const [telefonnummer, setTelefonnummer] = useState(props.verdi);
 
+    const [telefonnummer, setTelefonnummer] = useState(props.verdi);
     const [erMobilNummer, setErMobilNummer] = useState<boolean>(true);
 
     const norskTlfnrRegex = /^((\+|00)47)?\d{8}$/; // Kan inneholde +47 eller 0047 og må ha 8 siffer
     const norskMobilnummerRegex = /^(((0{2}?)|(\+){1})47)?(4|9)[\d]{7}/;
+
+    const erTiltakMedManuellRefusjon = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
+        avtale.tiltakstype,
+    );
 
     const [feil, setFeil, sjekkInputfelt] = useValidering(props.verdi, [
         (verdi) => {
@@ -62,10 +69,12 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props: PropsWithChil
             />
             {!erMobilNummer && (
                 <>
-                    <Alert variant="warning" className={cls.element('alert')}>
+                    <VerticalSpacer rem={1} />
+                    <InlineMessage status="warning">
                         Det anbefales å bruke et mobilnummer. Vi bruker varsling på SMS for å opplyse om status på
-                        avtalen og frister på når refusjon må sendes inn
-                    </Alert>
+                        avtalen
+                        {erTiltakMedManuellRefusjon && ' og frister på når refusjon må sendes inn'}.
+                    </InlineMessage>
                 </>
             )}
         </div>

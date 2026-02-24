@@ -1,43 +1,33 @@
-import OppsummeringArbeidstrening from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringArbeidstrening/OppsummeringArbeidstrening';
-import OppsummeringInkluderingstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
-import OppsummeringLonnstilskudd from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
-import OppsummeringMentor from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringMentor/OppsummeringMentor';
-import OppsummeringVTAO from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/OppsummeringVTAO/OppsummeringVTAO';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { AvtaleVersjon, TiltaksType } from '@/types/avtale';
 import { Modal } from '@navikt/ds-react';
 import React from 'react';
 import './VersjonModal.less';
+import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
 
 interface Props {
     isOpen: boolean;
     lukkModal: () => void;
     avtaleInnhold: AvtaleVersjon;
+    visInnholdFraEtterMigrering?: boolean;
     tiltakstype: TiltaksType;
 }
 
-const VersjonModal: React.FunctionComponent<Props> = (props) => {
-    const oppsummeringType: { [key in TiltaksType]: JSX.Element } = {
-        ARBEIDSTRENING: <OppsummeringArbeidstrening avtaleinnhold={props.avtaleInnhold} />,
-        MIDLERTIDIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        VARIG_LONNSTILSKUDD: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        MENTOR: <OppsummeringMentor avtaleinnhold={props.avtaleInnhold} />,
-        INKLUDERINGSTILSKUDD: <OppsummeringInkluderingstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        SOMMERJOBB: <OppsummeringLonnstilskudd avtaleinnhold={props.avtaleInnhold} />,
-        VTAO: <OppsummeringVTAO avtaleinnhold={props.avtaleInnhold} />,
-    };
+const VersjonModal = (props: Props) => {
+    const { avtaleInnhold, visInnholdFraEtterMigrering, tiltakstype, lukkModal, isOpen } = props;
 
     return (
-        <Modal
-            className="versjon__modal"
-            aria-label="Versjon modal"
-            open={props.isOpen}
-            onClose={() => props.lukkModal()}
-        >
+        <Modal className="versjon__modal" aria-label="Versjon modal" open={isOpen} onClose={() => lukkModal()}>
             <Modal.Header>
-                <SkjemaTittel>Versjon {props.avtaleInnhold.versjon}</SkjemaTittel>
+                <SkjemaTittel>Versjon {avtaleInnhold.versjon}</SkjemaTittel>
             </Modal.Header>
-            <Modal.Body>{oppsummeringType[props.tiltakstype]}</Modal.Body>
+            <Modal.Body>
+                <Oppsummering
+                    tiltakstype={tiltakstype}
+                    avtaleInnhold={avtaleInnhold}
+                    visInnholdFraEtterMigrering={visInnholdFraEtterMigrering ?? true}
+                />
+            </Modal.Body>
         </Modal>
     );
 };

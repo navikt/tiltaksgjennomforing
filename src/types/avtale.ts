@@ -1,9 +1,9 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
 import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
+import { Diskresjonskode } from '@/types/diskresjon';
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
-import { Diskresjonskode } from '@/types/diskresjon';
 
 export type Avtale = Annullering &
     Readonly<AvtaleMetadata> &
@@ -55,7 +55,7 @@ export type AvtaleMinimalListeVisning = {
     tiltakstype: TiltaksType;
     erGodkjentTaushetserklæringAvMentor: boolean;
     gjeldendeTilskuddsperiodeStatus: TilskuddPeriodeStatus;
-    oppfolgingVarselSendt?: string;
+    kommendeOppfolging?: KommendeOppfolging;
     opprettetTidspunkt: string;
     sistEndret: string;
     diskresjonskode: Diskresjonskode;
@@ -129,6 +129,9 @@ export type Avtaleinnhold = {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorValgtLonnstypeBelop?: number;
+    innholdType: AvtaleInnholdType;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<
@@ -143,7 +146,8 @@ export type TiltaksType =
     | 'MENTOR'
     | 'INKLUDERINGSTILSKUDD'
     | 'SOMMERJOBB'
-    | 'VTAO';
+    | 'VTAO'
+    | 'FIREARIG_LONNSTILSKUDD';
 
 export type TilskuddPeriodeStatus =
     | 'UBEHANDLET'
@@ -152,7 +156,9 @@ export type TilskuddPeriodeStatus =
     | 'ANNULLERT'
     | 'BEHANDLET_I_ARENA'
     | 'OPPFØLGING_KREVES';
+
 export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV';
+
 export type AvtaleStatus =
     | 'ANNULLERT'
     | 'PÅBEGYNT'
@@ -162,6 +168,22 @@ export type AvtaleStatus =
     | 'GJENNOMFØRES'
     | 'AVSLUTTET'
     | 'OPPFØLGING_KREVES';
+
+export type AvtaleInnholdType =
+    | 'INNGÅ'
+    | 'LÅSE_OPP'
+    | 'FORLENGE'
+    | 'FORKORTE'
+    | 'ENDRE_MÅL'
+    | 'ENDRE_INKLUDERINGSTILSKUDD'
+    | 'ENDRE_TILSKUDDSBEREGNING'
+    | 'ENDRE_STILLING'
+    | 'ENDRE_KONTAKTINFO'
+    | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
+    | 'ENDRE_OM_MENTOR'
+    | 'ENDRET_AV_ARENA'
+    | 'ENDRE_KID_OG_KONTONUMMER'
+    | 'ANNULLERE';
 
 export type Avtaleopphav = 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
 
@@ -182,10 +204,9 @@ export interface AvtaleMetadata {
     formidlingsgruppe: Formidlingsgruppe;
     godkjentForEtterregistrering: boolean;
     opphav: Avtaleopphav;
-    oppfolgingVarselSendt?: string;
-    kreverOppfolgingFom?: string;
-    kreverOppfolgingFrist?: string;
+    kommendeOppfolging?: KommendeOppfolging;
     feilregistrert: boolean;
+    erOpprettetEllerEndretAvArena: boolean;
 }
 
 export interface RefusjonKontaktperson {
@@ -193,6 +214,12 @@ export interface RefusjonKontaktperson {
     refusjonKontaktpersonEtternavn?: string;
     refusjonKontaktpersonTlf?: string;
     ønskerVarslingOmRefusjon?: boolean;
+}
+
+export interface KommendeOppfolging {
+    oppfolgingKanUtfores: boolean;
+    oppfolgingstarter: string;
+    oppfolgingsfrist: string;
 }
 
 export interface Avtaleparter {
@@ -232,6 +259,9 @@ export interface Mentorinfo {
     mentorOppgaver?: string;
     mentorAntallTimer?: number;
     mentorTimelonn?: number;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorValgtLonnstypeBelop?: number;
+    stillingprosent?: number;
 }
 
 export interface Varighet {
@@ -251,6 +281,8 @@ export interface Stilling {
 
 export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
 
+export type MentorValgtLonnstype = 'ÅRSLØNN' | 'MÅNEDSLØNN' | 'UKELØNN' | 'DAGSLØNN' | 'TIMELØNN';
+
 export interface Beregningsgrunnlag {
     manedslonn?: number;
     feriepengesats?: number;
@@ -267,6 +299,10 @@ export interface Beregningsgrunnlag {
     datoForRedusertProsent?: string;
     sumLønnstilskuddRedusert?: number;
     tiltakstype?: TiltaksType;
+    mentorAntallTimer?: number;
+    mentorValgtLonnstypeBelop?: number;
+    mentorValgtLonnstype?: MentorValgtLonnstype;
+    mentorTimelonn?: number;
 }
 
 export interface TilskuddsPerioder {
@@ -364,25 +400,8 @@ export interface RelasjonerInfo {
     familietilknytningForklaring?: string;
 }
 
-export type InnholdType =
-    | 'INNGÅ'
-    | 'LÅSE_OPP'
-    | 'FORLENGE'
-    | 'FORKORTE'
-    | 'ENDRE_MÅL'
-    | 'ENDRE_INKLUDERINGSTILSKUDD'
-    | 'ENDRE_TILSKUDDSBEREGNING'
-    | 'ENDRE_STILLING'
-    | 'ENDRE_KONTAKTINFO'
-    | 'ENDRE_OPPFØLGING_OG_TILRETTELEGGING'
-    | 'ENDRE_OM_MENTOR'
-    | 'ENDRET_AV_ARENA'
-    | 'ENDRE_KID_OG_KONTONUMMER'
-    | 'ANNULLERE';
+export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number } & Godkjenninger;
 
-export type AvtaleVersjon = Avtaleinnhold & { id: string; versjon: number; innholdType?: InnholdType } & Godkjenninger;
-
-export type AvtalelisteRessurs = Nettressurs<AvtaleMinimalListeVisning[]>;
 export type PageableAvtalelisteRessurs = Nettressurs<PageableAvtaleMinimal>;
 export type AvtalelisteMinimalForBeslutterRessurs = Nettressurs<AvtaleMinimalForBeslutter[]>;
 

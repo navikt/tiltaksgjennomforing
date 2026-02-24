@@ -19,13 +19,16 @@ import EndreStillingbeskrivelse from '../steg/GodkjenningSteg/endringAvAvtaleInn
 import './OppgaveLenker.css';
 import FortsettTiltak from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/FortsettTiltak/FortsettTiltak';
 import EndreKidOgKontonummer from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endre-kid-og-kontoummer';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
+import EndreTilskuddsberegningForMentor from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskuddsberegningForMentor/EndreTilskuddsberegningForMentor';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
     const innloggetBruker = useContext(InnloggetBrukerContext);
-
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
     const erNavIdenterLike = innloggetBruker.identifikator === avtale.veilederNavIdent;
     const erVeileder = innloggetBruker.rolle === 'VEILEDER';
+    const erOppdatertMentorAvtale = avtale.tiltakstype === 'MENTOR' && (avtale.tilskuddPeriode?.length ?? 0) > 0;
     const skalViseStillingsbeskrivelse =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
@@ -40,9 +43,10 @@ const OppgaveLenker: React.FunctionComponent = () => {
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB' ||
-        avtale.tiltakstype === 'VTAO';
+        avtale.tiltakstype === 'VTAO' ||
+        erOppdatertMentorAvtale;
 
-    if (!erVeileder) {
+    if (!erVeileder || erSkrivebeskyttet(avtale)) {
         return <Varsellogg />;
     }
 
@@ -64,6 +68,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                         {skalViseEndreKidOgKontonummer && <EndreKidOgKontonummer />}
                         {avtale.tiltakstype === 'INKLUDERINGSTILSKUDD' && <EndreInkluderingsutgifter />}
                         {avtale.tiltakstype === 'MENTOR' && <EndreOmMentor />}
+                        {erOppdatertMentorAvtale && <EndreTilskuddsberegningForMentor />}
                         {avtale.tiltakstype === 'VTAO' && <FortsettTiltak />}
                         <OppdaterOppfølgingEnhet />
                     </>

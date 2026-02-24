@@ -8,6 +8,8 @@ import BEMHelper from '@/utils/bem';
 import { storForbokstav } from '@/utils/stringUtils';
 import { BodyLong, ErrorMessage, Heading, RadioGroup } from '@navikt/ds-react';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
+import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
+import { tiltakToggleFilter } from '@/utils/firearigltToggleFilter';
 
 interface Props {
     className: string;
@@ -17,16 +19,6 @@ interface Props {
     setUgyldigAvtaletype: Dispatch<SetStateAction<boolean>>;
 }
 
-const TILTAKSTYPER: TiltaksType[] = [
-    'ARBEIDSTRENING',
-    'INKLUDERINGSTILSKUDD',
-    'MENTOR',
-    'MIDLERTIDIG_LONNSTILSKUDD',
-    'VARIG_LONNSTILSKUDD',
-    'SOMMERJOBB',
-    'VTAO',
-];
-
 const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     valgtTiltaksType,
     setTiltaksType,
@@ -34,7 +26,9 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
     setUgyldigAvtaletype,
     className,
 }) => {
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
     const cls = BEMHelper(className);
+    const { firearigLonnstilskudd } = useFeatureToggles();
 
     return (
         <Innholdsboks className={cls.element('valg-tiltakstype-container')}>
@@ -50,12 +44,13 @@ const TiltaksTypeRadioPanel: FunctionComponent<Props> = ({
 
             <div className={cls.element('tiltakstype-container')}>
                 <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')} size="medium">
-                    {TILTAKSTYPER.map((tiltakstype: TiltaksType) => (
+                    {tiltakToggleFilter(firearigLonnstilskudd).map((tiltakstype: TiltaksType, index: number) => (
                         <RadioPanel
                             key={tiltakstype}
                             name="tiltakstype"
                             value={tiltakstype}
                             checked={valgtTiltaksType === tiltakstype}
+                            disabled={erSkrivebeskyttet(tiltakstype)}
                             onChange={() => {
                                 setTiltaksType(tiltakstype);
                                 setUgyldigAvtaletype(false);

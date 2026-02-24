@@ -1,23 +1,19 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import TilskuddsPerioderOppsummering from '@/AvtaleSide/steg/BeregningTilskudd/tilskuddsPerioder/TilskuddsPerioderOppsummering';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
-import { Avtale, Avtaleinnhold } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import React, { createElement, FunctionComponent, useContext } from 'react';
+import React from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
 import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
 import { Rolle } from '@/types';
-
-interface Props {
-    oppsummering: FunctionComponent<{ avtaleinnhold: Avtaleinnhold }>;
-    mentorVinsing?: boolean;
-}
+import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
+import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     switch (rolle) {
@@ -34,44 +30,35 @@ const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     }
 };
 
-const GodkjenningSteg: React.FunctionComponent<Props> = (props) => {
+const GodkjenningSteg = () => {
     const cls = BEMHelper('godkjenningSteg');
-    const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale } = useContext(AvtaleContext);
+    const innloggetBruker = useInnloggetBruker();
+    const { avtale } = useAvtale();
+    const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
+    const erMentor = innloggetBruker.rolle === 'MENTOR';
     const skalViseGodkjenning =
         avtale.status !== 'ANNULLERT' &&
-        (!innloggetBruker.erNavAnsatt || (innloggetBruker.erNavAnsatt && !avtale.erUfordelt));
+        (!innloggetBruker.erNavAnsatt || !avtale.erUfordelt) &&
+        !erSkrivebeskyttet(avtale);
 
     return (
         <div className={cls.className}>
             <AvtaleStatus />
             <Innholdsboks ariaLabel={avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}>
                 <div className={cls.element('wrapper')}>
-                    {innloggetBruker.rolle === 'DELTAKER' || innloggetBruker.rolle === 'MENTOR' ? (
-                        avtale.avtaleInngått && (
-                            <>
-                                <SkjemaTittel>Oppsummering av inngått avtale</SkjemaTittel>
-                                {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
-                            </>
-                        )
-                    ) : (
+                    {avtale.avtaleInngått ? (
                         <>
-                            <SkjemaTittel>
-                                {avtale.avtaleInngått ? 'Oppsummering av inngått avtale' : 'Godkjenning av avtale'}
-                            </SkjemaTittel>
-                            {avtale.avtaleInngått && <LagreSomPdfKnapp avtaleId={avtale.id} />}
+                            <SkjemaTittel>Oppsummering av inngått avtale</SkjemaTittel>
+                            <LagreSomPdfKnapp avtaleId={avtale.id} />
                         </>
+                    ) : (
+                        !erMentor && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
                     )}
                 </div>
-                {createElement(props.oppsummering, { avtaleinnhold: avtale.gjeldendeInnhold })}
+                <Oppsummering avtale={avtale} />
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
-            {avtale.tilskuddPeriode.length > 0 && (
-                <Innholdsboks>
-                    <TilskuddsPerioderOppsummering />
-                </Innholdsboks>
-            )}
             {harGodkjentSelv(avtale, innloggetBruker.rolle) && (
                 <Innholdsboks>
                     <GodkjenningInstruks />

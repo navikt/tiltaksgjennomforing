@@ -1,17 +1,15 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import ValutaInput from '@/komponenter/form/ValutaInput';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { Heading } from '@navikt/ds-react';
+import { Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
 import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
-import UtregningPanel from './UtregningPanel';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import HvaMenesMedDette from '@/AvtaleSide/steg/BeregningTilskudd/HvaMenesMedDette';
@@ -21,13 +19,13 @@ import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/Obl
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
 import './BeregningTilskuddSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
+import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 
 const cls = BEMHelper('beregningTilskuddSteg');
 
 const BeregningTilskuddSteg: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
-
-    const { avtale, lagreAvtale } = useContext(AvtaleContext);
+    const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useAvtale();
 
     return (
         <>
@@ -41,33 +39,48 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </Heading>
                 <HvaMenesMedDette className={cls.className} />
                 <Manedslonn cls={cls} />
-                <Feriepenger cls={cls} />
-                <ObligatoriskTjenestepensjon cls={cls} />
-                <Arbeidsgiveravgift cls={cls} />
-                <Row className={cls.element('rad-kontonummer')}>
-                    <Column md="12" className={cls.element('kontonummer')}>
+                <Row className={cls.element('rad')}>
+                    <Column md="8" className={cls.element('feriepenger')}>
+                        <Feriepenger
+                            sats={avtale.gjeldendeInnhold.feriepengesats}
+                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                        />
+                    </Column>
+                </Row>
+                <Row className={cls.element('rad')}>
+                    <Column md="8" className={cls.element('tjenestepensjon')}>
+                        <ObligatoriskTjenestepensjon
+                            sats={avtale.gjeldendeInnhold.otpSats}
+                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                        />
+                    </Column>
+                </Row>
+                <Row className={cls.element('rad')}>
+                    <Column md="8" className={cls.element('arbeidsgiveravgift')}>
+                        <Arbeidsgiveravgift
+                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                        />
+                    </Column>
+                </Row>
+                <Row>
+                    <Column md="12">
                         <KidOgKontonummer />
                     </Column>
                 </Row>
-
-                <VerticalSpacer rem={2} />
                 <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
                 <VerticalSpacer rem={1.25} />
                 {innloggetBruker.erNavAnsatt &&
                     avtale.gjeldendeInnhold.stillingprosent !== undefined &&
                     avtale.gjeldendeInnhold.stillingprosent > 0 &&
                     avtale.gjeldendeInnhold.stillingprosent < 100 && (
-                        <ValutaInput
-                            disabled={true}
-                            name="manedslonn100%"
-                            size="small"
-                            label="Lønn ved 100% stilling"
-                            value={avtale.gjeldendeInnhold.manedslonn100pst}
-                        />
+                        <>
+                            <Label>Lønn ved 100% stilling: {avtale.gjeldendeInnhold.manedslonn100pst} kr</Label>
+                            <VerticalSpacer rem={1} />
+                        </>
                     )}
-                <VerticalSpacer rem={2} />
                 <VisningTilskuddsperioder />
-                <VerticalSpacer rem={2} />
+                <VerticalSpacer rem={1} />
                 <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
                 </LagreKnapp>

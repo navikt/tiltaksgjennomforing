@@ -1,20 +1,21 @@
-import React from 'react';
-import { TilskuddsPeriode } from '@/types/avtale';
-import { addDays, getYear, isWithinInterval } from 'date-fns';
-import { BodyShort, Table } from '@navikt/ds-react';
-import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
+import { TilskuddsPeriode } from '@/types/avtale';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { BodyShort, Table } from '@navikt/ds-react';
+import { addDays, getYear, isWithinInterval } from 'date-fns';
 
 interface Props {
     avtaleOpprettet: Date;
     erNavAnsatt: boolean;
     periode: TilskuddsPeriode;
-    kreverOppfølgingDato?: Date | undefined;
+    kreverOppfølgingDato?: Date;
+    // Per dags dato gjenbrukes denne tabellen for mentor, som ikke skal ha informasjon om sats
+    skalViseSatsForTidligereAar?: boolean;
 }
 
 const TilskuddsperiodeRadVtao = (props: Props) => {
-    const { avtaleOpprettet, erNavAnsatt, periode, kreverOppfølgingDato } = props;
+    const { avtaleOpprettet, erNavAnsatt, periode, kreverOppfølgingDato, skalViseSatsForTidligereAar } = props;
     const periodeAar = getYear(new Date(periode.startDato));
     // Hvis tilskuddsperioden gjelder for et tidligere år enn når avtalen er opprettet,
     // så vil vi vise en liten notis om at VTAO-satsen er basert på et lavere beløp
@@ -30,7 +31,7 @@ const TilskuddsperiodeRadVtao = (props: Props) => {
         <Table.Row>
             <Table.DataCell textSize="small">
                 <BodyShort size="small">{formaterPeriode(periode.startDato, periode.sluttDato)}</BodyShort>
-                {erITidligereAar && (
+                {erITidligereAar && skalViseSatsForTidligereAar && (
                     <BodyShort size="small" textColor="subtle">
                         Sats for {periodeAar}
                     </BodyShort>
@@ -41,12 +42,20 @@ const TilskuddsperiodeRadVtao = (props: Props) => {
                     <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
                 </Table.DataCell>
             )}
-            <Table.DataCell align="right" textSize="small">
-                {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
-            </Table.DataCell>
-            <Table.DataCell textSize="small">
-                {formaterDato(addDays(new Date(periode.sluttDato), 3), NORSK_DATO_FORMAT)}
-            </Table.DataCell>
+            {periodeStatus === 'BEHANDLET_I_ARENA' ? (
+                <Table.DataCell colSpan={2} align="center" textSize="small">
+                    Behandlet tidligere
+                </Table.DataCell>
+            ) : (
+                <>
+                    <Table.DataCell align="right" textSize="small">
+                        {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
+                    </Table.DataCell>
+                    <Table.DataCell textSize="small">
+                        {formaterDato(addDays(new Date(periode.sluttDato), 3), NORSK_DATO_FORMAT)}
+                    </Table.DataCell>
+                </>
+            )}
         </Table.Row>
     );
 };
