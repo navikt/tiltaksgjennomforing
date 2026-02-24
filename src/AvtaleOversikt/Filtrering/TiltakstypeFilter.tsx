@@ -17,7 +17,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
         { value: 'SOMMERJOBB', label: 'Sommerjobb' },
         { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
-        firearigLonnstilskudd ? { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd' } : null,
+        firearigLonnstilskudd ? { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' } : null,
     ].filter((x) => x !== null) as OptionProps[];
 
     const alleTiltakstyper: OptionProps[] = [
@@ -29,7 +29,7 @@ const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props
         { value: 'MENTOR', label: 'Mentor' },
         { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
         { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
-        firearigLonnstilskudd ? { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd' } : null,
+        firearigLonnstilskudd ? { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' } : null,
     ].filter((x) => x !== null) as OptionProps[];
 
     const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
