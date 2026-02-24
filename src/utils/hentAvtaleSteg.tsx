@@ -182,6 +182,7 @@ const hentAvtaleSteg = {
     INKLUDERINGSTILSKUDD: inkluderingTilskuddSteg,
     SOMMERJOBB: lonnstilskuddSteg,
     VTAO: vtaoSteg,
+    FIREARIG_LONNSTILSKUDD: lonnstilskuddSteg,
 };
 
 export default hentAvtaleSteg;
