@@ -1,5 +1,5 @@
 import DeltakerAvtaleStatus from '@/AvtaleSide/AvtaleStatus/DeltakerAvtaleStatus';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { AvtaleStatus } from '@/types/avtale';
 import lonnstilskuddAvtaleMock from '@/mocking/lonnstilskudd-avtale-mock';
 
@@ -33,6 +33,24 @@ const annullert = {
 export const Annullert: Story = {
     name: 'Annullert',
     args: { avtale: annullert },
+};
+
+const avbrutt = {
+    status: 'AVBRUTT' as AvtaleStatus,
+    annullertTidspunkt: '2021-08-01',
+    godkjentAvDeltaker: '20-08-01',
+    avtaleInngått: '2021-08-01',
+    annullertGrunn: 'annulert grunn',
+    avbruttDato: '2021-08-01',
+    gjeldendeInnhold: {
+        startDato: '2021-08-01',
+        sluttDato: '2021-08-01',
+    },
+};
+
+export const Avbrutt: Story = {
+    name: 'Avbrutt',
+    args: { avtale: avbrutt },
 };
 
 const påbegynt = {

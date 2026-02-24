@@ -49,11 +49,7 @@
     "devDependencies": {
         "@sentry/cli": "^2.43.0",
         "@sentry/react": "^9.10.1",
-        "@storybook/addon-essentials": "^8.6.11",
-        "@storybook/blocks": "^8.6.11",
-        "@storybook/react": "^8.6.11",
-        "@storybook/react-vite": "^8.6.11",
-        "@storybook/test": "^8.6.11",
+        "@storybook/react-vite": "^9.1.10",
         "@testing-library/react": "^16.2.0",
         "@types/lodash.debounce": "^4.0.9",
         "@types/lodash.isequal": "^4.5.8",
@@ -66,16 +62,24 @@
         "jsdom": "^26.0.0",
         "less": "^4.2.2",
         "lint-staged": "^15.5.0",
+        "msw": "^2.11.5",
+        "msw-storybook-addon": "^2.0.6",
         "prettier": "^3.5.3",
-        "storybook": "^8.6.11",
+        "storybook": "^9.1.10",
         "svgo": "^3.3.2",
         "typescript": "^5.8.2",
         "vite": "^6.2.4",
         "vite-plugin-svgr": "^4.3.0",
-        "vitest": "^3.1.1"
+        "vitest": "^3.1.1",
+        "@storybook/addon-docs": "^9.1.10"
     },
     "lint-staged": {
         "*.{ts,tsx,js,jsx,mjs,less,css,md}": "npm run prettier:fix",
         "*.svg": "npm run svgo"
+    },
+    "msw": {
+        "workerDirectory": [
+            "public"
+        ]
     }
 }
