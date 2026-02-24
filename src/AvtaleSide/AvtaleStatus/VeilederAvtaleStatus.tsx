@@ -1,4 +1,4 @@
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, Link } from '@navikt/ds-react';
 
 import { useAvtale } from '@/AvtaleProvider';
 import Avsluttet from '@/AvtaleSide/AvtaleStatus/Avsluttet';
@@ -10,6 +10,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Avtale } from '@/types/avtale';
 import { formaterDato, NORSK_DATO_FORMAT_FULL, tidSidenTidspunkt } from '@/utils/datoUtils';
 import OppfolgingKreves from './OppfolgingKreves';
+import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 interface Props {
@@ -103,6 +104,7 @@ const arenaMigreringTekst = (avtale: Avtale) => (
 
 function VeilederAvtaleStatus(props: Props) {
     const { avtale } = props;
+    const { data } = useAvtaleKreverAktsomhet(avtale.id);
     const { overtaAvtale } = useAvtale();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
@@ -140,7 +142,9 @@ function VeilederAvtaleStatus(props: Props) {
                 body={
                     <div style={{ textAlign: 'center' }}>
                         {avtale.opphav === 'ARBEIDSGIVER' && (
-                            <BodyShort size="small">Avtalen er opprettet av arbeidsgiver.</BodyShort>
+                            <BodyShort size="small" spacing={true}>
+                                Avtalen er opprettet av arbeidsgiver.
+                            </BodyShort>
                         )}
                         {(avtale.opphav === 'ARENA' || avtale.gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA') &&
                             arenaMigreringTekst(avtale)}
@@ -184,14 +188,24 @@ function VeilederAvtaleStatus(props: Props) {
                     header="Innholdet i avtalen fylles ut av arbeidsgiver og veileder"
                     body={
                         <>
-                            <BodyShort size="small">
-                                Avtalen er nå tilgjengelig for arbeidsgiver på Min Side Arbeidsgiver.
-                            </BodyShort>
-                            <BodyShort size="small">
+                            {data?.kreverAktsomhet ? (
+                                <BodyShort size="small" spacing={true}>
+                                    <strong>OBS: </strong>Avtalen gjelder bruker med adressebeskyttelse, og vil kun være
+                                    tilgjengelig for arbeidsgiver ved å gå til <q>Min Side Arbeidsgiver</q> og trykke på
+                                    lenken <q>Avtaler om Tiltak</q>.
+                                </BodyShort>
+                            ) : (
+                                <BodyShort size="small" spacing={true}>
+                                    Avtalen er nå tilgjengelig for arbeidsgiver på Min Side Arbeidsgiver.
+                                </BodyShort>
+                            )}
+                            <BodyShort size="small" spacing={true}>
                                 Det sendes foreløpig ikke en automatisk SMS, men du kan dele denne lenken med
-                                arbeidsgiver <strong>https://arbeidsgiver.nav.no/tiltaksgjennomforing</strong>
+                                arbeidsgiver{' '}
+                                <Link href="https://arbeidsgiver.nav.no/tiltaksgjennomforing">
+                                    https://arbeidsgiver.nav.no/tiltaksgjennomforing
+                                </Link>
                             </BodyShort>
-                            <VerticalSpacer rem={1} />
                             <BodyShort size="small">
                                 Deltaker får en automatisk SMS når arbeidsgiver har godkjent avtalen.
                             </BodyShort>
@@ -305,7 +319,7 @@ function VeilederAvtaleStatus(props: Props) {
                             header="Venter på godkjenning av avtalen fra deltaker"
                             body={
                                 <BodyShort size="small">
-                                    Avtalen må godkjennes av deltaker.
+                                    Avtalen må godkjennes av deltaker.{' '}
                                     {avtale.godkjentAvArbeidsgiver && (
                                         <>
                                             Deltaker fikk en varsling på min side på NAV.no om å godkjenne avtalen for{' '}
