@@ -12,7 +12,7 @@ export const tiltakToggleFilter = (firearigLonnstilskuddAktivert: boolean): Tilt
         'FIREARIG_LONNSTILSKUDD',
     ].filter((tiltak) => {
         if (tiltak === 'FIREARIG_LONNSTILSKUDD') {
-            return vtaoTiltakToggle;
+            return firearigLonnstilskuddAktivert;
         }
         return true;
     }) as TiltaksType[];
