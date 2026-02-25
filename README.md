@@ -1,13 +1,7 @@
 # Tiltaksgjennomføring
 
-Starte via Yarn med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-api også kjører lokalt).
+Starte via npm med REST-API (krever at https://github.com/navikt/tiltaksgjennomforing-api også kjører lokalt).
 `npm run start`
-
-Bygg image
-`docker build -t tiltaksgjennomforing .`
-
-Kjør container
-`docker run -d -p 3000:3000 tiltaksgjennomforing`
 
 Åpnes i browser: [http://localhost:3000/tiltaksgjennomforing](http://localhost:3000/tiltaksgjennomforing)
 
