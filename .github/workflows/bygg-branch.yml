@@ -36,9 +36,13 @@ jobs:
       #     NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Server install
         working-directory: ./server
-        run: pnpm install --frozen-lockfile --prefer-offline
-        # env:
-        #   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: |
+          pnpm config set //npm.pkg.github.com/:_authToken $NODE_AUTH_TOKEN
+          pnpm config set engine-strict true
+          pnpm config set @navikt:registry https://npm.pkg.github.com
+          pnpm install --frozen-lockfile --prefer-offline
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Typescript
         run: pnpm run ts
       - name: Prettier
