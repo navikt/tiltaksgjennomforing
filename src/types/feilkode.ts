@@ -99,7 +99,9 @@ export type Feilkode =
     | 'ROLLE_HAR_IKKE_TILGANG'
     | 'FEIL_KID_NUMMER'
     | 'FØDSELSNUMMER_IKKE_GYLDIG'
-    | 'KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA';
+    | 'KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA'
+    | 'IKKE_TILGANG_TIL_A_OPPRETTE_TILTAK'
+    | 'IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -226,4 +228,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
     KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA:
         'Avtalen er importert fra gammelt system, og oppstartsdato kan derfor ikke endres.',
+    IKKE_TILGANG_TIL_A_OPPRETTE_TILTAK: 'Du har ikke tilgang til å opprette avtale på dette tiltaket',
+    IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE:
+        'Du kan ikke opprette avtale på denne deltakeren. Det kan være fordi deltakeren hører til en enhet som ikke støtter dette tiltaket.',
 };
