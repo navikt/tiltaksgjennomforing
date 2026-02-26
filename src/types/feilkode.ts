@@ -47,6 +47,8 @@ export type Feilkode =
     | 'SOMMERJOBB_IKKE_GAMMEL_NOK'
     | 'SOMMERJOBB_FOR_GAMMEL'
     | 'SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO'
+    | 'FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET'
+    | 'FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO'
     | 'DELTAKER_67_AAR'
     | 'DELTAKER_72_AAR'
     | 'FEIL_OTP_SATS'
@@ -150,6 +152,9 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     SOMMERJOBB_IKKE_GAMMEL_NOK: 'Deltaker må være fylt 16 år',
     SOMMERJOBB_FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
     SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO: 'Deltaker kan ikke ha fylt 30 år før startdatoen til dette tiltaket',
+    FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET: 'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 4 år',
+    FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO:
+        'Deltaker kan ikke være eldre enn 30 år ved oppstart av tiltaket',
     DELTAKER_67_AAR: 'Deltaker må være under 67 år ved sluttdatoen av tiltaket',
     DELTAKER_72_AAR: 'Deltaker må være under 72 år ved sluttdatoen av tiltaket',
     FEIL_OTP_SATS: 'Sats for obligatorisk tjenestepensjon må være mellom 0 og 30 %.',
