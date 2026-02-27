@@ -47,6 +47,7 @@ export type Feilkode =
     | 'SOMMERJOBB_IKKE_GAMMEL_NOK'
     | 'SOMMERJOBB_FOR_GAMMEL'
     | 'SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO'
+    | 'FIREARIG_LONNSTILSKUDD_FOR_TIDLIG_OPPSTART'
     | 'FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET'
     | 'FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO'
     | 'DELTAKER_67_AAR'
@@ -68,6 +69,7 @@ export type Feilkode =
     | 'KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL'
     | 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
     | 'KVALIFISERINGSGRUPPE_VTAO_FEIL'
+    | 'KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL'
     | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
     | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
     | 'HENTING_AV_INNSATSBEHOV_FEILET'
@@ -154,6 +156,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     SOMMERJOBB_IKKE_GAMMEL_NOK: 'Deltaker må være fylt 16 år',
     SOMMERJOBB_FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
     SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO: 'Deltaker kan ikke ha fylt 30 år før startdatoen til dette tiltaket',
+    FIREARIG_LONNSTILSKUDD_FOR_TIDLIG_OPPSTART: 'Fireårig lønnstilskudd for unge har oppstart fra 01.06.2026',
     FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET: 'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 4 år',
     FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO:
         'Deltaker kan ikke være eldre enn 30 år ved oppstart av tiltaket',
@@ -180,6 +183,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     KVALIFISERINGSGRUPPE_VTAO_FEIL:
+        'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
+    KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     KVALIFISERINGSGRUPPE_IKKE_RETTIGHET:
         'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale. Ved endringer i kvalifiseringsgruppe kan det ta opptil 5 min før det er oppdatert.',
