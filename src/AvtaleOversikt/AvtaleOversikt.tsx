@@ -149,7 +149,7 @@ const AvtaleOversikt: FunctionComponent = () => {
             const sokIdFraUrl = searchParams.get('sokId')!;
             const pageFraUrl = parseInt(searchParams.get('page') || '1');
             const sorteringFraUrl = (searchParams.get('sorteringskolonne') as keyof Avtale) || '';
-            const sorteringOrderFraUrl = searchParams.get('sorteringOrder') || 'ASC';
+            const sorteringOrderFraUrl = searchParams.get('sorteringOrder') || 'DESC';
             hentAvtalerForInnloggetBrukerMedSokId(
                 sokIdFraUrl,
                 10,
@@ -159,14 +159,22 @@ const AvtaleOversikt: FunctionComponent = () => {
             ).then((pagableAvtale: PageableAvtale) => {
                 // const eksisterendeSearchParams = lagObjektAvSearchParams(searchParams);
                 // if (eksisterendeSearchParams.bedrift) setSearchParams({...eksisterendeSearchParams, bedrift: pagableAvtale.sokeParametere.bedriftNr});
-
                 setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
-                endreFilter({
+                const oppdattertFilterParams = {
                     page: '' + (pagableAvtale.currentPage + 1),
                     sorteringskolonne: pagableAvtale.sorteringskolonne,
                     sorteringOrder: pagableAvtale.sorteringOrder,
                     ...pagableAvtale.sokeParametere,
-                });
+                };
+                setSearchParams(
+                    fjernTommeFelterFraObjekt({
+                        sokId: pagableAvtale.sokId,
+                        page: oppdattertFilterParams.page,
+                        sorteringskolonne: oppdattertFilterParams.sorteringskolonne,
+                        sorteringOrder: oppdattertFilterParams.sorteringOrder,
+                    }),
+                );
+                endreFilter(oppdattertFilterParams);
             });
         }
     }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams, endreFilter, innloggetBruker.rolle]);
