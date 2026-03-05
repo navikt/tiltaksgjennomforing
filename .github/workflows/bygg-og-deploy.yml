@@ -10,6 +10,7 @@ jobs:
   build:
     name: Bygg
     permissions:
+      packages: read
       contents: read
       id-token: write
     outputs:
@@ -27,6 +28,7 @@ jobs:
         with:
           node-version: lts/*
           registry-url: https://npm.pkg.github.com/
+          scope: '@navikt'
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
       - name: Install
