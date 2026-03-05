@@ -26,8 +26,9 @@ jobs:
       - name: Setup node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 22
           registry-url: https://npm.pkg.github.com/
+          scope: '@navikt'
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile --prefer-offline
@@ -50,7 +51,7 @@ jobs:
         working-directory: ./server
         run: pnpm run build
       - name: Installer avhengigheter for produksjon
-        run: pnpm install --prod --frozen-lockfile
+        run: pnpm install --prod --frozen-lockfile --prefer-offline
         working-directory: ./server
       - name: Kopier node-modules til server
         run: pnpm run dist
