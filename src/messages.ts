@@ -86,6 +86,7 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     INKLUDERINGSTILSKUDD: 'inkluderingstilskudd',
     SOMMERJOBB: 'sommerjobb',
     VTAO: 'varig tilrettelagt arbeid i ordinær virksomhet',
+    FIREARIG_LONNSTILSKUDD: 'fireårig lønnstilskudd for unge',
 };
 
 export const tiltakstypeTekstKort: { [key in TiltaksType]: string } = { ...tiltakstypeTekst, VTAO: 'VTA-O' };
@@ -98,6 +99,7 @@ export const avtaleTittel: { [key in TiltaksType]: string } = {
     INKLUDERINGSTILSKUDD: 'Avtale om inkluderingstilskudd',
     SOMMERJOBB: 'Avtale om sommerjobb',
     VTAO: 'Avtale om varig tilrettelagt arbeid i ordinær virksomhet',
+    FIREARIG_LONNSTILSKUDD: 'Avtale om fireårig lønnstilskudd for unge',
 };
 
 export const stillingstype: { [key in Stillingstype]: string } = {

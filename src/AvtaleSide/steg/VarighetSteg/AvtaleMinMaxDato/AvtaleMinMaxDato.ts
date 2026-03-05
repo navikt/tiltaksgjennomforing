@@ -117,6 +117,8 @@ export const AvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitation
                 }
             case 'VTAO':
                 return datoDefaultVerdi();
+            case 'FIREARIG_LONNSTILSKUDD':
+                return datoDefaultVerdi();
         }
     };
 

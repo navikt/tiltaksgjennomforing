@@ -27,6 +27,7 @@ const TILTAKSTYPER: TiltaksType[] = [
     'VARIG_LONNSTILSKUDD',
     'SOMMERJOBB',
     'VTAO',
+    'FIREARIG_LONNSTILSKUDD',
 ];
 
 const TilgangTabell: FunctionComponent<Props> = (props) => {

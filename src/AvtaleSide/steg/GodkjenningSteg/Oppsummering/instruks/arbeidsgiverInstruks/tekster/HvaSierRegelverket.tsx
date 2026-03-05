@@ -17,6 +17,7 @@ const oppfolgingLenker: { [key in TiltaksType]: string } = {
     ARBEIDSTRENING: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap3',
     MENTOR: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/kap3#kap5',
     VTAO: 'https://lovdata.no/dokument/SF/forskrift/2015-12-11-1598/KAPITTEL_14#KAPITTEL_14',
+    FIREARIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/LTI/forskrift/2026-02-04-163',
 };
 const rundSkrivLenker: { [key in TiltaksType]: string } = {
     ARBEIDSTRENING: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_4',
@@ -26,6 +27,7 @@ const rundSkrivLenker: { [key in TiltaksType]: string } = {
     VARIG_LONNSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_11',
     INKLUDERINGSTILSKUDD: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_12',
     VTAO: 'https://lovdata.no/nav/rundskriv/r76-12-01#KAPITTEL_15',
+    FIREARIG_LONNSTILSKUDD: 'https://lovdata.no/dokument/LTI/forskrift/2026-02-04-163',
 };
 
 const HvaSierRegelverket: FunctionComponent<PropsWithChildren<Props>> = ({ tiltakstype }) => {

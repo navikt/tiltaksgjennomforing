@@ -47,6 +47,10 @@ export type Feilkode =
     | 'SOMMERJOBB_IKKE_GAMMEL_NOK'
     | 'SOMMERJOBB_FOR_GAMMEL'
     | 'SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO'
+    | 'FIREARIG_LONNSTILSKUDD_FOR_TIDLIG_OPPSTART'
+    | 'FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET'
+    | 'FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO'
+    | 'FIREARIG_LONNSTILSKUDD_FOR_SEN_SLUTTDATO'
     | 'DELTAKER_67_AAR'
     | 'DELTAKER_72_AAR'
     | 'FEIL_OTP_SATS'
@@ -66,6 +70,7 @@ export type Feilkode =
     | 'KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL'
     | 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
     | 'KVALIFISERINGSGRUPPE_VTAO_FEIL'
+    | 'KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL'
     | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
     | 'FORMIDLINGSGRUPPE_IKKE_RETTIGHET'
     | 'HENTING_AV_INNSATSBEHOV_FEILET'
@@ -97,7 +102,9 @@ export type Feilkode =
     | 'ROLLE_HAR_IKKE_TILGANG'
     | 'FEIL_KID_NUMMER'
     | 'FØDSELSNUMMER_IKKE_GYLDIG'
-    | 'KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA';
+    | 'KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA'
+    | 'IKKE_TILGANG_TIL_A_OPPRETTE_TILTAK'
+    | 'IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -150,6 +157,12 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     SOMMERJOBB_IKKE_GAMMEL_NOK: 'Deltaker må være fylt 16 år',
     SOMMERJOBB_FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
     SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO: 'Deltaker kan ikke ha fylt 30 år før startdatoen til dette tiltaket',
+    FIREARIG_LONNSTILSKUDD_FOR_TIDLIG_OPPSTART: 'Fireårig lønnstilskudd for unge har oppstart fra 01.06.2026',
+    FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET: 'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 4 år',
+    FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO:
+        'Deltaker kan ikke være eldre enn 30 år ved oppstart av tiltaket',
+    FIREARIG_LONNSTILSKUDD_FOR_SEN_SLUTTDATO:
+        'Fireårig lønnstilskudd for unge kan ikke ha sluttdato senere enn 31.12.2032',
     DELTAKER_67_AAR: 'Deltaker må være under 67 år ved sluttdatoen av tiltaket',
     DELTAKER_72_AAR: 'Deltaker må være under 72 år ved sluttdatoen av tiltaket',
     FEIL_OTP_SATS: 'Sats for obligatorisk tjenestepensjon må være mellom 0 og 30 %.',
@@ -173,6 +186,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     KVALIFISERINGSGRUPPE_VTAO_FEIL:
+        'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
+    KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     KVALIFISERINGSGRUPPE_IKKE_RETTIGHET:
         'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale. Ved endringer i kvalifiseringsgruppe kan det ta opptil 5 min før det er oppdatert.',
@@ -221,4 +236,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
     KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA:
         'Avtalen er importert fra gammelt system, og oppstartsdato kan derfor ikke endres.',
+    IKKE_TILGANG_TIL_A_OPPRETTE_TILTAK: 'Du har ikke tilgang til å opprette avtale på dette tiltaket',
+    IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE:
+        'Du kan ikke opprette avtale på denne deltakeren. Det kan være fordi deltakeren hører til en enhet som ikke støtter dette tiltaket.',
 };
