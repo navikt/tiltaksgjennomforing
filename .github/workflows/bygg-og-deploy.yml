@@ -28,20 +28,16 @@ jobs:
         with:
           node-version: lts/*
           registry-url: https://npm.pkg.github.com/
-          scope: '@navikt'
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
       - name: Install
         run: pnpm install --frozen-lockfile --prefer-offline
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
       - name: Server install
         working-directory: ./server
         run: pnpm install --frozen-lockfile --prefer-offline
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
       - name: Typescript
         run: pnpm run ts
       - name: Prettier
