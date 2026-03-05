@@ -1,5 +1,5 @@
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta = {
     title: 'Tiltaksgjennomforing/Modaler/Bekreftelse',
