@@ -42,6 +42,7 @@ const StillingSteg: FunctionComponent = () => {
                 />
                 {(avtaleContext.avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
                     avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+                    avtaleContext.avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
                     avtaleContext.avtale.tiltakstype == 'VTAO') && (
                     <>
                         <BodyShort size="small">Er stillingen fast eller midlertidig</BodyShort>

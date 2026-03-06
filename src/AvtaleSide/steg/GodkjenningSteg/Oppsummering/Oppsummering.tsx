@@ -47,6 +47,7 @@ function Oppsummering(props: Props) {
         case 'SOMMERJOBB':
         case 'MIDLERTIDIG_LONNSTILSKUDD':
         case 'VARIG_LONNSTILSKUDD':
+        case 'FIREARIG_LONNSTILSKUDD':
             return <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />;
         case 'ARBEIDSTRENING':
             return <OppsummeringArbeidstrening avtaleinnhold={avtaleInnhold} />;
