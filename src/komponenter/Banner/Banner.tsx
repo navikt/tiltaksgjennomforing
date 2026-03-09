@@ -4,6 +4,7 @@ import '@navikt/arbeidsgiver-notifikasjon-widget/lib/esm/index.css';
 import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Detail, Heading } from '@navikt/ds-react';
+import { Virksomhetsvelger } from '@navikt/virksomhetsvelger';
 import React, { useCallback, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
@@ -38,25 +39,31 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
-                <Bedriftsmeny
-                    orgnrSearchParam={orgnrProvider}
-                    onOrganisasjonChange={(org: Organisasjon) => {
-                        byttetOrg?.(org.OrganizationNumber);
-                    }}
-                    organisasjoner={innloggetBruker.altinnOrganisasjoner}
-                    sidetittel={
-                        <>
-                            <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
-                                {tekst}
-                            </Heading>
-                            {undertittel && (
-                                <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>{undertittel}</Detail>
-                            )}
-                        </>
-                    }
-                >
-                    <NotifikasjonWidget />
-                </Bedriftsmeny>
+                <>
+                    <Bedriftsmeny
+                        orgnrSearchParam={orgnrProvider}
+                        onOrganisasjonChange={(org: Organisasjon) => {
+                            byttetOrg?.(org.OrganizationNumber);
+                        }}
+                        organisasjoner={innloggetBruker.altinnOrganisasjoner}
+                        sidetittel={
+                            <>
+                                <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
+                                    {tekst}
+                                </Heading>
+                                {undertittel && (
+                                    <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>{undertittel}</Detail>
+                                )}
+                            </>
+                        }
+                    >
+                        <NotifikasjonWidget />
+                    </Bedriftsmeny>
+                    <Virksomhetsvelger
+                        organisasjoner={innloggetBruker.altinn3Organisasjoner}
+                        onChange={(org) => byttetOrg?.(org.orgnr)}
+                    />
+                </>
             );
         case 'DELTAKER':
         case 'MENTOR':
