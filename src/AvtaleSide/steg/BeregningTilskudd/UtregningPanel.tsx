@@ -68,7 +68,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     };
 
     const prosentSats = (sats: number | undefined) =>
-        erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)}%)`;
+        erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)} %)`;
 
     return (
         <ExpansionCard defaultOpen aria-label="Tilskudd for en måned" size="small">
