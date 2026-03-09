@@ -35,6 +35,7 @@
         "@navikt/ds-icons": "3.4.3",
         "@navikt/ds-react": "^7.34.0",
         "@navikt/navspa": "^6.0.1",
+        "@navikt/virksomhetsvelger": "^1.0.11",
         "axios": "^1.8.4",
         "axios-retry": "4.5.0",
         "classnames": "^2.5.1",

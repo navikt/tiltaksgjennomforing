@@ -32,6 +32,9 @@ importers:
       '@navikt/navspa':
         specifier: ^6.0.1
         version: 6.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@navikt/virksomhetsvelger':
+        specifier: ^1.0.11
+        version: 1.0.11(@navikt/ds-css@7.40.0)(@navikt/ds-react@7.40.0(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.8.4
         version: 1.13.6
@@ -636,6 +639,14 @@ packages:
     peerDependencies:
       react: '>=16.6.0 || 17 || 18'
       react-dom: '>=16.6.0 || 17 || 18'
+
+  '@navikt/virksomhetsvelger@1.0.11':
+    resolution: {integrity: sha512-4tTLAdCsk6D3IlIj9dBKHLBFwqLh/1RImmE7mkS+pMpETwFh/0fvNEegKUQG0ZfEbn4KQEHVxUv7PwClTFa1Kw==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/1.0.11/dd92fa48d429793229d6c05061bb4b1814bb2507}
+    peerDependencies:
+      '@navikt/ds-css': '>=6'
+      '@navikt/ds-react': '>=6'
+      react: 18 || 19
+      react-dom: 18 || 19
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -1718,6 +1729,14 @@ packages:
       prop-types: ^15.8.1
       react: '>=16.3.0'
       react-dom: '>=16.3.0'
+
+  focus-trap-react@11.0.4:
+    resolution: {integrity: sha512-tC7jC/yqeAqhe4irNIzdyDf9XCtGSeECHiBSYJBO/vIN0asizbKZCt8TarB6/XqIceu42ajQ/U4lQJ9pZlWjrg==}
+    peerDependencies:
+      '@types/react': ^18.0.0 || ^19.0.0
+      '@types/react-dom': ^18.0.0 || ^19.0.0
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   focus-trap@7.8.0:
     resolution: {integrity: sha512-/yNdlIkpWbM0ptxno3ONTuf+2g318kh2ez3KSeZN5dZ8YC6AAmgeWz+GasYYiBJPFaYcSAPeu4GfhUaChzIJXA==}
@@ -3342,6 +3361,17 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@navikt/virksomhetsvelger@1.0.11(@navikt/ds-css@7.40.0)(@navikt/ds-react@7.40.0(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react-dom@18.3.1)(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@navikt/ds-css': 7.40.0
+      '@navikt/ds-react': 7.40.0(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      focus-trap-react: 11.0.4(@types/react-dom@18.3.1)(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
@@ -4434,6 +4464,15 @@ snapshots:
     dependencies:
       focus-trap: 7.8.0
       prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      tabbable: 6.4.0
+
+  focus-trap-react@11.0.4(@types/react-dom@18.3.1)(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@types/react': 18.3.28
+      '@types/react-dom': 18.3.1
+      focus-trap: 7.8.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tabbable: 6.4.0
