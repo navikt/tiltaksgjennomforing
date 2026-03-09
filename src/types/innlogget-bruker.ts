@@ -1,6 +1,5 @@
 import { TiltaksType } from '@/types/avtale';
 import { Organisasjon as AltinnOrganisasjon } from '@navikt/bedriftsmeny';
-import { Organisasjon as Altinn3Organisasjon } from '@navikt/virksomhetsvelger';
 
 export interface Innloggingskilde {
     tittel: string;
@@ -21,7 +20,7 @@ export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
     altinnOrganisasjoner: AltinnOrganisasjon[];
-    altinn3Organisasjoner: Altinn3Organisasjon[];
+    //altinn3Tilganger: { hierarki: Altinn3Organisasjon[] };
     rolle: Rolle;
     tilganger: Tilganger;
     navEnheter: NavEnhet[];
