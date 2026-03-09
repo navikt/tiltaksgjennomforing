@@ -25,10 +25,14 @@ const TilskuddsperiodeTabellRad = (props: Props) => {
 
     const getProsentText = (): string | null => {
         if (tiltakstype === 'VARIG_LONNSTILSKUDD' && periode.status !== 'BEHANDLET_I_ARENA') {
-            return `${periode.lonnstilskuddProsent}%`;
+            return `${periode.lonnstilskuddProsent} %`;
         }
-        if (tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'SOMMERJOBB') {
-            return `${periode.lonnstilskuddProsent}%`;
+        if (
+            tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+            tiltakstype === 'SOMMERJOBB' ||
+            tiltakstype === 'FIREARIG_LONNSTILSKUDD'
+        ) {
+            return `${periode.lonnstilskuddProsent} %`;
         }
         return null;
     };
