@@ -4,7 +4,6 @@ import '@navikt/arbeidsgiver-notifikasjon-widget/lib/esm/index.css';
 import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Detail, Heading } from '@navikt/ds-react';
-import { Virksomhetsvelger } from '@navikt/virksomhetsvelger';
 import React, { useCallback, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
@@ -59,10 +58,10 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
                     >
                         <NotifikasjonWidget />
                     </Bedriftsmeny>
-                    <Virksomhetsvelger
-                        organisasjoner={innloggetBruker.altinn3Organisasjoner}
+                    {/* <Virksomhetsvelger
+                        organisasjoner={innloggetBruker.altinn3Tilganger.hierarki}
                         onChange={(org) => byttetOrg?.(org.orgnr)}
-                    />
+                    /> */}
                 </>
             );
         case 'DELTAKER':
