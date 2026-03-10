@@ -21,7 +21,7 @@ export interface InnloggetBruker {
     identifikator: string;
     erNavAnsatt: boolean;
     altinnOrganisasjoner: AltinnOrganisasjon[];
-    altinn3Tilganger: { hierarki: Altinn3Organisasjon[] };
+    altinn3Organisasjoner: { hierarki: Altinn3Organisasjon[] };
     rolle: Rolle;
     tilganger: Tilganger;
     navEnheter: NavEnhet[];
