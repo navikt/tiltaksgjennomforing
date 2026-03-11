@@ -30,6 +30,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
         'INKLUDERINGSTILSKUDD',
         'MENTOR',
         'VTAO',
+        'FIREARIG_LONNSTILSKUDD',
     ].includes(avtale.tiltakstype);
 
     return (
