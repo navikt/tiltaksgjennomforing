@@ -1,7 +1,6 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import '@navikt/arbeidsgiver-notifikasjon-widget/lib/esm/index.css';
-import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
 import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import '@navikt/ds-css';
 import { Detail, Heading } from '@navikt/ds-react';
@@ -50,26 +49,14 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
-                <>
-                    <Bedriftsmeny
-                        orgnrSearchParam={orgnrProvider}
-                        onOrganisasjonChange={(org: Organisasjon) => {
-                            byttetOrg?.(org.OrganizationNumber);
-                        }}
-                        organisasjoner={innloggetBruker.altinnOrganisasjoner}
-                        sidetittel={bedriftsmenyTittel}
-                    >
-                        <NotifikasjonWidget />
-                    </Bedriftsmeny>
-                    <VikrsomhetsvelgerBanner tittel={bedriftsmenyTittel}>
-                        <Virksomhetsvelger
-                            organisasjoner={innloggetBruker.altinn3Organisasjoner.hierarki}
-                            initValgtOrgnr={bedriftParam || valgtOrganisasjon || undefined}
-                            onChange={(org) => byttetOrg?.(org.orgnr)}
-                        />
-                        <NotifikasjonWidget />
-                    </VikrsomhetsvelgerBanner>
-                </>
+                <VikrsomhetsvelgerBanner tittel={bedriftsmenyTittel}>
+                    <Virksomhetsvelger
+                        organisasjoner={innloggetBruker.altinn3Organisasjoner.hierarki}
+                        initValgtOrgnr={bedriftParam || valgtOrganisasjon || undefined}
+                        onChange={(org) => byttetOrg?.(org.orgnr)}
+                    />
+                    <NotifikasjonWidget />
+                </VikrsomhetsvelgerBanner>
             );
         case 'DELTAKER':
         case 'MENTOR':

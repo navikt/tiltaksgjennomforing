@@ -1,29 +1,30 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
-import { useNavigate, generatePath } from 'react-router-dom';
-import { Alert, RadioGroup, BodyShort, Heading, Label, ErrorMessage, TextField } from '@navikt/ds-react';
+import { Alert, BodyShort, ErrorMessage, Heading, Label, RadioGroup, TextField } from '@navikt/ds-react';
+import { FunctionComponent, useContext, useState } from 'react';
+import { generatePath, useNavigate } from 'react-router-dom';
 
-import './OpprettAvtaleArbeidsgiver.less';
-import BEMHelper from '@/utils/bem';
+import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
-import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import useValidering from '@/komponenter/useValidering';
-import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { Path, basename } from '@/Router';
-import { TiltaksType } from '@/types/avtale';
-import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
-import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
-import { storForbokstav } from '@/utils/stringUtils';
 import { tiltakstypeTekst } from '@/messages';
-import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
+import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
+import { Path, basename } from '@/Router';
+import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
+import { TiltaksType } from '@/types/avtale';
+import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import BEMHelper from '@/utils/bem';
+import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
+import { storForbokstav } from '@/utils/stringUtils';
+import { findRecursive } from '@navikt/virksomhetsvelger';
+import './OpprettAvtaleArbeidsgiver.less';
 
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
@@ -98,9 +99,10 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     };
 
     const valgtBedriftNr = new URLSearchParams(window.location.search).get('bedrift')!;
-    const valgtBedriftNavn = innloggetBruker.altinnOrganisasjoner.find(
-        (org) => org.OrganizationNumber === valgtBedriftNr,
-    )?.Name;
+    const valgtBedriftNavn = findRecursive(
+        innloggetBruker.altinn3Organisasjoner.hierarki,
+        (org) => org.orgnr === valgtBedriftNr,
+    )?.navn;
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
