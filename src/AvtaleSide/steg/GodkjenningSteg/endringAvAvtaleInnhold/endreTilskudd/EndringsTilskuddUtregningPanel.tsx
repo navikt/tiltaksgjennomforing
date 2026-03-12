@@ -43,9 +43,8 @@ const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = (props) => {
                 feriepengerBelop={nyAvtale.gjeldendeInnhold.feriepengerBelop}
                 sumLonnsutgifter={nyAvtale.gjeldendeInnhold.sumLonnsutgifter}
                 lonnstilskuddProsent={nyAvtale.gjeldendeInnhold.lonnstilskuddProsent}
-                datoForRedusertProsent={nyAvtale.gjeldendeInnhold.datoForRedusertProsent}
                 sumLonnstilskudd={nyAvtale.gjeldendeInnhold.sumLonnstilskudd}
-                sumLønnstilskuddRedusert={nyAvtale.gjeldendeInnhold.sumLønnstilskuddRedusert}
+                tilskuddstrinn={nyAvtale.gjeldendeInnhold.tilskuddstrinn}
             />
         </div>
     );
