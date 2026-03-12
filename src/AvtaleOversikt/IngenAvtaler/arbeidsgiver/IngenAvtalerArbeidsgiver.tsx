@@ -2,10 +2,11 @@ import DuManglerRettigheterIAltinn from '@/AvtaleOversikt/IngenAvtaler/arbeidsgi
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { tiltakstypeTekst } from '@/messages';
 import { TiltaksType } from '@/types/avtale';
-import React, { FunctionComponent, useContext } from 'react';
+import { storForbokstav } from '@/utils/stringUtils';
+import { findRecursive } from '@navikt/virksomhetsvelger';
+import { FunctionComponent, useContext } from 'react';
 import BoksMedTekstOgTilgangstabell from './BoksMedTekstOgTilgangstabell';
 import './IngenAvtalerArbeidsgiver.less';
-import { storForbokstav } from '@/utils/stringUtils';
 
 type Props = {
     bedriftNr?: string;
@@ -13,14 +14,14 @@ type Props = {
 };
 
 const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = (props) => {
-    const { tilganger, altinnOrganisasjoner } = useContext(InnloggetBrukerContext);
+    const { tilganger, altinn3Organisasjoner } = useContext(InnloggetBrukerContext);
 
     if (!props.bedriftNr) {
         return <DuManglerRettigheterIAltinn />;
     }
 
-    const valgtBedrift = altinnOrganisasjoner.find((o) => o.OrganizationNumber === props.bedriftNr)!;
-    const bedriftNavnOgNummer = `${valgtBedrift.Name} (${valgtBedrift.OrganizationNumber})`;
+    const valgtBedrift = findRecursive(altinn3Organisasjoner.hierarki, (o) => o.orgnr === props.bedriftNr);
+    const bedriftNavnOgNummer = valgtBedrift ? `${valgtBedrift.navn} (${valgtBedrift.orgnr})` : props.bedriftNr;
 
     const fellesProps = { bedriftNr: props.bedriftNr, tilganger, bedriftNavnOgNummer };
 
