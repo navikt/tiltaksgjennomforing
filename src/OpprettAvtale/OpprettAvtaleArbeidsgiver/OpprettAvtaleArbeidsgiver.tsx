@@ -146,7 +146,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div>
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
-                            {innloggetBruker.tilganger[valgtBedriftNr].map((tiltakType) => (
+                            {innloggetBruker.altinn3Tilganger[valgtBedriftNr].map((tiltakType) => (
                                 <RadioPanel
                                     key={tiltakType}
                                     name="tiltakstype"

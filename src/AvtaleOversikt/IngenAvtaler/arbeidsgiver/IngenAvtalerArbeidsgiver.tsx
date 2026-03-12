@@ -14,7 +14,7 @@ type Props = {
 };
 
 const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = (props) => {
-    const { tilganger, altinn3Organisasjoner } = useContext(InnloggetBrukerContext);
+    const { altinn3Tilganger, altinn3Organisasjoner } = useContext(InnloggetBrukerContext);
 
     if (!props.bedriftNr) {
         return <DuManglerRettigheterIAltinn />;
@@ -23,9 +23,9 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = (props) => {
     const valgtBedrift = findRecursive(altinn3Organisasjoner.hierarki, (o) => o.orgnr === props.bedriftNr);
     const bedriftNavnOgNummer = valgtBedrift ? `${valgtBedrift.navn} (${valgtBedrift.orgnr})` : props.bedriftNr;
 
-    const fellesProps = { bedriftNr: props.bedriftNr, tilganger, bedriftNavnOgNummer };
+    const fellesProps = { bedriftNr: props.bedriftNr, tilganger: altinn3Tilganger, bedriftNavnOgNummer };
 
-    if (!tilganger[props.bedriftNr] || tilganger[props.bedriftNr].length === 0) {
+    if (!altinn3Tilganger[props.bedriftNr] || altinn3Tilganger[props.bedriftNr].length === 0) {
         return (
             <BoksMedTekstOgTilgangstabell
                 {...fellesProps}
@@ -36,7 +36,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = (props) => {
     }
 
     if (props.tiltakstype) {
-        if (tilganger[props.bedriftNr].includes(props.tiltakstype)) {
+        if (altinn3Tilganger[props.bedriftNr].includes(props.tiltakstype)) {
             // Har tilgang til valgt tiltakstype
             return (
                 <BoksMedTekstOgTilgangstabell

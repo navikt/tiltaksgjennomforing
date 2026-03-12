@@ -24,6 +24,7 @@ export interface InnloggetBruker {
     altinn3Organisasjoner: { hierarki: Altinn3Organisasjon[] };
     rolle: Rolle;
     tilganger: Tilganger;
+    altinn3Tilganger: Tilganger;
     navEnheter: NavEnhet[];
     kanVæreBeslutter?: boolean;
 }

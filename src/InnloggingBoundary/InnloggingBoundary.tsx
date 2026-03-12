@@ -26,6 +26,7 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     altinn3Organisasjoner: { hierarki: [] },
     rolle: 'INGEN_ROLLE',
     tilganger: {},
+    altinn3Tilganger: {},
     navEnheter: [],
 });
 
