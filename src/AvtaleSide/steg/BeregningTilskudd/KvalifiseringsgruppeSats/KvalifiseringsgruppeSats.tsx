@@ -58,10 +58,10 @@ const KvalifiseringsgruppeSats = (props: Props) => {
                     {avtale.gjeldendeInnhold.tilskuddstrinn.map((trinn, i) => {
                         return (
                             <Table.Row key={`${trinn.start}-${trinn.slutt}-${i}`}>
-                                <Table.HeaderCell>
+                                <Table.DataCell>
                                     {i + 1}
                                     {erFirearigLts ? '. år' : '. periode'}
-                                </Table.HeaderCell>
+                                </Table.DataCell>
                                 <Table.DataCell>{formaterPeriode(trinn.start, trinn.slutt)}</Table.DataCell>
                                 <Table.DataCell>{formaterProsent(trinn.prosent)}</Table.DataCell>
                             </Table.Row>
