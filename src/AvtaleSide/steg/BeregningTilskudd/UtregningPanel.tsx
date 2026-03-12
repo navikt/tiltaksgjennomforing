@@ -1,11 +1,10 @@
 import StillingsprosentIkon from '@/assets/ikoner/stillingsprosent.svg?react';
-import { AvtaleContext } from '@/AvtaleProvider';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper, { BEMWrapper } from '@/utils/bem';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { formaterPenger } from '@/utils/PengeUtils';
 import { ExpansionCard, Heading, Table } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import {
     Buildings2Icon,
     EqualsIcon,
@@ -54,18 +53,6 @@ const TilskuddsprosentRad: React.FC<{ label: string; prosent: number; borderTop?
 
 const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
     const cls = BEMHelper('utregningspanel');
-    const avtaleContext = useContext(AvtaleContext);
-
-    const regnUtRedusertProsent = (tilskuddsprosent: number) => {
-        /**
-         *  TODO: Kalkulering av redusert prosent og redusert dato bør kun skje i backend og ikke her
-         */
-        if (avtaleContext.avtale.tiltakstype === 'VARIG_LONNSTILSKUDD') {
-            if (tilskuddsprosent >= 68) return 67;
-            return tilskuddsprosent;
-        }
-        return tilskuddsprosent - 10;
-    };
 
     const prosentSats = (sats: number | undefined) =>
         erNil(sats) ? undefined : `(${formaterNorskeTall(sats * 100)} %)`;
@@ -126,33 +113,29 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             verdi={props.sumLonnsutgifter || 0}
                         />
 
-                        {/* Tilskuddsprosent (før eventuell reduksjon) */}
-                        <TilskuddsprosentRad
-                            label={
-                                props.datoForRedusertProsent
-                                    ? `Tilskuddsprosent frem til ${formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}`
-                                    : 'Tilskuddsprosent'
-                            }
-                            prosent={props.lonnstilskuddProsent || 0}
-                            cls={cls}
-                        />
-
-                        <SummeringsRad sum={props.sumLonnstilskudd || 0} />
-
-                        {props.datoForRedusertProsent && (
+                        {props.tiltakstype === 'FIREARIG_LONNSTILSKUDD' && props.tilskuddstrinn.length && (
                             <>
                                 <TilskuddsprosentRad
-                                    label={`Tilskuddsprosent fra og med ${formaterDato(props.datoForRedusertProsent, NORSK_DATO_FORMAT)}`}
-                                    prosent={
-                                        props.lonnstilskuddProsent
-                                            ? regnUtRedusertProsent(props.lonnstilskuddProsent)
-                                            : 0
-                                    }
+                                    label="Tilskuddsprosent 1. år"
+                                    prosent={props.tilskuddstrinn[0]?.prosent || 0}
                                     cls={cls}
                                 />
-                                <SummeringsRad sum={props.sumLønnstilskuddRedusert || 0} />
+
+                                <SummeringsRad sum={props.tilskuddstrinn[0]?.belopPerMnd || 0} />
                             </>
                         )}
+
+                        {props.tiltakstype !== 'FIREARIG_LONNSTILSKUDD' &&
+                            props.tilskuddstrinn.map((trinn) => (
+                                <Fragment key={trinn.prosent}>
+                                    <TilskuddsprosentRad
+                                        label={`Tilskuddsprosent ${formaterDato(trinn.start, NORSK_DATO_FORMAT)} - ${formaterDato(trinn.slutt, NORSK_DATO_FORMAT)}`}
+                                        prosent={trinn.prosent || 0}
+                                        cls={cls}
+                                    />
+                                    <SummeringsRad sum={trinn.belopPerMnd || 0} />
+                                </Fragment>
+                            ))}
                     </Table.Body>
                 </Table>
             </ExpansionCard.Content>
