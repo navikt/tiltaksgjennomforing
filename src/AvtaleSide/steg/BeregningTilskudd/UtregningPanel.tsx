@@ -113,7 +113,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                             verdi={props.sumLonnsutgifter || 0}
                         />
 
-                        {props.tiltakstype === 'FIREARIG_LONNSTILSKUDD' && props.tilskuddstrinn.length && (
+                        {props.tiltakstype === 'FIREARIG_LONNSTILSKUDD' && props.tilskuddstrinn.length > 0 && (
                             <>
                                 <TilskuddsprosentRad
                                     label="Tilskuddsprosent 1. år"
