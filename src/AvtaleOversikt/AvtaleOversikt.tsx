@@ -190,7 +190,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const harTilgangerSomArbeidsgiver =
         innloggetBruker.rolle === 'ARBEIDSGIVER' &&
         filtre.bedriftNr &&
-        innloggetBruker.tilganger[filtre.bedriftNr]?.length > 0;
+        innloggetBruker.altinn3Tilganger[filtre.bedriftNr]?.length > 0;
 
     const antallAvtalerSuffiks =
         nettressursCtx.status === Status.LASTET &&
@@ -237,7 +237,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     )}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
                         innloggetBruker.altinn3Organisasjoner.hierarki.length > 0 &&
-                        innloggetBruker.tilganger[filtre.bedriftNr!] && (
+                        innloggetBruker.altinn3Tilganger[filtre.bedriftNr!] && (
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
                                     <div style={{ margin: '0.2rem 0 1rem 0' }}>
