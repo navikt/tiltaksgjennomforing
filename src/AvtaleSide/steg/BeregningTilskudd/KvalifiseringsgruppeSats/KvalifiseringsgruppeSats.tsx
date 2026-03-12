@@ -57,7 +57,7 @@ const KvalifiseringsgruppeSats = (props: Props) => {
                 <Table.Body>
                     {avtale.gjeldendeInnhold.tilskuddstrinn.map((trinn, i) => {
                         return (
-                            <Table.Row key={trinn.prosent}>
+                            <Table.Row key={`${trinn.start}-${trinn.slutt}-${i}`}>
                                 <Table.HeaderCell>
                                     {i + 1}
                                     {erFirearigLts ? '. år' : '. periode'}
