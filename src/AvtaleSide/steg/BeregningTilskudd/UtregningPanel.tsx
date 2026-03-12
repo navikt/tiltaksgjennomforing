@@ -127,7 +127,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
 
                         {props.tiltakstype !== 'FIREARIG_LONNSTILSKUDD' &&
                             props.tilskuddstrinn.map((trinn) => (
-                                <Fragment key={trinn.prosent}>
+                                <Fragment key={`${trinn.start}-${trinn.slutt}`}>
                                     <TilskuddsprosentRad
                                         label={`Tilskuddsprosent ${formaterDato(trinn.start, NORSK_DATO_FORMAT)} - ${formaterDato(trinn.slutt, NORSK_DATO_FORMAT)}`}
                                         prosent={trinn.prosent || 0}
