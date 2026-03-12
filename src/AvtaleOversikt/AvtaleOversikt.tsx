@@ -1,6 +1,6 @@
 import { omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
-import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
@@ -26,9 +26,9 @@ import {
 import { Avtale, PageableAvtale, PageableAvtaleMinimal } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
+import { fjernTommeFelterFraObjekt } from '@/utils';
 import BEMHelper from '@/utils/bem';
 import { litenForbokstav } from '@/utils/stringUtils';
-import { fjernTommeFelterFraObjekt } from '@/utils';
 import './AvtaleOversikt.less';
 import { FiltreringContext } from './Filtrering/FiltreringProvider';
 
@@ -236,7 +236,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                         </aside>
                     )}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
-                        innloggetBruker.altinnOrganisasjoner.length > 0 &&
+                        innloggetBruker.altinn3Organisasjoner.hierarki.length > 0 &&
                         innloggetBruker.tilganger[filtre.bedriftNr!] && (
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
