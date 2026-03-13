@@ -1,12 +1,10 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import '@navikt/arbeidsgiver-notifikasjon-widget/lib/esm/index.css';
-import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
-import '@navikt/ds-css';
 import { Detail, Heading } from '@navikt/ds-react';
-import { Banner as VikrsomhetsvelgerBanner, Virksomhetsvelger } from '@navikt/virksomhetsvelger';
+import { Virksomhetsvelger, Banner as VirksomhetsvelgerBanner } from '@navikt/virksomhetsvelger';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
@@ -24,19 +22,6 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
     const bedriftParam = searchParams.get('bedrift');
     const erLangTittel = tekst.length > 40;
 
-    const orgnrProvider: () => [string | null, (orgnr: string) => void] = useCallback(() => {
-        const currentOrgnr = bedriftParam || valgtOrganisasjon || null;
-
-        return [
-            currentOrgnr,
-            (orgnr: string) => {
-                if (currentOrgnr !== orgnr) {
-                    byttetOrg?.(orgnr);
-                }
-            },
-        ];
-    }, [bedriftParam, valgtOrganisasjon, byttetOrg]);
-
     const bedriftsmenyTittel = (
         <>
             <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
@@ -49,14 +34,14 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
-                <VikrsomhetsvelgerBanner tittel={bedriftsmenyTittel}>
+                <VirksomhetsvelgerBanner tittel={bedriftsmenyTittel}>
                     <Virksomhetsvelger
                         organisasjoner={innloggetBruker.altinn3Organisasjoner.hierarki}
                         initValgtOrgnr={bedriftParam || valgtOrganisasjon || undefined}
                         onChange={(org) => byttetOrg?.(org.orgnr)}
                     />
                     <NotifikasjonWidget />
-                </VikrsomhetsvelgerBanner>
+                </VirksomhetsvelgerBanner>
             );
         case 'DELTAKER':
         case 'MENTOR':
