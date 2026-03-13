@@ -1,6 +1,7 @@
 import AvtalekortMobil from '@/AvtaleOversikt/AvtalekortMobil';
 import AvtaleOversiktSkeleton from '@/AvtaleOversikt/AvtaleOversiktSkeleton/AvtaleOversiktSkeleton';
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
+import ResetFilterVedEndring from '@/AvtaleOversikt/Filtrering/ResetFilterVedEndring';
 import IngenAvtaler from '@/AvtaleOversikt/IngenAvtaler/IngenAvtaler';
 import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { FeilVarselContext } from '@/FeilVarselProvider';
@@ -12,7 +13,6 @@ import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { FunctionComponent, useContext } from 'react';
-import ResetFilterVedEndring from '@/AvtaleOversikt/Filtrering/ResetFilterVedEndring';
 
 type Props = {
     avtalelisteRessurs: PageableAvtalelisteRessurs;
@@ -20,7 +20,7 @@ type Props = {
     varsler: Varsel[];
 };
 const harIngenAltinnTilganger = (innloggetBruker: InnloggetBruker) =>
-    Object.entries(innloggetBruker.tilganger).length === 0;
+    Object.entries(innloggetBruker.altinn3Tilganger).length === 0;
 
 export const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);

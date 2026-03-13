@@ -1,10 +1,10 @@
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { NotifikasjonWidget } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import '@navikt/arbeidsgiver-notifikasjon-widget/lib/esm/index.css';
-import Bedriftsmeny, { Organisasjon } from '@navikt/bedriftsmeny';
-import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
 import { Detail, Heading } from '@navikt/ds-react';
-import React, { useCallback, useContext } from 'react';
+import { Virksomhetsvelger, Banner as VirksomhetsvelgerBanner } from '@navikt/virksomhetsvelger';
+import '@navikt/virksomhetsvelger/dist/assets/style.css';
+import React, { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
@@ -22,41 +22,26 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
     const bedriftParam = searchParams.get('bedrift');
     const erLangTittel = tekst.length > 40;
 
-    const orgnrProvider: () => [string | null, (orgnr: string) => void] = useCallback(() => {
-        const currentOrgnr = bedriftParam || valgtOrganisasjon || null;
-
-        return [
-            currentOrgnr,
-            (orgnr: string) => {
-                if (currentOrgnr !== orgnr) {
-                    byttetOrg?.(orgnr);
-                }
-            },
-        ];
-    }, [bedriftParam, valgtOrganisasjon, byttetOrg]);
+    const bedriftsmenyTittel = (
+        <>
+            <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
+                {tekst}
+            </Heading>
+            {undertittel && <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>{undertittel}</Detail>}
+        </>
+    );
 
     switch (innloggetBruker.rolle) {
         case 'ARBEIDSGIVER':
             return (
-                <Bedriftsmeny
-                    orgnrSearchParam={orgnrProvider}
-                    onOrganisasjonChange={(org: Organisasjon) => {
-                        byttetOrg?.(org.OrganizationNumber);
-                    }}
-                    organisasjoner={innloggetBruker.altinnOrganisasjoner}
-                    sidetittel={
-                        <>
-                            <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
-                                {tekst}
-                            </Heading>
-                            {undertittel && (
-                                <Detail style={{ marginTop: '0.25rem', fontWeight: 'bold' }}>{undertittel}</Detail>
-                            )}
-                        </>
-                    }
-                >
+                <VirksomhetsvelgerBanner tittel={bedriftsmenyTittel}>
+                    <Virksomhetsvelger
+                        organisasjoner={innloggetBruker.altinn3Organisasjoner.hierarki}
+                        initValgtOrgnr={bedriftParam || valgtOrganisasjon || undefined}
+                        onChange={(org) => byttetOrg?.(org.orgnr)}
+                    />
                     <NotifikasjonWidget />
-                </Bedriftsmeny>
+                </VirksomhetsvelgerBanner>
             );
         case 'DELTAKER':
         case 'MENTOR':

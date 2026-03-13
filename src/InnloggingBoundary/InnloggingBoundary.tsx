@@ -23,8 +23,10 @@ export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
     erNavAnsatt: false,
     altinnOrganisasjoner: [],
+    altinn3Organisasjoner: { hierarki: [] },
     rolle: 'INGEN_ROLLE',
     tilganger: {},
+    altinn3Tilganger: {},
     navEnheter: [],
 });
 
