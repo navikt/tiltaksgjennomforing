@@ -76,6 +76,13 @@ export type AvtaleMinimalForBeslutter = {
     harReturnertSomKanBehandles: boolean;
 };
 
+export type Tilskuddstrinn = {
+    start: string;
+    slutt: string;
+    prosent?: number;
+    belopPerMnd?: number;
+};
+
 export type Avtaleinnhold = {
     arbeidsgiverFornavn?: string;
     arbeidsgiverEtternavn?: string;
@@ -111,9 +118,8 @@ export type Avtaleinnhold = {
     sumLonnsutgifter?: number;
     sumLonnstilskudd?: number;
     manedslonn100pst?: number;
-    datoForRedusertProsent?: string;
-    sumLønnstilskuddRedusert?: number;
     refusjonKontaktperson?: RefusjonKontaktperson;
+    tilskuddstrinn: Tilskuddstrinn[];
 
     enhetKostnadssted?: string;
     enhetsnavnKostnadssted?: string;
@@ -296,13 +302,12 @@ export interface Beregningsgrunnlag {
     sumLonnsutgifter?: number;
     sumLonnstilskudd?: number;
     manedslonn100pst?: number;
-    datoForRedusertProsent?: string;
-    sumLønnstilskuddRedusert?: number;
     tiltakstype?: TiltaksType;
     mentorAntallTimer?: number;
     mentorValgtLonnstypeBelop?: number;
     mentorValgtLonnstype?: MentorValgtLonnstype;
     mentorTimelonn?: number;
+    tilskuddstrinn: Tilskuddstrinn[];
 }
 
 export interface TilskuddsPerioder {

@@ -1,40 +1,39 @@
-import { AvtaleContext } from '@/AvtaleProvider';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useAvtale } from '@/AvtaleProvider';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import { BodyShort, Heading } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import { Heading, Table } from '@navikt/ds-react';
+import React from 'react';
 import { BEMWrapper } from '@/utils/bem';
+import { formaterProsent } from '@/utils/formaterProsent';
+import { visPeriodeForTiltak } from '@/utils/datoUtils';
+import { Avtale } from '@/types';
 
 interface Props {
     cls: BEMWrapper;
 }
 
-const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ cls }: Props) => {
-    const { avtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
-    const innloggetBruker = useContext(InnloggetBrukerContext);
+const getSatsIkkeSatt = (avtale: Avtale) => {
+    switch (avtale.tiltakstype) {
+        case 'MIDLERTIDIG_LONNSTILSKUDD':
+            return '40 % eller 60 % settes av veileder';
+        case 'SOMMERJOBB':
+            return '50 % eller 75 % settes av veileder';
+        default:
+            return 'Settes av veileder i NAV';
+    }
+};
 
-    const settTekstTilLonntilskuddProsent = () => {
-        switch (avtale.tiltakstype) {
-            case 'VARIG_LONNSTILSKUDD':
-                return <>Her kan NAV sette en sats.</>;
-            case 'MIDLERTIDIG_LONNSTILSKUDD':
-                return <>Her kan NAV sette en sats på 40% eller 60%</>;
-            case 'SOMMERJOBB':
-                return <>Her kan NAV sette en sats på 50% eller 75%</>;
-            default:
-                return null;
-        }
-    };
+const KvalifiseringsgruppeSats = (props: Props) => {
+    const { cls } = props;
+    const { avtale, settOgKalkulerBeregningsverdier } = useAvtale();
+    const innloggetBruker = useInnloggetBruker();
 
-    const settLonnstilskuddsprosent = () => {
-        return avtale.gjeldendeInnhold.lonnstilskuddProsent
-            ? (avtale.gjeldendeInnhold.lonnstilskuddProsent ?? '0').toString() + ' %'
-            : settTekstTilLonntilskuddProsent();
-    };
+    const erVarigLts = avtale.tiltakstype === 'VARIG_LONNSTILSKUDD';
+    const erFirearigLts = avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD';
 
-    return innloggetBruker.erNavAnsatt ? (
-        <div className={cls.element('kvalifiseringsgruppe')}>
-            {avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ? (
+    if (innloggetBruker.erNavAnsatt && erVarigLts) {
+        return (
+            <div className={cls.element('kvalifiseringsgruppe')}>
                 <div className={cls.element('tilskuddsprosent')}>
                     <Heading level="2" size="small" className={cls.element('tilskuddsprosent-heading')}>
                         Tilskuddsprosent
@@ -53,22 +52,57 @@ const KvalifiseringsgruppeSats: FunctionComponent<Props> = ({ cls }: Props) => {
                         max={75}
                     />
                 </div>
-            ) : (
-                <div className={cls.element('tilskuddsprosent')}>
-                    <Heading level="2" size="small">
-                        Tilskuddsprosent
-                    </Heading>
-                    <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
-                </div>
-            )}
-        </div>
-    ) : (
-        <div className={cls.element('tilskuddsprosent')}>
-            <Heading level="2" size="small">
-                Tilskuddsprosent
-            </Heading>
-            <BodyShort size="small">{settLonnstilskuddsprosent()}</BodyShort>
-        </div>
+            </div>
+        );
+    }
+
+    if (avtale.gjeldendeInnhold.tilskuddstrinn.length) {
+        return (
+            <Table className={cls.element('tilskuddsprosent')}>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Varighet</Table.HeaderCell>
+                        <Table.HeaderCell scope="col">Tilskuddsprosent</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {avtale.gjeldendeInnhold.tilskuddstrinn.map((trinn, i) => {
+                        return (
+                            <Table.Row key={`${trinn.start}-${trinn.slutt}-${i}`}>
+                                <Table.DataCell>
+                                    {i + 1}
+                                    {erFirearigLts ? '. år' : '. periode'}
+                                </Table.DataCell>
+                                <Table.DataCell>{visPeriodeForTiltak(trinn.start, trinn.slutt)}</Table.DataCell>
+                                <Table.DataCell>
+                                    {trinn.prosent ? formaterProsent(trinn.prosent) : getSatsIkkeSatt(avtale)}
+                                </Table.DataCell>
+                            </Table.Row>
+                        );
+                    })}
+                </Table.Body>
+            </Table>
+        );
+    }
+
+    return (
+        <Table className={cls.element('tilskuddsprosent')}>
+            <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell scope="col">Varighet</Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Tilskuddsprosent</Table.HeaderCell>
+                </Table.Row>
+            </Table.Header>
+            <Table.Body>
+                <Table.Row>
+                    <Table.DataCell>
+                        {visPeriodeForTiltak(avtale.gjeldendeInnhold.startDato, avtale.gjeldendeInnhold.sluttDato)}
+                    </Table.DataCell>
+                    <Table.DataCell>{getSatsIkkeSatt(avtale)}</Table.DataCell>
+                </Table.Row>
+            </Table.Body>
+        </Table>
     );
 };
 export default KvalifiseringsgruppeSats;

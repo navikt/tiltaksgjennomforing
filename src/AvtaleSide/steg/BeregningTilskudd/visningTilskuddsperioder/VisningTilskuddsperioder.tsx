@@ -5,7 +5,6 @@ import { FunctionComponent, useContext } from 'react';
 import './visningTilskuddsperioder.less';
 import MeldingArbeidsgiverSokRefusjon from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/MeldingArbeidsgiverSokRefusjon';
 import VisningTilskuddsperioderTabell from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabell';
-import InfoRundtRedusertProsentsats from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/InfoRundtRedusertProsentsats';
 import VisningTilskuddsperioderTabellVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioderTabellVtao';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
@@ -30,7 +29,6 @@ const VisningTilskuddsperioder: FunctionComponent = () => {
                     en måned" på snitt antall dager i en måned (365,25 / 12 = 30,4375) og ganger med antall dager i
                     perioden.
                 </BodyShort>
-                <InfoRundtRedusertProsentsats className={cls.className} />
                 {avtale.tiltakstype == 'VTAO' || avtale.tiltakstype == 'MENTOR' ? (
                     <VisningTilskuddsperioderTabellVtao />
                 ) : (

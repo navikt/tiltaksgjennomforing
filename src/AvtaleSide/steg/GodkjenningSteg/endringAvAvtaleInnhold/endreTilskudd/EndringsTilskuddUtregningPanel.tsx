@@ -33,19 +33,19 @@ const EndringsTilskuddUtregningPanel: FunctionComponent<Props> = (props) => {
     return (
         <div>
             <UtregningPanel
-                manedslonn={manedslonn}
-                feriepengesats={feriepengesats}
                 arbeidsgiveravgift={arbeidsgiveravgift}
-                otpSats={otpSats}
-                stillingprosent={stillingprosent}
-                otpBelop={nyAvtale.gjeldendeInnhold.otpBelop}
                 arbeidsgiveravgiftBelop={nyAvtale.gjeldendeInnhold.arbeidsgiveravgiftBelop}
                 feriepengerBelop={nyAvtale.gjeldendeInnhold.feriepengerBelop}
-                sumLonnsutgifter={nyAvtale.gjeldendeInnhold.sumLonnsutgifter}
+                feriepengesats={feriepengesats}
                 lonnstilskuddProsent={nyAvtale.gjeldendeInnhold.lonnstilskuddProsent}
-                datoForRedusertProsent={nyAvtale.gjeldendeInnhold.datoForRedusertProsent}
+                manedslonn={manedslonn}
+                otpBelop={nyAvtale.gjeldendeInnhold.otpBelop}
+                otpSats={otpSats}
+                stillingprosent={stillingprosent}
                 sumLonnstilskudd={nyAvtale.gjeldendeInnhold.sumLonnstilskudd}
-                sumLønnstilskuddRedusert={nyAvtale.gjeldendeInnhold.sumLønnstilskuddRedusert}
+                sumLonnsutgifter={nyAvtale.gjeldendeInnhold.sumLonnsutgifter}
+                tilskuddstrinn={nyAvtale.gjeldendeInnhold.tilskuddstrinn}
+                tiltakstype={nyAvtale.tiltakstype}
             />
         </div>
     );
