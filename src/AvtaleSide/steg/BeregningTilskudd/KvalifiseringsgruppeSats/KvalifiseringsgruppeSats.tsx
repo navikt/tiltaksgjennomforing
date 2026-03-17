@@ -5,11 +5,23 @@ import { Heading, Table } from '@navikt/ds-react';
 import React from 'react';
 import { BEMWrapper } from '@/utils/bem';
 import { formaterProsent } from '@/utils/formaterProsent';
-import { formaterPeriode } from '@/utils/datoUtils';
+import { visPeriodeForTiltak } from '@/utils/datoUtils';
+import { Avtale } from '@/types';
 
 interface Props {
     cls: BEMWrapper;
 }
+
+const getSatsIkkeSatt = (avtale: Avtale) => {
+    switch (avtale.tiltakstype) {
+        case 'MIDLERTIDIG_LONNSTILSKUDD':
+            return '40 % eller 60 % settes av veileder';
+        case 'SOMMERJOBB':
+            return '50 % eller 75 % settes av veileder';
+        default:
+            return 'Settes av veileder i NAV';
+    }
+};
 
 const KvalifiseringsgruppeSats = (props: Props) => {
     const { cls } = props;
@@ -62,8 +74,10 @@ const KvalifiseringsgruppeSats = (props: Props) => {
                                     {i + 1}
                                     {erFirearigLts ? '. år' : '. periode'}
                                 </Table.DataCell>
-                                <Table.DataCell>{formaterPeriode(trinn.start, trinn.slutt)}</Table.DataCell>
-                                <Table.DataCell>{formaterProsent(trinn.prosent)}</Table.DataCell>
+                                <Table.DataCell>{visPeriodeForTiltak(trinn.start, trinn.slutt)}</Table.DataCell>
+                                <Table.DataCell>
+                                    {formaterProsent(trinn.prosent) ?? getSatsIkkeSatt(avtale)}
+                                </Table.DataCell>
                             </Table.Row>
                         );
                     })}
@@ -72,15 +86,25 @@ const KvalifiseringsgruppeSats = (props: Props) => {
         );
     }
 
-    switch (avtale.tiltakstype) {
-        case 'VARIG_LONNSTILSKUDD':
-            return <>Her kan NAV sette en sats.</>;
-        case 'MIDLERTIDIG_LONNSTILSKUDD':
-            return <>Her kan NAV sette en sats på 40% eller 60%</>;
-        case 'SOMMERJOBB':
-            return <>Her kan NAV sette en sats på 50% eller 75%</>;
-        default:
-            return null;
-    }
+    return (
+        <Table className={cls.element('tilskuddsprosent')}>
+            <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Varighet</Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Tilskuddsprosent</Table.HeaderCell>
+                </Table.Row>
+            </Table.Header>
+            <Table.Body>
+                <Table.Row>
+                    <Table.DataCell>1. periode</Table.DataCell>
+                    <Table.DataCell>
+                        {visPeriodeForTiltak(avtale.gjeldendeInnhold.startDato, avtale.gjeldendeInnhold.sluttDato)}
+                    </Table.DataCell>
+                    <Table.DataCell>{getSatsIkkeSatt(avtale)}</Table.DataCell>
+                </Table.Row>
+            </Table.Body>
+        </Table>
+    );
 };
 export default KvalifiseringsgruppeSats;
