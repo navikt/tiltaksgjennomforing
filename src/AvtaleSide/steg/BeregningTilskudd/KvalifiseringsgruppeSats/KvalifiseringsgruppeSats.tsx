@@ -76,7 +76,7 @@ const KvalifiseringsgruppeSats = (props: Props) => {
                                 </Table.DataCell>
                                 <Table.DataCell>{visPeriodeForTiltak(trinn.start, trinn.slutt)}</Table.DataCell>
                                 <Table.DataCell>
-                                    {formaterProsent(trinn.prosent) ?? getSatsIkkeSatt(avtale)}
+                                    {trinn.prosent ? formaterProsent(trinn.prosent) : getSatsIkkeSatt(avtale)}
                                 </Table.DataCell>
                             </Table.Row>
                         );
@@ -90,14 +90,12 @@ const KvalifiseringsgruppeSats = (props: Props) => {
         <Table className={cls.element('tilskuddsprosent')}>
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
                     <Table.HeaderCell scope="col">Varighet</Table.HeaderCell>
                     <Table.HeaderCell scope="col">Tilskuddsprosent</Table.HeaderCell>
                 </Table.Row>
             </Table.Header>
             <Table.Body>
                 <Table.Row>
-                    <Table.DataCell>1. periode</Table.DataCell>
                     <Table.DataCell>
                         {visPeriodeForTiltak(avtale.gjeldendeInnhold.startDato, avtale.gjeldendeInnhold.sluttDato)}
                     </Table.DataCell>
