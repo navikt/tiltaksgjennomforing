@@ -241,5 +241,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE:
         'Du kan ikke opprette avtale på denne deltakeren. Det kan være fordi deltakeren hører til en enhet som ikke støtter dette tiltaket.',
     ENHET_IKKE_TILGANG_PA_TILTAK:
-        'Tilskuddsperioden kan ikke godkjennes fordi deltakers oppfølgingsenhet er endret til en enhet som ikke deltar på forsøket om fireårig lønnstilskudd.',
+        'Tilskuddsperioden kan ikke godkjennes fordi deltakerens oppfølgingsenhet er endret til en enhet som ikke deltar i forsøket om fireårig lønnstilskudd.',
 };
