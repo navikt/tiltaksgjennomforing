@@ -104,7 +104,8 @@ export type Feilkode =
     | 'FØDSELSNUMMER_IKKE_GYLDIG'
     | 'KAN_IKKE_ENDRE_STARTDATO_FOR_AVTALE_ENDRET_AV_ARENA'
     | 'IKKE_TILGANG_TIL_A_OPPRETTE_TILTAK'
-    | 'IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE';
+    | 'IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE'
+    | 'ENHET_IKKE_TILGANG_PA_TILTAK';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -239,4 +240,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     IKKE_TILGANG_TIL_A_OPPRETTE_TILTAK: 'Du har ikke tilgang til å opprette avtale på dette tiltaket',
     IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE:
         'Du kan ikke opprette avtale på denne deltakeren. Det kan være fordi deltakeren hører til en enhet som ikke støtter dette tiltaket.',
+    ENHET_IKKE_TILGANG_PA_TILTAK:
+        'Tilskuddsperioden kan ikke godkjennes fordi deltakers oppfølgingsenhet er endret til en enhet som ikke deltar på forsøket om fireårig lønnstilskudd.',
 };
