@@ -13,19 +13,29 @@ jobs:
       id-token: write 
     name: Bygg og deploy
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
+      - name: Sett opp pnpm
+        uses: pnpm/action-setup@v4
+      - name: Konfigurer pnpm
+        run: |
+          pnpm config set //npm.pkg.github.com/:_authToken $NODE_AUTH_TOKEN
+          pnpm config set engine-strict true
       - name: Konfigurer Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Frontend npm install
-        run: npm ci
+          node-version: 24
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Frontend pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Frontend - test, lint og build
-        run: npm run build-storybook
+        run: pnpm run build-storybook
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0
         id: docker-build-push
