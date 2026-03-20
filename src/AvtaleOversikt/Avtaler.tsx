@@ -20,7 +20,7 @@ type Props = {
     varsler: Varsel[];
 };
 const harIngenAltinnTilganger = (innloggetBruker: InnloggetBruker) =>
-    Object.entries(innloggetBruker.altinn3Tilganger).length === 0;
+    Object.entries(innloggetBruker.altinnTilganger.tilganger).length === 0;
 
 export const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
