@@ -100,7 +100,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
 
     const valgtBedriftNr = new URLSearchParams(window.location.search).get('bedrift')!;
     const valgtBedriftNavn = findRecursive(
-        innloggetBruker.altinn3Organisasjoner.hierarki,
+        innloggetBruker.altinnTilganger.hierarki,
         (org) => org.orgnr === valgtBedriftNr,
     )?.navn;
     return (
@@ -146,7 +146,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <div>
                         <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
-                            {innloggetBruker.altinn3Tilganger[valgtBedriftNr].map((tiltakType) => (
+                            {innloggetBruker.altinnTilganger.tilganger[valgtBedriftNr].map((tiltakType) => (
                                 <RadioPanel
                                     key={tiltakType}
                                     name="tiltakstype"

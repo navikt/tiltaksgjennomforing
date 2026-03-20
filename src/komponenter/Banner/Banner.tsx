@@ -36,7 +36,7 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
             return (
                 <VirksomhetsvelgerBanner tittel={bedriftsmenyTittel}>
                     <Virksomhetsvelger
-                        organisasjoner={innloggetBruker.altinn3Organisasjoner.hierarki}
+                        organisasjoner={innloggetBruker.altinnTilganger.hierarki}
                         initValgtOrgnr={bedriftParam || valgtOrganisasjon || undefined}
                         onChange={(org) => byttetOrg?.(org.orgnr)}
                     />
