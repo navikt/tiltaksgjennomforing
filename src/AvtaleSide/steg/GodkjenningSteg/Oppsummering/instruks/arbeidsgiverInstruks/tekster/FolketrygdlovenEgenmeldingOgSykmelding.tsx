@@ -9,9 +9,14 @@ interface Props {
 
 const FolketrygdlovenEgenmeldingOgSykmelding: FunctionComponent<Props> = ({ tiltakstype }) => {
     if (
-        !['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'ARBEIDSTRENING', 'SOMMERJOBB', 'VTAO'].includes(
-            tiltakstype,
-        )
+        ![
+            'MIDLERTIDIG_LONNSTILSKUDD',
+            'VARIG_LONNSTILSKUDD',
+            'FIREARIG_LONNSTILSKUDD',
+            'ARBEIDSTRENING',
+            'SOMMERJOBB',
+            'VTAO',
+        ].includes(tiltakstype)
     ) {
         return null;
     }

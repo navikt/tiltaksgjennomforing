@@ -361,7 +361,11 @@ function VeilederAvtaleStatus(props: Props) {
             }
         }
         case 'KLAR_FOR_OPPSTART': {
-            if (['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(avtale.tiltakstype)) {
+            if (
+                ['SOMMERJOBB', 'MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD'].includes(
+                    avtale.tiltakstype,
+                )
+            ) {
                 return (
                     <StatusPanel
                         header="Avtalen er ferdig utfylt og godkjent"

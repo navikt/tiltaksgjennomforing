@@ -30,7 +30,10 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
 
     const type: TiltaksType = avtale.tiltakstype;
     const endreRefusjonInfo: boolean =
-        type === 'MIDLERTIDIG_LONNSTILSKUDD' || type === 'VARIG_LONNSTILSKUDD' || type === 'SOMMERJOBB';
+        type === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+        type === 'VARIG_LONNSTILSKUDD' ||
+        type === 'FIREARIG_LONNSTILSKUDD' ||
+        type === 'SOMMERJOBB';
 
     const [kontaktInfo, setKontaktInfo] = useState<EndreKontaktInfo>({
         deltakerFornavn: deltakerFornavn,

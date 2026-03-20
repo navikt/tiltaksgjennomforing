@@ -26,7 +26,8 @@ const BeslutterTilskuddsPerioder: FunctionComponent = () => {
     const skalViseSats =
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
-        avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD';
+        avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD';
 
     // Gjeldende tilskuddsperiode er "behandlet" når den har status "godkjent".
     // Statuser som "annullert" og "behandlet i arena" vil føre til at en tilskuddsperiode

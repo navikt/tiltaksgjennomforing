@@ -12,9 +12,12 @@ import BEMHelper from '@/utils/bem';
 const GodkjenningArbeidsgiver: FunctionComponent = () => {
     const { avtale, godkjenn } = useContext(AvtaleContext);
     const cls = BEMHelper('godkjenning');
-    const erLønnstilskuddEllerSommerjobb = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
-        avtale.tiltakstype,
-    );
+    const erLønnstilskuddEllerSommerjobb = [
+        'MIDLERTIDIG_LONNSTILSKUDD',
+        'VARIG_LONNSTILSKUDD',
+        'FIREARIG_LONNSTILSKUDD',
+        'SOMMERJOBB',
+    ].includes(avtale.tiltakstype);
 
     const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(false);
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
