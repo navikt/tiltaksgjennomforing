@@ -7,6 +7,7 @@ import { BEMWrapper } from '@/utils/bem';
 import { formaterProsent } from '@/utils/formaterProsent';
 import { visPeriodeForTiltak } from '@/utils/datoUtils';
 import { Avtale } from '@/types';
+import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 
 interface Props {
     cls: BEMWrapper;
@@ -23,11 +24,12 @@ const getSatsIkkeSatt = (avtale: Avtale) => {
     }
 };
 
-const KvalifiseringsgruppeSats = (props: Props) => {
+const Lonnstilskuddprosent = (props: Props) => {
     const { cls } = props;
     const { avtale, settOgKalkulerBeregningsverdier } = useAvtale();
     const innloggetBruker = useInnloggetBruker();
 
+    const erSommerjobb = avtale.tiltakstype === 'SOMMERJOBB';
     const erVarigLts = avtale.tiltakstype === 'VARIG_LONNSTILSKUDD';
     const erFirearigLts = avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD';
 
@@ -43,7 +45,7 @@ const KvalifiseringsgruppeSats = (props: Props) => {
                         width="S"
                         label=""
                         value={avtale.gjeldendeInnhold.lonnstilskuddProsent}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        onChange={(event) => {
                             settOgKalkulerBeregningsverdier({
                                 lonnstilskuddProsent: parseInt(event.target.value, 10),
                             });
@@ -53,6 +55,25 @@ const KvalifiseringsgruppeSats = (props: Props) => {
                     />
                 </div>
             </div>
+        );
+    }
+
+    if (innloggetBruker.erNavAnsatt && erSommerjobb) {
+        return (
+            <RadioPanelGruppeHorisontal
+                radios={[
+                    { label: '50 %', value: '50' },
+                    { label: '75 %', value: '75' },
+                ]}
+                name="lonnstilskuddProsent"
+                checked={avtale.gjeldendeInnhold.lonnstilskuddProsent + ''}
+                legend=""
+                onChange={(_, verdi) => {
+                    settOgKalkulerBeregningsverdier({
+                        lonnstilskuddProsent: parseInt(verdi, 10),
+                    });
+                }}
+            />
         );
     }
 
@@ -105,4 +126,4 @@ const KvalifiseringsgruppeSats = (props: Props) => {
         </Table>
     );
 };
-export default KvalifiseringsgruppeSats;
+export default Lonnstilskuddprosent;

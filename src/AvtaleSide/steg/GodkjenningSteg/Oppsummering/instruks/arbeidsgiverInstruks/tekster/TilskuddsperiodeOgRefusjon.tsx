@@ -13,6 +13,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
         !(
             tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
             tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+            tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
             tiltakstype === 'SOMMERJOBB' ||
             tiltakstype === 'VTAO'
         )

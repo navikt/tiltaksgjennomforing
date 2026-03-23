@@ -8,8 +8,7 @@ import BEMHelper from '@/utils/bem';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
-import KvalifiseringsgruppeSats from './KvalifiseringsgruppeSats/KvalifiseringsgruppeSats';
-import OppgiLonnstilskuddprosent from './OppgiLonnstilskuddprosent';
+import Lonnstilskuddprosent from '@/AvtaleSide/steg/BeregningTilskudd/Lonnstilskuddprosent';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import HvaMenesMedDette from '@/AvtaleSide/steg/BeregningTilskudd/HvaMenesMedDette';
@@ -32,8 +31,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <AvtaleStatus />
             <Innholdsboks>
                 <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
-                {avtale.tiltakstype !== 'SOMMERJOBB' && <KvalifiseringsgruppeSats cls={cls} />}
-                {avtale.tiltakstype === 'SOMMERJOBB' && <OppgiLonnstilskuddprosent />}
+                <Lonnstilskuddprosent cls={cls} />
                 <Heading level="3" size="small" className={cls.element('lonn-tittel')}>
                     Lønn per måned i faktisk stillingsprosent inkludert faste og uregelmessige tillegg
                 </Heading>

@@ -12,6 +12,7 @@ const visArbeidsmiljoLov = (tiltakstype: TiltaksType) => {
     const tiltakstyper: TiltaksType[] = [
         'MIDLERTIDIG_LONNSTILSKUDD',
         'VARIG_LONNSTILSKUDD',
+        'FIREARIG_LONNSTILSKUDD',
         'ARBEIDSTRENING',
         'SOMMERJOBB',
         'VTAO',
@@ -21,7 +22,13 @@ const visArbeidsmiljoLov = (tiltakstype: TiltaksType) => {
 };
 
 const deltakerenErAnsatt = (tiltakstype: TiltaksType) => {
-    const tiltakstyper: TiltaksType[] = ['VARIG_LONNSTILSKUDD', 'MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB', 'VTAO'];
+    const tiltakstyper: TiltaksType[] = [
+        'VARIG_LONNSTILSKUDD',
+        'MIDLERTIDIG_LONNSTILSKUDD',
+        'FIREARIG_LONNSTILSKUDD',
+        'SOMMERJOBB',
+        'VTAO',
+    ];
     return tiltakstyper.includes(tiltakstype);
 };
 

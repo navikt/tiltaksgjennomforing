@@ -33,6 +33,7 @@ const DittForholdTilArbeidsmiljLoven: FunctionComponent<Props> = ({ tiltakstype 
                 {(tiltakstype === 'SOMMERJOBB' ||
                     tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
                     tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+                    tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
                     tiltakstype === 'VTAO') && (
                     <>
                         Når du deltar på tiltak med lønnstilskudd er du en vanlig ansatt, som vil si at din arbeidsgiver
