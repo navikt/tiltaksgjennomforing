@@ -25,9 +25,12 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props: PropsWithChil
     const norskTlfnrRegex = /^((\+|00)47)?\d{8}$/; // Kan inneholde +47 eller 0047 og må ha 8 siffer
     const norskMobilnummerRegex = /^(((0{2}?)|(\+){1})47)?(4|9)[\d]{7}/;
 
-    const erTiltakMedManuellRefusjon = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
-        avtale.tiltakstype,
-    );
+    const erTiltakMedManuellRefusjon = [
+        'MIDLERTIDIG_LONNSTILSKUDD',
+        'VARIG_LONNSTILSKUDD',
+        'FIREARIG_LONNSTILSKUDD',
+        'SOMMERJOBB',
+    ].includes(avtale.tiltakstype);
 
     const [feil, setFeil, sjekkInputfelt] = useValidering(props.verdi, [
         (verdi) => {

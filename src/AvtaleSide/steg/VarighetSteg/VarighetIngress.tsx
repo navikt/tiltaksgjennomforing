@@ -22,7 +22,7 @@ const VarighetIngress: React.FC<Props> = ({ tiltakstype, className }: Props) => 
                 <>Fyll ut startdato og forventet sluttdato. Bare veileder kan sette dato før dagens dato.</>
             )}
             <> Hvor lenge det er behov for tiltaket må vurderes underveis i perioden.</>
-            {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'].includes(tiltakstype) && (
+            {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD'].includes(tiltakstype) && (
                 <>
                     {' '}
                     Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra NAV og kan avvike fra

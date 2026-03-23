@@ -32,16 +32,19 @@ const OppgaveLenker: React.FunctionComponent = () => {
     const skalViseStillingsbeskrivelse =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'ARBEIDSTRENING' ||
         avtale.tiltakstype === 'VTAO';
     const skalViseTilskuddsberegning =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB';
     const skalViseEndreKidOgKontonummer =
         avtale.tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+        avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
         avtale.tiltakstype === 'SOMMERJOBB' ||
         avtale.tiltakstype === 'VTAO' ||
         erOppdatertMentorAvtale;
