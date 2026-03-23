@@ -5,7 +5,6 @@ import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { useAsyncError } from '@/komponenter/useError';
 import { tiltakstypeTekst } from '@/messages';
 import { BeOmRettigheterUrler, hentBeOmRettighetUrler } from '@/services/rest-service';
-import { TiltaksType } from '@/types';
 import { Tilganger } from '@/types/innlogget-bruker';
 import BEMHelper from '@/utils/bem';
 import { tiltakToggleFilter } from '@/utils/firearigltToggleFilter';
@@ -20,17 +19,6 @@ interface Props {
     bedriftNr: string;
     tilganger: Tilganger;
 }
-
-const TILTAKSTYPER: TiltaksType[] = [
-    'ARBEIDSTRENING',
-    'INKLUDERINGSTILSKUDD',
-    'MENTOR',
-    'MIDLERTIDIG_LONNSTILSKUDD',
-    'VARIG_LONNSTILSKUDD',
-    'SOMMERJOBB',
-    'VTAO',
-    'FIREARIG_LONNSTILSKUDD',
-];
 
 const TilgangTabell: FunctionComponent<Props> = (props) => {
     const [beOmRettighetUrler, setBeOmRettighetUrler] = useState<BeOmRettigheterUrler>({});
