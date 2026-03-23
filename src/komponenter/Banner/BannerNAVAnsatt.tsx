@@ -1,14 +1,17 @@
-import { useAvtale } from '@/AvtaleProvider';
-import { useFeatureToggles } from '@/FeatureToggles';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import nyheter from '@/komponenter/NyttIAppen/nyheter';
-import Nytt from '@/komponenter/NyttIAppen/Nytt';
-import { Avtale } from '@/types';
-import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
+import React, { useContext } from 'react';
 import { Alert, Detail, Heading } from '@navikt/ds-react';
 import { addDays, differenceInDays, endOfDay, max } from 'date-fns';
-import React, { useContext } from 'react';
+
+import '@navikt/bedriftsmeny/lib/bedriftsmeny.css';
+
+import Nytt from '@/komponenter/NyttIAppen/Nytt';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import nyheter from '@/komponenter/NyttIAppen/nyheter';
+import { Avtale } from '@/types';
+import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
+import { useAvtale } from '@/AvtaleProvider';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 import './Banner.less';
 
