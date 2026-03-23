@@ -14,6 +14,7 @@ const BehandlingAvPersonopplysninger: React.FC<Props> = ({ tiltakstype }) => {
             'SOMMERJOBB',
             'MIDLERTIDIG_LONNSTILSKUDD',
             'VARIG_LONNSTILSKUDD',
+            'FIREARIG_LONNSTILSKUDD',
             'MENTOR',
             'INKLUDERINGSTILSKUDD',
             'VTAO',

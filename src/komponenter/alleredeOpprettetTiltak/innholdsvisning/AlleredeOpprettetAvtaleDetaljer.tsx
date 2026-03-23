@@ -17,7 +17,11 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ cls, innhold }) => {
     const [seDetaljer, setSeDetaljer] = useState<boolean>(false);
 
     const settGodkjentAvBeslutter = () => {
-        if (['VARIG_LONNSTILSKUDD', 'MIDLERTIDIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(innhold.tiltakstype)) {
+        if (
+            ['VARIG_LONNSTILSKUDD', 'MIDLERTIDIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD', 'SOMMERJOBB'].includes(
+                innhold.tiltakstype,
+            )
+        ) {
             const info = innhold.godkjentAvBeslutter
                 ? formaterDato(innhold.godkjentAvBeslutter, 'dd.MM.yy')
                 : 'ikke godkjent';

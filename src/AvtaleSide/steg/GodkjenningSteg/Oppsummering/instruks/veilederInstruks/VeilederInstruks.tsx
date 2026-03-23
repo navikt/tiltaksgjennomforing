@@ -34,7 +34,7 @@ const VeilederInstruks = (props: Props) => {
         );
     }
 
-    if (tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' || tiltakstype === 'VARIG_LONNSTILSKUDD') {
+    if (['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD'].includes(tiltakstype)) {
         return (
             <VeilederpanelMedUtklippstavle>
                 <div className={cls.element('subheader')}>

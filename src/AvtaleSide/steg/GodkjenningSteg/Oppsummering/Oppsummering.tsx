@@ -44,8 +44,9 @@ function Oppsummering(props: Props) {
     const { tiltakstype, avtaleInnhold, visInnholdFraEtterMigrering } = resolveProps(props);
 
     switch (tiltakstype) {
-        case 'SOMMERJOBB':
+        case 'FIREARIG_LONNSTILSKUDD':
         case 'MIDLERTIDIG_LONNSTILSKUDD':
+        case 'SOMMERJOBB':
         case 'VARIG_LONNSTILSKUDD':
             return <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} />;
         case 'ARBEIDSTRENING':
