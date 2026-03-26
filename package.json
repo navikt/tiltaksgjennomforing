@@ -30,7 +30,6 @@
         "@hookform/resolvers": "3.10.0",
         "@navikt/aksel-icons": "^7.34.0",
         "@navikt/arbeidsgiver-notifikasjon-widget": "^7.2.3",
-        "@navikt/bedriftsmeny": "^7.0.6",
         "@navikt/ds-css": "^7.34.0",
         "@navikt/ds-icons": "3.4.3",
         "@navikt/ds-react": "^7.34.0",
