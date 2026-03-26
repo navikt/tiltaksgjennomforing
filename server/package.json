@@ -16,7 +16,7 @@
         "@navikt/arbeidsgiver-notifikasjon-widget": "^7.2.3",
         "@navikt/nav-dekoratoren-moduler": "^3.2.2",
         "@navikt/oasis": "3.7",
-        "axios": "^1.8.4",
+        "axios": "^1.13.5",
         "compression": "^1.8.0",
         "cookie-parser": "1.4.7",
         "express": "^5.1.0",
