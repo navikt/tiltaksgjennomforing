@@ -15,41 +15,49 @@ jobs:
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
     steps:
       - name: Sjekk ut kode
         uses: actions/checkout@v4
-      - name: Setup node.js
-        uses: actions/setup-node@v3
+      - name: Sett opp pnpm
+        uses: pnpm/action-setup@v4
+      - name: Konfigurer pnpm
+        run: |
+          pnpm config set //npm.pkg.github.com/:_authToken $NODE_AUTH_TOKEN
+          pnpm config set engine-strict true
+      - name: Sett opp node.js
+        uses: actions/setup-node@v4
         with:
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: 24
+          cache: 'pnpm'
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            server/pnpm-lock.yaml
       - name: Install
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: pnpm install --frozen-lockfile
       - name: Server install
         working-directory: ./server
-        run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: pnpm install --frozen-lockfile
       - name: Typescript
-        run: npm run ts
+        run: pnpm run ts
       - name: Prettier
-        run: npm run prettier
+        run: pnpm run prettier
       - name: Kjør tester
-        run: npm run test
+        run: pnpm run test
       - name: Build
-        run: npm run build
+        run: pnpm run build
       - name: Server build
         working-directory: ./server
-        run: npm run build
+        run: pnpm run build
       - name: Installer avhengigheter for produksjon
-        run: npm ci --production
+        run: pnpm install --prod --frozen-lockfile
         working-directory: ./server
       - name: Kopier node-modules til server
-        run: npm run dist
+        run: pnpm run dist
         working-directory: ./server
       - name: Sentry release
-        run: npm run release
+        run: pnpm run release
       - name: Fjerne source maps
         run: |
           rm dist/client/assets/*.map

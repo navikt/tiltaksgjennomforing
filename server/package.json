@@ -2,15 +2,22 @@
     "name": "tiltaksgjennomforing",
     "version": "0.1.0",
     "private": true,
+    "packageManager": "pnpm@10.30.3",
     "homepage": "/tiltaksgjennomforing",
+    "engines": {
+        "node": ">=24",
+        "npm": "please-use-pnpm",
+        "yarn": "please-use-pnpm",
+        "pnpm": ">= 10.0.0"
+    },
     "scripts": {
         "build": "esbuild src/server.ts --bundle --platform=node --outfile=../dist/server/index.cjs --packages=external",
         "dist": "cp -r node_modules ../dist/server",
-        "server": "node ../dist/server/index.cjs --openssl-legacy-provider",
-        "start": "echo 'Use npm run start:labs, npm run start:ekstern or npm run start:intern'",
-        "start:labs": "cross-env LABS=true npm run server",
-        "start:ekstern": "cross-env ENABLE_EXTERNAL_MENU=true npm run server",
-        "start:intern": "cross-env ENABLE_INTERNAL_MENU=true INTERN_INGRESS=true npm run server"
+        "server": "node --openssl-legacy-provider ../dist/server/index.cjs",
+        "start": "echo 'Use pnpm run start:labs, pnpm run start:ekstern or pnpm run start:intern'",
+        "start:labs": "cross-env LABS=true pnpm run server",
+        "start:ekstern": "cross-env ENABLE_EXTERNAL_MENU=true pnpm run server",
+        "start:intern": "cross-env ENABLE_INTERNAL_MENU=true INTERN_INGRESS=true pnpm run server"
     },
     "dependencies": {
         "@navikt/arbeidsgiver-notifikasjon-widget": "^7.2.3",
@@ -32,5 +39,10 @@
         "cross-env": "^7.0.3",
         "esbuild": "^0.25.2",
         "typescript": "^5.8.2"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild"
+        ]
     }
 }
