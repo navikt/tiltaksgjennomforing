@@ -15,6 +15,7 @@ import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
 import TilskuddsperiodeReturModal from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeVisAvslag';
 import { addDays, addMonths, isWithinInterval } from 'date-fns';
 import { erNil } from '@/utils/predicates';
+import BeslutterTilskuddsperiodeBekreftelseModal from '@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperiodeBekreftelseModal';
 
 const BeslutterTilskuddsPerioder: FunctionComponent = () => {
     const { avtale, godkjennTilskudd } = useContext<Context>(AvtaleContext);
@@ -248,21 +249,14 @@ const BeslutterTilskuddsPerioder: FunctionComponent = () => {
                 </div>
             </div>
             <TilskuddsperiodeReturModal tiltakstype={avtale.tiltakstype} />
-            <BekreftelseModal
-                bekreftOnClick={async () => {
-                    if (enhet) {
-                        await godkjennTilskudd(enhet);
+            {godkjennModalÅpen && (
+                <BeslutterTilskuddsperiodeBekreftelseModal
+                    enhet={enhet}
+                    lukkModal={() => {
                         setGodkjennModalÅpen(false);
-                    }
-                }}
-                modalIsOpen={godkjennModalÅpen}
-                oversiktTekst="Godkjenn tilskuddsperiode"
-                bekreftelseTekst="Godkjenn tilskuddsperiode"
-                avbrytelseTekst="Avbryt"
-                lukkModal={() => setGodkjennModalÅpen(false)}
-            >
-                Du kan ikke gjøre endringer etter at du har godkjent tilskuddsperioden.
-            </BekreftelseModal>
+                    }}
+                />
+            )}
         </div>
     );
 };
