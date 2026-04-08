@@ -21,8 +21,11 @@
 .vscode
 
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .firebase/
+**/package-lock.json
 
 debug.log
+tsconfig.tsbuildinfo
