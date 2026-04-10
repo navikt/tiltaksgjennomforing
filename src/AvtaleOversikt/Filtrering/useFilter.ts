@@ -33,7 +33,13 @@ export const useFilter = () => {
 
         // Alle endringer som ikke er en endring i paginering/sortering, bør nullstille pagineringen
         const changedKeys = Object.keys(endring);
-        if (changedKeys.filter((k) => !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k)).length > 0) {
+        if (
+            changedKeys.filter(
+                (k) =>
+                    !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k) &&
+                    endring[k as keyof Filtrering] !== filtre[k as keyof Filtrering],
+            ).length > 0
+        ) {
             delete obj['page'];
         }
         if (endring.hasOwnProperty('page')) {

@@ -4,7 +4,7 @@ import '@navikt/arbeidsgiver-notifikasjon-widget/lib/esm/index.css';
 import { Detail, Heading } from '@navikt/ds-react';
 import { Virksomhetsvelger, Banner as VirksomhetsvelgerBanner } from '@navikt/virksomhetsvelger';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import './Banner.less';
@@ -22,16 +22,6 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
     const bedriftParam = searchParams.get('bedrift');
     const erLangTittel = tekst.length > 40;
 
-    const handleOrganisasjonChange = useCallback(
-        (org: { orgnr: string }) => {
-            const currentOrgnr = bedriftParam || valgtOrganisasjon || null;
-            if (currentOrgnr !== org.orgnr) {
-                byttetOrg?.(org.orgnr);
-            }
-        },
-        [bedriftParam, valgtOrganisasjon, byttetOrg],
-    );
-
     const bedriftsmenyTittel = (
         <>
             <Heading className={erLangTittel ? 'banner-lang-tittel' : ''} size="large">
@@ -48,7 +38,7 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
                     <Virksomhetsvelger
                         organisasjoner={innloggetBruker.altinnTilganger.hierarki}
                         initValgtOrgnr={bedriftParam || valgtOrganisasjon || undefined}
-                        onChange={handleOrganisasjonChange}
+                        onChange={(org) => byttetOrg?.(org.orgnr)}
                     />
                     <NotifikasjonWidget />
                 </VirksomhetsvelgerBanner>
