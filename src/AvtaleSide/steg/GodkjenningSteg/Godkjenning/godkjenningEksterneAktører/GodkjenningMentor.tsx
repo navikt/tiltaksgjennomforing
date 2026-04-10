@@ -4,10 +4,10 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { UfullstendigError } from '@/types/errors';
-import { ConfirmationPanel } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../../Oppsummering/instruks/GodkjenningInstruks';
 import BEMHelper from '@/utils/bem';
+import GodkjenningsPanel from '../GodkjenningsPanel/GodkjenningsPanel';
 
 const GodkjenningMentor: FunctionComponent = () => {
     const { godkjenn } = useContext(AvtaleContext);
@@ -27,10 +27,10 @@ const GodkjenningMentor: FunctionComponent = () => {
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
 
-            <ConfirmationPanel
-                label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
-                checked={bekreftetGodkjennerInnholdet}
-                onChange={() => setBekreftetGodkjennerInnholdet(!bekreftetGodkjennerInnholdet)}
+            <GodkjenningsPanel
+                setChecked={() => setBekreftetGodkjennerInnholdet(!bekreftetGodkjennerInnholdet)}
+                isChecked={bekreftetGodkjennerInnholdet}
+                checkboxLabel="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
             />
             <VerticalSpacer rem={1.5} />
 
