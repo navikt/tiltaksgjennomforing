@@ -38,8 +38,8 @@ export const useFilter = () => {
         if (
             changedKeys.filter(
                 (k) =>
-                    !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k) &&
-                    endring[k as keyof Filtrering] !== filtre[k as keyof Filtrering],
+                    !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k) && // Sjekker at det er en reell filterendring, ikke sortering/paginering
+                    endring[k as keyof Filtrering] !== filtre[k as keyof Filtrering], // Sjekker at verdien faktisk er endret
             ).length > 0
         ) {
             delete obj['page'];
