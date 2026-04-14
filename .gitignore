@@ -28,4 +28,4 @@ yarn-error.log*
 **/package-lock.json
 
 debug.log
-tsconfig.tsbuildinfo
+*.tsbuildinfo
