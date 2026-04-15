@@ -2,10 +2,11 @@ import DuManglerRettigheterIAltinn from '@/AvtaleOversikt/IngenAvtaler/arbeidsgi
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { tiltakstypeTekst } from '@/messages';
 import { TiltaksType } from '@/types/avtale';
-import React, { FunctionComponent, useContext } from 'react';
+import { storForbokstav } from '@/utils/stringUtils';
+import { findRecursive } from '@navikt/virksomhetsvelger';
+import { FunctionComponent, useContext } from 'react';
 import BoksMedTekstOgTilgangstabell from './BoksMedTekstOgTilgangstabell';
 import './IngenAvtalerArbeidsgiver.less';
-import { storForbokstav } from '@/utils/stringUtils';
 
 type Props = {
     bedriftNr?: string;
@@ -13,18 +14,18 @@ type Props = {
 };
 
 const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = (props) => {
-    const { tilganger, altinnOrganisasjoner } = useContext(InnloggetBrukerContext);
+    const { altinnTilganger } = useContext(InnloggetBrukerContext);
 
     if (!props.bedriftNr) {
         return <DuManglerRettigheterIAltinn />;
     }
 
-    const valgtBedrift = altinnOrganisasjoner.find((o) => o.OrganizationNumber === props.bedriftNr)!;
-    const bedriftNavnOgNummer = `${valgtBedrift.Name} (${valgtBedrift.OrganizationNumber})`;
+    const valgtBedrift = findRecursive(altinnTilganger.hierarki, (o) => o.orgnr === props.bedriftNr);
+    const bedriftNavnOgNummer = valgtBedrift ? `${valgtBedrift.navn} (${valgtBedrift.orgnr})` : props.bedriftNr;
 
-    const fellesProps = { bedriftNr: props.bedriftNr, tilganger, bedriftNavnOgNummer };
+    const fellesProps = { bedriftNr: props.bedriftNr, tilganger: altinnTilganger.tilganger, bedriftNavnOgNummer };
 
-    if (!tilganger[props.bedriftNr] || tilganger[props.bedriftNr].length === 0) {
+    if (!altinnTilganger.tilganger[props.bedriftNr] || altinnTilganger.tilganger[props.bedriftNr].length === 0) {
         return (
             <BoksMedTekstOgTilgangstabell
                 {...fellesProps}
@@ -35,7 +36,7 @@ const IngenAvtalerArbeidsgiver: FunctionComponent<Props> = (props) => {
     }
 
     if (props.tiltakstype) {
-        if (tilganger[props.bedriftNr].includes(props.tiltakstype)) {
+        if (altinnTilganger.tilganger[props.bedriftNr].includes(props.tiltakstype)) {
             // Har tilgang til valgt tiltakstype
             return (
                 <BoksMedTekstOgTilgangstabell

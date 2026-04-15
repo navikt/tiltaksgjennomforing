@@ -31,9 +31,17 @@ export const useFilter = () => {
         updateOrDeleteKeyFromObject(obj, endring, 'tiltakstype');
         updateOrDeleteKeyFromObject(obj, endring, 'sorteringOrder');
 
-        // Alle endringer som ikke er en endring i paginering/sortering, bør nullstille pagineringen
+        // Nullstill paginering ved reelle filterendringer (ikke paginering/sortering).
+        // Sjekker at verdien faktisk er endret, slik at f.eks. virksomhetsvelgeren
+        // som fyrer onChange med samme org ikke utilsiktet nullstiller page.
         const changedKeys = Object.keys(endring);
-        if (changedKeys.filter((k) => !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k)).length > 0) {
+        if (
+            changedKeys.filter(
+                (k) =>
+                    !['page', 'sorteringskolonne', 'sorteringOrder'].includes(k) && // Sjekker at det er en reell filterendring, ikke sortering/paginering
+                    endring[k as keyof Filtrering] !== filtre[k as keyof Filtrering], // Sjekker at verdien faktisk er endret
+            ).length > 0
+        ) {
             delete obj['page'];
         }
         if (endring.hasOwnProperty('page')) {

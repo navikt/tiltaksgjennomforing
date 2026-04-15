@@ -22,9 +22,8 @@ const GYLDIGE_PARTER = ['ARBEIDSGIVER', 'DELTAKER', 'MENTOR', 'VEILEDER', 'BESLU
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
     identifikator: '',
     erNavAnsatt: false,
-    altinnOrganisasjoner: [],
+    altinnTilganger: { hierarki: [], tilganger: {} },
     rolle: 'INGEN_ROLLE',
-    tilganger: {},
     navEnheter: [],
 });
 
