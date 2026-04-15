@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as z from 'zod';
-import { Alert, Checkbox, CheckboxGroup } from '@navikt/ds-react';
+import { Alert, Checkbox, CheckboxGroup, LocalAlert } from '@navikt/ds-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -14,6 +14,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-service';
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
+import { FeilkodeError } from '@/types';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -43,6 +44,7 @@ function GodkjennPaVegneAvDeltaker() {
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
+    const [error, setError] = React.useState<FeilkodeError | undefined>();
 
     const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
         defaultValues: {
@@ -70,7 +72,15 @@ function GodkjennPaVegneAvDeltaker() {
             });
             setGodkjenningsModalApen(true);
         } else {
-            await onLagre();
+            try {
+                await onLagre();
+            } catch (err) {
+                if (err instanceof FeilkodeError) {
+                    setError(err);
+                } else {
+                    throw err;
+                }
+            }
         }
     });
 
@@ -147,6 +157,16 @@ function GodkjennPaVegneAvDeltaker() {
                     </LagreKnapp>
                 </Innholdsboks>
             </form>
+            {error?.message === 'OPPFOLGINGSTATUS_ENDRET' && (
+                <LocalAlert status="error" style={{ marginBottom: '2rem' }}>
+                    <LocalAlert.Header>
+                        <LocalAlert.Title>Avtalen må signeres på nytt</LocalAlert.Title>
+                    </LocalAlert.Header>
+                    <LocalAlert.Content>
+                        Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.
+                    </LocalAlert.Content>
+                </LocalAlert>
+            )}
             <GodkjennAvtaleMedAlleredeOpprettetTiltak
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
                 isApen={isGodkjenningsModalApen}
