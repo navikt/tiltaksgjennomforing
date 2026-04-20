@@ -26,7 +26,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                 svgIkon={<WalletIcon title="Tilskuddsperiode og refusjon" />}
                 headerTekst={{ tekst: 'Tilskuddsperiode og refusjon', headingType: 'small' }}
             >
-                <p>Tilskuddet reguleres av forskrift for arbeidsmarkedstiltak.</p>
+                <p>Tilskuddet reguleres av forskrift om forsøk med fireårig lønnstilskudd for unge.</p>
                 <p>
                     Nav forplikter seg økonomisk per godkjente tilskuddsperiode. Midler innvilges for én måned av
                     gangen, og kan avvike fra den avtalte perioden for tiltaksgjennomføringen.
@@ -40,7 +40,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
                 <p>Nav kan kontrollere at pengene som blir utbetalt blir brukt riktig.</p>
                 <p>
                     For å behandle refusjonen må du logge deg inn i{' '}
-                    <EksternLenke href="https://tiltak-refusjon.Nav.no">refusjonsløsningen</EksternLenke>. Tilgangen
+                    <EksternLenke href="https://tiltak-refusjon.nav.no">refusjonsløsningen</EksternLenke>. Tilgangen
                     styres via Altinn og du må ha tilgangen “Tiltaksrefusjon” for å kunne sende inn refusjonskrav.
                 </p>
                 <p>
@@ -106,7 +106,7 @@ const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) =
             </p>
             <p>
                 For å behandle refusjonen må du logge deg inn i{' '}
-                <EksternLenke href="https://tiltak-refusjon.Nav.no">refusjonsløsningen</EksternLenke>. Tilgangen styres
+                <EksternLenke href="https://tiltak-refusjon.nav.no">refusjonsløsningen</EksternLenke>. Tilgangen styres
                 via Altinn og du må ha tilgangen “Tiltaksrefusjon” for å kunne sende inn refusjonskrav.
             </p>
             <p>
