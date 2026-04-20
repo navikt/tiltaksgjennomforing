@@ -1,7 +1,7 @@
 import OppfolgingOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingOppsummering';
 import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtaleinnhold, Beregningsgrunnlag, TiltaksType } from '@/types/avtale';
+import { Avtaleinnhold, TiltaksType } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
