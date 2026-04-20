@@ -103,6 +103,11 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         innloggetBruker.altinnTilganger.hierarki,
         (org) => org.orgnr === valgtBedriftNr,
     )?.navn;
+
+    const erLonnstilskudd = (type: TiltaksType | undefined) =>
+        type !== undefined &&
+        ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB', 'FIREARIG_LONNSTILSKUDD'].includes(type);
+
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
@@ -170,10 +175,12 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         Hvem skal inngå i avtalen
                     </Heading>
                     <VerticalSpacer rem={1} />
-                    <Alert variant="info">
-                        I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der det
-                        blir registrert inntekt for deltaker i A-meldingen.
-                    </Alert>
+                    {erLonnstilskudd(valgtTiltaksType) && (
+                        <Alert variant="info">
+                            I feltet “Opprettes på bedrift” er det viktig at virksomhetsnummeret er det samme som der
+                            det blir registrert inntekt for deltaker i A-meldingen.
+                        </Alert>
+                    )}
                     <VerticalSpacer rem={1} />
                     <TextField
                         className="typo-element"
@@ -189,7 +196,11 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         className="typo-element"
                         width={'L'}
                         label="Opprettes på bedrift"
-                        description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
+                        description={
+                            erLonnstilskudd(valgtTiltaksType)
+                                ? 'Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen.'
+                                : undefined
+                        }
                         value={`${valgtBedriftNavn} (${valgtBedriftNr})`}
                         readOnly={true}
                     />
