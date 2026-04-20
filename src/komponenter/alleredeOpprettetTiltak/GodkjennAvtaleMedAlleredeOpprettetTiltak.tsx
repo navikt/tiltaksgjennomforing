@@ -3,9 +3,8 @@ import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import InfoModal from '@/komponenter/modal/InfoModal';
 import { Alert, Heading, LocalAlert } from '@navikt/ds-react';
 import AlleredeOpprettetAvtale from './innholdsvisning/AlleredeOpprettetAvtale';
-import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import VerticalSpacer from '../layout/VerticalSpacer';
 import { FeilkodeError } from '@/types';
+import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
@@ -17,12 +16,14 @@ interface Props {
 const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
     const { alleredeRegistrertAvtale, isApen, onLagre, onLukk } = props;
     const [error, setError] = React.useState<FeilkodeError | undefined>();
+    const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
 
     const handleLagre = async () => {
         try {
             await onLagre();
         } catch (err) {
             if (err instanceof FeilkodeError) {
+                setInnsatsbehovVarselModalIsOpen(true);
                 setError(err);
             } else {
                 throw err;
@@ -41,14 +42,10 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
             </Alert>
             <AlleredeOpprettetAvtale alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
             {error?.message === 'OPPFOLGINGSTATUS_ENDRET' && (
-                <LocalAlert status="error" style={{ marginBottom: '2rem' }}>
-                    <LocalAlert.Header>
-                        <LocalAlert.Title>Avtalen må signeres på nytt</LocalAlert.Title>
-                    </LocalAlert.Header>
-                    <LocalAlert.Content>
-                        Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.
-                    </LocalAlert.Content>
-                </LocalAlert>
+                <InnsatsbehovVarselModal
+                    isOpen={innsatsbehovVarselModalIsOpen}
+                    onClose={() => setInnsatsbehovVarselModalIsOpen(false)}
+                />
             )}
         </InfoModal>
     );

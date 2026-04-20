@@ -15,6 +15,7 @@ import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-se
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
 import { FeilkodeError } from '@/types';
+import InnsatsbehovVarselModal from '../../InnsatsbehovVarselModal/InnsatsbehovVarselModal';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -45,6 +46,7 @@ function GodkjennPaVegneAvDeltaker() {
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
     const [error, setError] = React.useState<FeilkodeError | undefined>();
+    const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
 
     const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
         defaultValues: {
@@ -76,6 +78,7 @@ function GodkjennPaVegneAvDeltaker() {
                 await onLagre();
             } catch (err) {
                 if (err instanceof FeilkodeError) {
+                    setInnsatsbehovVarselModalIsOpen(true);
                     setError(err);
                 } else {
                     throw err;
@@ -158,14 +161,10 @@ function GodkjennPaVegneAvDeltaker() {
                 </Innholdsboks>
             </form>
             {error?.message === 'OPPFOLGINGSTATUS_ENDRET' && (
-                <LocalAlert status="error" style={{ marginBottom: '2rem' }}>
-                    <LocalAlert.Header>
-                        <LocalAlert.Title>Avtalen må signeres på nytt</LocalAlert.Title>
-                    </LocalAlert.Header>
-                    <LocalAlert.Content>
-                        Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.
-                    </LocalAlert.Content>
-                </LocalAlert>
+                <InnsatsbehovVarselModal
+                    isOpen={innsatsbehovVarselModalIsOpen}
+                    onClose={() => setInnsatsbehovVarselModalIsOpen(false)}
+                />
             )}
             <GodkjennAvtaleMedAlleredeOpprettetTiltak
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
