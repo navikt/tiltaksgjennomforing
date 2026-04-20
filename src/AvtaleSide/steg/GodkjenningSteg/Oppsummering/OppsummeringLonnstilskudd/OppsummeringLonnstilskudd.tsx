@@ -1,7 +1,7 @@
 import OppfolgingOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/oppfølging/OppfolgingOppsummering';
 import DeltakerInfo from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/DeltakerInfo';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtaleinnhold } from '@/types/avtale';
+import { Avtaleinnhold, TiltaksType } from '@/types/avtale';
 import React, { FunctionComponent } from 'react';
 import Avtaleparter from '../Avtaleparter/Avtaleparter';
 import BeregningTilskuddOppsummering from '../BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
@@ -13,9 +13,11 @@ import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
+    tiltakstype: TiltaksType;
 }
 
-const OppsummeringLonnstilskudd: FunctionComponent<Props> = ({ avtaleinnhold }) => {
+const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props: Props) => {
+    const { avtaleinnhold, tiltakstype } = props;
     const { lonnstilskuddProsent, manedslonn } = avtaleinnhold;
 
     return (
@@ -30,6 +32,7 @@ const OppsummeringLonnstilskudd: FunctionComponent<Props> = ({ avtaleinnhold }) 
             <Tilrettelegging {...avtaleinnhold} />
             <BeregningTilskuddOppsummering
                 {...avtaleinnhold}
+                tiltakstype={tiltakstype}
                 ekstraAvhengigFelter={{ lonnstilskuddProsent, manedslonn }}
                 utregningPanelKomponent={UtregningPanel}
             />
