@@ -21,7 +21,6 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
 
     return (
         <>
-            {' '}
             <ProsentInput
                 className={styles.beregningInput}
                 name="tjenestepensjon"
