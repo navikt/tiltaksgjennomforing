@@ -7,6 +7,7 @@ import {
     intervalToDuration,
     differenceInHours,
     isAfter,
+    addDays,
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
@@ -54,6 +55,7 @@ export const NORSK_DATO_FORMAT_FULL = 'PPP';
  */
 export const formaterDato = (dato: Date | string, formatString: string = NORSK_DATO_OG_TID_FORMAT_FULL) => {
     try {
+        // behandlingsdato for første tilskuddsperiode får en hardkodet dato for å kunne behandles, vi ønsker ikke å vise denne
         if (dato === '-999999999-01-01') return '';
         return format(dato, formatString, { locale: nb });
     } catch (e) {
@@ -118,4 +120,10 @@ export const tidSidenTidspunktEllerDato = (tidspunkt: string | Date): string => 
         return 'om ' + tidSidenTidspunkt(tidspunkt);
     }
     return tidSidenTidspunkt(tidspunkt) + ' siden';
+};
+
+export const beregnDagenEtterOgFormater = (dato: string | Date, format: string = NORSK_DATO_FORMAT_FULL): string => {
+    // behandlingsdato for første tilskuddsperiode får en hardkodet dato for å kunne behandles, vi ønsker ikke å vise denne
+    if (dato === '-999999999-01-01') return '';
+    return formaterDato(addDays(dato, 1), format);
 };
