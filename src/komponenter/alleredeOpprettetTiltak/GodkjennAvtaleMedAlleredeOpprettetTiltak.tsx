@@ -48,6 +48,7 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
                     isOpen={innsatsbehovVarselModalIsOpen}
                     onClose={() => {
                         setInnsatsbehovVarselModalIsOpen(false);
+                        setError(undefined);
                         hentAvtale();
                     }}
                 />
