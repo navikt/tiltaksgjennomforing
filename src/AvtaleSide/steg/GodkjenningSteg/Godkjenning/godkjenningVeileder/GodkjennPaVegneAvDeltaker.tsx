@@ -39,7 +39,7 @@ type Schema = z.infer<typeof schema>;
 
 function GodkjennPaVegneAvDeltaker() {
     const cls = BEMHelper('godkjenning');
-    const { avtale, godkjenn, godkjennPaVegneAvDeltaker } = useAvtale();
+    const { avtale, godkjenn, godkjennPaVegneAvDeltaker, hentAvtale } = useAvtale();
     const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker } = avtale;
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
@@ -48,7 +48,7 @@ function GodkjennPaVegneAvDeltaker() {
     const [error, setError] = React.useState<FeilkodeError | undefined>();
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
 
-    const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
+    const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
             isInformert: false,
             isSkalGodkjennesPaVegne: false,
@@ -163,7 +163,11 @@ function GodkjennPaVegneAvDeltaker() {
             {error?.message === 'OPPFOLGINGSTATUS_ENDRET' && (
                 <InnsatsbehovVarselModal
                     isOpen={innsatsbehovVarselModalIsOpen}
-                    onClose={() => setInnsatsbehovVarselModalIsOpen(false)}
+                    onClose={() => {
+                        setInnsatsbehovVarselModalIsOpen(false);
+                        setError(undefined);
+                        hentAvtale().then(() => reset());
+                    }}
                 />
             )}
             <GodkjennAvtaleMedAlleredeOpprettetTiltak

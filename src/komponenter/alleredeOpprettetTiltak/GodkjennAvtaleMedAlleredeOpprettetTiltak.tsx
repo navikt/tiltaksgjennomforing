@@ -5,6 +5,7 @@ import { Alert, Heading, LocalAlert } from '@navikt/ds-react';
 import AlleredeOpprettetAvtale from './innholdsvisning/AlleredeOpprettetAvtale';
 import { FeilkodeError } from '@/types';
 import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
+import { useAvtale } from '@/AvtaleProvider';
 
 interface Props {
     alleredeRegistrertAvtale: AlleredeRegistrertAvtale[] | [];
@@ -15,6 +16,7 @@ interface Props {
 
 const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
     const { alleredeRegistrertAvtale, isApen, onLagre, onLukk } = props;
+    const { hentAvtale } = useAvtale();
     const [error, setError] = React.useState<FeilkodeError | undefined>();
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
 
@@ -44,7 +46,10 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
             {error?.message === 'OPPFOLGINGSTATUS_ENDRET' && (
                 <InnsatsbehovVarselModal
                     isOpen={innsatsbehovVarselModalIsOpen}
-                    onClose={() => setInnsatsbehovVarselModalIsOpen(false)}
+                    onClose={() => {
+                        setInnsatsbehovVarselModalIsOpen(false);
+                        hentAvtale();
+                    }}
                 />
             )}
         </InfoModal>
