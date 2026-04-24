@@ -24,12 +24,12 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
             <ProsentInput
                 className={styles.beregningInput}
                 name="tjenestepensjon"
-                label={'Obligatorisk tjenestepensjon (OTP)'}
+                label="Obligatorisk tjenestepensjon (OTP)"
                 min={0}
                 max={30}
                 maxLength={4}
-                autoComplete={'off'}
-                description={'OTP slik den fremgår i den ansattes pensjonsordning hos arbeidsgivers pensjonsleverandør'}
+                autoComplete="off"
+                description="OTP slik den fremgår i den ansattes pensjonsordning hos arbeidsgivers pensjonsleverandør"
                 value={sats !== undefined && sats !== null ? formaterNorskeTall(sats * 100) : ''}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     onChange(event.target.value === '' ? undefined : parseFloat(event.target.value) / 100);
