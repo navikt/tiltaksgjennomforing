@@ -1,6 +1,6 @@
 import React from 'react';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import { formaterNorskeTall } from '@/utils';
+import { formaterNorskeTall, parsProsentFraInput } from '@/utils';
 import styles from './ObligatoriskTjenestepensjon.module.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Alert, Heading } from '@navikt/ds-react';
@@ -32,7 +32,7 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
                 description="OTP slik den fremgår i den ansattes pensjonsordning hos arbeidsgivers pensjonsleverandør"
                 value={sats !== undefined && sats !== null ? formaterNorskeTall(sats * 100) : ''}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    onChange(event.target.value === '' ? undefined : parseFloat(event.target.value) / 100);
+                    onChange(parsProsentFraInput(event.target.value));
                 }}
             />
             {hoyOtp && (
