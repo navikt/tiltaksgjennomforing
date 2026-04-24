@@ -18,7 +18,7 @@ interface Props {
 }
 
 const TOLV_UKER_I_DAGER = 7 * 12;
-const TIDLIGEST_DATO_FOR_RYDDING_AV_ARENA_MENTOR = endOfDay(new Date('2026-06-01'));
+const TIDLIGSTE_DATO_FOR_RYDDING_AV_ARENA_MENTOR = endOfDay(new Date('2026-06-01'));
 
 const formaterSlettetidspunkt = (avtale: Avtale) => {
     const { sistEndret, opphav, tiltakstype, gjeldendeInnhold } = avtale;
