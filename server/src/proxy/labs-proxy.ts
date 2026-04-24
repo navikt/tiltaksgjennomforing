@@ -6,6 +6,11 @@ import { notifikasjonsRespons } from '../mock/notifikasjon-bruker-api';
 export const setup = (app: Express) => {
     const apiUrl = 'http://tiltaksgjennomforing-api-labs';
 
+    app.use((_, res, next) => {
+        res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+        next();
+    });
+
     app.get('/tiltaksgjennomforing/fakelogin/aad', async (req, res) => {
         try {
             const navIdent = req.headers['navident'] || 'Z123456';

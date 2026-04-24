@@ -18,7 +18,7 @@ interface Props {
 }
 
 const TOLV_UKER_I_DAGER = 7 * 12;
-const FORSTE_JUNI_2026 = endOfDay(new Date('2026-06-01'));
+const TIDLIGSTE_DATO_FOR_RYDDING_AV_ARENA_MENTOR = endOfDay(new Date('2026-06-01'));
 
 const formaterSlettetidspunkt = (avtale: Avtale) => {
     const { sistEndret, opphav, tiltakstype, gjeldendeInnhold } = avtale;
@@ -26,7 +26,7 @@ const formaterSlettetidspunkt = (avtale: Avtale) => {
 
     const slettetidspunkt =
         (opphav === 'ARENA' || gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA') && tiltakstype === 'MENTOR'
-            ? max([FORSTE_JUNI_2026, tolvUkerEtterSistEndret])
+            ? max([TIDLIGSTE_DATO_FOR_RYDDING_AV_ARENA_MENTOR, tolvUkerEtterSistEndret])
             : tolvUkerEtterSistEndret;
 
     const antallDager = Math.abs(differenceInDays(new Date(), slettetidspunkt));
