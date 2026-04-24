@@ -1,7 +1,7 @@
 import React from 'react';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import { formaterNorskeTall } from '@/utils';
-import styles from './BeregningInput.module.less';
+import styles from './ObligatoriskTjenestepensjon.module.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Alert, Heading } from '@navikt/ds-react';
 
