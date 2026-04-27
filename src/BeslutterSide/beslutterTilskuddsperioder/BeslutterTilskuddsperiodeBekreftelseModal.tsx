@@ -31,7 +31,7 @@ const parseFeilmelding = (tiltakstype: TiltaksType, error: Error) => {
                     Deltaker kvalifiserer ikke lengre til ${tiltakstypeTekst[tiltakstype]}.`;
         }
         default: {
-            throw Error;
+            return undefined;
         }
     }
 };
@@ -52,7 +52,11 @@ function BeslutterTilskuddsperiodeBekreftelseModal(props: Props) {
                     }
                 } catch (error) {
                     const feil = parseFeilmelding(avtale.tiltakstype, error as Error);
-                    setFeilmelding(feil);
+                    if (feil) {
+                        setFeilmelding(feil);
+                    } else {
+                        throw error;
+                    }
                 }
             }}
             modalIsOpen

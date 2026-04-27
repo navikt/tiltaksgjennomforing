@@ -4,37 +4,17 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { UfullstendigError } from '@/types/errors';
-import { ConfirmationPanel } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import GodkjenningInstruks from '../../Oppsummering/instruks/GodkjenningInstruks';
 import BEMHelper from '@/utils/bem';
+import GodkjenningsPanel from '../GodkjenningsPanel/GodkjenningsPanel';
+import { List } from '@navikt/ds-react';
 
 const GodkjenningArbeidsgiver: FunctionComponent = () => {
     const { avtale, godkjenn } = useContext(AvtaleContext);
     const cls = BEMHelper('godkjenning');
-    const erLønnstilskuddEllerSommerjobb = [
-        'MIDLERTIDIG_LONNSTILSKUDD',
-        'VARIG_LONNSTILSKUDD',
-        'FIREARIG_LONNSTILSKUDD',
-        'SOMMERJOBB',
-    ].includes(avtale.tiltakstype);
 
-    const [bekreftetArbeidsAvtale, setBekreftetArbeidsAvtale] = useState<boolean>(false);
     const [bekreftetGodkjennerInnholdet, setBekreftetGodkjennerInnholdet] = useState(false);
-
-    const feilmeldingManglerBekreftelse = () => {
-        if (!erLønnstilskuddEllerSommerjobb) {
-            if (!bekreftetGodkjennerInnholdet) {
-                return 'Du må bekrefte at du forstår kravene før du kan godkjenne.';
-            }
-        } else {
-            if (!bekreftetGodkjennerInnholdet || !bekreftetArbeidsAvtale) {
-                return 'Det må bekreftes at arbeidsavtale er inngått og at du forstår kravene før du kan godkjenne.';
-            }
-        }
-
-        return '';
-    };
 
     const sjekkOmLønnstilskuddprosentErfyltUt = () => {
         const felterSomIkkeErFyltUt = avtale.felterSomIkkeErFyltUt;
@@ -47,11 +27,10 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
 
     const godkjennAvtalen = () => {
         sjekkOmLønnstilskuddprosentErfyltUt();
-        const feilmelding = feilmeldingManglerBekreftelse();
-        if (!feilmelding) {
+        if (bekreftetGodkjennerInnholdet) {
             return godkjenn();
         } else {
-            throw new UfullstendigError(feilmelding);
+            throw new UfullstendigError('Du må bekrefte at du forstår kravene før du kan godkjenne.');
         }
     };
 
@@ -60,19 +39,20 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
             <GodkjenningInstruks />
 
-            {erLønnstilskuddEllerSommerjobb && (
-                <ConfirmationPanel
-                    onChange={() => setBekreftetArbeidsAvtale(!bekreftetArbeidsAvtale)}
-                    checked={bekreftetArbeidsAvtale}
-                    label="Jeg bekrefter at det en inngått arbeidsavtale"
-                />
-            )}
             <VerticalSpacer rem={1.5} />
-            <ConfirmationPanel
-                label="Ja, jeg forstår kravene og godkjenner innholdet i avtalen"
-                checked={bekreftetGodkjennerInnholdet}
-                onChange={() => setBekreftetGodkjennerInnholdet(!bekreftetGodkjennerInnholdet)}
-            />
+
+            <GodkjenningsPanel
+                setChecked={() => setBekreftetGodkjennerInnholdet(!bekreftetGodkjennerInnholdet)}
+                isChecked={bekreftetGodkjennerInnholdet}
+                checkboxLabel="Ja, jeg bekrefter."
+            >
+                <List>
+                    <List.Item>Innholdet i avtalen er korrekt</List.Item>
+                    <List.Item>Kravene til arbeidsgiver er lest og forstått</List.Item>
+                    <List.Item>Det er inngått arbeidsavtale med deltaker</List.Item>
+                </List>
+            </GodkjenningsPanel>
+
             <VerticalSpacer rem={1.5} />
 
             <LagreKnapp lagre={godkjennAvtalen}>Godkjenn avtalen</LagreKnapp>

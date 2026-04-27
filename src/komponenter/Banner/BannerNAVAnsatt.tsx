@@ -18,15 +18,15 @@ interface Props {
 }
 
 const TOLV_UKER_I_DAGER = 7 * 12;
-const FORSTE_SEPTEMBER_2025 = endOfDay(new Date('2025-09-01'));
+const TIDLIGSTE_DATO_FOR_RYDDING_AV_ARENA_MENTOR = endOfDay(new Date('2026-06-01'));
 
 const formaterSlettetidspunkt = (avtale: Avtale) => {
-    const { sistEndret, opphav, tiltakstype } = avtale;
+    const { sistEndret, opphav, tiltakstype, gjeldendeInnhold } = avtale;
     const tolvUkerEtterSistEndret = addDays(endOfDay(sistEndret), TOLV_UKER_I_DAGER);
 
     const slettetidspunkt =
-        opphav === 'ARENA' && tiltakstype === 'VTAO'
-            ? max([FORSTE_SEPTEMBER_2025, tolvUkerEtterSistEndret])
+        (opphav === 'ARENA' || gjeldendeInnhold.innholdType === 'ENDRET_AV_ARENA') && tiltakstype === 'MENTOR'
+            ? max([TIDLIGSTE_DATO_FOR_RYDDING_AV_ARENA_MENTOR, tolvUkerEtterSistEndret])
             : tolvUkerEtterSistEndret;
 
     const antallDager = Math.abs(differenceInDays(new Date(), slettetidspunkt));
