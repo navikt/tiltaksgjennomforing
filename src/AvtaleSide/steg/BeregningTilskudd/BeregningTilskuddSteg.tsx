@@ -35,7 +35,7 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <Heading level="3" size="small" className={cls.element('lonn-tittel')}>
                     Lønn per måned i faktisk stillingsprosent inkludert faste og uregelmessige tillegg
                 </Heading>
-                <HvaMenesMedDette className={cls.className} />
+                <HvaMenesMedDette />
                 <Manedslonn cls={cls} />
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('feriepenger')}>
