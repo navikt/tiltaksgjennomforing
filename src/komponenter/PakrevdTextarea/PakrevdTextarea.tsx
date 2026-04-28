@@ -6,6 +6,7 @@ import './PakrevdTextarea.less';
 
 interface Props {
     label: string;
+    description?: string;
     labelledby?: string;
     placeholder?: string;
     verdi?: string;
@@ -21,12 +22,12 @@ const PakrevdTextarea: React.FunctionComponent<Props> = (props) => {
 
     return (
         <Textarea
-            aria-label={props.label}
             aria-labelledby={props.labelledby}
             disabled={props.disabled}
             placeholder={props.placeholder}
             error={feil}
             label={props.label}
+            description={props.description}
             value={props.verdi || ''}
             onChange={(event: any) => {
                 if (event.target.value.length <= props.maxLengde) {
