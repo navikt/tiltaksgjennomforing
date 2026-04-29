@@ -14,7 +14,7 @@ const HvaMenesMedDette: React.FC = () => {
                 er ansatt i en 50 % stilling, skal det legges inn månedslønn i 50 % stilling før skatt.
             </BodyLong>
             <BodyLong spacing>
-                Eventuelle lønnsutgifter som oversiger avtalt tilskuddsbeløp, vil ikke bli refundert.
+                Eventuelle lønnsutgifter som overstiger avtalt tilskuddsbeløp, vil ikke bli refundert.
             </BodyLong>
             <BodyLong>
                 Faste tillegg er knyttet til personlige egenskaper, evner eller ansvar og utbetales regelmessig ved hver
