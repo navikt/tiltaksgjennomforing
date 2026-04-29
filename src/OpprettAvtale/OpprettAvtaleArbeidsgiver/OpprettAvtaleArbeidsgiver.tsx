@@ -1,6 +1,6 @@
 import { Alert, BodyShort, ErrorMessage, Heading, Label, RadioGroup, TextField } from '@navikt/ds-react';
 import { FunctionComponent, useContext, useState } from 'react';
-import { generatePath, useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate, useSearchParams } from 'react-router-dom';
 
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
@@ -37,6 +37,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const navigate = useNavigate();
     const { migreringSkrivebeskyttet } = useFeatureToggles();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
         deltakerFnr,
@@ -98,7 +99,21 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         setDeltakerFnrFeil(feilDeltakerFNR);
     };
 
-    const valgtBedriftNr = new URLSearchParams(window.location.search).get('bedrift')!;
+    const oppdaterBedriftIUrl = (orgnr: string) => {
+        if (orgnr === searchParams.get('bedrift')) return;
+        if (!innloggetBruker.altinnTilganger.tilganger[orgnr]) {
+            console.log(
+                'Bruker har ingen tilgang til noen tiltakstyper i denne bedriften, og blir sendt tilbake til oversikten',
+            );
+            navigate(Path.OVERSIKT);
+            return;
+        }
+        setSearchParams({ bedrift: orgnr });
+        setTiltaksType(undefined);
+        setUyldigAvtaletype(false);
+    };
+
+    const valgtBedriftNr = searchParams.get('bedrift')!; //new URLSearchParams(window.location.search).get('bedrift')!;
     const valgtBedriftNavn = findRecursive(
         innloggetBruker.altinnTilganger.hierarki,
         (org) => org.orgnr === valgtBedriftNr,
@@ -106,7 +121,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
-            <Banner tekst="Opprett avtale" />
+            <Banner tekst="Opprett avtale" byttetOrg={oppdaterBedriftIUrl} />
             <div className={cls.className}>
                 {migreringSkrivebeskyttet && (
                     <>
