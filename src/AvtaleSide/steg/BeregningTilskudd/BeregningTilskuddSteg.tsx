@@ -6,7 +6,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
 import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { Heading, Label } from '@navikt/ds-react';
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext } from 'react';
 import Lonnstilskuddprosent from '@/AvtaleSide/steg/BeregningTilskudd/Lonnstilskuddprosent';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
@@ -33,8 +33,11 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
                 <Lonnstilskuddprosent cls={cls} />
                 <Heading level="3" size="small" className={cls.element('lonn-tittel')}>
-                    Lønn per måned i faktisk stillingsprosent inkludert faste og uregelmessige tillegg
+                    Lønn
                 </Heading>
+                <BodyShort size="small">
+                    Lønn per måned i faktisk stillingsprosent inkludert faste og uregelmessige tillegg
+                </BodyShort>
                 <HvaMenesMedDette />
                 <Manedslonn cls={cls} />
                 <Row className={cls.element('rad')}>

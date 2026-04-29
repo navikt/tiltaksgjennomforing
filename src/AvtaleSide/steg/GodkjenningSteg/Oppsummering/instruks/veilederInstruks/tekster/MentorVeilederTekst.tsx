@@ -17,13 +17,7 @@ const MentorVeilederTekst = () => {
 
             <li className={cls.element('list-element')}>
                 <BodyShort size="small">
-                    Arena skal ikke lenger benyttes til registrering av avtale, tilsagn eller refusjon for mentor.
-                </BodyShort>
-            </li>
-            <li className={cls.element('list-element')}>
-                <BodyShort size="small">
-                    Tilsagnsbrevet sendes ikke lenger til innboksen til arbeidsgiver i Altinn. Innholdet i
-                    tilsagnsbrevet er innarbeidet i avtalen til arbeidsgiver.
+                    Arena skal ikke benyttes til registrering av avtale, tilsagn eller refusjon for mentor.
                 </BodyShort>
             </li>
             <li className={cls.element('list-element')}>
