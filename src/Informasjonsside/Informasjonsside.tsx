@@ -1,21 +1,21 @@
+import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { BodyShort, Heading, Label, Link } from '@navikt/ds-react';
 
-import './informasjonsside.less';
 import Altinn from '@/assets/ikoner/altinn.svg?react';
-import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
-import BEMHelper from '@/utils/bem';
-import Banner from '@/komponenter/Banner/Banner';
 import DigitalAvtale from '@/assets/ikoner/digitalAvtale.svg?react';
 import DynamiskAvtale from '@/assets/ikoner/dynamiskAvtale.svg?react';
-import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import Historikk from '@/assets/ikoner/historikk.svg?react';
-import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import Keyboard from '@/assets/ikoner/keyboard.svg?react';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
+import Banner from '@/komponenter/Banner/Banner';
+import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
+import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { Path } from '@/Router';
+import BEMHelper from '@/utils/bem';
+import './informasjonsside.less';
 
 const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
@@ -120,14 +120,8 @@ const Informasjonsside: FunctionComponent = () => {
                                 <li>Avtale om varig tilrettelagt arbeid i ordinær virksomhet</li>
                                 <li>Avtale om sommerjobb</li>
                             </ul>
-                            <br />
                             <span className={cls.element('lenke')}>
-                                <Link onClick={() => setVideoModalOpen(true)} href="#">
-                                    Se video om hvordan tilgang i Altinn styres.
-                                </Link>
-                            </span>
-                            <span className={cls.element('lenke')}>
-                                <EksternLenke href="https://info.altinn.no/hjelp/profil/enkelttjenester-og-roller/">
+                                <EksternLenke href="https://info.altinn.no/hjelp/ny-tilgangsstyring/steg-for-steg-guider/">
                                     Finn informasjon om roller og rettigheter på Altinn.no
                                 </EksternLenke>
                             </span>
