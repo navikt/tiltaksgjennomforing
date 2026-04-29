@@ -1,26 +1,11 @@
-import React from 'react';
-import { BodyShort } from '@navikt/ds-react';
+import { List } from '@navikt/ds-react';
 
-import BEMHelper from '@/utils/bem';
-
-function ArbeidstreningVeilederTekst() {
-    const cls = BEMHelper('instruks');
-
-    return (
-        <ul>
-            <li className={cls.element('list-element')}>
-                <BodyShort size="small">Arena skal ikke lenger benyttes til registrering av avtale.</BodyShort>
-            </li>
-            <li className={cls.element('list-element')}>
-                <BodyShort size="small">
-                    Når avtalen er godkjent av alle parter, så sendes vedtaksbrevet automatisk til deltaker.
-                </BodyShort>
-            </li>
-            <li className={cls.element('list-element')}>
-                <BodyShort size="small">Avtalen blir automatisk journalført i Gosys.</BodyShort>
-            </li>
-        </ul>
-    );
-}
+const ArbeidstreningVeilederTekst = () => (
+    <List size="small">
+        <List.Item>Arena skal ikke lenger benyttes til registrering av avtale.</List.Item>
+        <List.Item>Når avtalen er godkjent av alle parter, så sendes vedtaksbrevet automatisk til deltaker.</List.Item>
+        <List.Item>Avtalen blir automatisk journalført i Gosys.</List.Item>
+    </List>
+);
 
 export default ArbeidstreningVeilederTekst;
