@@ -2,7 +2,6 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/ArbeidsgiverinfoDel/RelasjonHjelpetekst';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import PenFillIkon from '@/assets/ikoner/pencil-fill.svg?react';
-import LesMerPanel from '@/komponenter/LesMerPanel/LesMerPanel';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { TiltaksType } from '@/types/avtale';
@@ -10,6 +9,7 @@ import BEMHelper from '@/utils/bem';
 import { BodyShort, Heading, Label, RadioGroup, Tag } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import './Relasjoner.less';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('relasjoner');
 
@@ -51,10 +51,8 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                 </BodyShort>
             </div>
             <Label>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Label>
-            <LesMerPanel åpneLabel="Hva menes med dette?" lukkLabel="Lukk" className={cls.element('LesMerPanel')}>
-                <RelasjonHjelpetekst tiltakstype={tiltakstype} />
-            </LesMerPanel>
-            <div className={cls.element('familietilknytning-valg')} id="familevalg">
+            <VerticalSpacer rem={1} />
+            <div className={cls.element('familietilknytning-valg')} id="familievalg">
                 {isKanEndreFamilierelasjon ? (
                     <RadioGroup
                         legend="Familierelasjoner"
@@ -110,6 +108,8 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                     )}
                 </div>
             )}
+            <VerticalSpacer rem={1} />
+            <RelasjonHjelpetekst tiltakstype={tiltakstype} />
         </div>
     );
 };
