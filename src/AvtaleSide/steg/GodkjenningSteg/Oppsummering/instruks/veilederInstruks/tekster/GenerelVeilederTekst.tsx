@@ -1,32 +1,20 @@
-import React from 'react';
-import { BodyShort } from '@navikt/ds-react';
-
-import BEMHelper from '@/utils/bem';
+import { List } from '@navikt/ds-react';
 import { TiltaksType } from '@/types/avtale';
 
 interface Props {
     tiltakstype: TiltaksType;
 }
 
-const GenerelVeilederTekst = (props: Props) => {
-    const cls = BEMHelper('instruks');
-
-    return (
-        <ul>
-            <li className={cls.element('list-element')}>
-                <BodyShort size="small">
-                    Etter at avtalen er godkjent, ligger oppgaven «Forbered tiltaksgjennomføring {props.tiltakstype}» på
-                    kontorets arbeidsbenk i Arena som du må fullføre.
-                </BodyShort>
-            </li>
-            <li>
-                <BodyShort size="small">
-                    Avtalen blir automatisk journalført i Gosys, og du trenger derfor ikke å sende inn avtalen til
-                    scanning.
-                </BodyShort>
-            </li>
-        </ul>
-    );
-};
+const GenerelVeilederTekst = (props: Props) => (
+    <List size="small">
+        <List.Item>
+            Etter at avtalen er godkjent, ligger oppgaven «Forbered tiltaksgjennomføring {props.tiltakstype}» på
+            kontorets arbeidsbenk i Arena som du må fullføre.
+        </List.Item>
+        <List.Item>
+            Avtalen blir automatisk journalført i Gosys, og du trenger derfor ikke å sende inn avtalen til scanning.
+        </List.Item>
+    </List>
+);
 
 export default GenerelVeilederTekst;

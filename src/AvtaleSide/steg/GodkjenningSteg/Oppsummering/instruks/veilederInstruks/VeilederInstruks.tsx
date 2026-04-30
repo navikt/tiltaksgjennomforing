@@ -1,8 +1,7 @@
 import React from 'react';
-import BEMHelper from '@/utils/bem';
 import { Label } from '@navikt/ds-react';
 
-import { Avtale } from '@/types/avtale';
+import { Avtale, TiltaksType } from '@/types/avtale';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 
 import '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/instruks.less';
@@ -14,75 +13,36 @@ import ArbeidstreningVeilederTekst from './tekster/ArbeidstreningVeilederTekst';
 import VTAOVeilederTekst from './tekster/VTAOVeilederTekst';
 import MentorVeilederTekst from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/veilederInstruks/tekster/MentorVeilederTekst';
 
-const cls = BEMHelper('instruks');
-
 interface Props {
     avtale: Avtale;
 }
 
+const hentInnholdForTiltakstype = (tiltakstype: TiltaksType): React.ReactNode => {
+    switch (tiltakstype) {
+        case 'SOMMERJOBB':
+            return <SommerjobbVeilederTekst />;
+        case 'MIDLERTIDIG_LONNSTILSKUDD':
+        case 'VARIG_LONNSTILSKUDD':
+        case 'FIREARIG_LONNSTILSKUDD':
+            return <LonnstilskuddVeilederTekst />;
+        case 'ARBEIDSTRENING':
+            return <ArbeidstreningVeilederTekst />;
+        case 'VTAO':
+            return <VTAOVeilederTekst />;
+        case 'MENTOR':
+            return <MentorVeilederTekst />;
+        default:
+            return <GenerelVeilederTekst tiltakstype={tiltakstype} />;
+    }
+};
+
 const VeilederInstruks = (props: Props) => {
     const { tiltakstype } = props.avtale;
 
-    if (tiltakstype === 'SOMMERJOBB') {
-        return (
-            <VeilederpanelMedUtklippstavle>
-                <div className={cls.element('subheader')}>
-                    <Label>Hva skjer videre:</Label>
-                </div>
-                <SommerjobbVeilederTekst />
-            </VeilederpanelMedUtklippstavle>
-        );
-    }
-
-    if (['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD'].includes(tiltakstype)) {
-        return (
-            <VeilederpanelMedUtklippstavle>
-                <div className={cls.element('subheader')}>
-                    <Label>Hva skjer videre:</Label>
-                </div>
-                <LonnstilskuddVeilederTekst />
-            </VeilederpanelMedUtklippstavle>
-        );
-    }
-
-    if (tiltakstype === 'ARBEIDSTRENING') {
-        return (
-            <VeilederpanelMedUtklippstavle>
-                <div className={cls.element('subheader')}>
-                    <Label>Hva skjer videre:</Label>
-                </div>
-                <ArbeidstreningVeilederTekst />
-            </VeilederpanelMedUtklippstavle>
-        );
-    }
-
-    if (tiltakstype === 'VTAO') {
-        return (
-            <VeilederpanelMedUtklippstavle>
-                <div className={cls.element('subheader')}>
-                    <Label>Hva skjer videre:</Label>
-                </div>
-                <VTAOVeilederTekst />
-            </VeilederpanelMedUtklippstavle>
-        );
-    }
-
-    if (tiltakstype === 'MENTOR') {
-        return (
-            <VeilederpanelMedUtklippstavle>
-                <div className={cls.element('subheader')}>
-                    <Label>Hva skjer videre:</Label>
-                </div>
-                <MentorVeilederTekst />
-            </VeilederpanelMedUtklippstavle>
-        );
-    }
     return (
         <VeilederpanelMedUtklippstavle>
-            <div className={cls.element('subheader')}>
-                <Label>Hva skjer videre:</Label>
-            </div>
-            <GenerelVeilederTekst tiltakstype={tiltakstype} />
+            <Label>Hva skjer videre:</Label>
+            {hentInnholdForTiltakstype(tiltakstype)}
         </VeilederpanelMedUtklippstavle>
     );
 };
