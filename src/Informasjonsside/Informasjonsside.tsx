@@ -1,5 +1,5 @@
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Altinn from '@/assets/ikoner/altinn.svg?react';
@@ -11,7 +11,6 @@ import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/Tilbak
 import Banner from '@/komponenter/Banner/Banner';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import AltinnVideoModal from '@/komponenter/modal/AltinnVideoModal';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
@@ -27,7 +26,6 @@ const tilbakeTilOversikt = (pathName: string) => {
 };
 
 const Informasjonsside: FunctionComponent = () => {
-    const [isVideoModalOpen, setVideoModalOpen] = useState<boolean>(false);
     const { pathname } = useLocation();
 
     const veilederOgArbeidsgiverOppretter = (
@@ -125,7 +123,6 @@ const Informasjonsside: FunctionComponent = () => {
                                     Finn informasjon om roller og rettigheter på Altinn.no
                                 </EksternLenke>
                             </span>
-                            <AltinnVideoModal isOpen={isVideoModalOpen} lukkModal={() => setVideoModalOpen(false)} />
                         </IkonTekstRad>
 
                         <IkonTekstRad
