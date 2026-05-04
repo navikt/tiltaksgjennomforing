@@ -12,7 +12,7 @@ const InformasjonsboksTopVeilederOppretterAvtale: React.FC = () => {
                 Er det første gang du skal opprette en avtale bør du lese gjennom {''}
                 <EksternLenke href={`${basename}${Path.INFORMASJONSSIDE}`}>
                     introduksjon til hvordan løsningen fungerer {''}
-                </EksternLenke>
+                </EksternLenke>{' '}
                 og vite om{' '}
                 <EksternLenke href="https://www.nav.no/arbeidsgiver/inkludere">
                     de ulike støtteordningene på NAV.no.

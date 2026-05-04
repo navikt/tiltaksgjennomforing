@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
-import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
+import { beregnDagenEtterOgFormater } from '@/utils/datoUtils';
 import BEMHelper from '@/utils/bem';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { Avtale } from '@/types/avtale';
@@ -30,7 +30,7 @@ const MeldingArbeidsgiverSokRefusjon: React.FC<Props> = ({ className, avtale }: 
                 tilskuddsperioden er over, vil NAV sende dere et ferdig utregnet forslag til refusjon. Refusjonen regnes
                 ut på bakgrunn av innhold i avtalen og innrapporterte inntekter i A-meldingen.
             </BodyShort>
-            <Label>Du kan søke om refusjon fra {formaterDato(sluttdato, NORSK_DATO_FORMAT_FULL)}</Label>
+            <Label>Du kan søke om refusjon fra {beregnDagenEtterOgFormater(sluttdato)}</Label>
         </div>
     );
 };
