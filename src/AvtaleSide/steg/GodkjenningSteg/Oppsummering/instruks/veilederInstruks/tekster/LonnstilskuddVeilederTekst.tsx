@@ -1,28 +1,16 @@
-import React from 'react';
+import { List } from '@navikt/ds-react';
 
-import { BodyShort } from '@navikt/ds-react';
-import BEMHelper from '@/utils/bem';
+const LonnstilskuddVeilederTekst = () => (
+    <List size="small">
+        <List.Item>
+            Etter at du har godkjent avtalen, må avtalen og den første tilskuddsperioden godkjennes av beslutter. Det er
+            først da avtalen er endelig godkjent.
+        </List.Item>
+        <List.Item>
+            Arena skal ikke benyttes til registrering av avtale, tilsagn eller refusjon for lønnstilskudd.
+        </List.Item>
+        <List.Item>Avtalen blir automatisk journalført i Gosys.</List.Item>
+    </List>
+);
 
-const LonnstilskuddVeilederTekst = () => {
-    const cls = BEMHelper('instruks');
-
-    return (
-        <ul>
-            <li className={cls.element('list-element')}>
-                <BodyShort size="small">
-                    Etter at du har godkjent avtalen, må avtalen og den første tilskuddsperioden godkjennes av
-                    beslutter. Det er først da avtalen er endelig godkjent.
-                </BodyShort>
-            </li>
-            <li className={cls.element('list-element')}>
-                <BodyShort size="small">
-                    Arena skal ikke benyttes til registrering av avtale, tilsagn eller refusjon for lønnstilskudd.
-                </BodyShort>
-            </li>
-            <li>
-                <BodyShort size="small">Avtalen blir automatisk journalført i Gosys.</BodyShort>
-            </li>
-        </ul>
-    );
-};
 export default LonnstilskuddVeilederTekst;
