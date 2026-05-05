@@ -1,4 +1,4 @@
-import { Box, Button, LocalAlert, Modal } from '@navikt/ds-react';
+import { Box, Button, Modal } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 
 interface Props {
