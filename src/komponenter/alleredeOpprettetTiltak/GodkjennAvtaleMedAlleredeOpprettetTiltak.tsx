@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import InfoModal from '@/komponenter/modal/InfoModal';
-import { Alert, Heading, LocalAlert } from '@navikt/ds-react';
+import { Alert, Heading } from '@navikt/ds-react';
 import AlleredeOpprettetAvtale from './innholdsvisning/AlleredeOpprettetAvtale';
 import { FeilkodeError } from '@/types';
 import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
