@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React, { useState, PropsWithChildren } from 'react';
-import { Collapse } from 'react-collapse';
 import InfoToggler from './InfoToggler/InfoToggler';
 import './LesMerPanel.less';
 
@@ -35,9 +34,7 @@ const LesMerPanel: React.FunctionComponent<PropsWithChildren<Props>> = ({
                 </InfoToggler>
             </div>
             <div className="les-mer-panel__innhold" aria-expanded={åpen} aria-hidden={!åpen}>
-                <Collapse isOpened={åpen}>
-                    <>{children}</>
-                </Collapse>
+                <>{children}</>
             </div>
         </div>
     );

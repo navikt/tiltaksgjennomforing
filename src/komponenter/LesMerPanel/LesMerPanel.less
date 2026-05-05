@@ -5,10 +5,6 @@
     flex-wrap: wrap;
     flex-direction: column;
 
-    .ReactCollapse--collapse {
-        transition: 300ms;
-    }
-
     &__toggler {
         order: 2;
 
@@ -20,5 +16,17 @@
     &__innhold {
         order: 1;
         margin-top: 0.25rem;
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 300ms;
+        overflow: hidden;
+
+        > * {
+            min-height: 0;
+        }
+
+        &[aria-expanded='true'] {
+            grid-template-rows: 1fr;
+        }
     }
 }

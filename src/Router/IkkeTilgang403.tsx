@@ -20,7 +20,7 @@ function IkkeTilgang403(props: Props) {
     if (enkelVisning) {
         return (
             <Innholdsboks>
-                <VStack gap="12" align="start">
+                <VStack gap="space-12" align="start">
                     <div>
                         <Heading level="1" size="large" spacing>
                             Ikke tilgang
@@ -34,9 +34,9 @@ function IkkeTilgang403(props: Props) {
 
     return (
         <Page.Block as="main" width="xl" gutters>
-            <Box paddingBlock="20 16">
+            <Box paddingBlock="space-20 space-16">
                 <Innholdsboks>
-                    <VStack gap="12" align="start">
+                    <VStack gap="space-12" align="start">
                         <div>
                             <Heading level="1" size="large" spacing>
                                 Ikke tilgang

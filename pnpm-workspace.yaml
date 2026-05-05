@@ -1,0 +1,5 @@
+allowBuilds:
+  '@sentry/cli': true
+  esbuild: true
+engineStrict: true
+lockfileIncludeTarballUrl: true

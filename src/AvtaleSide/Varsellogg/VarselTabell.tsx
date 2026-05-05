@@ -79,7 +79,7 @@ const VarselTabell: FunctionComponent<Props> = (props) => {
                                     </UtgråetTekst>
                                 </Table.DataCell>
                                 <Table.DataCell role="cell">
-                                    <div style={{ display: 'flex' }} aria-labelledby="varsel">
+                                    <div style={{ display: 'flex', alignItems: 'center' }} aria-labelledby="varsel">
                                         <span style={{ marginRight: '0.5rem' }} aria-hidden="true">
                                             <HendelseIkon hendelse={varsel.hendelseType} />
                                         </span>

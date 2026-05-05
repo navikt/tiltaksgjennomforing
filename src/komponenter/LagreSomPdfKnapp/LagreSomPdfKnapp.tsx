@@ -1,6 +1,6 @@
-import { File } from '@navikt/ds-icons/cjs';
+import { FileIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 
 const LagreSomPdfKnapp: FunctionComponent<{ avtaleId: string }> = (props) => {
     const href = `/tiltaksgjennomforing/api/avtaler/${props.avtaleId}/pdf`;
@@ -12,7 +12,7 @@ const LagreSomPdfKnapp: FunctionComponent<{ avtaleId: string }> = (props) => {
             }}
             style={{ padding: '0.75rem 0.75rem' }}
         >
-            <File style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+            <FileIcon style={{ display: 'inline-block', marginRight: '0.5rem' }} />
             <span>Lagre som PDF</span>
         </Button>
     );

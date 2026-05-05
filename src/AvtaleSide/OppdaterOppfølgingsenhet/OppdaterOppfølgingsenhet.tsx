@@ -1,12 +1,13 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import React, { FunctionComponent, useState, useContext } from 'react';
+import type { FunctionComponent } from 'react';
+import { useState, useContext } from 'react';
 import './OppdaterOppfølgingsenhet.less';
 import BEMHelper from '@/utils/bem';
 import { BodyShort, Heading, Link, Modal, Loader } from '@navikt/ds-react';
 import { oppdaterOppfølgingsEnhet } from '@/services/rest-service';
 import { Button } from '@navikt/ds-react';
-import { Notes } from '@navikt/ds-icons/cjs';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
+import { NotePencilIcon } from '@navikt/aksel-icons';
 
 const OppdaterOppfølgingsenhet: FunctionComponent = () => {
     const cls = BEMHelper('oppdaterOppfølgingsenhet');
@@ -77,7 +78,7 @@ const OppdaterOppfølgingsenhet: FunctionComponent = () => {
                 className={cls.element('lenke')}
             >
                 <div aria-hidden={true}>
-                    <Notes style={{ marginRight: '0.5rem' }} />
+                    <NotePencilIcon style={{ marginRight: '0.5rem' }} />
                 </div>
                 Oppdater oppfølgingsenhet
             </Link>

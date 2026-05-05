@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
-import { Bandage } from '@navikt/ds-icons';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { TiltaksType } from '@/types/avtale';
+import { BandageIcon } from '@navikt/aksel-icons';
 
 interface Props {
     tiltakstype: TiltaksType;
@@ -15,7 +15,7 @@ const GiBeskjedHvisDuErBorteFraJobb: FunctionComponent<Props> = ({ tiltakstype }
         <>
             {tiltakstype === 'VTAO' ? (
                 <IkonTekstRad
-                    svgIkon={<Bandage width="2.25rem" height="2.25rem" />}
+                    svgIkon={<BandageIcon width="2.25rem" height="2.25rem" />}
                     headerTekst={{
                         tekst: 'Fravær',
                     }}
@@ -25,7 +25,7 @@ const GiBeskjedHvisDuErBorteFraJobb: FunctionComponent<Props> = ({ tiltakstype }
                 </IkonTekstRad>
             ) : (
                 <IkonTekstRad
-                    svgIkon={<Bandage width="2.25rem" height="2.25rem" />}
+                    svgIkon={<BandageIcon width="2.25rem" height="2.25rem" />}
                     headerTekst={{
                         tekst: 'Gi beskjed hvis du er borte fra jobb',
                     }}

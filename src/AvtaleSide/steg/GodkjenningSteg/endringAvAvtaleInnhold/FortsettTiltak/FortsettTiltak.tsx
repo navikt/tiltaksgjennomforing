@@ -6,9 +6,10 @@ import BEMHelper from '@/utils/bem';
 import { formaterDato, NORSK_DATO_FORMAT_FULL, NORSK_DATO_OG_TID_FORMAT_FULL } from '@/utils/datoUtils';
 import { erNil } from '@/utils/predicates';
 import { sortBy } from '@/utils';
-import { Neutral } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { FigureCombinationIcon } from '@navikt/aksel-icons';
 
 const FortsettTiltak: FunctionComponent = () => {
     const cls = BEMHelper('endreKontaktInformasjon');
@@ -57,7 +58,7 @@ const FortsettTiltak: FunctionComponent = () => {
                 className={cls.element('link')}
             >
                 <div aria-hidden={true}>
-                    <Neutral className={cls.element('ikon')} />
+                    <FigureCombinationIcon className={cls.element('ikon')} />
                 </div>
                 Fortsett tiltak
             </Link>

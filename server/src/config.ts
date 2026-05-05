@@ -27,8 +27,8 @@ export const DECORATOR_EXTERNAL_URL =
     MILJO !== Miljo.LOCALHOST ? process.env.DECORATOR_EXTERNAL_URL : 'http://localhost:8080';
 export const DECORATOR_INTERNAL_SCRIPT =
     ENV === Env.PROD
-        ? 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/bundle.js'
-        : 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/bundle.js';
+        ? 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/internarbeidsflate-decorator.wc.js'
+        : 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/dev/latest/dist/internarbeidsflate-decorator.wc.js';
 export const DECORATOR_INTERNAL_STYLING =
     ENV === Env.PROD
         ? 'https://cdn.nav.no/personoversikt/internarbeidsflate-decorator-v3/prod/latest/dist/index.css'

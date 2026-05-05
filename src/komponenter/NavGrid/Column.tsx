@@ -1,4 +1,3 @@
-import * as PT from 'prop-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import './navGrid.css';
@@ -38,15 +37,6 @@ class Column extends React.Component<ColumnProps> {
     sm: undefined,
     md: undefined,
     lg: undefined,
-};
-
-(Column as React.ComponentClass).propTypes = {
-    className: PT.string,
-    xs: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    sm: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    md: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    lg: PT.oneOf(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']),
-    children: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
 };
 
 export default Column;

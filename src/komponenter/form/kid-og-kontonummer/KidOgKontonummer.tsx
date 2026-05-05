@@ -1,7 +1,6 @@
 import * as z from 'zod';
 import React from 'react';
 import { BodyShort, TextField } from '@navikt/ds-react';
-import { Money } from '@navikt/ds-icons';
 import { useController, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -10,6 +9,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
 
 import styles from './KidOgKontonummer.module.less';
+import { WalletIcon } from '@navikt/aksel-icons';
 
 interface Props {
     avtaleId: string;
@@ -60,7 +60,7 @@ const KidOgKontonummer = (props: Props) => {
         <div className={styles.kidOgKontonummer}>
             {visOverskrift && (
                 <div className={styles.kidOgKontonummerLabel}>
-                    <Money />
+                    <WalletIcon />
                     <BodyShort>
                         <strong>Kontonummer og KID</strong>
                     </BodyShort>

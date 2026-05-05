@@ -1,7 +1,8 @@
 import React from 'react';
-import { Accordion, BodyShort, Label } from '@navikt/ds-react';
+import { BodyShort, ExpansionCard, Label } from '@navikt/ds-react';
 import { Rolle } from '@/types/innlogget-bruker';
 import { BEMWrapper } from '@/utils/bem';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     rolle: Rolle;
@@ -14,27 +15,24 @@ const AvtaleOversiktArbeidsgiverInformasjon: React.FC<Props> = ({ rolle, cls }: 
     }
 
     return (
-        <Accordion className={cls.element('arbeidsgiver-informasjon')}>
-            <Accordion.Item>
-                <Accordion.Header>
-                    <div>
-                        <Label size="small">Finner du ikke avtalen du leter etter?</Label>
-                        <BodyShort size="small">Det kan være flere årsaker til dette. Les hva du kan gjøre.</BodyShort>
-                    </div>
-                </Accordion.Header>
-                <Accordion.Content>
-                    <Label size="small">Avtalen du leter etter er opprettet på en annen virksomhet</Label>
-                    <BodyShort size="small">
-                        Det kan være at avtalen du leter etter er opprettet på en annen virskomhet. Du kan prøve å bytte
-                        virksomhet i virksomhetsvelgeren oppe til høyre på skjermen.
-                    </BodyShort>
-                    <Label className={cls.element('arbeidsgiver-informasjon-nytt-avsnitt')} size="small">
-                        Du mangler tilgang til rett avtaletype for den virksomheten du har valgt.
-                    </Label>
-                    <BodyShort size="small">Da kan du be om tilgang i Altinn.</BodyShort>
-                </Accordion.Content>
-            </Accordion.Item>
-        </Accordion>
+        <ExpansionCard aria-label="Finner du ikke avtalen du leter etter?" size="small">
+            <ExpansionCard.Header>
+                <ExpansionCard.Title size="small">Finner du ikke avtalen du leter etter?</ExpansionCard.Title>
+                <ExpansionCard.Description>
+                    Det kan være flere årsaker til dette. Les hva du kan gjøre.
+                </ExpansionCard.Description>
+            </ExpansionCard.Header>
+            <ExpansionCard.Content>
+                <Label size="small">Avtalen du leter etter er opprettet på en annen virksomhet</Label>
+                <BodyShort size="small">
+                    Det kan være at avtalen du leter etter er opprettet på en annen virskomhet. Du kan prøve å bytte
+                    virksomhet i virksomhetsvelgeren oppe til høyre på skjermen.
+                </BodyShort>
+                <VerticalSpacer rem={1} />
+                <Label size="small">Du mangler tilgang til rett avtaletype for den virksomheten du har valgt.</Label>
+                <BodyShort size="small">Da kan du be om tilgang i Altinn.</BodyShort>
+            </ExpansionCard.Content>
+        </ExpansionCard>
     );
 };
 export default AvtaleOversiktArbeidsgiverInformasjon;

@@ -5,9 +5,9 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { forkortAvtale, forkortAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
-import { Notes } from '@navikt/ds-icons/cjs';
 import { BodyShort, debounce, Label, Link, Radio, RadioGroup, Textarea } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useEffect, useMemo, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
 import { formaterDato, formaterDatoHvisDefinert, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -16,6 +16,7 @@ import { addDays } from 'date-fns';
 import * as z from 'zod';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { NotePencilIcon } from '@navikt/aksel-icons';
 
 const grunn = ['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'] as const;
 const grunnSchema = z.enum(grunn, { errorMap: () => ({ message: 'Grunn må velges' }) });
@@ -128,7 +129,7 @@ const ForkortAvtale: FunctionComponent = () => {
                     }}
                 >
                     <div aria-hidden={true}>
-                        <Notes style={{ marginRight: '0.5rem' }} />
+                        <NotePencilIcon style={{ marginRight: '0.5rem' }} />
                     </div>
                     Forkort avtale
                 </Link>

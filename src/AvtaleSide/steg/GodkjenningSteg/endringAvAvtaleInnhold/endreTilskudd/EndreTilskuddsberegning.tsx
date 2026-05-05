@@ -9,11 +9,11 @@ import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGrupp
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import './EndreTilskuddsberegning.less';
 import { formaterNorskeTall, parsProsentFraInput } from '@/utils';
+import { TasklistIcon } from '@navikt/aksel-icons';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
@@ -73,7 +73,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                 className={cls.element('lenke')}
             >
                 <div aria-hidden={true}>
-                    <Task className={cls.element('ikon')} />
+                    <TasklistIcon className={cls.element('ikon')} />
                 </div>
                 Endre tilskuddsberegning
             </Link>
