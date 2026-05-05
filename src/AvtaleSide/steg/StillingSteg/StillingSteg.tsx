@@ -1,4 +1,4 @@
-import { AvtaleContext, useAvtale } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import useStillingFraContext from '@/AvtaleSide/steg/StillingSteg/useStillingFraContext';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
@@ -6,11 +6,14 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, RadioGroup } from '@navikt/ds-react';
+import { RadioGroup, Label } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import './StillingsSteg.less';
 import StillingsTittelVelger from './StillingsTittelVelger';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
+import { Arbeidstilknytning, Stillingstype } from '@/types';
+import { arbeidstilknytning as arbeidstilknytningMsg, stillingstype } from '@/messages';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const cls = BEMHelper('StillingsSteg');
 
@@ -18,14 +21,19 @@ const StillingSteg: FunctionComponent = () => {
     const { avtale, settAvtaleInnholdVerdi, settAvtaleInnholdVerdier, lagreAvtale } = useAvtale();
     const { valgtStilling, setValgtStilling } = useStillingFraContext();
 
+    const erLts = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD'].includes(
+        avtale.tiltakstype,
+    );
+    const erVarigLts = 'VARIG_LONNSTILSKUDD' === avtale.tiltakstype;
+    const erVtao = 'VTAO' === avtale.tiltakstype;
+
     return (
         <>
             <AvtaleStatus />
             <Innholdsboks className={cls.className}>
                 <SkjemaTittel>Stilling</SkjemaTittel>
-                <div className={cls.element('label')}>
-                    <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
-                </div>
+                <Label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</Label>
+                <VerticalSpacer rem={0.5} />
                 <StillingsTittelVelger
                     id="stillinginput"
                     valgtStilling={valgtStilling}
@@ -39,33 +47,57 @@ const StillingSteg: FunctionComponent = () => {
                     maxLengde={1000}
                     feilmelding="Beskrivelse av arbeidsoppgavene er påkrevd"
                 />
-                {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD', 'VTAO'].includes(
-                    avtale.tiltakstype,
-                ) && (
+                {(erLts || erVtao) && (
                     <>
-                        <BodyShort size="small">Er stillingen fast eller midlertidig</BodyShort>
                         <div>
                             <RadioGroup
-                                legend=""
-                                value={avtale.gjeldendeInnhold.stillingstype}
+                                legend="Er stillingen fast eller midlertidig?"
                                 className={cls.element('stillingstype_radio')}
+                                value={avtale.gjeldendeInnhold.stillingstype ?? ''}
                             >
-                                <RadioPanel
-                                    onChange={() => settAvtaleInnholdVerdier({ stillingstype: 'FAST' })}
-                                    checked={avtale.gjeldendeInnhold.stillingstype === 'FAST'}
-                                    name="stillingstype"
-                                    value="FAST"
-                                >
-                                    Fast
-                                </RadioPanel>
-                                <RadioPanel
-                                    onChange={() => settAvtaleInnholdVerdier({ stillingstype: 'MIDLERTIDIG' })}
-                                    checked={avtale.gjeldendeInnhold.stillingstype === 'MIDLERTIDIG'}
-                                    name="stillingstype"
-                                    value="MIDLERTIDIG"
-                                >
-                                    Midlertidig
-                                </RadioPanel>
+                                {['FAST', 'MIDLERTIDIG'].map((str) => {
+                                    const type = str as Stillingstype;
+                                    return (
+                                        <RadioPanel
+                                            key={type}
+                                            onChange={() => settAvtaleInnholdVerdier({ stillingstype: type })}
+                                            checked={avtale.gjeldendeInnhold.stillingstype === type}
+                                            name="ansettelsestype"
+                                            value={type}
+                                        >
+                                            {stillingstype[type]}
+                                        </RadioPanel>
+                                    );
+                                })}
+                            </RadioGroup>
+                        </div>
+                    </>
+                )}
+                {erVarigLts && (
+                    <>
+                        <div>
+                            <RadioGroup
+                                legend="Hva er arbeidstilknytningen ved avtaleinngåelse?"
+                                className={cls.element('arbeidstilknytning_radio')}
+                                value={avtale.gjeldendeInnhold.arbeidstilknytning ?? ''}
+                            >
+                                {(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'] as Arbeidstilknytning[]).map(
+                                    (arbeidstilknytning) => {
+                                        return (
+                                            <RadioPanel
+                                                key={arbeidstilknytning}
+                                                onChange={() => settAvtaleInnholdVerdier({ arbeidstilknytning })}
+                                                checked={
+                                                    avtale.gjeldendeInnhold.arbeidstilknytning === arbeidstilknytning
+                                                }
+                                                name="arbeidstilknytning"
+                                                value={arbeidstilknytning}
+                                            >
+                                                {arbeidstilknytningMsg[arbeidstilknytning]}
+                                            </RadioPanel>
+                                        );
+                                    },
+                                )}
                             </RadioGroup>
                         </div>
                     </>

@@ -11,18 +11,20 @@ import OmMentorOppsummering from './OmMentorOppsummering';
 import BeregningTilskuddOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/BeregningTilskuddOppsummering/BeregningTilskuddOppsummering';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
+import { erNil } from '@/utils/predicates';
 
 interface Props {
     avtaleinnhold: Avtaleinnhold;
-    visInnholdFraEtterMigrering?: boolean;
+    erAvtaleInngaatt: boolean;
 }
 
-const OppsummeringMentor: FunctionComponent<Props> = (props: Props) => {
-    const { avtaleinnhold, visInnholdFraEtterMigrering = true } = props;
+const OppsummeringMentor = (props: Props) => {
+    const { avtaleinnhold, erAvtaleInngaatt } = props;
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { mentorTimelonn } = avtaleinnhold;
+    const { mentorTimelonn, mentorValgtLonnstype } = avtaleinnhold;
 
+    const visInnholdFraEtterMigrering = !erAvtaleInngaatt || !erNil(mentorValgtLonnstype);
     return (
         <>
             <DeltakerInfo oppsummeringside={true} />

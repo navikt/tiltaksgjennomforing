@@ -95,6 +95,7 @@ export type Avtaleinnhold = {
     stillingstittel?: string;
     arbeidsoppgaver?: string;
     stillingstype?: Stillingstype;
+    arbeidstilknytning?: Arbeidstilknytning;
     stillingKonseptId?: number;
     stillingStyrk08?: number;
     tilrettelegging?: string;
@@ -281,11 +282,14 @@ export interface Stilling {
     stillingstittel?: string;
     arbeidsoppgaver?: string;
     stillingstype?: Stillingstype;
+    arbeidstilknytning?: Arbeidstilknytning;
     stillingKonseptId?: number;
     stillingStyrk08?: number;
 }
 
 export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
+
+export type Arbeidstilknytning = 'SKAFFE_ARBEID' | 'BEHOLDE_ARBEID';
 
 export type MentorValgtLonnstype = 'ÅRSLØNN' | 'MÅNEDSLØNN' | 'UKELØNN' | 'DAGSLØNN' | 'TIMELØNN';
 
