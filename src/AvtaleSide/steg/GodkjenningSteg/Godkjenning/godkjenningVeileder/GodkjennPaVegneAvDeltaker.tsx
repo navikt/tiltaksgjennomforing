@@ -45,7 +45,6 @@ function GodkjennPaVegneAvDeltaker() {
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
-    const [error, setError] = React.useState<FeilkodeError | undefined>();
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
 
     const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
@@ -77,9 +76,8 @@ function GodkjennPaVegneAvDeltaker() {
             try {
                 await onLagre();
             } catch (err) {
-                if (err instanceof FeilkodeError) {
+                if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                     setInnsatsbehovVarselModalIsOpen(true);
-                    setError(err);
                 } else {
                     throw err;
                 }
@@ -160,12 +158,11 @@ function GodkjennPaVegneAvDeltaker() {
                     </LagreKnapp>
                 </Innholdsboks>
             </form>
-            {error?.message === 'OPPFOLGINGSTATUS_ENDRET' && (
+            {innsatsbehovVarselModalIsOpen && (
                 <InnsatsbehovVarselModal
                     isOpen={innsatsbehovVarselModalIsOpen}
                     onClose={() => {
                         setInnsatsbehovVarselModalIsOpen(false);
-                        setError(undefined);
                         hentAvtale().then(() => reset());
                     }}
                 />

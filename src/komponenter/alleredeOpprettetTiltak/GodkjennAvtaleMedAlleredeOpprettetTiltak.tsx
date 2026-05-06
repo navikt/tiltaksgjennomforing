@@ -17,16 +17,14 @@ interface Props {
 const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
     const { alleredeRegistrertAvtale, isApen, onLagre, onLukk } = props;
     const { hentAvtale } = useAvtale();
-    const [error, setError] = React.useState<FeilkodeError | undefined>();
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
 
     const handleLagre = async () => {
         try {
             await onLagre();
         } catch (err) {
-            if (err instanceof FeilkodeError) {
+            if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                 setInnsatsbehovVarselModalIsOpen(true);
-                setError(err);
             } else {
                 throw err;
             }
@@ -43,12 +41,11 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
                 deltaker sitt fødselsnummer.
             </Alert>
             <AlleredeOpprettetAvtale alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
-            {error?.message === 'OPPFOLGINGSTATUS_ENDRET' && (
+            {innsatsbehovVarselModalIsOpen && (
                 <InnsatsbehovVarselModal
                     isOpen={innsatsbehovVarselModalIsOpen}
                     onClose={() => {
                         setInnsatsbehovVarselModalIsOpen(false);
-                        setError(undefined);
                         hentAvtale();
                     }}
                 />
