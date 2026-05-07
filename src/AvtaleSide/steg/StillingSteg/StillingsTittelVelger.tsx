@@ -1,10 +1,11 @@
-import { hentStillinger } from '@/services/stillingsok';
-import { escapeRegExp } from '@/utils/stringUtils';
-import debounce from 'lodash.debounce';
 import React, { FunctionComponent, useState } from 'react';
-
 import Select, { OnChangeValue } from 'react-select';
+import debounce from 'lodash.debounce';
 import { FormatOptionLabelMeta } from 'react-select/base';
+import { escapeRegExp } from '@/utils/stringUtils';
+import { hentStillinger } from '@/services/stillingsok';
+
+import styles from './StilllingsTittelVelger.module.less';
 
 export type StillingOptions = {
     label: string;
@@ -65,7 +66,7 @@ const StillingsTittelVelger: FunctionComponent<Props> = (props) => {
 
     return (
         <Select
-            className="stillingsTittelVelger"
+            className={styles.stillingsTittelVelger}
             inputId={props.id}
             aria-label="Stilling"
             components={{ DropdownIndicator: null }}

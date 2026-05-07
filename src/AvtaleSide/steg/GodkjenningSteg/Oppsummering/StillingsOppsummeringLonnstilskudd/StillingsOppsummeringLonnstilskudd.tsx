@@ -1,6 +1,6 @@
 import StillingIkon from '@/assets/ikoner/toolbox.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { arbeidstilknytning as arbeidstilknytningMsg, stillingstype as stillingtypeMsg } from '@/messages';
+import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg, stillingstype as stillingtypeMsg } from '@/messages';
 import { Stilling, TiltaksType } from '@/types/avtale';
 import { Label } from '@navikt/ds-react';
 import React from 'react';
@@ -14,11 +14,11 @@ interface Props extends Stilling {
 }
 
 const StillingsOppsummeringLonnstilskudd = (props: Props) => {
-    const { tiltakstype, stillingstittel, arbeidsoppgaver, stillingstype, arbeidstilknytning, erAvtaleInngaatt } =
+    const { tiltakstype, stillingstittel, arbeidsoppgaver, stillingstype, lonnstilskuddFormaal, erAvtaleInngaatt } =
         props;
 
-    const erVarigLts = 'VARIG_LONNSTILSKUDD' === tiltakstype;
-    const visArbeidstilknytningForNyeAvtaler = !erAvtaleInngaatt || !erNil(arbeidstilknytning);
+    const erIkkeSommerjobb = tiltakstype !== 'SOMMERJOBB';
+    const visFormaalForNyeAvtaler = !erAvtaleInngaatt || !erNil(lonnstilskuddFormaal);
 
     return (
         <Stegoppsummering tittel="Stilling" ikon={<StillingIkon />}>
@@ -31,12 +31,12 @@ const StillingsOppsummeringLonnstilskudd = (props: Props) => {
             <Label>Stillingstype</Label>
             <SjekkOmVerdiEksisterer verdi={stillingstype} formatertVerdi={stillingtypeMsg[stillingstype!]} />
             <VerticalSpacer rem={2} />
-            {erVarigLts && visArbeidstilknytningForNyeAvtaler && (
+            {erIkkeSommerjobb && visFormaalForNyeAvtaler && (
                 <>
-                    <Label>Arbeidstilknytning ved avtaleinngåelse</Label>
+                    <Label>Formålet med avtalen</Label>
                     <SjekkOmVerdiEksisterer
-                        verdi={arbeidstilknytning}
-                        formatertVerdi={arbeidstilknytningMsg[arbeidstilknytning!]}
+                        verdi={lonnstilskuddFormaal}
+                        formatertVerdi={lonnstilskuddFormaalMsg[lonnstilskuddFormaal!]}
                     />
                 </>
             )}

@@ -4,7 +4,7 @@ import {
     AvtaleVersjon,
     InkluderingstilskuddsutgiftType,
     Returårsaker,
-    Arbeidstilknytning,
+    LonnstilskuddFormaal,
     Stillingstype,
     TilskuddPeriodeRefusjonStatus,
     TilskuddPeriodeStatus,
@@ -104,7 +104,7 @@ export const avtaleTittel: { [key in TiltaksType]: string } = {
     FIREARIG_LONNSTILSKUDD: 'Avtale om fireårig lønnstilskudd for unge',
 };
 
-export const arbeidstilknytning: { [key in Arbeidstilknytning]: string } = {
+export const lonnstilskuddFormaal: { [key in LonnstilskuddFormaal]: string } = {
     SKAFFE_ARBEID: 'Skaffe arbeid',
     BEHOLDE_ARBEID: 'Beholde arbeid',
 };

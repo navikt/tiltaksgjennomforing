@@ -5,54 +5,55 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
-import BEMHelper from '@/utils/bem';
 import { RadioGroup, Label } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import './StillingsSteg.less';
 import StillingsTittelVelger from './StillingsTittelVelger';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import { Arbeidstilknytning, Stillingstype } from '@/types';
-import { arbeidstilknytning as arbeidstilknytningMsg, stillingstype } from '@/messages';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { LonnstilskuddFormaal, Stillingstype, TiltaksType } from '@/types';
+import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg, stillingstype } from '@/messages';
 
-const cls = BEMHelper('StillingsSteg');
+import styles from './StillingsSteg.module.less';
+
+const LTS_UTEN_SOMMERJOBB = [
+    'MIDLERTIDIG_LONNSTILSKUDD',
+    'VARIG_LONNSTILSKUDD',
+    'FIREARIG_LONNSTILSKUDD',
+] as Partial<TiltaksType>[];
 
 const StillingSteg: FunctionComponent = () => {
     const { avtale, settAvtaleInnholdVerdi, settAvtaleInnholdVerdier, lagreAvtale } = useAvtale();
     const { valgtStilling, setValgtStilling } = useStillingFraContext();
 
-    const erLts = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD'].includes(
-        avtale.tiltakstype,
-    );
-    const erVarigLts = 'VARIG_LONNSTILSKUDD' === avtale.tiltakstype;
+    const erLtsUtenSommerjobb = LTS_UTEN_SOMMERJOBB.includes(avtale.tiltakstype);
     const erVtao = 'VTAO' === avtale.tiltakstype;
 
     return (
         <>
             <AvtaleStatus />
-            <Innholdsboks className={cls.className}>
+            <Innholdsboks>
                 <SkjemaTittel>Stilling</SkjemaTittel>
-                <Label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</Label>
-                <VerticalSpacer rem={0.5} />
+                <Label className={styles.label} htmlFor="stillinginput">
+                    Stilling/yrke (kun ett yrke kan legges inn)
+                </Label>
                 <StillingsTittelVelger
                     id="stillinginput"
                     valgtStilling={valgtStilling}
                     setValgtStilling={setValgtStilling}
                 />
                 <PakrevdTextarea
-                    className={cls.element('stilling-beskrivelse')}
+                    className={styles.stillingBeskrivelse}
                     label="Beskriv arbeidsoppgavene som inngår i stillingen"
                     verdi={avtale.gjeldendeInnhold.arbeidsoppgaver || ''}
                     settVerdi={(verdi) => settAvtaleInnholdVerdi('arbeidsoppgaver', verdi)}
                     maxLengde={1000}
                     feilmelding="Beskrivelse av arbeidsoppgavene er påkrevd"
                 />
-                {(erLts || erVtao) && (
+                {(erLtsUtenSommerjobb || erVtao) && (
                     <>
                         <div>
                             <RadioGroup
                                 legend="Er stillingen fast eller midlertidig?"
-                                className={cls.element('stillingstype_radio')}
+                                className={styles.stillingstypeRadio}
                                 value={avtale.gjeldendeInnhold.stillingstype ?? ''}
                             >
                                 {['FAST', 'MIDLERTIDIG'].map((str) => {
@@ -73,27 +74,28 @@ const StillingSteg: FunctionComponent = () => {
                         </div>
                     </>
                 )}
-                {erVarigLts && (
+                {erLtsUtenSommerjobb && (
                     <>
                         <div>
                             <RadioGroup
-                                legend="Hva er arbeidstilknytningen ved avtaleinngåelse?"
-                                className={cls.element('arbeidstilknytning_radio')}
-                                value={avtale.gjeldendeInnhold.arbeidstilknytning ?? ''}
+                                legend="Hva er formålet med avtalen?"
+                                className={styles.lonnstilskuddFormaalRadio}
+                                value={avtale.gjeldendeInnhold.lonnstilskuddFormaal ?? ''}
                             >
-                                {(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'] as Arbeidstilknytning[]).map(
-                                    (arbeidstilknytning) => {
+                                {(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'] as LonnstilskuddFormaal[]).map(
+                                    (lonnstilskuddFormaal) => {
                                         return (
                                             <RadioPanel
-                                                key={arbeidstilknytning}
-                                                onChange={() => settAvtaleInnholdVerdier({ arbeidstilknytning })}
+                                                key={lonnstilskuddFormaal}
+                                                onChange={() => settAvtaleInnholdVerdier({ lonnstilskuddFormaal })}
                                                 checked={
-                                                    avtale.gjeldendeInnhold.arbeidstilknytning === arbeidstilknytning
+                                                    avtale.gjeldendeInnhold.lonnstilskuddFormaal ===
+                                                    lonnstilskuddFormaal
                                                 }
-                                                name="arbeidstilknytning"
-                                                value={arbeidstilknytning}
+                                                name="lonnstilskuddFormaal"
+                                                value={lonnstilskuddFormaal}
                                             >
-                                                {arbeidstilknytningMsg[arbeidstilknytning]}
+                                                {lonnstilskuddFormaalMsg[lonnstilskuddFormaal]}
                                             </RadioPanel>
                                         );
                                     },
@@ -102,7 +104,7 @@ const StillingSteg: FunctionComponent = () => {
                         </div>
                     </>
                 )}
-                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'} className={cls.element('lagre-knapp')}>
+                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'} className={styles.lagreKnapp}>
                     Lagre
                 </LagreKnapp>
             </Innholdsboks>
