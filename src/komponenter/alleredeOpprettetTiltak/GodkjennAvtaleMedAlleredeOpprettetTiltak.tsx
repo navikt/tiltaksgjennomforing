@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import InfoModal from '@/komponenter/modal/InfoModal';
 import { Alert, Heading } from '@navikt/ds-react';
@@ -17,7 +17,7 @@ interface Props {
 const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
     const { alleredeRegistrertAvtale, isApen, onLagre, onLukk } = props;
     const { hentAvtale } = useAvtale();
-    const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
+    const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
 
     const handleLagre = async () => {
         try {
@@ -25,9 +25,9 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
         } catch (err) {
             if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                 setInnsatsbehovVarselModalIsOpen(true);
-            } else {
-                throw err;
             }
+
+            throw err;
         }
     };
 
@@ -43,10 +43,9 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
             <AlleredeOpprettetAvtale alleredeRegistrertAvtale={alleredeRegistrertAvtale} />
             {innsatsbehovVarselModalIsOpen && (
                 <InnsatsbehovVarselModal
-                    isOpen={innsatsbehovVarselModalIsOpen}
-                    onClose={() => {
+                    onClose={async () => {
                         setInnsatsbehovVarselModalIsOpen(false);
-                        hentAvtale();
+                        await hentAvtale();
                     }}
                 />
             )}

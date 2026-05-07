@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as z from 'zod';
 import { Alert, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useForm } from 'react-hook-form';
@@ -15,7 +15,7 @@ import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-se
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
 import { FeilkodeError } from '@/types';
-import InnsatsbehovVarselModal from '../../InnsatsbehovVarselModal/InnsatsbehovVarselModal';
+import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -45,7 +45,7 @@ function GodkjennPaVegneAvDeltaker() {
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
-    const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = React.useState(false);
+    const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
 
     const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
@@ -78,9 +78,9 @@ function GodkjennPaVegneAvDeltaker() {
             } catch (err) {
                 if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                     setInnsatsbehovVarselModalIsOpen(true);
-                } else {
-                    throw err;
                 }
+
+                throw err;
             }
         }
     });
@@ -160,10 +160,10 @@ function GodkjennPaVegneAvDeltaker() {
             </form>
             {innsatsbehovVarselModalIsOpen && (
                 <InnsatsbehovVarselModal
-                    isOpen={innsatsbehovVarselModalIsOpen}
-                    onClose={() => {
+                    onClose={async () => {
                         setInnsatsbehovVarselModalIsOpen(false);
-                        hentAvtale().then(() => reset());
+                        await hentAvtale();
+                        reset();
                     }}
                 />
             )}

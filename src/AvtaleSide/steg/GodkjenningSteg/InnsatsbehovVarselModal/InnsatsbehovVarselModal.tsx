@@ -1,16 +1,15 @@
 import { Box, Button, Modal } from '@navikt/ds-react';
-import { FunctionComponent } from 'react';
+import './InnsatsbehovVarselModal.less';
 
 interface Props {
-    isOpen: boolean;
     onClose: () => void;
 }
 
-const InnsatsbehovVarselModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
+const InnsatsbehovVarselModal = ({ onClose }: Props) => {
     return (
         <Box paddingBlock="space-64">
-            <Modal header={{ heading: 'Avtalen må signeres på nytt' }} open={isOpen} onClose={onClose}>
-                <Modal.Body style={{ marginTop: '1.5rem', width: '100%' }}>
+            <Modal header={{ heading: 'Avtalen må signeres på nytt' }} open onClose={onClose}>
+                <Modal.Body className="innsatsbehovVarselModal__body">
                     Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.
                 </Modal.Body>
                 <Modal.Footer>
