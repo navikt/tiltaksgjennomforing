@@ -25,9 +25,9 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
         } catch (err) {
             if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                 setInnsatsbehovVarselModalIsOpen(true);
+            } else {
+                throw err;
             }
-
-            throw err;
         }
     };
 

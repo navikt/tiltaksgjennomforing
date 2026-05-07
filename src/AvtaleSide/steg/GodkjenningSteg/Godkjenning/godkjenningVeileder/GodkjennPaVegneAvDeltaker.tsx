@@ -78,9 +78,9 @@ function GodkjennPaVegneAvDeltaker() {
             } catch (err) {
                 if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                     setInnsatsbehovVarselModalIsOpen(true);
+                } else {
+                    throw err;
                 }
-
-                throw err;
             }
         }
     });
