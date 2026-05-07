@@ -45,6 +45,7 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
                 <InnsatsbehovVarselModal
                     onClose={async () => {
                         setInnsatsbehovVarselModalIsOpen(false);
+                        onLukk();
                         await hentAvtale();
                     }}
                 />

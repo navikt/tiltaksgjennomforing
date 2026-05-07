@@ -162,6 +162,7 @@ function GodkjennPaVegneAvDeltaker() {
                 <InnsatsbehovVarselModal
                     onClose={async () => {
                         setInnsatsbehovVarselModalIsOpen(false);
+                        setGodkjenningsModalApen(false);
                         await hentAvtale();
                         reset();
                     }}
