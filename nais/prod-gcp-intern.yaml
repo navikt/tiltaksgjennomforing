@@ -5,6 +5,6 @@
 "login-url": "/oauth2/login?redirect=/tiltaksgjennomforing"
 "logout-url": "/oauth2/logout"
 "stillingstitler-url": "http://tiltak-stillingstitler"
-"api-scope": "api://prod-fss.arbeidsgiver.tiltaksgjennomforing-api/.default"
+"api-scope": "prod-fss.arbeidsgiver.tiltaksgjennomforing-api"
 "modiacontextholder-api-scope": "api://prod-gcp.personoversikt.modiacontextholder/.default"
 "aad-redirect-url": "https://tiltaksgjennomforing.intern.nav.no/oauth2/callback"
