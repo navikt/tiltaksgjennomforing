@@ -21,8 +21,8 @@ spec:
     env:
         - name: MILJO
           value: dev-gcp-labs
-        - name: APIGW_URL
-          value: '{{{api-gw-url}}}'
+        - name: API_URL
+          value: '{{{api-url}}}'
         - name: ISSO_LOGIN_URL
           value: '{{{isso-login-url}}}'
         - name: SELVBETJENING_LOGIN_URL

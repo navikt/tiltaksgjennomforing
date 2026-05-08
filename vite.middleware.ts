@@ -4,8 +4,7 @@ import { ViteDevServer } from 'vite';
 import { notifikasjonsRespons } from './server/src/mock/notifikasjon-bruker-api';
 
 const envProperties = {
-    APIGW_URL: process.env.APIGW_URL || 'http://localhost:8080',
-    APIGW_HEADER: process.env.APIGW_HEADER,
+    API_URL: process.env.API_URL || 'http://localhost:8080',
     LOGIN_URL: process.env.LOGIN_URL || '/tiltaksgjennomforing/fakelogin/aad',
     LOGOUT_URL: process.env.LOGOUT_URL || '/tiltaksgjennomforing/fakelogout?domain=localhost',
     STILLINGSTITLER_URL: process.env.STILLINGSTITLER_URL || 'https://tiltak-stillingstitler.intern.dev.nav.no',

@@ -21,7 +21,7 @@ const MILJO = miljoMap[process.env.MILJO] ?? Miljo.LOCALHOST;
 export const PORT = process.env.PORT ?? '3000';
 export const ENV = MILJO === Miljo.PROD_GCP ? Env.PROD : Env.DEV;
 
-export const APIGW_URL = MILJO !== Miljo.LOCALHOST ? process.env.APIGW_URL : 'http://localhost:8080';
+export const API_URL = MILJO !== Miljo.LOCALHOST ? process.env.API_URL : 'http://localhost:8080';
 export const API_AUDIENCE = MILJO !== Miljo.LOCALHOST ? process.env.API_AUDIENCE : 'dummy-audience';
 export const DECORATOR_EXTERNAL_URL =
     MILJO !== Miljo.LOCALHOST ? process.env.DECORATOR_EXTERNAL_URL : 'http://localhost:8080';
@@ -44,7 +44,7 @@ export const NOTIFIKASJON_AUDIENCE = MILJO !== Miljo.LOCALHOST ? process.env.NOT
 export const NOTIFIKASJON_URL = MILJO !== Miljo.LOCALHOST ? process.env.NOTIFIKASJON_URL : 'http://localhost:8080';
 export const STILLINGSTITLER_URL =
     MILJO !== Miljo.LOCALHOST ? process.env.STILLINGSTITLER_URL : 'http://localhost:8080';
-export const TILTAK_PROXY_API_SCOPE = MILJO !== Miljo.LOCALHOST ? process.env.TILTAK_PROXY_API_SCOPE : 'dummy-scope';
+export const API_SCOPE = MILJO !== Miljo.LOCALHOST ? process.env.API_SCOPE : 'dummy-scope';
 export const IS_LABS =
     MILJO === Miljo.LOCALHOST
         ? process.env.LABS === 'true'
