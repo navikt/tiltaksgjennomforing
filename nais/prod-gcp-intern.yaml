@@ -1,6 +1,7 @@
 "ingress": "https://tiltaksgjennomforing.intern.nav.no"
 "miljo": "prod-gcp"
 "api-url": "https://tiltaksgjennomforing-api.intern.nav.no"
+"api-host": "tiltaksgjennomforing-api.intern.nav.no"
 "login-url": "/oauth2/login?redirect=/tiltaksgjennomforing"
 "logout-url": "/oauth2/logout"
 "stillingstitler-url": "http://tiltak-stillingstitler"

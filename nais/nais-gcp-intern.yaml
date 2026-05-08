@@ -64,4 +64,4 @@ spec:
         - application: modiacontextholder
           namespace: personoversikt
       external:
-        - host: '{{{api-url}}}'
+        - host: {{api-host}}

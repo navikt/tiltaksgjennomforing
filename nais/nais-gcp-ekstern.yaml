@@ -66,4 +66,4 @@ spec:
         - application: nav-dekoratoren
           namespace: personbruker
       external:
-        - host: {{api-url}}
+        - host: {{api-host}}
