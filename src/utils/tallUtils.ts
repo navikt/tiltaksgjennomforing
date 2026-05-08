@@ -35,3 +35,7 @@ export const inputToNumber = (verdi: string | undefined): number | undefined => 
 
     return undefined;
 };
+
+export const parsProsentFraInput = (verdi: string): number | undefined => {
+    return verdi === '' ? undefined : parseFloat(verdi) / 100;
+};

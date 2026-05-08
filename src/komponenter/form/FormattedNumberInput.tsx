@@ -32,7 +32,7 @@ interface FormattedNumberInputProps extends TextFieldProps {
 const FormattedNumberInput: FunctionComponent<FormattedNumberInputProps> = (
     props: PropsWithChildren<FormattedNumberInputProps>,
 ) => {
-    const { value, validatorer, toFormatted, onChange, maxLength, max, ...other } = props;
+    const { value, validatorer, toFormatted, onChange, maxLength, max, className, ...other } = props;
     const [tallVerdi, setVerdi] = useState(value);
     const [feil, settFeil, sjekkInputfelt] = useValidering(value, validatorer);
 
@@ -85,6 +85,7 @@ const FormattedNumberInput: FunctionComponent<FormattedNumberInputProps> = (
             max={max}
             onChange={onChangeOverride}
             onFocus={toNumberOnFocus}
+            className={className}
             {...other}
         />
     );

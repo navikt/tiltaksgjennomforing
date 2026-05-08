@@ -48,14 +48,11 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                         />
                     </Column>
                 </Row>
-                <Row className={cls.element('rad')}>
-                    <Column md="8" className={cls.element('tjenestepensjon')}>
-                        <ObligatoriskTjenestepensjon
-                            sats={avtale.gjeldendeInnhold.otpSats}
-                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
-                        />
-                    </Column>
-                </Row>
+                <ObligatoriskTjenestepensjon
+                    sats={avtale.gjeldendeInnhold.otpSats}
+                    onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                />
+                <VerticalSpacer rem={2} />
                 <Row className={cls.element('rad')}>
                     <Column md="8" className={cls.element('arbeidsgiveravgift')}>
                         <Arbeidsgiveravgift

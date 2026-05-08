@@ -4,7 +4,7 @@ import React, { PropsWithChildren } from 'react';
 import { TextFieldProps } from '@navikt/ds-react';
 
 const ProsentInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithChildren<TextFieldProps>) => {
-    const { step = 1, max, min, size, ...other } = props;
+    const { step = 1, max, min, size, className, ...other } = props;
     const erTom = (v: any) => v === undefined || v === null || v === '';
     const validatorer = [
         (v: any) => {
@@ -20,6 +20,7 @@ const ProsentInput: React.FunctionComponent<TextFieldProps> = (props: PropsWithC
 
     return (
         <FormattedNumberInput
+            className={className}
             size={size}
             step={step}
             validatorer={validatorer}
