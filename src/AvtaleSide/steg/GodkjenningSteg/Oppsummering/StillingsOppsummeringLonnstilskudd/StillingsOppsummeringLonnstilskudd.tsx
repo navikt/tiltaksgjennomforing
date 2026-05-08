@@ -1,23 +1,47 @@
 import StillingIkon from '@/assets/ikoner/toolbox.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { stillingstype } from '@/messages';
-import { Stilling } from '@/types/avtale';
+import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg, stillingstype as stillingtypeMsg } from '@/messages';
+import { Stilling, TiltaksType } from '@/types/avtale';
 import { Label } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
+import { erNil } from '@/utils/predicates';
 
-const StillingsOppsummeringLonnstilskudd: FunctionComponent<Stilling> = (props) => (
-    <Stegoppsummering tittel="Stilling" ikon={<StillingIkon />}>
-        <Label>Stillingstittel</Label>
-        <SjekkOmVerdiEksisterer verdi={props.stillingstittel} />
-        <VerticalSpacer rem={2} />
-        <Label>Arbeidsoppgaver</Label>
-        <SjekkOmVerdiEksisterer verdi={props.arbeidsoppgaver} />
-        <VerticalSpacer rem={2} />
-        <Label>Stillingstype</Label>
-        <SjekkOmVerdiEksisterer verdi={props.stillingstype} formatertVerdi={stillingstype[props.stillingstype!]} />
-    </Stegoppsummering>
-);
+interface Props extends Stilling {
+    tiltakstype: TiltaksType;
+    erAvtaleInngaatt: boolean;
+}
+
+const StillingsOppsummeringLonnstilskudd = (props: Props) => {
+    const { tiltakstype, stillingstittel, arbeidsoppgaver, stillingstype, lonnstilskuddFormaal, erAvtaleInngaatt } =
+        props;
+
+    const erIkkeSommerjobb = tiltakstype !== 'SOMMERJOBB';
+    const visFormaalForNyeAvtaler = !erAvtaleInngaatt || !erNil(lonnstilskuddFormaal);
+
+    return (
+        <Stegoppsummering tittel="Stilling" ikon={<StillingIkon />}>
+            <Label>Stillingstittel</Label>
+            <SjekkOmVerdiEksisterer verdi={stillingstittel} />
+            <VerticalSpacer rem={2} />
+            <Label>Arbeidsoppgaver</Label>
+            <SjekkOmVerdiEksisterer verdi={arbeidsoppgaver} />
+            <VerticalSpacer rem={2} />
+            <Label>Stillingstype</Label>
+            <SjekkOmVerdiEksisterer verdi={stillingstype} formatertVerdi={stillingtypeMsg[stillingstype!]} />
+            <VerticalSpacer rem={2} />
+            {erIkkeSommerjobb && visFormaalForNyeAvtaler && (
+                <>
+                    <Label>Formålet med avtalen</Label>
+                    <SjekkOmVerdiEksisterer
+                        verdi={lonnstilskuddFormaal}
+                        formatertVerdi={lonnstilskuddFormaalMsg[lonnstilskuddFormaal!]}
+                    />
+                </>
+            )}
+        </Stegoppsummering>
+    );
+};
 
 export default StillingsOppsummeringLonnstilskudd;

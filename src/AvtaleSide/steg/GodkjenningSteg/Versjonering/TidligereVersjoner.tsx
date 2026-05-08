@@ -12,22 +12,16 @@ const cls = BEMHelper('tidligereVersjoner');
 interface Props {
     versjoner: AvtaleVersjon[];
     tiltakstype: TiltaksType;
+    erAvtaleInngaatt: boolean;
 }
 
 const TidligereVersjoner = (props: Props) => {
-    const { versjoner } = props;
-
+    const { versjoner, erAvtaleInngaatt } = props;
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
     const sorterteVersjoner = useMemo(() => Array.from(versjoner).sort((a, b) => a.versjon - b.versjon), [versjoner]);
     const avtaleInnhold = sorterteVersjoner[currentVersjon > 0 ? currentVersjon - 1 : 0];
-    const versjonErEtterArenaMigrering = useMemo(() => {
-        const arenaVersjon = sorterteVersjoner.find((v) => v.innholdType === 'ENDRET_AV_ARENA');
-        return arenaVersjon
-            ? avtaleInnhold.versjon >= arenaVersjon.versjon && !!avtaleInnhold.mentorValgtLonnstype
-            : true;
-    }, [sorterteVersjoner, avtaleInnhold]);
 
     return (
         <>
@@ -67,8 +61,8 @@ const TidligereVersjoner = (props: Props) => {
                 isOpen={isOpen}
                 lukkModal={() => setOpen(false)}
                 avtaleInnhold={avtaleInnhold}
-                visInnholdFraEtterMigrering={versjonErEtterArenaMigrering}
                 tiltakstype={props.tiltakstype}
+                erAvtaleInngaatt={erAvtaleInngaatt}
             />
         </>
     );

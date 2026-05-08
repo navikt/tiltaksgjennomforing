@@ -79,7 +79,11 @@ const BeslutterSide: FunctionComponent = () => {
                                     <Innholdsboks>
                                         <Heading size="large">{avtaleTittel[avtale.tiltakstype]}</Heading>
                                         <VerticalSpacer rem={2} />
-                                        <Oppsummering avtale={avtale} />
+                                        <Oppsummering
+                                            tiltakstype={avtale.tiltakstype}
+                                            avtaleInnhold={avtale.gjeldendeInnhold}
+                                            erAvtaleInngaatt={!!avtale.avtaleInngått}
+                                        />
                                     </Innholdsboks>
                                 </Accordion.Content>
                             </Accordion.Item>

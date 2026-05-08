@@ -56,7 +56,11 @@ const GodkjenningSteg = () => {
                         !erMentor && <SkjemaTittel>Godkjenning av avtale</SkjemaTittel>
                     )}
                 </div>
-                <Oppsummering avtale={avtale} />
+                <Oppsummering
+                    tiltakstype={avtale.tiltakstype}
+                    avtaleInnhold={avtale.gjeldendeInnhold}
+                    erAvtaleInngaatt={!!avtale.avtaleInngått}
+                />
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {harGodkjentSelv(avtale, innloggetBruker.rolle) && (
