@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as z from 'zod';
 import { Alert, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-service';
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
+import { FeilkodeError } from '@/types';
+import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -37,14 +39,15 @@ type Schema = z.infer<typeof schema>;
 
 function GodkjennPaVegneAvDeltaker() {
     const cls = BEMHelper('godkjenning');
-    const { avtale, godkjenn, godkjennPaVegneAvDeltaker } = useAvtale();
+    const { avtale, godkjenn, godkjennPaVegneAvDeltaker, hentAvtale } = useAvtale();
     const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker } = avtale;
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
+    const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
 
-    const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
+    const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
             isInformert: false,
             isSkalGodkjennesPaVegne: false,
@@ -70,7 +73,15 @@ function GodkjennPaVegneAvDeltaker() {
             });
             setGodkjenningsModalApen(true);
         } else {
-            await onLagre();
+            try {
+                await onLagre();
+            } catch (err) {
+                if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
+                    setInnsatsbehovVarselModalIsOpen(true);
+                } else {
+                    throw err;
+                }
+            }
         }
     });
 
@@ -147,6 +158,16 @@ function GodkjennPaVegneAvDeltaker() {
                     </LagreKnapp>
                 </Innholdsboks>
             </form>
+            {innsatsbehovVarselModalIsOpen && (
+                <InnsatsbehovVarselModal
+                    onClose={async () => {
+                        setInnsatsbehovVarselModalIsOpen(false);
+                        setGodkjenningsModalApen(false);
+                        await hentAvtale();
+                        reset();
+                    }}
+                />
+            )}
             <GodkjennAvtaleMedAlleredeOpprettetTiltak
                 alleredeRegistrertAvtale={alleredeRegistrertAvtale.avtaler}
                 isApen={isGodkjenningsModalApen}
