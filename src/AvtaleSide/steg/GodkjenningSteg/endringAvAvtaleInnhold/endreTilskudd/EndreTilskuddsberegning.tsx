@@ -13,7 +13,7 @@ import { Task } from '@navikt/ds-icons/cjs';
 import { BodyShort, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import './EndreTilskuddsberegning.less';
-import { formaterNorskeTall } from '@/utils';
+import { formaterNorskeTall, parsProsentFraInput } from '@/utils';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
@@ -138,10 +138,7 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                                 : ''
                         }
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                            settNyBeregningsverdi(
-                                'otpSats',
-                                event.target.value === '' ? undefined : parseFloat(event.target.value) / 100,
-                            )
+                            settNyBeregningsverdi('otpSats', parsProsentFraInput(event.target.value))
                         }
                     />
                     <VerticalSpacer rem={1} />

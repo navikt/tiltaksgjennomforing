@@ -81,14 +81,10 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     mentorTimelonn={beregninger?.gjeldendeInnhold.mentorTimelonn}
                     onChange={(value) => settOgKalkulerBeregningsverdier(value)}
                 />
-                <Row>
-                    <Column md="5">
-                        <ObligatoriskTjenestepensjon
-                            sats={avtale.gjeldendeInnhold.otpSats}
-                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
-                        />
-                    </Column>
-                </Row>
+                <ObligatoriskTjenestepensjon
+                    sats={avtale.gjeldendeInnhold.otpSats}
+                    onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                />
                 <VerticalSpacer rem={1.5} />
                 <Row>
                     <Column md="5">
