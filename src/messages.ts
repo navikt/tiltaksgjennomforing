@@ -4,6 +4,7 @@ import {
     AvtaleVersjon,
     InkluderingstilskuddsutgiftType,
     Returårsaker,
+    LonnstilskuddFormaal,
     Stillingstype,
     TilskuddPeriodeRefusjonStatus,
     TilskuddPeriodeStatus,
@@ -101,6 +102,11 @@ export const avtaleTittel: { [key in TiltaksType]: string } = {
     SOMMERJOBB: 'Avtale om sommerjobb',
     VTAO: 'Avtale om varig tilrettelagt arbeid i ordinær virksomhet',
     FIREARIG_LONNSTILSKUDD: 'Avtale om fireårig lønnstilskudd for unge',
+};
+
+export const lonnstilskuddFormaal: { [key in LonnstilskuddFormaal]: string } = {
+    SKAFFE_ARBEID: 'Skaffe arbeid',
+    BEHOLDE_ARBEID: 'Beholde arbeid',
 };
 
 export const stillingstype: { [key in Stillingstype]: string } = {

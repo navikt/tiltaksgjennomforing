@@ -1,63 +1,37 @@
 import React from 'react';
 
-import { Avtale, Avtaleinnhold, TiltaksType } from '@/types';
+import { Avtaleinnhold, TiltaksType } from '@/types';
 import OppsummeringArbeidstrening from './OppsummeringArbeidstrening/OppsummeringArbeidstrening';
 import OppsummeringLonnstilskudd from './OppsummeringLonnstilskudd/OppsummeringLonnstilskudd';
 import OppsummeringMentor from './OppsummeringMentor/OppsummeringMentor';
 import OppsummeringInkluderingstilskudd from './OppsummeringInkluderingstilskudd/OppsummeringInkluderingstilskudd';
 import OppsummeringVTAO from './OppsummeringVTAO/OppsummeringVTAO';
 
-interface PropsMedAvtale {
-    avtale: Avtale;
-}
-
-interface PropsMedAvtaleInnhold {
+interface Props {
     tiltakstype: TiltaksType;
     avtaleInnhold: Avtaleinnhold;
-    visInnholdFraEtterMigrering: boolean;
+    erAvtaleInngaatt: boolean;
 }
 
-type Props = PropsMedAvtale | PropsMedAvtaleInnhold;
-
-const visInnholdFraEtterMigrering = (avtale: Avtale) => {
-    switch (avtale.tiltakstype) {
-        case 'MENTOR':
-            return !(avtale.avtaleInngått && !avtale.gjeldendeInnhold.mentorValgtLonnstype);
-        default:
-            return true;
-    }
-};
-
-const resolveProps = (props: Props): PropsMedAvtaleInnhold => {
-    if ('avtale' in props) {
-        const { tiltakstype, gjeldendeInnhold } = props.avtale;
-        return {
-            tiltakstype,
-            avtaleInnhold: gjeldendeInnhold,
-            visInnholdFraEtterMigrering: visInnholdFraEtterMigrering(props.avtale),
-        };
-    }
-    return props;
-};
-
 function Oppsummering(props: Props) {
-    const { tiltakstype, avtaleInnhold, visInnholdFraEtterMigrering } = resolveProps(props);
+    const { tiltakstype, avtaleInnhold, erAvtaleInngaatt } = props;
 
     switch (tiltakstype) {
         case 'FIREARIG_LONNSTILSKUDD':
         case 'MIDLERTIDIG_LONNSTILSKUDD':
         case 'SOMMERJOBB':
         case 'VARIG_LONNSTILSKUDD':
-            return <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} tiltakstype={tiltakstype} />;
+            return (
+                <OppsummeringLonnstilskudd
+                    avtaleinnhold={avtaleInnhold}
+                    tiltakstype={tiltakstype}
+                    erAvtaleInngaatt={erAvtaleInngaatt}
+                />
+            );
         case 'ARBEIDSTRENING':
             return <OppsummeringArbeidstrening avtaleinnhold={avtaleInnhold} />;
         case 'MENTOR':
-            return (
-                <OppsummeringMentor
-                    avtaleinnhold={avtaleInnhold}
-                    visInnholdFraEtterMigrering={visInnholdFraEtterMigrering}
-                />
-            );
+            return <OppsummeringMentor avtaleinnhold={avtaleInnhold} erAvtaleInngaatt={erAvtaleInngaatt} />;
         case 'INKLUDERINGSTILSKUDD':
             return <OppsummeringInkluderingstilskudd avtaleinnhold={avtaleInnhold} />;
         case 'VTAO':
