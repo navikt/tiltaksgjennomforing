@@ -49,9 +49,7 @@ export function setup(app: Express, audience: string) {
         },
         async (req, res, next) => {
             try {
-                console.log('Lage token for audience:', audience);
                 const accessToken = await requestOboToken(audience, req);
-                console.log('Gikk bra');
                 req.headers.authorization = `Bearer ${accessToken}`;
                 next();
             } catch (e) {
