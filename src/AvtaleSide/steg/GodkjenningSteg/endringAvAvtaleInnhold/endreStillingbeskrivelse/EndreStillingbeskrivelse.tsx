@@ -56,6 +56,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         };
         setValgtStilling(values);
         setArbeidsoppgaver(avtale.gjeldendeInnhold.arbeidsoppgaver);
+        setLonnstilskuddFormaal(avtale.gjeldendeInnhold.lonnstilskuddFormaal);
         setModalApen(false);
     };
 
