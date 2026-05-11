@@ -55,7 +55,7 @@ export function setup(app: Express, audience: string) {
                 req.headers.authorization = `Bearer ${accessToken}`;
                 next();
             } catch (e) {
-                console.log('Feilet:', e);
+                console.error(e);
                 res.sendStatus(500);
             }
         },
