@@ -120,7 +120,6 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/dev-gcp-labs.yaml
-          VARS: nais/dev-gcp-labs.json
           VAR: image=${{ needs.build.outputs.image }}
 
   deploy-prod-gcp-intern:
