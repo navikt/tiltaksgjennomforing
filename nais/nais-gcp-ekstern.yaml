@@ -20,7 +20,7 @@ spec:
     - name: MILJO
       value: {{miljo}}
     - name: API_URL
-      value: '{{{api-url}}}'
+      value: 'https://{{{api-host}}}'
     - name: LOGIN_URL
       value: '{{{login-url}}}'
     - name: LOGOUT_URL

@@ -7,5 +7,3 @@ services:
         environment:
             - API_URL=http://host.docker.internal:8080
             - LOGOUT_URL=http://localhost:3000
-            - SELVBETJENING_LOGIN_URL=http://localhost:3000
-            - ISSO_LOGIN_URL=http://localhost:3000

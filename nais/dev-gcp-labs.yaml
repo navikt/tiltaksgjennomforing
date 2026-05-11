@@ -9,9 +9,9 @@ spec:
     image: {{image}}
     port: 3000
     vault:
-        enabled: {{vault-enabled}}
+        enabled: false
     ingresses:
-        - '{{{ingress}}}'
+        - 'https://tiltaksgjennomforing-labs.ekstern.dev.nav.no'
     liveness:
         path: /tiltaksgjennomforing/internal/isAlive
         initialDelay: 5
@@ -22,22 +22,17 @@ spec:
         - name: MILJO
           value: dev-gcp-labs
         - name: API_URL
-          value: '{{{api-url}}}'
-        - name: ISSO_LOGIN_URL
-          value: '{{{isso-login-url}}}'
-        - name: SELVBETJENING_LOGIN_URL
-          value: '{{{selvbetjening-login-url}}}'
+          value: 'http://tiltaksgjennomforing-api-labs'
         - name: LOGIN_URL
-          value: '{{{login-url}}}'
+          value: '/tiltaksgjennomforing/fakelogin/aad'
         - name: LOGOUT_URL
-          value: '{{{logout-url}}}'
+          value: '/tiltaksgjennomforing/fakelogout?domain=ekstern.dev.nav.no'
         - name: ENABLE_EXTERNAL_MENU
-          value: '{{{enable-external-menu}}}'
+          value: ''
         - name: DECORATOR_EXTERNAL_URL
-          value: '{{{decorator-external-url}}}'
+          value: ''
         - name: ENABLE_INTERNAL_MENU
-          value: '{{{enable-internal-menu}}}'
-    {{#if labs}}
+          value: ''
     accessPolicy:
       outbound:
         external:
@@ -45,4 +40,3 @@ spec:
         rules:
           - application: tiltaksgjennomforing-api-labs
           - application: tiltak-stillingstitler
-    {{/if}}
