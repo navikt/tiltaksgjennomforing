@@ -94,7 +94,7 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
 export const tiltakstypeTekstKort: { [key in TiltaksType]: string } = {
     ...tiltakstypeTekst,
     VTAO: 'VTA-O',
-    FIREARIG_LONNSTILSKUDD: 'Fireårig lønnstilskudd',
+    FIREARIG_LONNSTILSKUDD: 'fireårig lønnstilskudd',
 };
 
 export const avtaleTittel: { [key in TiltaksType]: string } = {
