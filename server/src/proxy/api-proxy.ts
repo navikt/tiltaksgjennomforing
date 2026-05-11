@@ -5,12 +5,12 @@ import { API_AUDIENCE, API_SCOPE, STILLINGSTITLER_URL, API_URL } from '../config
 import { requestOboToken } from '../auth';
 
 export function tokenxSetup(app: Express) {
-    console.log('api setup for tokenx');
+    console.log('api-proxy setup for tokenx');
     setup(app, API_AUDIENCE);
 }
 
 export function azureSetup(app: Express) {
-    console.log('api setup for azure');
+    console.log('api-proxy setup for azure');
     setup(app, API_SCOPE);
 }
 
