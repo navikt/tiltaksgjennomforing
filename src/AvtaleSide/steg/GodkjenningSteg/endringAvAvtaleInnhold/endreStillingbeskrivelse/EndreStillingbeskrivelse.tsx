@@ -1,53 +1,66 @@
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import StillingsTittelVelger, { StillingOptions } from '@/AvtaleSide/steg/StillingSteg/StillingsTittelVelger';
 import useStilling from '@/AvtaleSide/steg/StillingSteg/useStilling';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
-import BEMHelper from '@/utils/bem';
 import { DialogDots } from '@navikt/ds-icons/cjs';
-import { Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import './EndreStillingbeskrivelse.less';
+import { Label, Link, RadioGroup } from '@navikt/ds-react';
+import React, { FunctionComponent, useState } from 'react';
 import AntallDagerInput from '@/AvtaleSide/steg/VarighetSteg/AntallDagerInput';
+import { LonnstilskuddFormaal, TiltaksType } from '@/types';
+import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
+import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg } from '@/messages';
+
+import styles from './EndreStillingbeskrivelse.module.less';
+
+const LTS_UTEN_SOMMERJOBB = [
+    'MIDLERTIDIG_LONNSTILSKUDD',
+    'VARIG_LONNSTILSKUDD',
+    'FIREARIG_LONNSTILSKUDD',
+] as Partial<TiltaksType>[];
 
 const EndreStillingbeskrivelse: FunctionComponent = () => {
-    const cls = BEMHelper('endreStillingbeskrivelse');
     const [modalApen, setModalApen] = useState(false);
 
-    const avtaleContext = useContext(AvtaleContext);
+    const { avtale, hentAvtale } = useAvtale();
 
-    const { valgtStilling, setValgtStilling } = useStilling(avtaleContext.avtale.gjeldendeInnhold);
-    const [arbeidsoppgaver, setArbeidsoppgaver] = useState(avtaleContext.avtale.gjeldendeInnhold.arbeidsoppgaver);
-    const [stillingsprosent, setStillingsprosent] = useState(avtaleContext.avtale.gjeldendeInnhold.stillingprosent);
-    const [antallDagerPerUke, setAntallDagerPerUke] = useState(avtaleContext.avtale.gjeldendeInnhold.antallDagerPerUke);
+    const { valgtStilling, setValgtStilling } = useStilling(avtale.gjeldendeInnhold);
+    const [arbeidsoppgaver, setArbeidsoppgaver] = useState(avtale.gjeldendeInnhold.arbeidsoppgaver);
+    const [stillingprosent, setStillingprosent] = useState(avtale.gjeldendeInnhold.stillingprosent);
+    const [antallDagerPerUke, setAntallDagerPerUke] = useState(avtale.gjeldendeInnhold.antallDagerPerUke);
+    const [lonnstilskuddFormaal, setLonnstilskuddFormaal] = useState(avtale.gjeldendeInnhold.lonnstilskuddFormaal);
 
     const endreStilling = async (): Promise<void> => {
         const stillingInfo: EndreStilling = {
             stillingstittel: valgtStilling?.value,
             stillingKonseptId: valgtStilling?.konseptId,
             stillingStyrk08: valgtStilling?.styrk08,
-            arbeidsoppgaver: arbeidsoppgaver,
-            stillingprosent: stillingsprosent,
-            antallDagerPerUke: antallDagerPerUke,
+            arbeidsoppgaver,
+            stillingprosent,
+            antallDagerPerUke,
+            lonnstilskuddFormaal,
         };
-        await oppdatereStillingbeskrivelse(avtaleContext.avtale, stillingInfo);
-        await avtaleContext.hentAvtale();
+        await oppdatereStillingbeskrivelse(avtale, stillingInfo);
+        await hentAvtale();
         setModalApen(false);
     };
 
     const lukkModal = () => {
         const values: StillingOptions = {
-            konseptId: avtaleContext.avtale.gjeldendeInnhold.stillingKonseptId || 0,
-            label: avtaleContext.avtale.gjeldendeInnhold.stillingstittel || '',
-            styrk08: avtaleContext.avtale.gjeldendeInnhold.stillingStyrk08 || 0,
-            value: avtaleContext.avtale.gjeldendeInnhold.stillingstittel || '',
+            konseptId: avtale.gjeldendeInnhold.stillingKonseptId || 0,
+            label: avtale.gjeldendeInnhold.stillingstittel || '',
+            styrk08: avtale.gjeldendeInnhold.stillingStyrk08 || 0,
+            value: avtale.gjeldendeInnhold.stillingstittel || '',
         };
         setValgtStilling(values);
-        setArbeidsoppgaver(avtaleContext.avtale.gjeldendeInnhold.arbeidsoppgaver);
+        setArbeidsoppgaver(avtale.gjeldendeInnhold.arbeidsoppgaver);
         setModalApen(false);
     };
+
+    const erLtsUtenSommerjobb = LTS_UTEN_SOMMERJOBB.includes(avtale.tiltakstype);
+    const erAvtaleInngatt = !!avtale.avtaleInngått;
 
     return (
         <>
@@ -58,15 +71,15 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 }}
                 href="#"
                 role="menuitem"
-                className={cls.element('lenke')}
+                className={styles.lenke}
             >
                 <div aria-hidden={true}>
-                    <DialogDots className={cls.element('ikon')} />
+                    <DialogDots className={styles.ikon} />
                 </div>
                 Endre stillingsbeskrivelse
             </Link>
             <BekreftelseModal
-                style={{ minWidth: '35rem' }}
+                className={styles.modal}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
                 oversiktTekst="Endre stillingsbeskrivelse"
@@ -74,16 +87,18 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 bekreftOnClick={endreStilling}
                 lukkModal={lukkModal}
             >
-                <div className={cls.element('innhold')}>
-                    <div className={cls.element('stillingstittel-wrapper')}>
-                        <label htmlFor="stillinginput">Stilling/yrke (kun ett yrke kan legges inn)</label>
+                <div>
+                    <div className={styles.stillingstittel}>
+                        <Label className={styles.label} htmlFor="stillinginput">
+                            Stilling/yrke (kun ett yrke kan legges inn)
+                        </Label>
                         <StillingsTittelVelger
                             id="stillinginput"
                             valgtStilling={valgtStilling}
                             setValgtStilling={setValgtStilling}
                         />
                     </div>
-                    <div className={cls.element('stilling-beskrivelse')}>
+                    <div className={styles.stillingBeskrivelse}>
                         <PakrevdTextarea
                             label="Beskriv arbeidsoppgavene som inngår i stillingen"
                             verdi={arbeidsoppgaver}
@@ -92,11 +107,11 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                             feilmelding="arbeidsoppgave er påkrevd"
                         />
                     </div>
-                    <div className={cls.element('stilling-input-wrapper')}>
+                    <div className={styles.stillingInput}>
                         <StillingsprosentInput
                             label="Stillingsprosent"
-                            verdi={stillingsprosent}
-                            settVerdi={(verdi) => setStillingsprosent(verdi)}
+                            verdi={stillingprosent}
+                            settVerdi={(verdi) => setStillingprosent(verdi)}
                         />
                         <AntallDagerInput
                             label="Antall dager per uke"
@@ -104,6 +119,27 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                             settVerdi={(verdi) => setAntallDagerPerUke(verdi)}
                         />
                     </div>
+                    {erLtsUtenSommerjobb && !erAvtaleInngatt && (
+                        <RadioGroup
+                            legend="Hva er formålet med avtalen?"
+                            className={styles.lonnstilskuddFormaal}
+                            value={lonnstilskuddFormaal ?? ''}
+                        >
+                            {(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'] as LonnstilskuddFormaal[]).map((formaal) => {
+                                return (
+                                    <RadioPanel
+                                        key={formaal}
+                                        onChange={() => setLonnstilskuddFormaal(formaal)}
+                                        checked={formaal === lonnstilskuddFormaal}
+                                        name="lonnstilskuddFormaal"
+                                        value={formaal}
+                                    >
+                                        {lonnstilskuddFormaalMsg[formaal]}
+                                    </RadioPanel>
+                                );
+                            })}
+                        </RadioGroup>
+                    )}
                 </div>
             </BekreftelseModal>
         </>

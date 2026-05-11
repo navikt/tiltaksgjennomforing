@@ -1,15 +1,16 @@
 import { handterFeil } from '@/utils/apiFeilUtils';
+import clx from 'classnames';
 import BEMHelper from '@/utils/bem';
 import { Alert, Button, Heading, Modal } from '@navikt/ds-react';
 import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import LagreOgAvbrytKnapp from '../lagreOgAvbrytKnapp/LagreOgAvbrytKnapp';
 import VarselTegnForModal from './VarselTegnForModal';
 import './bekreftelseModal.less';
-import { Status } from '@/types/nettressurs';
 
 const cls = BEMHelper('bekreftelseModal');
 
 interface Props {
+    className?: string;
     modalIsOpen: boolean;
     bekreftOnClick?: () => Promise<any>;
     lukkModal: () => void;
@@ -59,7 +60,7 @@ const BekreftelseModal: React.FunctionComponent<Props> = (props) => {
                 ref={ref}
                 style={props.style}
                 open={props.modalIsOpen}
-                className={cls.element('modal-container')}
+                className={clx(cls.element('modal-container'), props.className)}
                 aria-label={'bekrefte valgt handling'}
                 onClose={props.lukkModal}
             >
