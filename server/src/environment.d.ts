@@ -2,7 +2,7 @@ declare global {
     namespace NodeJS {
         interface ProcessEnv {
             AAD_REDIRECT_URL: string;
-            APIGW_URL: string;
+            API_URL: string;
             API_AUDIENCE: string;
             DECORATOR_EXTERNAL_URL: string;
             ENABLE_EXTERNAL_MENU: string;
@@ -15,7 +15,7 @@ declare global {
             NOTIFIKASJON_AUDIENCE: string;
             NOTIFIKASJON_URL: string;
             STILLINGSTITLER_URL: string;
-            TILTAK_PROXY_API_SCOPE: string;
+            API_SCOPE: string;
         }
     }
 }

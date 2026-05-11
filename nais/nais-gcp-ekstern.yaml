@@ -19,8 +19,8 @@ spec:
   env:
     - name: MILJO
       value: {{miljo}}
-    - name: APIGW_URL
-      value: '{{{api-gw-url}}}'
+    - name: API_URL
+      value: 'https://{{{api-host}}}'
     - name: LOGIN_URL
       value: '{{{login-url}}}'
     - name: LOGOUT_URL
@@ -59,9 +59,6 @@ spec:
   accessPolicy:
     outbound:
       rules:
-        - application: tiltak-proxy
-          namespace: arbeidsgiver
-          cluster: '{{{proxy-cluster}}}'
         - application: tiltak-stillingstitler
           namespace: arbeidsgiver
         - application: notifikasjon-bruker-api
@@ -69,4 +66,4 @@ spec:
         - application: nav-dekoratoren
           namespace: personbruker
       external:
-        - host: tiltak-proxy.{{{proxy-cluster}}}-pub.nais.io
+        - host: {{api-host}}
