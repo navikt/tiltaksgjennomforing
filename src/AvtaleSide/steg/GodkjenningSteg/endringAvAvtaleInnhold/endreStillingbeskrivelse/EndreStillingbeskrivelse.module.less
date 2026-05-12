@@ -1,0 +1,52 @@
+.label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.modal {
+    min-width: 35rem;
+}
+
+.stillingstittel {
+    margin: 2rem 0;
+
+    :global(.stillingsTittelVelger) {
+        margin-top: 0.5rem;
+    }
+}
+
+.stilling-beskrivelse {
+    margin-bottom: 2rem;
+}
+
+.ikon {
+    margin-right: 0.5rem;
+}
+
+.lenke {
+    display: flex;
+    align-items: center;
+}
+
+.stilling-input {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    :global(.navds-form-field) {
+        width: 80%;
+
+        & > input {
+            width: 90%;
+        }
+    }
+}
+
+.lonnstilskudd-formaal {
+    margin-bottom: 1.75rem;
+
+    > :global(.navds-radio-buttons) {
+        display: flex;
+    }
+}
