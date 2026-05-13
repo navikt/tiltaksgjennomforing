@@ -9,10 +9,11 @@ import { RadioGroup, Label } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import StillingsTittelVelger from './StillingsTittelVelger';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import { LonnstilskuddFormaal, Stillingstype, TiltaksType } from '@/types';
-import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg, stillingstype } from '@/messages';
+import type { LonnstilskuddFormaal, TiltaksType } from '@/types';
+import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg } from '@/messages';
 
 import styles from './StillingsSteg.module.less';
+import Stillingstype, { finnAvtalensVarighet } from './Stillingstype';
 
 const LTS_UTEN_SOMMERJOBB = [
     'MIDLERTIDIG_LONNSTILSKUDD',
@@ -49,30 +50,12 @@ const StillingSteg: FunctionComponent = () => {
                     feilmelding="Beskrivelse av arbeidsoppgavene er påkrevd"
                 />
                 {(erLtsUtenSommerjobb || erVtao) && (
-                    <>
-                        <div>
-                            <RadioGroup
-                                legend="Er stillingen fast eller midlertidig?"
-                                className={styles.stillingstypeRadio}
-                                value={avtale.gjeldendeInnhold.stillingstype ?? ''}
-                            >
-                                {['FAST', 'MIDLERTIDIG'].map((str) => {
-                                    const type = str as Stillingstype;
-                                    return (
-                                        <RadioPanel
-                                            key={type}
-                                            onChange={() => settAvtaleInnholdVerdier({ stillingstype: type })}
-                                            checked={avtale.gjeldendeInnhold.stillingstype === type}
-                                            name="ansettelsestype"
-                                            value={type}
-                                        >
-                                            {stillingstype[type]}
-                                        </RadioPanel>
-                                    );
-                                })}
-                            </RadioGroup>
-                        </div>
-                    </>
+                    <Stillingstype
+                        avtaleInnhold={avtale.gjeldendeInnhold}
+                        tiltakstype={avtale.tiltakstype}
+                        className={styles.stillingstypeRadio}
+                        settVerdi={(verdi) => settAvtaleInnholdVerdi('stillingstype', verdi)}
+                    />
                 )}
                 {erLtsUtenSommerjobb && (
                     <>
