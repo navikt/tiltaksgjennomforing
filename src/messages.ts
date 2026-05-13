@@ -91,7 +91,11 @@ export const tiltakstypeTekst: { [key in TiltaksType]: string } = {
     FIREARIG_LONNSTILSKUDD: 'fireårig lønnstilskudd for unge',
 };
 
-export const tiltakstypeTekstKort: { [key in TiltaksType]: string } = { ...tiltakstypeTekst, VTAO: 'VTA-O' };
+export const tiltakstypeTekstKort: { [key in TiltaksType]: string } = {
+    ...tiltakstypeTekst,
+    VTAO: 'VTA-O',
+    FIREARIG_LONNSTILSKUDD: 'fireårig lønnstilskudd',
+};
 
 export const avtaleTittel: { [key in TiltaksType]: string } = {
     ARBEIDSTRENING: 'Avtale om arbeidstrening',
