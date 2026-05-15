@@ -13,7 +13,7 @@ import type { LonnstilskuddFormaal, TiltaksType } from '@/types';
 import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg } from '@/messages';
 
 import styles from './StillingsSteg.module.less';
-import Stillingstype, { finnAvtalensVarighet } from './Stillingstype';
+import Stillingstype from './Stillingstype';
 
 const LTS_UTEN_SOMMERJOBB = [
     'MIDLERTIDIG_LONNSTILSKUDD',

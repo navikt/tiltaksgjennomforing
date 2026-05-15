@@ -8,7 +8,7 @@ import type { Avtaleinnhold, Stillingstype, TiltaksType } from '@/types';
 import { stillingstype } from '@/messages';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { differenceInYears } from 'date-fns';
+import { addYears, isBefore } from 'date-fns';
 
 interface Props {
     tiltakstype?: TiltaksType;
@@ -17,27 +17,35 @@ interface Props {
     settVerdi: (verdi?: Stillingstype) => void;
 }
 
-export const finnAvtalensVarighet = (innhold: Avtaleinnhold) => {
-    const { startDato, sluttDato } = innhold;
-    return startDato && sluttDato ? differenceInYears(sluttDato, startDato) : undefined;
+const refineStillingstype = (startDato?: string, sluttDato?: string) => (val: Stillingstype) => {
+    if (!startDato || !sluttDato) {
+        return true;
+    }
+    return isBefore(sluttDato, addYears(startDato, val === 'MIDLERTIDIG' ? 2 : 4));
 };
 
-const lagSchema = (durationYears?: number) =>
-    z.object({
+const lagSchema = (tiltakstype?: TiltaksType, startDato?: string, sluttDato?: string) => {
+    const stillingstypeEnum = z.enum(['FAST', 'MIDLERTIDIG'], { required_error: 'Feltet er påkrevd' });
+
+    if (tiltakstype !== 'FIREARIG_LONNSTILSKUDD') {
+        return z.object({ stillingstype: z.preprocess((val) => val ?? undefined, stillingstypeEnum) });
+    }
+
+    return z.object({
         stillingstype: z.preprocess(
             (val) => val ?? undefined,
-            z
-                .enum(['FAST', 'MIDLERTIDIG'], { required_error: 'Feltet er påkrevd' })
+            stillingstypeEnum
                 .refine(
-                    (val) => !(val === 'MIDLERTIDIG' && durationYears && durationYears > 2),
+                    refineStillingstype(startDato, sluttDato),
                     'Avtalen kan ikke ha varighet over 2 år ved midlertidig stilling',
                 )
                 .refine(
-                    (val) => !(val === 'FAST' && durationYears && durationYears > 4),
+                    refineStillingstype(startDato, sluttDato),
                     'Avtalen kan ikke ha varighet over 4 år ved fast stilling',
                 ),
         ),
     });
+};
 
 type Schema = z.infer<ReturnType<typeof lagSchema>>;
 
@@ -45,14 +53,7 @@ const Stillingstype = (props: Props) => {
     const { tiltakstype, avtaleInnhold, settVerdi, className } = props;
 
     const { startDato, sluttDato } = avtaleInnhold || {};
-    const avtaleVarighet = useMemo(() => {
-        if (tiltakstype !== 'FIREARIG_LONNSTILSKUDD' || !startDato || !sluttDato) {
-            return undefined;
-        }
-        return differenceInYears(sluttDato, startDato);
-    }, [tiltakstype, startDato, sluttDato]);
-
-    const schema = lagSchema(avtaleVarighet);
+    const schema = useMemo(() => lagSchema(tiltakstype, startDato, sluttDato), [tiltakstype, startDato, sluttDato]);
 
     const { control, formState } = useForm<Schema>({
         defaultValues: {
