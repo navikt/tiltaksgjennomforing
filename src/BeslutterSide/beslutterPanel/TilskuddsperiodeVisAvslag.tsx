@@ -43,7 +43,7 @@ const TilskuddsperiodeReturModal: FunctionComponent<{ tiltakstype: TiltaksType }
                 >
                     {Object.entries(tilskuddsperiodeReturÅrsakTekst)
                         .filter(([kode]) => {
-                            if (tiltakstype === 'VTAO') {
+                            if (['VTAO', 'FIREARIG_LONNSTILSKUDD'].includes(tiltakstype)) {
                                 return kode !== 'FEIL_I_PROSENTSATS';
                             }
                             return true;
