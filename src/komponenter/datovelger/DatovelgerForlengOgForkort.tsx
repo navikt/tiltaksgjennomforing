@@ -1,6 +1,6 @@
 import { DatePicker, Fieldset, useDatepicker } from '@navikt/ds-react';
 import { formaterDato, formaterDatoHvisDefinert } from '@/utils/datoUtils';
-import { ISODateString } from '@/AvtaleSide/steg/VarighetSteg/AvtaleMinMaxDato/AvtaleMinMaxDato';
+import { ISODateString } from './useAvtaleMinMaxDato';
 import { addDays, format } from 'date-fns';
 
 interface Props {

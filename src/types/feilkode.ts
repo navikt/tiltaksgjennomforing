@@ -48,7 +48,8 @@ export type Feilkode =
     | 'SOMMERJOBB_FOR_GAMMEL'
     | 'SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO'
     | 'FIREARIG_LONNSTILSKUDD_FOR_TIDLIG_OPPSTART'
-    | 'FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET'
+    | 'VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_4_AAR'
+    | 'VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_2_AAR'
     | 'FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO'
     | 'FIREARIG_LONNSTILSKUDD_FOR_SEN_SLUTTDATO'
     | 'DELTAKER_67_AAR'
@@ -160,7 +161,10 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     SOMMERJOBB_FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
     SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO: 'Deltaker kan ikke ha fylt 30 år før startdatoen til dette tiltaket',
     FIREARIG_LONNSTILSKUDD_FOR_TIDLIG_OPPSTART: 'Fireårig lønnstilskudd for unge kan tidligst starte 01.08.2026',
-    FIREARIG_LONNSTILSKUDD_FOR_LANG_VARIGHET: 'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 4 år',
+    VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_4_AAR:
+        'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 4 år ved fast stilling',
+    VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_2_AAR:
+        'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 2 år ved midlertidig stilling',
     FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO:
         'Deltaker kan ikke være eldre enn 30 år ved oppstart av tiltaket',
     FIREARIG_LONNSTILSKUDD_FOR_SEN_SLUTTDATO:

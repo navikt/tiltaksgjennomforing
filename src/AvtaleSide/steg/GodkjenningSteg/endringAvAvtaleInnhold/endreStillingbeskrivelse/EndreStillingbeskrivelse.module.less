@@ -1,10 +1,16 @@
+@import (reference) '../../../../../tiltak_variabler.less';
+
 .label {
     display: inline-block;
     margin-bottom: 0.5rem;
 }
 
 .modal {
-    min-width: 35rem;
+    max-width: 40rem;
+
+    @media (min-width: @screen-sm-min) {
+        width: 40rem;
+    }
 }
 
 .stillingstittel {
@@ -43,7 +49,8 @@
     }
 }
 
-.lonnstilskudd-formaal {
+.lonnstilskudd-formaal,
+.stillingstype {
     margin-bottom: 1.75rem;
 
     > :global(.navds-radio-buttons) {
