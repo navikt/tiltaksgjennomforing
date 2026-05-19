@@ -8,6 +8,8 @@ import {
     differenceInHours,
     isAfter,
     addDays,
+    add,
+    sub,
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
@@ -126,4 +128,28 @@ export const beregnDagenEtterOgFormater = (dato: string | Date, format: string =
     // behandlingsdato for første tilskuddsperiode får en hardkodet dato for å kunne behandles, vi ønsker ikke å vise denne
     if (dato === '-999999999-01-01') return '';
     return formaterDato(addDays(dato, 1), format);
+};
+
+export const datoPluss = (dato: string, duration: Duration): string | undefined => {
+    try {
+        return format(add(addDays(dato, -1), duration), 'yyyy-MM-dd');
+    } catch (e) {
+        return undefined;
+    }
+};
+
+export const datoMinus = (dato: string, duration: Duration): string | undefined => {
+    try {
+        return format(sub(addDays(dato, 1), duration), 'yyyy-MM-dd');
+    } catch (e) {
+        return undefined;
+    }
+};
+
+export const datoFraDagensDato = (duration: Duration): string | undefined => {
+    try {
+        return format(add(addDays(new Date(), -1), duration), 'yyyy-MM-dd');
+    } catch (e) {
+        return undefined;
+    }
 };
