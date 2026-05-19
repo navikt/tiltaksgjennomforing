@@ -14,6 +14,7 @@ import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg } from '@/messages';
 
 import styles from './EndreStillingbeskrivelse.module.less';
+import Stillingstype from '@/AvtaleSide/steg/StillingSteg/Stillingstype';
 
 const LTS_UTEN_SOMMERJOBB = [
     'MIDLERTIDIG_LONNSTILSKUDD',
@@ -31,6 +32,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     const [stillingprosent, setStillingprosent] = useState(avtale.gjeldendeInnhold.stillingprosent);
     const [antallDagerPerUke, setAntallDagerPerUke] = useState(avtale.gjeldendeInnhold.antallDagerPerUke);
     const [lonnstilskuddFormaal, setLonnstilskuddFormaal] = useState(avtale.gjeldendeInnhold.lonnstilskuddFormaal);
+    const [stillingstype, setStillingstype] = useState(avtale.gjeldendeInnhold.stillingstype);
 
     const endreStilling = async (): Promise<void> => {
         const stillingInfo: EndreStilling = {
@@ -41,6 +43,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
             stillingprosent,
             antallDagerPerUke,
             lonnstilskuddFormaal,
+            stillingstype,
         };
         await oppdatereStillingbeskrivelse(avtale, stillingInfo);
         await hentAvtale();
@@ -57,11 +60,13 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         setValgtStilling(values);
         setArbeidsoppgaver(avtale.gjeldendeInnhold.arbeidsoppgaver);
         setLonnstilskuddFormaal(avtale.gjeldendeInnhold.lonnstilskuddFormaal);
+        setStillingstype(avtale.gjeldendeInnhold.stillingstype);
         setModalApen(false);
     };
 
-    const erLtsUtenSommerjobb = LTS_UTEN_SOMMERJOBB.includes(avtale.tiltakstype);
     const erAvtaleInngatt = !!avtale.avtaleInngått;
+    const erLtsUtenSommerjobb = LTS_UTEN_SOMMERJOBB.includes(avtale.tiltakstype);
+    const erVtao = 'VTAO' === avtale.tiltakstype;
 
     return (
         <>
@@ -120,6 +125,14 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                             settVerdi={(verdi) => setAntallDagerPerUke(verdi)}
                         />
                     </div>
+                    {(erLtsUtenSommerjobb || erVtao) && (
+                        <Stillingstype
+                            avtaleInnhold={avtale.gjeldendeInnhold}
+                            tiltakstype={avtale.tiltakstype}
+                            className={styles.stillingstype}
+                            settVerdi={(verdi) => setStillingstype(verdi)}
+                        />
+                    )}
                     {erLtsUtenSommerjobb && !erAvtaleInngatt && (
                         <RadioGroup
                             legend="Hva er formålet med avtalen?"
