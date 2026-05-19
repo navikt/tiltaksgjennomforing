@@ -40,27 +40,26 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 </BodyShort>
                 <HvaMenesMedDette />
                 <Manedslonn cls={cls} />
-                <Row className={cls.element('rad')}>
-                    <Column md="8" className={cls.element('feriepenger')}>
+                <ObligatoriskTjenestepensjon
+                    sats={avtale.gjeldendeInnhold.otpSats}
+                    onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                />
+                <VerticalSpacer rem={1.5} />
+                <Row>
+                    <Column md="5">
+                        <Arbeidsgiveravgift
+                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                        />
+                    </Column>
+                    <Column md="5">
                         <Feriepenger
                             sats={avtale.gjeldendeInnhold.feriepengesats}
                             onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
                         />
                     </Column>
                 </Row>
-                <ObligatoriskTjenestepensjon
-                    sats={avtale.gjeldendeInnhold.otpSats}
-                    onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
-                />
                 <VerticalSpacer rem={2} />
-                <Row className={cls.element('rad')}>
-                    <Column md="8" className={cls.element('arbeidsgiveravgift')}>
-                        <Arbeidsgiveravgift
-                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
-                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
-                        />
-                    </Column>
-                </Row>
                 <Row>
                     <Column md="12">
                         <KidOgKontonummer />
