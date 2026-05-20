@@ -64,7 +64,6 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
         setModalApen(false);
     };
 
-    const erAvtaleInngatt = !!avtale.avtaleInngått;
     const erLtsUtenSommerjobb = LTS_UTEN_SOMMERJOBB.includes(avtale.tiltakstype);
     const erVtao = 'VTAO' === avtale.tiltakstype;
 
@@ -133,7 +132,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                             settVerdi={(verdi) => setStillingstype(verdi)}
                         />
                     )}
-                    {erLtsUtenSommerjobb && !erAvtaleInngatt && (
+                    {erLtsUtenSommerjobb && (
                         <RadioGroup
                             legend="Hva er formålet med avtalen?"
                             className={styles.lonnstilskuddFormaal}
