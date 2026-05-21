@@ -106,7 +106,8 @@ const AnnullerAvtaleModal: FunctionComponent<Props> = (props) => {
                     <div>
                         {annullertGrunn === 'Annet' && (
                             <PakrevdTextarea
-                                label=""
+                                label="Begrunnelse for annullering av avtale"
+                                hideLabel
                                 verdi={annetGrunn}
                                 placeholder="Begrunnelse (påkrevd)"
                                 settVerdi={(verdi) => setAnnetGrunn(verdi)}

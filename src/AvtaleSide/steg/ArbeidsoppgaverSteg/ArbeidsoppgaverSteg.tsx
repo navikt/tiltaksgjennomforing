@@ -18,7 +18,8 @@ const ArbeidsoppgaverSteg: FunctionComponent = (props) => {
             </BodyShort>
             <VerticalSpacer rem={2} />
             <PakrevdTextarea
-                label=""
+                label="Hvilke arbeidsoppgaver skal utføres?"
+                hideLabel
                 verdi={avtaleContext.avtale.gjeldendeInnhold.arbeidsoppgaver || ''}
                 settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('arbeidsoppgaver', verdi)}
                 maxLengde={1000}

@@ -3,13 +3,13 @@ import RelasjonHjelpetekst from '@/AvtaleSide/steg/KontaktInformasjonSteg/Arbeid
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import PenFillIkon from '@/assets/ikoner/pencil-fill.svg?react';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Heading, Label, RadioGroup, Tag } from '@navikt/ds-react';
+import { BodyShort, Heading, Label, Tag } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import './Relasjoner.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import RadioBlocks from '@/komponenter/radioblocks/RadioBlocks';
 
 const cls = BEMHelper('relasjoner');
 
@@ -54,37 +54,25 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
             <VerticalSpacer rem={1} />
             <div className={cls.element('familietilknytning-valg')} id="familievalg">
                 {isKanEndreFamilierelasjon ? (
-                    <RadioGroup
-                        legend="Familierelasjoner"
-                        value={avtale.gjeldendeInnhold.harFamilietilknytning}
-                        className={cls.element('familie-relasjoner')}
-                    >
-                        <div className={cls.element('familie-relasjoner-valg')}>
-                            <RadioPanel
-                                className={cls.element('radioknapp')}
-                                name="familievalg"
-                                checked={harFamilietilknytning}
-                                value={true}
-                                onChange={() => settAvtaleVerdier({ harFamilietilknytning: true })}
-                            >
-                                Ja
-                            </RadioPanel>
-                            <RadioPanel
-                                className={cls.element('radioknapp')}
-                                name="familievalg"
-                                checked={harFamilietilknytning === false}
-                                value={false}
-                                onChange={() => {
-                                    settAvtaleVerdier({
-                                        familietilknytningForklaring: undefined,
-                                        harFamilietilknytning: false,
-                                    });
-                                }}
-                            >
-                                Nei
-                            </RadioPanel>
-                        </div>
-                    </RadioGroup>
+                    <>
+                        <RadioBlocks
+                            legend="Familierelasjoner"
+                            values={{
+                                JA: 'Ja',
+                                NEI: 'Nei',
+                            }}
+                            selectedValue={harFamilietilknytning ? 'JA' : 'NEI'}
+                            onChange={(e) => {
+                                const verdi = e.target.value === 'JA';
+                                settAvtaleVerdier({
+                                    familietilknytningForklaring: verdi ? familietilknytningForklaring : undefined,
+                                    harFamilietilknytning: verdi,
+                                });
+                            }}
+                            direction="row"
+                        />
+                        <VerticalSpacer rem={1} />
+                    </>
                 ) : (
                     <div className={cls.element('svar')}>
                         {harFamilietilknytningSomJaNeiSvar(harFamilietilknytning)}

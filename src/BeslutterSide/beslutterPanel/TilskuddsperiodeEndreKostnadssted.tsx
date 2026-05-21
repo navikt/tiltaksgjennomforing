@@ -4,8 +4,8 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
 import { useHentEnhet } from '@/services/use-rest';
-import styles from './beslutterPanel.module.less';
-import { BodyShort, Box } from '@navikt/ds-react';
+import styles from './tilskuddsperiodeEndreKostnadssted.module.less';
+import { BodyShort } from '@navikt/ds-react';
 
 const getFeilmelding = (verdi?: string, enhet?: string) => {
     if (!verdi?.match(/^\d{4}$/)) {
@@ -39,7 +39,7 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
     }
 
     return (
-        <div className={styles.felt}>
+        <div className={styles.inputRad}>
             <PakrevdInput
                 className={styles.kostnadssted}
                 size="medium"

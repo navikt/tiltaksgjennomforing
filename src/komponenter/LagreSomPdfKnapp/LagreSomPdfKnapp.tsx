@@ -12,7 +12,7 @@ const LagreSomPdfKnapp: FunctionComponent<{ avtaleId: string }> = (props) => {
             }}
             style={{ padding: '0.75rem 0.75rem' }}
         >
-            <FileIcon style={{ display: 'inline-block', marginRight: '0.5rem' }} />
+            <FileIcon style={{ display: 'inline-block', marginRight: '0.5rem', scale: '1.5' }} />
             <span>Lagre som PDF</span>
         </Button>
     );

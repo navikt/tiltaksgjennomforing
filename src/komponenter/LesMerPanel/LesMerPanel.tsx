@@ -34,7 +34,7 @@ const LesMerPanel: React.FunctionComponent<PropsWithChildren<Props>> = ({
                 </InfoToggler>
             </div>
             <div className="les-mer-panel__innhold" aria-expanded={åpen} aria-hidden={!åpen}>
-                <>{children}</>
+                <div>{children}</div>
             </div>
         </div>
     );

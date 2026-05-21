@@ -1,10 +1,5 @@
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
-
-import {
-    Miljø,
-    NotifikasjonWidget,
-    NotifikasjonWidgetProvider as Provider,
-} from '@navikt/arbeidsgiver-notifikasjon-widget';
+import { Miljø, NotifikasjonWidgetProvider as Provider } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { basename } from '@/Router';
 

@@ -23,13 +23,17 @@ const AvtaleOversiktArbeidsgiverInformasjon: React.FC<Props> = ({ rolle, cls }: 
                 </ExpansionCard.Description>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-                <Label size="small">Avtalen du leter etter er opprettet på en annen virksomhet</Label>
+                <BodyShort size="small" weight="semibold">
+                    Avtalen du leter etter er opprettet på en annen virksomhet
+                </BodyShort>
                 <BodyShort size="small">
                     Det kan være at avtalen du leter etter er opprettet på en annen virskomhet. Du kan prøve å bytte
                     virksomhet i virksomhetsvelgeren oppe til høyre på skjermen.
                 </BodyShort>
                 <VerticalSpacer rem={1} />
-                <Label size="small">Du mangler tilgang til rett avtaletype for den virksomheten du har valgt.</Label>
+                <BodyShort size="small" weight="semibold">
+                    Du mangler tilgang til rett avtaletype for den virksomheten du har valgt.
+                </BodyShort>
                 <BodyShort size="small">Da kan du be om tilgang i Altinn.</BodyShort>
             </ExpansionCard.Content>
         </ExpansionCard>

@@ -5,11 +5,10 @@ import SelectInput from '@/komponenter/form/SelectInput';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
 import { ArbeidsAvgiftSats, Beregningsgrunnlag, FerieSatser, Varighet } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Link } from '@navikt/ds-react';
+import { Link, Select } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import './EndreTilskuddsberegning.less';
 import { formaterNorskeTall, parsProsentFraInput } from '@/utils';
@@ -20,8 +19,8 @@ export type EndreBeregning = Pick<
     'manedslonn' | 'otpSats' | 'feriepengesats' | 'arbeidsgiveravgift' | 'stillingprosent' | 'lonnstilskuddProsent'
 >;
 
-const ARBEIDSGIVER_AVGIFT_SATSER: ArbeidsAvgiftSats[] = [0.141, 0.106, 0.064, 0.051, 0.079, 0];
-const FERIE_SATSER: FerieSatser[] = [0, 0.12, 0.143, 0.102, 0.125];
+const ARBEIDSGIVER_AVGIFT_SATSER: ArbeidsAvgiftSats[] = [0.141, 0.106, 0.079, 0.064, 0.051, 0];
+const FERIE_SATSER: FerieSatser[] = [0.143, 0.125, 0.12, 0.102, 0];
 
 function getAvgiftsatserForRadioValg(satser: number[]): Array<{ label: string; value: string }> {
     return satser.map((sats: number) => ({
@@ -110,20 +109,24 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                         onChange={(event: any) => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
                         min={0}
                     />
-                    <div className={cls.element('radioPanel')}>
-                        <BodyShort size="small" className={cls.element('radioPanel-tittel')}>
-                            Velg sats for feriepenger som arbeidstaker skal ha
-                        </BodyShort>
-                        <RadioPanelGruppeHorisontal
-                            radios={getAvgiftsatserForRadioValg(FERIE_SATSER)}
-                            name="feriepengesats"
-                            checked={nyBeregning.feriepengesats + ''}
-                            legend=""
-                            onChange={(event: React.SyntheticEvent<EventTarget>, verdi: string) =>
-                                settNyBeregningsverdi('feriepengesats', parseFloat(verdi))
-                            }
-                        />
-                    </div>
+
+                    <VerticalSpacer rem={1} />
+
+                    <Select
+                        label="Velg sats for feriepenger som arbeidstaker skal ha"
+                        value={nyBeregning.feriepengesats}
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                            settNyBeregningsverdi('feriepengesats', parseFloat(event.target.value))
+                        }
+                    >
+                        {getAvgiftsatserForRadioValg(FERIE_SATSER).map((radio) => (
+                            <option key={radio.label} value={radio.value}>
+                                {radio.label}
+                            </option>
+                        ))}
+                    </Select>
+
+                    <VerticalSpacer rem={1} />
 
                     <ProsentInput
                         size="medium"

@@ -9,7 +9,7 @@ import { formaterDato, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { Alert, Detail, Heading } from '@navikt/ds-react';
 import { addDays, differenceInDays, endOfDay, max } from 'date-fns';
 import React, { useContext } from 'react';
-import styles from './Banner.module.less';
+import styles from './banner.module.less';
 
 interface Props {
     tekst: string;

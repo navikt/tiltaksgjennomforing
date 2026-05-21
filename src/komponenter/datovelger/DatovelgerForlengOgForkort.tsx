@@ -40,7 +40,7 @@ const DatovelgerForlengOgForkort = (props: Props) => {
     return (
         <Fieldset legend={legend}>
             <DatePicker {...datepickerProps}>
-                <DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" label="" error={error} />
+                <DatePicker.Input {...inputProps} placeholder="dd.mm.åååå" label="Velg dato" hideLabel error={error} />
             </DatePicker>
         </Fieldset>
     );

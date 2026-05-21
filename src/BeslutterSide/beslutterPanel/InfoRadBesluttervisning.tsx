@@ -1,22 +1,19 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import React, { FunctionComponent, isValidElement } from 'react';
 import { Label, BodyShort } from '@navikt/ds-react';
-import styles from './beslutterPanel.module.less';
+import { labelVerdiRad } from './infoRadBesluttervisning.module.less';
+import classNames from 'classnames';
 
 interface Props {
     feltnavn: string;
-    verdi: string | number | React.ReactNode;
+    verdi: React.ReactNode;
     className?: string;
 }
 
 const InfoRadBesluttervisning: FunctionComponent<Props> = ({ feltnavn, verdi, className }: Props) => {
     return (
-        <div className={className ? className : styles.felt}>
+        <div className={classNames(labelVerdiRad, className)}>
             <Label>{feltnavn}</Label>
-            {typeof verdi === 'string' || typeof verdi === 'number' ? (
-                <BodyShort size="small">{verdi}</BodyShort>
-            ) : (
-                verdi
-            )}
+            {isValidElement(verdi) ? verdi : <BodyShort size="small">{verdi}</BodyShort>}
         </div>
     );
 };

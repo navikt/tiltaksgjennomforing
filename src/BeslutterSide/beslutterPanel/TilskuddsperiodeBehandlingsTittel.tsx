@@ -4,7 +4,7 @@ import { BodyShort, Heading } from '@navikt/ds-react';
 import type { TilskuddPeriodeStatus } from '@/types/avtale';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import styles from './beslutterPanel.module.less';
+import styles from './tilskuddsperiodeBehandlingsTittel.module.less';
 
 const TilskuddsperiodeBehandlingsTittel: FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);

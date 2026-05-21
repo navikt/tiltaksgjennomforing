@@ -5,11 +5,10 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import { Label } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import StillingsTittelVelger from './StillingsTittelVelger';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import type { TiltaksType } from '@/types';
-
 import styles from './StillingsSteg.module.less';
 import Stillingstype from './Stillingstype';
 import LonnstilskuddFormaal from './LonnstilskuddFormaal';
@@ -52,7 +51,6 @@ const StillingSteg: FunctionComponent = () => {
                     <Stillingstype
                         avtaleInnhold={avtale.gjeldendeInnhold}
                         tiltakstype={avtale.tiltakstype}
-                        className={styles.stillingstypeRadio}
                         settVerdi={(verdi) => settAvtaleInnholdVerdi('stillingstype', verdi)}
                     />
                 )}

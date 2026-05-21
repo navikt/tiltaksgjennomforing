@@ -53,9 +53,6 @@ importers:
       react:
         specifier: ^19.2.5
         version: 19.2.5
-      react-collapse:
-        specifier: ^5.1.1
-        version: 5.1.1(react@19.2.5)
       react-cookie:
         specifier: ^8.1.2
         version: 8.1.2(@types/react@19.2.14)(react@19.2.5)
@@ -2336,11 +2333,6 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==, tarball: https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz}
     engines: {node: '>=6'}
-
-  react-collapse@5.1.1:
-    resolution: {integrity: sha512-k6cd7csF1o9LBhQ4AGBIdxB60SUEUMQDAnL2z1YvYNr9KoKr+nDkhN6FK7uGaBd/rYrYfrMpzpmJEIeHRYogBw==, tarball: https://registry.npmjs.org/react-collapse/-/react-collapse-5.1.1.tgz}
-    peerDependencies:
-      react: '>=16.3.0'
 
   react-cookie@8.1.2:
     resolution: {integrity: sha512-S45Z1y1dHyYfLEI4bFKQICuP+SwJqTPWbdc2ZpE6aQSdjSVJAjUDfwTPq8B7BWieIsgyyEWMb/QOrudtwJMjXA==, tarball: https://registry.npmjs.org/react-cookie/-/react-cookie-8.1.2.tgz}
@@ -5037,10 +5029,6 @@ snapshots:
     optional: true
 
   punycode@2.3.1: {}
-
-  react-collapse@5.1.1(react@19.2.5):
-    dependencies:
-      react: 19.2.5
 
   react-cookie@8.1.2(@types/react@19.2.14)(react@19.2.5):
     dependencies:

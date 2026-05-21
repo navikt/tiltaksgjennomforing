@@ -6,7 +6,7 @@ import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import React, { useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import VerticalSpacer from '../layout/VerticalSpacer';
-import styles from './Banner.module.less';
+import styles from './banner.module.less';
 
 interface Props {
     tekst: string;
@@ -37,7 +37,7 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
                     <VirksomhetsvelgerBanner tittel={bedriftsmenyTittel}>
                         <Virksomhetsvelger
                             organisasjoner={innloggetBruker.altinnTilganger.hierarki}
-                            initValgtOrgnr={bedriftParam || valgtOrganisasjon || undefined}
+                            initValgtOrgnr={bedriftParam || valgtOrganisasjon}
                             onChange={(org) => byttetOrg?.(org.orgnr)}
                         />
                         <NotifikasjonWidget />

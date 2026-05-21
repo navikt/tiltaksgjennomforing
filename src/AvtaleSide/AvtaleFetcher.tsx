@@ -11,7 +11,7 @@ const AvtaleFetcher: FunctionComponent<PropsWithChildren> = (props) => {
     const [laster, setLaster] = useState<boolean>(true);
     const { avtaleId } = useParams<any>();
     const { hentAvtale } = useAvtale();
-    const ref = useRef<string | undefined>(undefined);
+    const ref = useRef<string>(undefined);
     const throwError = useAsyncError();
 
     useEffect(() => {

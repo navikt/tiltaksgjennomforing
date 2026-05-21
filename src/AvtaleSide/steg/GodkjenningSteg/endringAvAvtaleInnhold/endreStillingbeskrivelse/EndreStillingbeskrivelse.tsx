@@ -13,6 +13,7 @@ import { TiltaksType } from '@/types';
 import { ChatElipsisIcon } from '@navikt/aksel-icons';
 import styles from './EndreStillingbeskrivelse.module.less';
 import LonnstilskuddFormaal from '@/AvtaleSide/steg/StillingSteg/LonnstilskuddFormaal';
+import Stillingstype from '@/AvtaleSide/steg/StillingSteg/Stillingstype';
 
 const LTS_UTEN_SOMMERJOBB = [
     'MIDLERTIDIG_LONNSTILSKUDD',
@@ -125,6 +126,13 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                             settVerdi={(verdi) => setAntallDagerPerUke(verdi)}
                         />
                     </div>
+                    {(erLtsUtenSommerjobb || erVtao) && (
+                        <Stillingstype
+                            avtaleInnhold={avtale.gjeldendeInnhold}
+                            tiltakstype={avtale.tiltakstype}
+                            settVerdi={(verdi) => setStillingstype(verdi)}
+                        />
+                    )}
                     {erVarigEllerMidlertidigLts && (
                         <LonnstilskuddFormaal
                             tiltakstype={avtale.tiltakstype}

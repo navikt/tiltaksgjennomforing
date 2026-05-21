@@ -192,7 +192,8 @@ const ForkortAvtale: FunctionComponent = () => {
                     />
                     {watch('grunn') === 'Annet' && (
                         <Textarea
-                            label=""
+                            label="Begrunnelse"
+                            hideLabel
                             aria-label="Begrunnelse"
                             placeholder="Begrunnelse (påkrevd)"
                             error={formState.errors.annetGrunn?.message}

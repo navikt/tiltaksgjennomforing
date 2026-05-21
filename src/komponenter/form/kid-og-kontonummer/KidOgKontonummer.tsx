@@ -10,6 +10,7 @@ import { hentKontonummerForArbeidsgiver } from '@/services/rest-service';
 
 import styles from './KidOgKontonummer.module.less';
 import { WalletIcon } from '@navikt/aksel-icons';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     avtaleId: string;
@@ -66,6 +67,7 @@ const KidOgKontonummer = (props: Props) => {
                     </BodyShort>
                 </div>
             )}
+            <VerticalSpacer rem={1} />
             <div className={styles.kontonummer}>
                 <TextField
                     className={styles.kontonummerInput}

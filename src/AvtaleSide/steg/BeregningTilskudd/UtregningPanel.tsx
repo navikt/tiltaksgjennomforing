@@ -1,4 +1,3 @@
-import StillingsprosentIkon from '@/assets/ikoner/stillingsprosent.svg?react';
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper, { BEMWrapper } from '@/utils/bem';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
@@ -69,7 +68,7 @@ const UtregningPanel: FunctionComponent<Beregningsgrunnlag> = (props) => {
                     <Table.Body>
                         <Utregningsrad
                             className={cls.className}
-                            icon={<StillingsprosentIkon />}
+                            icon={<PercentIcon />}
                             label="Stillingsprosent"
                             operator={<PercentIcon />}
                             verdi={props.stillingprosent || 0}

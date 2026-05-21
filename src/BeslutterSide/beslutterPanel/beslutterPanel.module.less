@@ -17,27 +17,9 @@
     }
 }
 
-.felt {
+.avtalenummer {
     display: flex;
     gap: 0.5rem;
     align-items: center;
-}
-
-.tittel {
-    &:extend(.felt);
-    justify-content: space-between;
     grid-column: 1 / -1;
-}
-
-.avtalenummer {
-    &:extend(.felt);
-    grid-column: 1 / -1;
-}
-
-.kostnadssted {
-    &:extend(.felt);
-    & input {
-        padding: 0 0.5rem;
-        min-height: 2rem;
-    }
 }

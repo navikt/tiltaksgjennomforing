@@ -273,7 +273,8 @@ const AvtaleOversikt: FunctionComponent = () => {
                                             className={clsPagination.element('pagination')}
                                         />
                                         <Select
-                                            label=""
+                                            label="Gå til side"
+                                            hideLabel
                                             className={clsPagination.element('page-select')}
                                             onChange={(x) => endreFilter({ page: x.target.value })}
                                             value={pageNumber}

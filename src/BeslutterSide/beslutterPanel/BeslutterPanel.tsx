@@ -1,6 +1,4 @@
 import type { FunctionComponent } from 'react';
-import { useContext } from 'react';
-import { AvtaleContext } from '@/AvtaleProvider';
 import TilskuddsperiodeBehandlingsTittel from '@/BeslutterSide/beslutterPanel/TilskuddsperiodeBehandlingsTittel';
 import styles from './beslutterPanel.module.less';
 import InfoRadBesluttervisning from './InfoRadBesluttervisning';
@@ -8,16 +6,14 @@ import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
 import { formaterPeriode } from '@/utils/datoUtils';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import TilskuddsperiodeEndreKostnadssted from './TilskuddsperiodeEndreKostnadssted';
-import { Box, Label } from '@navikt/ds-react';
 import { useAvtaleKreverAktsomhet } from '@/services/use-rest';
-import Row from '@/komponenter/NavGrid/Row';
+import { useAvtale } from '@/AvtaleProvider';
 
 const BeslutterPanel: FunctionComponent = () => {
-    const { avtale } = useContext(AvtaleContext);
-    const gjeldendeTilskuddsperiode = avtale.gjeldendeTilskuddsperiode;
+    const { avtale } = useAvtale();
     const { data: aktsomhet } = useAvtaleKreverAktsomhet(avtale.id);
 
-    if (!gjeldendeTilskuddsperiode) {
+    if (!avtale.gjeldendeTilskuddsperiode) {
         return <div>Ingen tilskuddsperioder</div>;
     }
 
@@ -39,7 +35,10 @@ const BeslutterPanel: FunctionComponent = () => {
             <InfoRadBesluttervisning feltnavn="Arbeidsgiver" verdi={avtale.gjeldendeInnhold.bedriftNavn} />
             <InfoRadBesluttervisning
                 feltnavn="Periode"
-                verdi={formaterPeriode(gjeldendeTilskuddsperiode.startDato, gjeldendeTilskuddsperiode.sluttDato)}
+                verdi={formaterPeriode(
+                    avtale.gjeldendeTilskuddsperiode.startDato,
+                    avtale.gjeldendeTilskuddsperiode.sluttDato,
+                )}
             />
             <InfoRadBesluttervisning
                 feltnavn="Geografisk enhet"

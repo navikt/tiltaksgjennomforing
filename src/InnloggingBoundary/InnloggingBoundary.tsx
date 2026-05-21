@@ -68,6 +68,8 @@ const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
                         fetch-active-user-on-mount={dekoratorConfig.fetchActiveUserOnMount}
                         fnr-sync-mode={dekoratorConfig.fnrSyncMode}
                         enhet-sync-mode={dekoratorConfig.enhetSyncMode}
+                        show-enheter={dekoratorConfig.showEnheter}
+                        show-search-area={dekoratorConfig.showSearchArea}
                     />
                 )}
                 <Innloggingslinje brukBackupmeny={brukBackupmeny} innloggetBruker={innloggetBruker} />
