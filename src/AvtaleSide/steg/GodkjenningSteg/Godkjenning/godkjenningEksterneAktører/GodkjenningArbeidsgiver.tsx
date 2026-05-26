@@ -34,6 +34,8 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
         }
     };
 
+    const skalViseAvtalepunkt = !['ARBEIDSTRENING', 'MENTOR', 'INKLUDERINGSTILSKUDD'].includes(avtale.tiltakstype);
+
     return (
         <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
             <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
@@ -49,7 +51,7 @@ const GodkjenningArbeidsgiver: FunctionComponent = () => {
                 <List>
                     <List.Item>Innholdet i avtalen er korrekt</List.Item>
                     <List.Item>Kravene til arbeidsgiver er lest og forstått</List.Item>
-                    <List.Item>Det er inngått arbeidsavtale med deltaker</List.Item>
+                    {skalViseAvtalepunkt && <List.Item>Det er inngått arbeidsavtale med deltaker</List.Item>}
                 </List>
             </GodkjenningsPanel>
 
