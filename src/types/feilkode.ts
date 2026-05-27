@@ -52,6 +52,7 @@ export type Feilkode =
     | 'VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_2_AAR'
     | 'FIREARIG_LONNSTILSKUDD_FOR_GAMMEL_FRA_OPPSTARTDATO'
     | 'FIREARIG_LONNSTILSKUDD_FOR_SEN_SLUTTDATO'
+    | 'FIREARIG_LONNSTILSKUDD_KAN_IKKE_BRUKES_TIL_A_BEHOLDE_ARBEID'
     | 'DELTAKER_67_AAR'
     | 'DELTAKER_72_AAR'
     | 'FEIL_OTP_SATS'
@@ -248,4 +249,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_IKKE_TILGANG_PA_TILTAK: 'Deltakeren hører til en enhet som ikke støtter dette tiltaket.',
     OPPFOLGINGSTATUS_ENDRET:
         'Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.',
+    FIREARIG_LONNSTILSKUDD_KAN_IKKE_BRUKES_TIL_A_BEHOLDE_ARBEID:
+        'Fireårig lønnstilskudd for unge kan ikke brukes til å beholde arbeid',
 };
