@@ -6,21 +6,22 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
 import { DialogDots } from '@navikt/ds-icons/cjs';
-import { Label, Link, RadioGroup } from '@navikt/ds-react';
+import { Label, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import AntallDagerInput from '@/AvtaleSide/steg/VarighetSteg/AntallDagerInput';
-import { LonnstilskuddFormaal, TiltaksType } from '@/types';
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
-import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg } from '@/messages';
+import { TiltaksType } from '@/types';
+import Stillingstype from '@/AvtaleSide/steg/StillingSteg/Stillingstype';
+import LonnstilskuddFormaal from '@/AvtaleSide/steg/StillingSteg/LonnstilskuddFormaal';
 
 import styles from './EndreStillingbeskrivelse.module.less';
-import Stillingstype from '@/AvtaleSide/steg/StillingSteg/Stillingstype';
 
 const LTS_UTEN_SOMMERJOBB = [
     'MIDLERTIDIG_LONNSTILSKUDD',
     'VARIG_LONNSTILSKUDD',
     'FIREARIG_LONNSTILSKUDD',
 ] as Partial<TiltaksType>[];
+
+const VARIG_ELLER_MIDLERTIDIG_LTS = ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD'] as Partial<TiltaksType>[];
 
 const EndreStillingbeskrivelse: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -65,6 +66,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
     };
 
     const erLtsUtenSommerjobb = LTS_UTEN_SOMMERJOBB.includes(avtale.tiltakstype);
+    const erVarigEllerMidlertidigLts = VARIG_ELLER_MIDLERTIDIG_LTS.includes(avtale.tiltakstype);
     const erVtao = 'VTAO' === avtale.tiltakstype;
 
     return (
@@ -132,26 +134,13 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                             settVerdi={(verdi) => setStillingstype(verdi)}
                         />
                     )}
-                    {erLtsUtenSommerjobb && (
-                        <RadioGroup
-                            legend="Hva er formålet med avtalen?"
+                    {erVarigEllerMidlertidigLts && (
+                        <LonnstilskuddFormaal
+                            tiltakstype={avtale.tiltakstype}
                             className={styles.lonnstilskuddFormaal}
-                            value={lonnstilskuddFormaal ?? ''}
-                        >
-                            {(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'] as LonnstilskuddFormaal[]).map((formaal) => {
-                                return (
-                                    <RadioPanel
-                                        key={formaal}
-                                        onChange={() => setLonnstilskuddFormaal(formaal)}
-                                        checked={formaal === lonnstilskuddFormaal}
-                                        name="lonnstilskuddFormaal"
-                                        value={formaal}
-                                    >
-                                        {lonnstilskuddFormaalMsg[formaal]}
-                                    </RadioPanel>
-                                );
-                            })}
-                        </RadioGroup>
+                            verdi={lonnstilskuddFormaal}
+                            settVerdi={(verdi) => setLonnstilskuddFormaal(verdi)}
+                        />
                     )}
                 </div>
             </BekreftelseModal>

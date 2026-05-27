@@ -4,16 +4,15 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
-import { RadioGroup, Label } from '@navikt/ds-react';
-import { FunctionComponent } from 'react';
+import { Label } from '@navikt/ds-react';
+import React, { FunctionComponent } from 'react';
 import StillingsTittelVelger from './StillingsTittelVelger';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import type { LonnstilskuddFormaal, TiltaksType } from '@/types';
-import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg } from '@/messages';
+import type { TiltaksType } from '@/types';
 
 import styles from './StillingsSteg.module.less';
 import Stillingstype from './Stillingstype';
+import LonnstilskuddFormaal from './LonnstilskuddFormaal';
 
 const LTS_UTEN_SOMMERJOBB = [
     'MIDLERTIDIG_LONNSTILSKUDD',
@@ -22,7 +21,7 @@ const LTS_UTEN_SOMMERJOBB = [
 ] as Partial<TiltaksType>[];
 
 const StillingSteg: FunctionComponent = () => {
-    const { avtale, settAvtaleInnholdVerdi, settAvtaleInnholdVerdier, lagreAvtale } = useAvtale();
+    const { avtale, settAvtaleInnholdVerdi, lagreAvtale } = useAvtale();
     const { valgtStilling, setValgtStilling } = useStillingFraContext();
 
     const erLtsUtenSommerjobb = LTS_UTEN_SOMMERJOBB.includes(avtale.tiltakstype);
@@ -58,34 +57,12 @@ const StillingSteg: FunctionComponent = () => {
                     />
                 )}
                 {erLtsUtenSommerjobb && (
-                    <>
-                        <div>
-                            <RadioGroup
-                                legend="Hva er formålet med avtalen?"
-                                className={styles.lonnstilskuddFormaalRadio}
-                                value={avtale.gjeldendeInnhold.lonnstilskuddFormaal ?? ''}
-                            >
-                                {(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'] as LonnstilskuddFormaal[]).map(
-                                    (lonnstilskuddFormaal) => {
-                                        return (
-                                            <RadioPanel
-                                                key={lonnstilskuddFormaal}
-                                                onChange={() => settAvtaleInnholdVerdier({ lonnstilskuddFormaal })}
-                                                checked={
-                                                    avtale.gjeldendeInnhold.lonnstilskuddFormaal ===
-                                                    lonnstilskuddFormaal
-                                                }
-                                                name="lonnstilskuddFormaal"
-                                                value={lonnstilskuddFormaal}
-                                            >
-                                                {lonnstilskuddFormaalMsg[lonnstilskuddFormaal]}
-                                            </RadioPanel>
-                                        );
-                                    },
-                                )}
-                            </RadioGroup>
-                        </div>
-                    </>
+                    <LonnstilskuddFormaal
+                        tiltakstype={avtale.tiltakstype}
+                        className={styles.lonnstilskuddFormaalRadio}
+                        verdi={avtale.gjeldendeInnhold.lonnstilskuddFormaal}
+                        settVerdi={(verdi) => settAvtaleInnholdVerdi('lonnstilskuddFormaal', verdi)}
+                    />
                 )}
                 <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'} className={styles.lagreKnapp}>
                     Lagre
