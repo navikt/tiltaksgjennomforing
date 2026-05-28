@@ -108,7 +108,8 @@ export type Feilkode =
     | 'IKKE_TILGANG_TIL_A_OPPRETTE_TILTAK'
     | 'IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE'
     | 'ENHET_IKKE_TILGANG_PA_TILTAK'
-    | 'OPPFOLGINGSTATUS_ENDRET';
+    | 'OPPFOLGINGSTATUS_ENDRET'
+    | 'ENHET_MANGLER';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -251,4 +252,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.',
     FIREARIG_LONNSTILSKUDD_KAN_IKKE_BRUKES_TIL_A_BEHOLDE_ARBEID:
         'Fireårig lønnstilskudd for unge kan ikke brukes til å beholde arbeid',
+    ENHET_MANGLER:
+        'Oppfølgingsenhet mangler. Vennligst påse at deltaker er under oppfølging og har en gyldig oppfølgingsperiode.',
 };
