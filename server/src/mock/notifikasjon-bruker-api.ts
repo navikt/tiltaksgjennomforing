@@ -61,6 +61,9 @@ export function notifikasjonsRespons() {
                 ],
                 __typename: 'NotifikasjonerResultat',
             },
+            notifikasjonerSistLest: {
+                tidspunkt: now.toISOString(),
+            },
         },
     };
 }

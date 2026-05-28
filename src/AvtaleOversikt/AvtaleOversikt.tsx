@@ -227,11 +227,9 @@ const AvtaleOversikt: FunctionComponent = () => {
                 >
                     {innloggetBruker.rolle === 'VEILEDER' && (
                         <aside style={layout.stylingAvFilter}>
-                            <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                <LenkeKnapp path={Path.OPPRETT_AVTALE} icon={<PlussIkon />}>
-                                    Opprett ny avtale
-                                </LenkeKnapp>
-                            </div>
+                            <LenkeKnapp style={layout.opprettKnapp} path={Path.OPPRETT_AVTALE} icon={<PlussIkon />}>
+                                Opprett ny avtale
+                            </LenkeKnapp>
                             <VeilederFiltrering />
                         </aside>
                     )}
@@ -240,11 +238,13 @@ const AvtaleOversikt: FunctionComponent = () => {
                         innloggetBruker.altinnTilganger.tilganger[filtre.bedriftNr!] && (
                             <aside style={layout.stylingAvFilter}>
                                 {harTilgangerSomArbeidsgiver && (
-                                    <div style={{ margin: '0.2rem 0 1rem 0' }}>
-                                        <LenkeKnapp path={Path.OPPRETT_AVTALE_ARBEIDSGIVER} icon={<PlussIkon />}>
-                                            Opprett ny avtale
-                                        </LenkeKnapp>
-                                    </div>
+                                    <LenkeKnapp
+                                        style={layout.opprettKnapp}
+                                        path={Path.OPPRETT_AVTALE_ARBEIDSGIVER}
+                                        icon={<PlussIkon />}
+                                    >
+                                        Opprett ny avtale
+                                    </LenkeKnapp>
                                 )}
                                 <ArbeidsgiverFiltrering />
                             </aside>
@@ -273,7 +273,8 @@ const AvtaleOversikt: FunctionComponent = () => {
                                             className={clsPagination.element('pagination')}
                                         />
                                         <Select
-                                            label=""
+                                            label="Gå til side"
+                                            hideLabel
                                             className={clsPagination.element('page-select')}
                                             onChange={(x) => endreFilter({ page: x.target.value })}
                                             value={pageNumber}

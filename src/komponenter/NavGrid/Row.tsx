@@ -1,4 +1,3 @@
-import * as PT from 'prop-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import './navGrid.css';
@@ -24,11 +23,6 @@ class Row extends React.Component<RowProps> {
 (Row as React.ComponentClass).defaultProps = {
     className: undefined,
     children: undefined,
-};
-
-(Row as React.ComponentClass).propTypes = {
-    className: PT.string,
-    children: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
 };
 
 export default Row;

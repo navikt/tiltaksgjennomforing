@@ -5,14 +5,14 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { forlengAvtale, forlengAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
-import { Notes } from '@navikt/ds-icons/cjs';
 import { Alert, BodyShort, Label, Link } from '@navikt/ds-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import './forlengAvtale.less';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { addDays } from 'date-fns';
+import { NotePencilIcon } from '@navikt/aksel-icons';
 
 const ForlengAvtale = () => {
     const { avtale, hentAvtale } = useAvtale();
@@ -72,7 +72,7 @@ const ForlengAvtale = () => {
                     }}
                 >
                     <div aria-hidden={true}>
-                        <Notes style={{ marginRight: '0.5rem' }} />
+                        <NotePencilIcon style={{ marginRight: '0.5rem' }} />
                     </div>
                     Forleng avtale
                 </Link>

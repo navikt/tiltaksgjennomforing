@@ -14,17 +14,6 @@
         flex-direction: column;
     }
 
-    &__arbeidsgiver-informasjon {
-        border: 0.1rem solid #c6c2bf;
-        border-radius: 0.5rem;
-        margin-top: 1rem;
-        background-color: white;
-
-        &-nytt-avsnitt {
-            margin-top: 1rem;
-        }
-    }
-
     &__alert {
         p:first-of-type {
             margin-top: 0;
@@ -37,18 +26,17 @@
 
 .avtaleoversikt-pagination {
     margin-top: 2rem;
-    display: grid;
-    grid-template-columns: 50px 1fr 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &__page-select {
-        grid-column: 3;
-        grid-row: 1;
-        display: inline-block;
+        position: absolute;
+        right: 0;
     }
 
     &__pagination {
-        grid-column: 2;
-        grid-row: 1;
         display: flex;
         justify-content: center;
     }

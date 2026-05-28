@@ -1,4 +1,3 @@
-import * as PT from 'prop-types';
 import * as React from 'react';
 import classNames from 'classnames';
 import './navGrid.css';
@@ -29,12 +28,6 @@ class Container extends React.Component<ContainerProps> {
     className: undefined,
     children: undefined,
     fluid: false,
-};
-
-(Container as React.ComponentClass).propTypes = {
-    className: PT.string,
-    fluid: PT.bool,
-    children: PT.oneOfType([PT.arrayOf(PT.node), PT.node]),
 };
 
 export default Container;

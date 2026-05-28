@@ -182,7 +182,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                 <SøkeInput
                     className="søk"
                     key={aktivSøketype}
-                    label=""
+                    label="Søk"
+                    hideLabel
                     placeholder={aktueltSøk.placeholder}
                     maxLength={aktueltSøk.maxLength}
                     utførsøk={aktueltSøk.utførSøk}
@@ -193,7 +194,8 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             )}
             {avtalePrEnhet && (
                 <Select
-                    label=""
+                    label="Filtere på NAV enhet"
+                    hideLabel
                     name={aktueltSøk.key}
                     value={aktueltSøk.select}
                     onChange={(event) => {
@@ -202,21 +204,20 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
                             navEnhet: nyEnhet,
                         });
                     }}
-                    aria-label="filtere på NAV enhet"
                 >
                     {navEnhetOptions}
                 </Select>
             )}
             {ufordelt && (
                 <Select
-                    label=""
+                    label="Filtere på NAV enhet"
+                    hideLabel
                     name={aktueltSøk.key}
                     value={aktueltSøk.select}
                     onChange={(event) => {
                         const nyEnhet = event.currentTarget.value;
                         endreFilter({ navEnhet: nyEnhet });
                     }}
-                    aria-label="filtere på NAV enhet"
                 >
                     {navEnhetOptions}
                 </Select>

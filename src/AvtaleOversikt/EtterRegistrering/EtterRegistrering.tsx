@@ -84,7 +84,8 @@ const EtterRegistrering: FunctionComponent = () => {
                         </Label>
                         <div className={cls.element('input-sok')}>
                             <SøkeInput
-                                label=""
+                                label="Søk"
+                                hideLabel
                                 className="sok"
                                 utførsøk={(søkeord) => {
                                     setSpinner(true);

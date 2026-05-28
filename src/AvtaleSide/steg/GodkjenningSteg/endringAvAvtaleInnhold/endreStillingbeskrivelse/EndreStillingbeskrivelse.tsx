@@ -5,15 +5,15 @@ import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/Stillingsprose
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { EndreStilling, oppdatereStillingbeskrivelse } from '@/services/rest-service';
-import { DialogDots } from '@navikt/ds-icons/cjs';
 import { Label, Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
+import type { FunctionComponent } from 'react';
 import AntallDagerInput from '@/AvtaleSide/steg/VarighetSteg/AntallDagerInput';
 import { TiltaksType } from '@/types';
-import Stillingstype from '@/AvtaleSide/steg/StillingSteg/Stillingstype';
-import LonnstilskuddFormaal from '@/AvtaleSide/steg/StillingSteg/LonnstilskuddFormaal';
-
+import { ChatElipsisIcon } from '@navikt/aksel-icons';
 import styles from './EndreStillingbeskrivelse.module.less';
+import LonnstilskuddFormaal from '@/AvtaleSide/steg/StillingSteg/LonnstilskuddFormaal';
+import Stillingstype from '@/AvtaleSide/steg/StillingSteg/Stillingstype';
 
 const LTS_UTEN_SOMMERJOBB = [
     'MIDLERTIDIG_LONNSTILSKUDD',
@@ -81,7 +81,7 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                 className={styles.lenke}
             >
                 <div aria-hidden={true}>
-                    <DialogDots className={styles.ikon} />
+                    <ChatElipsisIcon className={styles.ikon} />
                 </div>
                 Endre stillingsbeskrivelse
             </Link>
@@ -130,7 +130,6 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                         <Stillingstype
                             avtaleInnhold={avtale.gjeldendeInnhold}
                             tiltakstype={avtale.tiltakstype}
-                            className={styles.stillingstype}
                             settVerdi={(verdi) => setStillingstype(verdi)}
                         />
                     )}

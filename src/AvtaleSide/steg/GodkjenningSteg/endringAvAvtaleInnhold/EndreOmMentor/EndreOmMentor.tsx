@@ -5,11 +5,12 @@ import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
-import { Task } from '@navikt/ds-icons/cjs';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { Link } from '@navikt/ds-react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useContext, useState } from 'react';
+import { TasklistIcon } from '@navikt/aksel-icons';
 
 const EndreOmMentor: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -46,7 +47,7 @@ const EndreOmMentor: FunctionComponent = () => {
                 role="menuitem"
             >
                 <div style={{ marginRight: '0.5rem' }} aria-hidden={true}>
-                    <Task />
+                    <TasklistIcon />
                 </div>
                 Endre om Mentor
             </Link>

@@ -1,6 +1,5 @@
 import { FunctionComponent, PropsWithChildren, useContext } from 'react';
-
-import * as NotifikasjonWidget from '@navikt/arbeidsgiver-notifikasjon-widget';
+import { Miljø, NotifikasjonWidgetProvider as Provider } from '@navikt/arbeidsgiver-notifikasjon-widget';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { basename } from '@/Router';
 
@@ -17,15 +16,15 @@ const miljo = (() => {
         default:
             return 'local';
     }
-})();
+})() as Miljø;
 
 export const NotifikasjonWidgetProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
     if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
         return (
-            <NotifikasjonWidget.NotifikasjonWidgetProvider apiUrl={`${basename}/notifikasjon-bruker-api`} miljo={miljo}>
+            <Provider apiUrl={`${basename}/notifikasjon-bruker-api`} miljo={miljo}>
                 <>{children}</>
-            </NotifikasjonWidget.NotifikasjonWidgetProvider>
+            </Provider>
         );
     } else {
         return <>{children}</>;

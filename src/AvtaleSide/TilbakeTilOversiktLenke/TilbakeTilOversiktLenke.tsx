@@ -1,9 +1,9 @@
 import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
-import { Back } from '@navikt/ds-icons';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import './TilbakeTilOversiktLenke.less';
+import { ChevronLeftIcon } from '@navikt/aksel-icons';
 
 type Props = {
     onClick?: () => void;
@@ -20,7 +20,7 @@ const TilbakeTilOversiktLenke: FunctionComponent<Props> = (props) => {
             role="menuitem"
         >
             <div aria-hidden={true}>
-                <Back className={cls.element('chevron')} />
+                <ChevronLeftIcon className={cls.element('chevron')} />
             </div>
             {props.tekst || 'Tilbake til oversikt'}
         </Link>

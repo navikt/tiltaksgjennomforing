@@ -1,11 +1,12 @@
-import React, { FunctionComponent, useContext } from 'react';
+import type { FunctionComponent } from 'react';
+import { useContext } from 'react';
 import { Link, generatePath } from 'react-router-dom';
-import { Next, Back } from '@navikt/ds-icons';
 
 import './NesteForrige.less';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { Path } from '@/Router';
 import { StegInfo } from '@/AvtaleSide/AvtaleSide';
+import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 
 export interface Props {
     avtaleSteg: StegInfo[];
@@ -51,7 +52,7 @@ const NesteForrige: FunctionComponent<Props> = (props) => {
                     id="forrige"
                     aria-labelledby="forrige"
                 >
-                    <Back style={{ display: 'inline-block' }} />
+                    <ChevronLeftIcon style={{ display: 'inline-block' }} />
                     Forrige
                 </Link>
             )}
@@ -71,7 +72,7 @@ const NesteForrige: FunctionComponent<Props> = (props) => {
                     aria-labelledby="neste"
                 >
                     Neste
-                    <Next style={{ display: 'inline-block' }} />
+                    <ChevronRightIcon style={{ display: 'inline-block' }} />
                 </Link>
             )}
         </div>

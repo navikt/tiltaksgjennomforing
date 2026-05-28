@@ -1,19 +1,19 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import React, { FunctionComponent, isValidElement } from 'react';
 import { Label, BodyShort } from '@navikt/ds-react';
-import BEMHelper from '@/utils/bem';
+import { labelVerdiRad } from './infoRadBesluttervisning.module.less';
+import classNames from 'classnames';
 
 interface Props {
-    metadata: string;
-    info: string | number | React.ReactNode;
-    style?: CSSProperties;
+    feltnavn: string;
+    verdi: React.ReactNode;
+    className?: string;
 }
 
-const InfoRadBesluttervisning: FunctionComponent<Props> = ({ metadata, info, style }: Props) => {
-    const cls = BEMHelper('beslutter-panel');
+const InfoRadBesluttervisning: FunctionComponent<Props> = ({ feltnavn, verdi, className }: Props) => {
     return (
-        <div className={cls.element('infovisning-rad')} style={style}>
-            <Label>{metadata}</Label>
-            <BodyShort size="small">{info}</BodyShort>
+        <div className={classNames(labelVerdiRad, className)}>
+            <Label>{feltnavn}</Label>
+            {isValidElement(verdi) ? verdi : <BodyShort size="small">{verdi}</BodyShort>}
         </div>
     );
 };

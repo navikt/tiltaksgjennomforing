@@ -6,6 +6,7 @@ type AvtaleLayout = {
     erNokPlassTilTabell: boolean;
     erNokPlassTilTabellOgFilter: boolean;
     stylingAvFilter: CSSProperties;
+    opprettKnapp: CSSProperties;
     stylingAvTabell: CSSProperties;
     stylingAvFilterOgTabell: CSSProperties;
 };
@@ -15,6 +16,7 @@ type UseAvtaleOversiktLayout = () => AvtaleLayout;
 const breddeTabell = 55;
 const breddeFilter = 15;
 const breddeMellom = 2;
+const breddeUnderKnapp = 1;
 const mellomromPåHverSide = 0.5;
 
 const totalBredde = mellomromPåHverSide * 2 + breddeFilter + breddeMellom + breddeTabell;
@@ -42,6 +44,7 @@ const useAvtaleOversiktLayout: UseAvtaleOversiktLayout = () => {
         erNokPlassTilTabellOgFilter,
         mellomromPåHverSide: rem(mellomromPåHverSide),
         stylingAvFilter,
+        opprettKnapp: { marginBottom: rem(breddeUnderKnapp) },
         stylingAvTabell,
         stylingAvFilterOgTabell,
     };

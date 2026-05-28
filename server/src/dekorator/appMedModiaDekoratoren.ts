@@ -38,6 +38,7 @@ function setInnHTML(document: Document) {
 
     const script = document.createElement('script');
     script.src = DECORATOR_INTERNAL_SCRIPT;
+    script.type = 'module';
 
     insertHTML(document, style);
     insertHTML(document, script);

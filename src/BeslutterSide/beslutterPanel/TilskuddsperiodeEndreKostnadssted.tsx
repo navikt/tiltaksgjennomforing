@@ -1,11 +1,11 @@
-import React, { FunctionComponent, useContext, useState, useEffect } from 'react';
+import { FunctionComponent, useContext, useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
-
-import BEMHelper from '@/utils/bem';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
 import { useHentEnhet } from '@/services/use-rest';
+import styles from './tilskuddsperiodeEndreKostnadssted.module.less';
+import { BodyShort } from '@navikt/ds-react';
 
 const getFeilmelding = (verdi?: string, enhet?: string) => {
     if (!verdi?.match(/^\d{4}$/)) {
@@ -23,7 +23,6 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
     const { enhet, visEnhetFeil, setVisEnhetFeil, setEnhet } = useContext(TilskuddsperiodeContext);
 
     const [verdi, setVerdi] = useState(enhet);
-    const cls = BEMHelper('beslutter-panel');
 
     const { data, error, isValidating } = useHentEnhet(verdi?.match(/^\d{4}$/) ? verdi : undefined);
 
@@ -40,25 +39,25 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
     }
 
     return (
-        <>
-            <div className={cls.element('input-wrapper')}>
-                <PakrevdInput
-                    className={cls.element('input')}
-                    size="small"
-                    label=""
-                    verdi={verdi}
-                    feilmelding={visEnhetFeil ? getFeilmelding(verdi, enhet) : undefined}
-                    settVerdi={(nyVerdi) => {
-                        setVerdi(nyVerdi);
-                        setVisEnhetFeil(false);
-                    }}
-                />
-                <span className={cls.element('input-meta')} title={data?.navn}>
-                    {isValidating && <Skeleton width="5rem" />}
-                    {!isValidating && data && !error && data.navn}
-                </span>
-            </div>
-        </>
+        <div className={styles.inputRad}>
+            <PakrevdInput
+                className={styles.kostnadssted}
+                size="medium"
+                label="Endre kostnadssted"
+                verdi={verdi}
+                maxLength={4}
+                htmlSize={3}
+                feilmelding={visEnhetFeil ? getFeilmelding(verdi, enhet) : undefined}
+                settVerdi={(nyVerdi) => {
+                    setVerdi(nyVerdi);
+                    setVisEnhetFeil(false);
+                }}
+            />
+            <BodyShort size="small">
+                {isValidating && <Skeleton width="5rem" />}
+                {!isValidating && data && !error && data.navn}
+            </BodyShort>
+        </div>
     );
 };
 export default TilskuddsperiodeEndreKostnadssted;

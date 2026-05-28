@@ -1,7 +1,6 @@
 import React from 'react';
-import { Collapse, Expand } from '@navikt/ds-icons';
-
 import './infoToggler.less';
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 
 interface Props {
     children: React.ReactNode;
@@ -23,7 +22,7 @@ const InfoToggler = (props: Props) => {
             aria-expanded={åpen}
         >
             <span className={'infoToggler__label'}>{children}</span>
-            <div style={{ display: 'inline-block' }}>{åpen ? <Collapse /> : <Expand />}</div>
+            <div style={{ display: 'inline-block' }}>{åpen ? <ChevronUpIcon /> : <ChevronDownIcon />}</div>
         </button>
     );
 };

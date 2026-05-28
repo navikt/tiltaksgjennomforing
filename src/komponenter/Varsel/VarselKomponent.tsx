@@ -1,9 +1,9 @@
 import { Alert, AlertProps, Button } from '@navikt/ds-react';
 import classNames from 'classnames';
-import { Close } from '@navikt/ds-icons';
 import * as React from 'react';
 import './Varsel.less';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
+import { XMarkIcon } from '@navikt/aksel-icons';
 
 interface Props {
     timeout?: number;
@@ -61,7 +61,7 @@ class VarselKomponent extends React.Component<PropsWithChildren & Props, State> 
                                         <Button
                                             className="varsel__innhold__lukknapp"
                                             variant="tertiary"
-                                            icon={<Close color="black" style={{ backgroundColor: 'none' }} />}
+                                            icon={<XMarkIcon color="black" style={{ backgroundColor: 'none' }} />}
                                             onClick={this.lukkVarsel}
                                         ></Button>
                                     </>

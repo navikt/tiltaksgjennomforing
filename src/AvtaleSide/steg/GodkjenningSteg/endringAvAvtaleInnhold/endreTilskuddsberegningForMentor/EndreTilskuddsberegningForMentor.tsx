@@ -2,7 +2,6 @@ import styles from './EndreTilskuddsberegningForMentor.module.less';
 import { useAvtale } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdateretilskuddsBeregning, oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
-import { Task } from '@navikt/ds-icons/cjs';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
 import { debounce, Heading, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
@@ -16,6 +15,7 @@ import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/Ut
 import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorAntallTimerPerMnd';
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import { erNil } from '@/utils/predicates';
+import { TasklistIcon } from '@navikt/aksel-icons';
 
 export type EndreTilskuddsberegningForMentorFelter = Pick<
     Beregningsgrunnlag,
@@ -97,7 +97,7 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                 role="menuitem"
             >
                 <div style={{ marginRight: '0.5rem' }} aria-hidden={true}>
-                    <Task />
+                    <TasklistIcon />
                 </div>
                 Endre beregning av tilskudd
             </Link>
