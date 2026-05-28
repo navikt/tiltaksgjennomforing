@@ -1,5 +1,5 @@
-import React, { FunctionComponent, PropsWithChildren } from 'react';
-import { Accordion } from '@navikt/ds-react';
+import type { FunctionComponent, PropsWithChildren } from 'react';
+import { ExpansionCard } from '@navikt/ds-react';
 
 interface Props {
     tittel: string;
@@ -8,12 +8,12 @@ interface Props {
 export const Filter: FunctionComponent<PropsWithChildren<Props>> = (props: PropsWithChildren<Props>) => {
     return (
         <div>
-            <Accordion className="accordion" role="radiogroup">
-                <Accordion.Item defaultOpen>
-                    <Accordion.Header>{props.tittel}</Accordion.Header>
-                    <Accordion.Content>{props.children}</Accordion.Content>
-                </Accordion.Item>
-            </Accordion>
+            <ExpansionCard aria-label="filter" size="small" defaultOpen>
+                <ExpansionCard.Header>
+                    <ExpansionCard.Title size="small">{props.tittel}</ExpansionCard.Title>
+                </ExpansionCard.Header>
+                <ExpansionCard.Content>{props.children}</ExpansionCard.Content>
+            </ExpansionCard>
         </div>
     );
 };

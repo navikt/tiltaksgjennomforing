@@ -1,13 +1,11 @@
 import React, { useMemo } from 'react';
-import { RadioGroup } from '@navikt/ds-react';
 import { useController, useForm } from 'react-hook-form';
 import * as z from 'zod';
-
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import type { LonnstilskuddFormaal, TiltaksType } from '@/types';
-import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg } from '@/messages';
-
+import { lonnstilskuddFormaal as lonnstilskuddFormaalVerdier } from '@/messages';
 import { zodResolver } from '@hookform/resolvers/zod';
+import RadioBlocks from '@/komponenter/radioblocks/RadioBlocks';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     tiltakstype?: TiltaksType;
@@ -63,21 +61,16 @@ const LonnstilskuddFormaal = (props: Props) => {
     };
 
     return (
-        <RadioGroup
-            {...field}
-            legend="Hva er formålet med avtalen?"
-            className={className}
-            error={formState.errors.lonnstilskuddFormaal?.message}
-        >
-            {['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'].map((str) => {
-                const type = str as LonnstilskuddFormaal;
-                return (
-                    <RadioPanel key={type} value={type} checked={field.value === type} onChange={onChange}>
-                        {lonnstilskuddFormaalMsg[type]}
-                    </RadioPanel>
-                );
-            })}
-        </RadioGroup>
+        <>
+            <RadioBlocks
+                legend="Hva er formålet med avtalen?"
+                values={lonnstilskuddFormaalVerdier}
+                selectedValue={verdi}
+                onChange={onChange}
+                direction="row"
+            />
+            <VerticalSpacer rem={2} />
+        </>
     );
 };
 

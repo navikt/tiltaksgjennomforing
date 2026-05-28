@@ -3,7 +3,7 @@ import isEqual from 'lodash.isequal';
 
 export const useSWRKeyDebounce = (keys: any[], delay: number) => {
     const [debouncedKeys, setDebouncedKeys] = useState<any[]>(keys);
-    const timeoutRef = useRef<NodeJS.Timeout>();
+    const timeoutRef = useRef<NodeJS.Timeout>(undefined);
 
     useEffect(() => {
         if (timeoutRef.current) {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
 import { Link } from 'react-router-dom';
@@ -12,11 +12,11 @@ import { AutentiseringError, FeilkodeError } from '@/types/errors';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { Innloggingskilde } from '@/types/innlogget-bruker';
-import { Next } from '@navikt/ds-icons';
 import { Path } from '@/Router';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { hentInnloggetBruker } from '@/services/rest-service';
 import { useAsyncError } from '@/komponenter/useError';
+import { ChevronRightIcon } from '@navikt/aksel-icons';
 
 const cls = BEMHelper('innloggingsside');
 
@@ -72,7 +72,7 @@ const Innloggingsside = (props: { innloggingskilder: Innloggingskilde[] }) => {
                     <BodyShort size="small">
                         <Link to={Path.INFORMASJONSSIDE} className="lenke">
                             Her kan du lese mer om hvordan løsningen fungerer
-                            <Next style={{ display: 'inline-block' }} />
+                            <ChevronRightIcon style={{ display: 'inline-block' }} />
                         </Link>
                     </BodyShort>
                 </div>

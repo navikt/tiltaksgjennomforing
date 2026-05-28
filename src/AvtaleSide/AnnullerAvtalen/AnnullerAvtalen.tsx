@@ -1,8 +1,8 @@
-import AvbruttIkon from '@/assets/ikoner/Avbryte-avtale.svg?react';
 import AnnullerAvtaleModal from '@/komponenter/modal/AnnullerAvtaleModal';
 import { Link } from '@navikt/ds-react';
 import React, { useState } from 'react';
 import './AnnullerAvtalen.less';
+import { XMarkOctagonIcon } from '@navikt/aksel-icons';
 
 const AnnullerAvtalen = () => {
     const [annullerModalIsOpen, setAnnullerModalIsOpen] = useState<boolean>(false);
@@ -18,7 +18,7 @@ const AnnullerAvtalen = () => {
                     role="menuitem"
                 >
                     <div aria-hidden={true}>
-                        <AvbruttIkon className="annulleravtalen__ikon" />
+                        <XMarkOctagonIcon className="annulleravtalen__ikon" />
                     </div>
                     Annuller avtalen
                 </Link>

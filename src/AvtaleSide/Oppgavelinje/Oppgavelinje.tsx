@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Button } from '@navikt/ds-react';
-import { Expand } from '@navikt/ds-icons';
 import { Popover } from '@navikt/ds-react';
 
 import BEMHelper from '@/utils/bem';
@@ -13,6 +12,7 @@ import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 
 import Varsellogg from '../Varsellogg/Varsellogg';
+import { ChevronDownIcon } from '@navikt/aksel-icons';
 
 const cls = BEMHelper('avtaleside');
 
@@ -62,7 +62,7 @@ const OppgaveLinje: React.FunctionComponent = () => {
             {!visKunHendelseslog && (
                 <>
                     <Button
-                        icon={<Expand />}
+                        icon={<ChevronDownIcon />}
                         iconPosition="right"
                         variant="secondary"
                         className={cls.element('popover-knapp')}

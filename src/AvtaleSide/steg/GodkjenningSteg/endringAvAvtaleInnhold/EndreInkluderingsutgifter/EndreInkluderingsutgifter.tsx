@@ -7,12 +7,13 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { endreInkluderingstilskudd } from '@/services/rest-service';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formaterPenger } from '@/utils/PengeUtils';
-import { Task } from '@navikt/ds-icons/cjs';
 import { Ingress, Label, Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
-import EnTilskuddsutgift from '../../../InkluderingstilskuddSteg/EnTilskuddsutgift';
-import { useTilskuddsutgift } from '../../../InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
-import OpprettEnTilskuddsutgift from '../../../InkluderingstilskuddSteg/OpprettEnTilskuddsutgift';
+import type { FunctionComponent } from 'react';
+import { useContext, useState } from 'react';
+import { TasklistIcon } from '@navikt/aksel-icons';
+import { useTilskuddsutgift } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
+import OpprettEnTilskuddsutgift from '@/AvtaleSide/steg/InkluderingstilskuddSteg/OpprettEnTilskuddsutgift';
+import EnTilskuddsutgift from '@/AvtaleSide/steg/InkluderingstilskuddSteg/EnTilskuddsutgift';
 
 const EndreInkluderingsutgifter: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -53,7 +54,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 role="menuitem"
             >
                 <div style={{ marginRight: '0.5rem' }} aria-hidden={true}>
-                    <Task />
+                    <TasklistIcon />
                 </div>
                 Legg til inkluderingstilskudd
             </Link>

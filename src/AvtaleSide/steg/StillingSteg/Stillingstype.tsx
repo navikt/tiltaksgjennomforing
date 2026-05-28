@@ -1,19 +1,16 @@
 import React, { useMemo } from 'react';
-import { RadioGroup } from '@navikt/ds-react';
 import { useController, useForm } from 'react-hook-form';
 import * as z from 'zod';
-
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import type { Avtaleinnhold, Stillingstype, TiltaksType } from '@/types';
-import { stillingstype } from '@/messages';
-
+import { stillingstype as stillingstypeVerider } from '@/messages';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addYears, isBefore } from 'date-fns';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import RadioBlocks from '@/komponenter/radioblocks/RadioBlocks';
 
 interface Props {
     tiltakstype?: TiltaksType;
     avtaleInnhold?: Avtaleinnhold;
-    className?: string;
     settVerdi: (verdi?: Stillingstype) => void;
 }
 
@@ -50,7 +47,7 @@ const lagSchema = (tiltakstype?: TiltaksType, startDato?: string, sluttDato?: st
 type Schema = z.infer<ReturnType<typeof lagSchema>>;
 
 const Stillingstype = (props: Props) => {
-    const { tiltakstype, avtaleInnhold, settVerdi, className } = props;
+    const { tiltakstype, avtaleInnhold, settVerdi } = props;
 
     const { startDato, sluttDato } = avtaleInnhold || {};
     const schema = useMemo(() => lagSchema(tiltakstype, startDato, sluttDato), [tiltakstype, startDato, sluttDato]);
@@ -77,21 +74,17 @@ const Stillingstype = (props: Props) => {
     };
 
     return (
-        <RadioGroup
-            {...field}
-            legend="Er stillingen fast eller midlertidig?"
-            className={className}
-            error={formState.errors.stillingstype?.message}
-        >
-            {['FAST', 'MIDLERTIDIG'].map((str) => {
-                const type = str as Stillingstype;
-                return (
-                    <RadioPanel key={type} value={type} checked={field.value === type} onChange={onChange}>
-                        {stillingstype[type]}
-                    </RadioPanel>
-                );
-            })}
-        </RadioGroup>
+        <>
+            <RadioBlocks
+                legend="Er stillingen fast eller midlertidig?"
+                values={stillingstypeVerider}
+                selectedValue={field.value}
+                onChange={onChange}
+                direction="row"
+                error={formState.errors.stillingstype?.message}
+            />
+            <VerticalSpacer rem={2} />
+        </>
     );
 };
 

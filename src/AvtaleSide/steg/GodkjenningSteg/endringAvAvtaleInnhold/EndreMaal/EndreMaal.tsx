@@ -1,15 +1,16 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useContext, useState } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { oppdatereMålInformasjon } from '@/services/rest-service';
 import { Maalkategori } from '@/types/maalkategorier';
 import BEMHelper from '@/utils/bem';
-import { Notes } from '@navikt/ds-icons/cjs';
 import { Link } from '@navikt/ds-react';
 import EtMaal from '../../../MaalSteg/Maal/EtMaal';
 import { useMål } from '../../../MaalSteg/Maal/maalUtils';
 import OpprettMaal from '../../../MaalSteg/Maal/OpprettMaal';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
+import { NotePencilIcon } from '@navikt/aksel-icons';
 
 const EndreMaal: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -71,7 +72,7 @@ const EndreMaal: FunctionComponent = () => {
                 }}
             >
                 <div aria-hidden={true}>
-                    <Notes style={{ marginRight: '0.5rem' }} />
+                    <NotePencilIcon style={{ marginRight: '0.5rem' }} />
                 </div>
                 Endre mål
             </Link>

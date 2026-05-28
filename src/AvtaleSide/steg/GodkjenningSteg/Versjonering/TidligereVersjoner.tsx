@@ -6,6 +6,7 @@ import BEMHelper from '@/utils/bem';
 import { BodyShort, Label, LinkPanel, Heading } from '@navikt/ds-react';
 import './TidligereVersjoner.less';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 
 const cls = BEMHelper('tidligereVersjoner');
 
@@ -47,6 +48,7 @@ const TidligereVersjoner = (props: Props) => {
                                         Versjon {avtaleVersjon.versjon}
                                         {avtaleVersjon.innholdType && <> - {innholdTypeTekst(avtaleVersjon)}</>}
                                     </Label>
+                                    <HorizontalSpacer rem={0.5} />
                                     <BodyShort size="small">
                                         {avtaleVersjon.ikrafttredelsestidspunkt &&
                                             formaterDato(avtaleVersjon.ikrafttredelsestidspunkt, NORSK_DATO_FORMAT)}

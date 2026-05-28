@@ -5,10 +5,11 @@ import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerIn
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { Neutral } from '@navikt/ds-icons/cjs';
 import { Checkbox, Heading, Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useContext, useState } from 'react';
 import './EndreKontaktInformasjon.less';
+import { FigureCombinationIcon } from '@navikt/aksel-icons';
 
 const EndreKontaktInformasjon: FunctionComponent = () => {
     const cls = BEMHelper('endreKontaktInformasjon');
@@ -95,7 +96,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 className={cls.element('link')}
             >
                 <div aria-hidden={true}>
-                    <Neutral className={cls.element('ikon')} />
+                    <FigureCombinationIcon className={cls.element('ikon')} />
                 </div>
                 Endre kontaktinformasjon
             </Link>

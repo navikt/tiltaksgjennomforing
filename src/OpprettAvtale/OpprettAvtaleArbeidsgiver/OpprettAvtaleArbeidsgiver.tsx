@@ -1,17 +1,15 @@
-import { Alert, BodyShort, ErrorMessage, Heading, Label, RadioGroup, TextField } from '@navikt/ds-react';
-import { FunctionComponent, useContext, useState } from 'react';
-import { generatePath, useNavigate } from 'react-router-dom';
-
+import { Alert, BodyShort, ErrorMessage, Heading, Label, Select, TextField } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
+import { generatePath, useNavigate, useSearchParams } from 'react-router-dom';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import RadioPanel from '@/komponenter/radiopanel/RadioPanel';
 import useValidering from '@/komponenter/useValidering';
 import { tiltakstypeTekst } from '@/messages';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
@@ -29,11 +27,17 @@ import './OpprettAvtaleArbeidsgiver.less';
 const cls = BEMHelper('opprett-avtale-arbeidsgiver');
 
 const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
+    const innloggetBruker = useInnloggetBruker();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const valgtBedriftNr = searchParams.get('bedrift')!;
+    const valgtBedriftNavn = findRecursive(
+        innloggetBruker.altinnTilganger.hierarki,
+        (org) => org.orgnr === valgtBedriftNr,
+    )?.navn;
     const [deltakerFnr, setDeltakerFnr] = useState('');
     const [mentorFnr, setMentorFnr] = useState('');
-    const [uyldigAvtaletype, setUyldigAvtaletype] = useState(false);
-    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType | undefined>(undefined);
-    const innloggetBruker = useContext(InnloggetBrukerContext);
+    const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState(false);
+    const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType>();
     const navigate = useNavigate();
     const { migreringSkrivebeskyttet } = useFeatureToggles();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
@@ -50,6 +54,14 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const setFeilmelding = (melding: Feilkode) => {
         if (melding === 'SOMMERJOBB_FOR_GAMMEL') {
             setDeltakerFnrFeil(Feilmeldinger.SOMMERJOBB_FOR_GAMMEL);
+        }
+    };
+
+    const oppdaterBedriftIUrl = (orgnr: string) => {
+        if (orgnr !== searchParams.get('bedrift')) {
+            setSearchParams({ bedrift: orgnr });
+            setTiltaksType(undefined);
+            setUgyldigAvtaletype(false);
         }
     };
 
@@ -94,15 +106,9 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
             });
             return;
         }
-        setUyldigAvtaletype(valgtAvtaleType);
+        setUgyldigAvtaletype(valgtAvtaleType);
         setDeltakerFnrFeil(feilDeltakerFNR);
     };
-
-    const valgtBedriftNr = new URLSearchParams(window.location.search).get('bedrift')!;
-    const valgtBedriftNavn = findRecursive(
-        innloggetBruker.altinnTilganger.hierarki,
-        (org) => org.orgnr === valgtBedriftNr,
-    )?.navn;
 
     const erLonnstilskudd = (type: TiltaksType | undefined) =>
         type !== undefined &&
@@ -111,7 +117,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     return (
         <>
             <Dokumenttittel tittel="Opprett avtale" />
-            <Banner tekst="Opprett avtale" />
+            <Banner tekst="Opprett avtale" byttetOrg={oppdaterBedriftIUrl} />
             <div className={cls.className}>
                 {migreringSkrivebeskyttet && (
                     <>
@@ -149,26 +155,23 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
                     </BodyShort>
                     <VerticalSpacer rem={1} />
-                    <div>
-                        <RadioGroup legend="" className={cls.element('tiltakstype-wrapper')}>
-                            {innloggetBruker.altinnTilganger.tilganger[valgtBedriftNr].map((tiltakType) => (
-                                <RadioPanel
-                                    key={tiltakType}
-                                    name="tiltakstype"
-                                    value={tiltakType}
-                                    disabled={erSkrivebeskyttet(tiltakType)}
-                                    checked={valgtTiltaksType === tiltakType}
-                                    onChange={() => {
-                                        setTiltaksType(tiltakType);
-                                        setUyldigAvtaletype(false);
-                                    }}
-                                >
-                                    {storForbokstav(tiltakstypeTekst[tiltakType])}
-                                </RadioPanel>
-                            ))}
-                        </RadioGroup>
-                    </div>
-                    {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
+                    <Select
+                        label="Velg type avtale"
+                        hideLabel
+                        value={valgtTiltaksType}
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                            setTiltaksType(event.target.value as TiltaksType);
+                            setUgyldigAvtaletype(false);
+                        }}
+                    >
+                        <option value="">- Velg tiltakstype -</option>
+                        {(innloggetBruker.altinnTilganger.tilganger[valgtBedriftNr] ?? []).sort().map((tiltakType) => (
+                            <option key={tiltakType} value={tiltakType} disabled={erSkrivebeskyttet(tiltakType)}>
+                                {storForbokstav(tiltakstypeTekst[tiltakType])}
+                            </option>
+                        ))}
+                    </Select>
+                    {ugyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
                 </Innholdsboks>
                 <Innholdsboks className={cls.element('innholdsboks')}>
                     <Heading level="2" size="medium" className={cls.element('innholdstittel')}>
@@ -219,7 +222,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                             <BodyShort size="small">
                                 Du kan kun opprette tiltaktstyper du har tilgang til i virksomheten du har valgt.
                             </BodyShort>
-                            {uyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
+                            {ugyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
                         </>
                     )}
                 </Innholdsboks>
