@@ -17,6 +17,11 @@ interface Props {
     tiltakstype: TiltaksType;
 }
 
+const mapSelectedValue = (value: boolean | undefined | null): string | undefined => {
+    if (value === undefined || value === null) return undefined;
+    return value ? 'JA' : 'NEI';
+};
+
 const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
     const { avtale, settAvtaleInnholdVerdier: settAvtaleVerdier } = useContext(AvtaleContext);
     const { gjeldendeInnhold } = avtale;
@@ -61,7 +66,7 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                                 JA: 'Ja',
                                 NEI: 'Nei',
                             }}
-                            selectedValue={harFamilietilknytning ? 'JA' : 'NEI'}
+                            selectedValue={mapSelectedValue(harFamilietilknytning)}
                             onChange={(e) => {
                                 const verdi = e.target.value === 'JA';
                                 settAvtaleVerdier({
