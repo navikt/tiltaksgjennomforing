@@ -27,12 +27,8 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
     const { data, error, isValidating } = useHentEnhet(verdi?.match(/^\d{4}$/) ? verdi : undefined);
 
     useEffect(() => {
-        if (isValidating || error) {
-            setEnhet(undefined);
-        } else {
-            setEnhet(data?.enhetNr);
-        }
-    }, [setEnhet, data, error, isValidating]);
+        setEnhet(!error ? data?.enhetNr : undefined);
+    }, [setEnhet, data, error]);
 
     if (gjeldendeTilskuddsperiode && gjeldendeTilskuddsperiode.status !== 'UBEHANDLET') {
         return null;
