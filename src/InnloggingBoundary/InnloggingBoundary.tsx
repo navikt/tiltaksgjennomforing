@@ -1,13 +1,11 @@
 import ByttTilBeslutter from '@/InnloggingBoundary/byttTilBeslutter/ByttTilBeslutter';
 import ByttTilVeileder from '@/InnloggingBoundary/ByttTilVeileder';
 import decoratorconfig from '@/internflateDekorator/decoratorconfig';
-import { DecoratorProps } from '@/internflateDekorator/decoratorprops';
 import { useAsyncError } from '@/komponenter/useError';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
-import NAVSPA from '@navikt/navspa';
 import React, { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +14,6 @@ import Innloggingside from './Innloggingsside';
 import useInnlogget from './useInnlogget';
 
 const dekoratorConfig = decoratorconfig();
-const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflate-decorator-v3');
 const GYLDIGE_PARTER = ['ARBEIDSGIVER', 'DELTAKER', 'MENTOR', 'VEILEDER', 'BESLUTTER'];
 
 export const InnloggetBrukerContext = React.createContext<InnloggetBruker>({
@@ -61,7 +58,20 @@ const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
         if (brukBackupmeny === undefined || brukmeny === undefined) return null;
         return (
             <>
-                {brukmeny && <InternflateDecorator {...dekoratorConfig} />}
+                {brukmeny && (
+                    <internarbeidsflate-decorator
+                        app-name={dekoratorConfig.appName}
+                        environment={dekoratorConfig.environment}
+                        url-format={dekoratorConfig.urlFormat}
+                        proxy={dekoratorConfig.proxy}
+                        fetch-active-enhet-on-mount={dekoratorConfig.fetchActiveEnhetOnMount}
+                        fetch-active-user-on-mount={dekoratorConfig.fetchActiveUserOnMount}
+                        fnr-sync-mode={dekoratorConfig.fnrSyncMode}
+                        enhet-sync-mode={dekoratorConfig.enhetSyncMode}
+                        show-enheter={dekoratorConfig.showEnheter}
+                        show-search-area={dekoratorConfig.showSearchArea}
+                    />
+                )}
                 <Innloggingslinje brukBackupmeny={brukBackupmeny} innloggetBruker={innloggetBruker} />
                 {innloggetBruker.rolle === 'VEILEDER' && innloggetBruker.kanVæreBeslutter && <ByttTilBeslutter />}
                 {innloggetBruker.rolle === 'BESLUTTER' && <ByttTilVeileder />}

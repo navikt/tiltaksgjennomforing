@@ -1,0 +1,29 @@
+@import (reference) '../../tiltak_variabler.less';
+
+.radio-block {
+    background-color: @white;
+    border: 1px solid @grayModia;
+    border-radius: @border-radius-base;
+    padding: 1rem;
+    width: 100%;
+
+    &:hover {
+        border: 1px solid #0067c5;
+        box-shadow: #a0a0a0 0 2px 1px 0;
+        cursor: pointer;
+    }
+
+    &::after {
+        padding: 2rem 1rem 1rem;
+        inset: 0;
+    }
+
+    @media (min-width: 768px) {
+        flex-grow: 1;
+    }
+}
+
+.checked {
+    background-color: #cce1ff;
+    border: 1px solid transparent;
+}

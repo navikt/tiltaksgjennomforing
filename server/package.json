@@ -2,13 +2,13 @@
     "name": "tiltaksgjennomforing",
     "version": "0.1.0",
     "private": true,
-    "packageManager": "pnpm@10.30.3",
+    "packageManager": "pnpm@11.0.5+sha512.94fa09e72016402aefce788e46994e18eb1922998b16b6fd5aa6bafd8ae4dea05d0852f60247fdb7d5ab8199a7b0beda830398f3f80cb9f822398522a1535481",
     "homepage": "/tiltaksgjennomforing",
     "engines": {
         "node": ">=24",
         "npm": "please-use-pnpm",
         "yarn": "please-use-pnpm",
-        "pnpm": ">= 10.0.0"
+        "pnpm": ">= 11"
     },
     "scripts": {
         "build": "esbuild src/server.ts --bundle --platform=node --outfile=../dist/server/index.cjs --packages=external",
@@ -20,25 +20,25 @@
         "start:intern": "cross-env ENABLE_INTERNAL_MENU=true INTERN_INGRESS=true pnpm run server"
     },
     "dependencies": {
-        "@navikt/arbeidsgiver-notifikasjon-widget": "^7.2.3",
-        "@navikt/nav-dekoratoren-moduler": "^3.2.2",
-        "@navikt/oasis": "3.7",
-        "axios": "^1.15.0",
-        "compression": "^1.8.0",
+        "@navikt/arbeidsgiver-notifikasjon-widget": "^8.0.5",
+        "@navikt/nav-dekoratoren-moduler": "^4.0.0",
+        "@navikt/oasis": "^4.1.4",
+        "axios": "^1.16.0",
+        "compression": "^1.8.1",
         "cookie-parser": "1.4.7",
-        "express": "^5.1.0",
+        "express": "^5.2.1",
         "helmet": "^8.1.0",
         "http-proxy-middleware": "3.0.3",
-        "jsdom": "^26.0.0"
+        "jsdom": "^26.1.0"
     },
     "devDependencies": {
-        "@types/compression": "^1.7.5",
-        "@types/cookie-parser": "^1.4.8",
-        "@types/express": "^5.0.1",
+        "@types/compression": "^1.8.1",
+        "@types/cookie-parser": "^1.4.10",
+        "@types/express": "^5.0.6",
         "@types/jsdom": "^21.1.7",
         "cross-env": "^7.0.3",
-        "esbuild": "^0.25.2",
-        "typescript": "^5.8.2"
+        "esbuild": "^0.25.12",
+        "typescript": "^5.9.3"
     },
     "pnpm": {
         "onlyBuiltDependencies": [

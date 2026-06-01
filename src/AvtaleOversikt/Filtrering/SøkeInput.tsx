@@ -1,9 +1,9 @@
 import useValidering from '@/komponenter/useValidering';
 import BEMHelper from '@/utils/bem';
-import { Search } from '@navikt/ds-icons';
 import { Button, TextField, TextFieldProps } from '@navikt/ds-react';
 import { FormEvent, FunctionComponent, useEffect, useState } from 'react';
 import './SøkeInput.less';
+import { MagnifyingGlassIcon } from '@navikt/aksel-icons';
 
 type Props = TextFieldProps & {
     className: string;
@@ -57,12 +57,13 @@ export const SøkeInput: FunctionComponent<Props> = (props) => {
                 value={søkeord}
                 onChange={onChange}
                 onBlur={onBlur}
-                onKeyPress={enterKlikk}
+                onKeyUp={enterKlikk}
                 error={skjemaelementfeil}
+                maxLength={props.maxLength}
             />
             <Button
                 className={cls.element('button')}
-                icon={<Search />}
+                icon={<MagnifyingGlassIcon />}
                 iconPosition="right"
                 onClick={utførSøk}
                 loading={props.buttonSpinner}

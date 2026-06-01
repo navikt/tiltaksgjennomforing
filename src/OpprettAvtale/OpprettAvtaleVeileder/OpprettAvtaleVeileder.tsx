@@ -11,7 +11,7 @@ import InformasjonsboksTopVeilederOppretterAvtale from '@/OpprettAvtale/OpprettA
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import OpprettAvtaleMedAlleredeOpprettetTiltak from '@/komponenter/alleredeOpprettetTiltak/OpprettAvtaleMedAlleredeOpprettetTiltak';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
-import TiltaksTypeRadioPanel from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeRadioPanel';
+import TiltaksTypeValg from '@/OpprettAvtale/OpprettAvtaleVeileder/TiltaksTypeValg';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import useValidering from '@/komponenter/useValidering';
 import { AlleredeOpprettetAvtaleContext } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
@@ -195,7 +195,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
                 </>
             )}
             <InformasjonsboksTopVeilederOppretterAvtale />
-            <TiltaksTypeRadioPanel
+            <TiltaksTypeValg
                 className={cls.className}
                 setTiltaksType={setTiltaksType}
                 ugyldigAvtaletype={ugyldigAvtaletype}

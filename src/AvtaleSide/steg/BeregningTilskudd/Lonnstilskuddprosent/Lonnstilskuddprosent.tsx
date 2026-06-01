@@ -1,13 +1,13 @@
 import { useAvtale } from '@/AvtaleProvider';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import ProsentInput from '@/komponenter/form/ProsentInput';
-import { Heading, Table } from '@navikt/ds-react';
+import { Heading, Select, Table } from '@navikt/ds-react';
 import React from 'react';
 import { BEMWrapper } from '@/utils/bem';
 import { formaterProsent } from '@/utils/formaterProsent';
 import { visPeriodeForTiltak } from '@/utils/datoUtils';
 import { Avtale } from '@/types';
-import RadioPanelGruppeHorisontal from '@/komponenter/radiopanel/RadioPanelGruppeHorisontal';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     cls: BEMWrapper;
@@ -43,7 +43,8 @@ const Lonnstilskuddprosent = (props: Props) => {
                     <ProsentInput
                         name="lonnstilskuddProsent"
                         width="S"
-                        label=""
+                        label="Tilskuddsprosent"
+                        hideLabel
                         value={avtale.gjeldendeInnhold.lonnstilskuddProsent}
                         onChange={(event) => {
                             settOgKalkulerBeregningsverdier({
@@ -60,20 +61,21 @@ const Lonnstilskuddprosent = (props: Props) => {
 
     if (innloggetBruker.erNavAnsatt && erSommerjobb) {
         return (
-            <RadioPanelGruppeHorisontal
-                radios={[
-                    { label: '50 %', value: '50' },
-                    { label: '75 %', value: '75' },
-                ]}
-                name="lonnstilskuddProsent"
-                checked={avtale.gjeldendeInnhold.lonnstilskuddProsent + ''}
-                legend=""
-                onChange={(_, verdi) => {
-                    settOgKalkulerBeregningsverdier({
-                        lonnstilskuddProsent: parseInt(verdi, 10),
-                    });
-                }}
-            />
+            <>
+                <Select
+                    label="Tilskuddsprosent"
+                    value={avtale.gjeldendeInnhold.lonnstilskuddProsent}
+                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                        settOgKalkulerBeregningsverdier({
+                            lonnstilskuddProsent: parseInt(event.target.value, 10),
+                        });
+                    }}
+                >
+                    <option value="50">50&nbsp;%</option>
+                    <option value="75">75&nbsp;%</option>
+                </Select>
+                <VerticalSpacer rem={2} />
+            </>
         );
     }
 

@@ -1,0 +1,25 @@
+@import (reference) '../../tiltak_variabler.less';
+
+.beslutter-panel {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem 2.75rem 2rem 2.5rem;
+    box-shadow:
+        0 4px 6px -1px rgb(0 0 0 / 10%),
+        0 2px 4px -1px rgb(0 0 0 / 6%);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.avtalenummer {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    grid-column: 1 / -1;
+}

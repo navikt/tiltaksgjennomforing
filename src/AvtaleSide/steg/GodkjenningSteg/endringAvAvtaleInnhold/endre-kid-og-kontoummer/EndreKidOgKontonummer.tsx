@@ -1,6 +1,6 @@
-import { Money } from '@navikt/ds-icons';
 import { Alert, Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useState } from 'react';
 
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { KidOgKontonummer } from '@/komponenter/form/kid-og-kontonummer';
@@ -8,6 +8,7 @@ import { endreKidOgKontonummer } from '@/services/rest-service';
 import { useAvtale } from '@/AvtaleProvider';
 
 import styles from './EndreKidOgKontonummer.module.less';
+import { WalletIcon } from '@navikt/aksel-icons';
 
 interface State {
     kid?: string;
@@ -40,7 +41,7 @@ const EndreKidOgKontonummer: FunctionComponent = () => {
                 className={styles.lenke}
             >
                 <div aria-hidden={true}>
-                    <Money className={styles.ikon} />
+                    <WalletIcon className={styles.ikon} />
                 </div>
                 Endre KID og kontonummer
             </Link>

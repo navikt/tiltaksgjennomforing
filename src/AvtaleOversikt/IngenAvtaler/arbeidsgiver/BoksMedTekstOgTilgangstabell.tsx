@@ -16,29 +16,32 @@ interface Props {
 
 const BoksMedTekstOgTilgangstabell: FunctionComponent<Props> = (props) => {
     return (
-        <RammeMedIkonOgOverskrift overskrift={props.overskrift}>
-            {props.visTekst && (
-                <>
-                    <BodyShort size="small">
-                        Du har tilgang til én eller flere tiltakstyper men det er ikke opprettet noen avtaler for denne
-                        eller disse tiltakstypene.
-                    </BodyShort>
-                    <VerticalSpacer rem={2} />
-                </>
-            )}
-            <Label>
-                Her ser du en oversikt over hvilke tiltakstyper du har tilgang til i {props.bedriftNavnOgNummer}
-            </Label>
-            <VerticalSpacer rem={0.5} />
-            <BodyShort size="small">
-                Hvis du mangler tilgang kan du be om tilgang i Altinn.{' '}
-                <EksternLenke href="https://info.altinn.no/hjelp/profil/enkelttjenester-og-roller/">
-                    Les mer om roller og rettigheter i Altinn her
-                </EksternLenke>
-            </BodyShort>
-            <VerticalSpacer rem={3} />
-            <TilgangTabell tilganger={props.tilganger} bedriftNr={props.bedriftNr} />
-        </RammeMedIkonOgOverskrift>
+        <>
+            <RammeMedIkonOgOverskrift overskrift={props.overskrift}>
+                {props.visTekst && (
+                    <>
+                        <BodyShort size="small">
+                            Du har tilgang til én eller flere tiltakstyper men det er ikke opprettet noen avtaler for
+                            denne eller disse tiltakstypene.
+                        </BodyShort>
+                        <VerticalSpacer rem={2} />
+                    </>
+                )}
+                <Label>
+                    Her ser du en oversikt over hvilke tiltakstyper du har tilgang til i {props.bedriftNavnOgNummer}
+                </Label>
+                <VerticalSpacer rem={0.5} />
+                <BodyShort size="small">
+                    Hvis du mangler tilgang kan du be om tilgang i Altinn.{' '}
+                    <EksternLenke href="https://info.altinn.no/hjelp/profil/enkelttjenester-og-roller/">
+                        Les mer om roller og rettigheter i Altinn her
+                    </EksternLenke>
+                </BodyShort>
+                <VerticalSpacer rem={3} />
+                <TilgangTabell tilganger={props.tilganger} bedriftNr={props.bedriftNr} />
+            </RammeMedIkonOgOverskrift>
+            <VerticalSpacer rem={1} />
+        </>
     );
 };
 

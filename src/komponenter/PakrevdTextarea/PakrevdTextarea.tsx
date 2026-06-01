@@ -13,6 +13,7 @@ interface Props {
     feilmelding?: string;
     maxLengde: number;
     settVerdi: (verdi: string) => void;
+    hideLabel?: boolean;
     className?: string;
     disabled?: boolean;
 }
@@ -27,6 +28,7 @@ const PakrevdTextarea: React.FunctionComponent<Props> = (props) => {
             placeholder={props.placeholder}
             error={feil}
             label={props.label}
+            hideLabel={props.hideLabel}
             description={props.description}
             value={props.verdi || ''}
             onChange={(event: any) => {

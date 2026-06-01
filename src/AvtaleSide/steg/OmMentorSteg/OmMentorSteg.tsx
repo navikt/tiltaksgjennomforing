@@ -12,6 +12,7 @@ import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/Vis
 import BEMHelper from '@/utils/bem';
 import './omMentorSteg.less';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
+import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -82,6 +83,7 @@ const OmMentorSteg = () => {
                             settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
                         />
                     )}
+                    <HorizontalSpacer rem={1} />
                     {kanRedigereMentorFnr ? (
                         <TextField
                             label="Etternavn"

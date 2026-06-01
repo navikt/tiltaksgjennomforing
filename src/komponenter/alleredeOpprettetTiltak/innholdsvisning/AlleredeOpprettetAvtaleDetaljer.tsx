@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { BEMWrapper } from '@/utils/bem';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import { BodyShort, Link } from '@navikt/ds-react';
-import { Expand } from '@navikt/ds-icons';
 import { formaterDato } from '@/utils/datoUtils';
 import { avtaleStatusTekst } from '@/messages';
 import RadInfo from '@/komponenter/alleredeOpprettetTiltak/innholdsvisning/RadInfo';
 import { storForbokstav } from '@/utils/stringUtils';
+import { ChevronDownIcon } from '@navikt/aksel-icons';
 
 interface Props {
     cls: BEMWrapper;
@@ -46,7 +46,7 @@ const AlleredeOpprettetAvtaleDetaljer: React.FC<Props> = ({ cls, innhold }) => {
                 >
                     <span>Detaljer</span>
                     <span className={cls.element('chevron-detaljer', seDetaljer ? 'open' : 'close')}>
-                        <Expand />
+                        <ChevronDownIcon />
                     </span>
                 </Link>
             </BodyShort>

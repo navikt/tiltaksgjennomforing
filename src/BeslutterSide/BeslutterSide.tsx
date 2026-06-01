@@ -7,7 +7,7 @@ import React, { Dispatch, FunctionComponent, SetStateAction, useContext, useStat
 import './BeslutterSide.less';
 import BeslutterPanel from '@/BeslutterSide/beslutterPanel/BeslutterPanel';
 import BeslutterTilskuddsPerioder from '@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperioder';
-import { Accordion, Heading } from '@navikt/ds-react';
+import { ExpansionCard, Heading } from '@navikt/ds-react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import VersjoneringKomponent from '@/AvtaleSide/steg/GodkjenningSteg/Versjonering/VersjoneringKomponent';
 import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
@@ -72,22 +72,25 @@ const BeslutterSide: FunctionComponent = () => {
                     </div>
                     <VerticalSpacer rem={1} />
                     <div className={cls.element('avtale-wrapper')}>
-                        <Accordion className="accordion" onClick={() => setVisVersjon(!visVersjon)}>
-                            <Accordion.Item>
-                                <Accordion.Header>Se avtalen</Accordion.Header>
-                                <Accordion.Content>
-                                    <Innholdsboks>
-                                        <Heading size="large">{avtaleTittel[avtale.tiltakstype]}</Heading>
-                                        <VerticalSpacer rem={2} />
-                                        <Oppsummering
-                                            tiltakstype={avtale.tiltakstype}
-                                            avtaleInnhold={avtale.gjeldendeInnhold}
-                                            erAvtaleInngaatt={!!avtale.avtaleInngått}
-                                        />
-                                    </Innholdsboks>
-                                </Accordion.Content>
-                            </Accordion.Item>
-                        </Accordion>
+                        <ExpansionCard aria-label="Se avtalen" size="small" onClick={() => setVisVersjon(!visVersjon)}>
+                            <ExpansionCard.Header>
+                                <ExpansionCard.Title size="small">Se avtalen</ExpansionCard.Title>
+                                <ExpansionCard.Description>
+                                    {avtaleTittel[avtale.tiltakstype]}
+                                </ExpansionCard.Description>
+                            </ExpansionCard.Header>
+                            <ExpansionCard.Content>
+                                <Innholdsboks>
+                                    <Heading size="large">{avtaleTittel[avtale.tiltakstype]}</Heading>
+                                    <VerticalSpacer rem={2} />
+                                    <Oppsummering
+                                        tiltakstype={avtale.tiltakstype}
+                                        avtaleInnhold={avtale.gjeldendeInnhold}
+                                        erAvtaleInngaatt={!!avtale.avtaleInngått}
+                                    />
+                                </Innholdsboks>
+                            </ExpansionCard.Content>
+                        </ExpansionCard>
                     </div>
                     {visVersjon && (
                         <div className={cls.element('avtale-versjon-wrapper')}>

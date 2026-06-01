@@ -4,10 +4,11 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { oppdatereOppfølgingOgTilretteleggingInformasjon } from '@/services/rest-service';
 import { EndreOppfølgingOgTilretteleggingInfo } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { MeetingRoom } from '@navikt/ds-icons/cjs';
 import { Heading, Link } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import { useContext, useState } from 'react';
 import './EndreOppfølgingOgTilrettelegging.less';
+import { MeetingLargeIcon } from '@navikt/aksel-icons';
 
 const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
     const cls = BEMHelper('endreOppfølgingOgTilrettelegging');
@@ -52,7 +53,7 @@ const EndreOppfølgingOgTilrettelegging: FunctionComponent = () => {
                 className={cls.element('lenke')}
             >
                 <div aria-hidden={true}>
-                    <MeetingRoom className={cls.element('ikon')} />
+                    <MeetingLargeIcon className={cls.element('ikon')} />
                 </div>
                 Endre oppfølging og tilrettelegging
             </Link>
