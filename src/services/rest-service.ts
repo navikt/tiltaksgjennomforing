@@ -4,7 +4,6 @@ import { mutate } from 'swr';
 
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { EndreBeregning } from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndreTilskuddsberegning';
-import { Kostnadssted } from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
 import { Feature, FeatureToggles, FeatureToggleVariants } from '@/FeatureToggles';
 import { Avtalerolle } from '@/OpprettAvtale/OpprettAvtaleVeileder/OpprettAvtaleVeileder';
 import { SIDE_FOER_INNLOGGING } from '@/RedirectEtterLogin';
@@ -375,15 +374,6 @@ export const delAvtaleMedAvtalepart = async (avtale: Avtale, rolle: Rolle): Prom
             'If-Unmodified-Since': avtale.sistEndret,
         },
     });
-};
-
-export const oppdatereKostnadsstedet = async (avtale: Avtale, kostnadssted: Kostnadssted): Promise<Avtale> => {
-    const response = await api.post(`/avtaler/${avtale.id}/endre-kostnadssted`, JSON.stringify(kostnadssted), {
-        headers: {
-            'If-Unmodified-Since': avtale.sistEndret,
-        },
-    });
-    return response.data;
 };
 
 export const overtaAvtale = async (avtale: Avtale): Promise<void> => {

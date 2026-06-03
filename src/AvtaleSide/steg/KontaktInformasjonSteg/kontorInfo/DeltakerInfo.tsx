@@ -1,25 +1,26 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React from 'react';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import './deltakerInfo.less';
 import BEMHelper from '@/utils/bem';
 import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
-import OppdatereKostnadssted from '@/AvtaleSide/steg/KontaktInformasjonSteg/kontorInfo/OppdatereKostnadssted';
-import { AvtaleContext } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 import {
     hentKvalifiseringsgruppeTekst,
     SjekkKvalifiseringsgruppeOppMotTiltakstype,
 } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { hentFormidlingsgruppeTekst } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
-const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
-    oppsummeringside,
-}: {
+interface Props {
     oppsummeringside: boolean;
-}) => {
-    const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { avtale } = useContext(AvtaleContext);
+}
+
+const DeltakerInfo = (props: Props) => {
+    const { oppsummeringside } = props;
+    const innloggetBruker = useInnloggetBruker();
+    const { avtale } = useAvtale();
+
     if (innloggetBruker.rolle !== 'VEILEDER' && innloggetBruker.rolle !== 'BESLUTTER') {
         return null;
     }
@@ -77,7 +78,6 @@ const DeltakerInfo: FunctionComponent<{ oppsummeringside: boolean }> = ({
                     </BodyShort>
                 </div>
             </div>
-            {!oppsummeringside && <OppdatereKostnadssted />}
             {!avtale.avtaleInngått && (
                 <SjekkKvalifiseringsgruppeOppMotTiltakstype
                     tiltakstype={tiltakstype}

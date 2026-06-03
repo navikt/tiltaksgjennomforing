@@ -17,8 +17,10 @@ import { addDays, addMonths, isWithinInterval } from 'date-fns';
 import { erNil } from '@/utils/predicates';
 import BeslutterTilskuddsperiodeBekreftelseModal from '@/BeslutterSide/beslutterTilskuddsperioder/BeslutterTilskuddsperiodeBekreftelseModal';
 
+const STATUS_SOM_KAN_BEHANDLES = ['OPPFØLGING_KREVES', 'UBEHANDLET'];
+
 const BeslutterTilskuddsPerioder: FunctionComponent = () => {
-    const { avtale, godkjennTilskudd } = useContext<Context>(AvtaleContext);
+    const { avtale } = useContext<Context>(AvtaleContext);
     const { enhet, setVisEnhetFeil, setVisReturModal: setVisAvslag } = useContext<Periode>(TilskuddsperiodeContext);
     const { gjeldendeTilskuddsperiode } = avtale;
     const [godkjennModalÅpen, setGodkjennModalÅpen] = useState<boolean>(false);
@@ -139,6 +141,7 @@ const BeslutterTilskuddsPerioder: FunctionComponent = () => {
                         {currentFilter().map((periode) => {
                             const gjeldende = periode.løpenummer === gjeldendeTilskuddsperiode?.løpenummer;
                             const kreverOppfølging = periodeKreverOppfølging(periode);
+
                             return (
                                 <React.Fragment key={periode.id}>
                                     <tr
@@ -156,7 +159,9 @@ const BeslutterTilskuddsPerioder: FunctionComponent = () => {
                                         <td>{formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}</td>
                                         {skalViseSats && <td>{formaterProsent(periode.lonnstilskuddProsent)}</td>}
                                         <td>{formaterDato(periode.kanBesluttesFom, NORSK_DATO_FORMAT)}</td>
-                                        <td>{periode.status === 'GODKJENT' ? periode.enhet : enhet}</td>
+                                        <td>
+                                            {STATUS_SOM_KAN_BEHANDLES.includes(periode.status) ? enhet : periode.enhet}
+                                        </td>
                                         <td>
                                             <EtikettStatus
                                                 tilskuddsperiodestatus={
