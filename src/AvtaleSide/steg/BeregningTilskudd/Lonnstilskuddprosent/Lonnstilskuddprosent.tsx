@@ -71,6 +71,7 @@ const Lonnstilskuddprosent = (props: Props) => {
                         });
                     }}
                 >
+                    <option value="">- Velg tilskuddsprosent -</option>
                     <option value="50">50&nbsp;%</option>
                     <option value="75">75&nbsp;%</option>
                 </Select>
