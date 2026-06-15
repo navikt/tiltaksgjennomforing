@@ -139,7 +139,7 @@ export type Avtaleinnhold = {
     mentorValgtLonnstype?: MentorValgtLonnstype;
     mentorValgtLonnstypeBelop?: number;
     innholdType: AvtaleInnholdType;
-    erMigrertVersjon: boolean;
+    versjonInnhold: VersjonInnhold;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<
@@ -192,6 +192,8 @@ export type AvtaleInnholdType =
     | 'ENDRET_AV_ARENA'
     | 'ENDRE_KID_OG_KONTONUMMER'
     | 'ANNULLERE';
+
+export type VersjonInnhold = 'MENTOR_BEREGNING' | 'LONNSTILSKUDD_FORMAAL' | 'OPPRINNELIG';
 
 export type Avtaleopphav = 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
 

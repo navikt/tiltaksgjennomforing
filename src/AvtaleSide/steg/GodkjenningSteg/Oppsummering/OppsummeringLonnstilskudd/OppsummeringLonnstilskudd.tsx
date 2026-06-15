@@ -14,12 +14,11 @@ import UtregningPanel from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanel';
 interface Props {
     avtaleinnhold: Avtaleinnhold;
     tiltakstype: TiltaksType;
-    erAvtaleInngaatt: boolean;
 }
 
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props: Props) => {
-    const { avtaleinnhold, tiltakstype, erAvtaleInngaatt } = props;
-    const { lonnstilskuddProsent, manedslonn } = avtaleinnhold;
+    const { avtaleinnhold, tiltakstype } = props;
+    const { lonnstilskuddProsent, manedslonn, versjonInnhold } = avtaleinnhold;
 
     return (
         <>
@@ -27,11 +26,7 @@ const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props: Props) => {
             <Avtaleparter avtaleinnhold={avtaleinnhold} />
             <RelasjonerOppsummering {...avtaleinnhold} />
             <VerticalSpacer rem={2.5} />
-            <StillingsOppsummeringLonnstilskudd
-                tiltakstype={tiltakstype}
-                erAvtaleInngaatt={erAvtaleInngaatt}
-                {...avtaleinnhold}
-            />
+            <StillingsOppsummeringLonnstilskudd tiltakstype={tiltakstype} {...avtaleinnhold} />
             <VarighetOppsummering {...avtaleinnhold} />
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />

@@ -63,7 +63,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
         inkluderingstilskuddSats: 149_100,
         innholdType: 'INNGÅ',
         tilskuddstrinn: [],
-        erMigrertVersjon: false,
+        versjonInnhold: 'OPPRINNELIG',
     },
 
     tilskuddPeriode: [],

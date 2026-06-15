@@ -13,11 +13,10 @@ const cls = BEMHelper('tidligereVersjoner');
 interface Props {
     versjoner: AvtaleVersjon[];
     tiltakstype: TiltaksType;
-    erAvtaleInngaatt: boolean;
 }
 
 const TidligereVersjoner = (props: Props) => {
-    const { versjoner, erAvtaleInngaatt } = props;
+    const { versjoner } = props;
     const [isOpen, setOpen] = useState<boolean>(false);
     const [currentVersjon, setCurrentVersjon] = useState<number>(0);
 
@@ -64,7 +63,6 @@ const TidligereVersjoner = (props: Props) => {
                 lukkModal={() => setOpen(false)}
                 avtaleInnhold={avtaleInnhold}
                 tiltakstype={props.tiltakstype}
-                erAvtaleInngaatt={erAvtaleInngaatt}
             />
         </>
     );

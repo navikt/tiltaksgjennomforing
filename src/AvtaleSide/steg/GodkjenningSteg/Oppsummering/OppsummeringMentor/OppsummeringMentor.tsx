@@ -20,7 +20,7 @@ const OppsummeringMentor = (props: Props) => {
     const { avtaleinnhold } = props;
 
     const innloggetBruker = useContext(InnloggetBrukerContext);
-    const { erMigrertVersjon, mentorTimelonn } = avtaleinnhold;
+    const { versjonInnhold, mentorTimelonn } = avtaleinnhold;
 
     return (
         <>
@@ -32,13 +32,15 @@ const OppsummeringMentor = (props: Props) => {
             <StartOgSluttdatoOppsummering {...avtaleinnhold} />
             <OppfolgingOppsummering {...avtaleinnhold} />
             <Tilrettelegging {...avtaleinnhold} />
-            {erMigrertVersjon && innloggetBruker.rolle !== 'DELTAKER' && innloggetBruker.rolle !== 'MENTOR' && (
-                <BeregningTilskuddOppsummering
-                    {...avtaleinnhold}
-                    ekstraAvhengigFelter={{ mentorTimelonn }}
-                    utregningPanelKomponent={UtregningPanelMentorTilskudd}
-                />
-            )}
+            {versjonInnhold === 'MENTOR_BEREGNING' &&
+                innloggetBruker.rolle !== 'DELTAKER' &&
+                innloggetBruker.rolle !== 'MENTOR' && (
+                    <BeregningTilskuddOppsummering
+                        {...avtaleinnhold}
+                        ekstraAvhengigFelter={{ mentorTimelonn }}
+                        utregningPanelKomponent={UtregningPanelMentorTilskudd}
+                    />
+                )}
         </>
     );
 };

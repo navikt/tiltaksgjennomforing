@@ -76,7 +76,7 @@ const arbeidstreningAvtaleMock: Avtale = {
         innholdType: 'INNGÅ',
 
         tilskuddstrinn: [],
-        erMigrertVersjon: false,
+        versjonInnhold: 'OPPRINNELIG',
     },
 
     tilskuddPeriode: tilskuddsPeriode,

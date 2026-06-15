@@ -59,7 +59,6 @@ const GodkjenningSteg = () => {
                 <Oppsummering
                     tiltakstype={avtale.tiltakstype}
                     avtaleInnhold={avtale.gjeldendeInnhold}
-                    erAvtaleInngaatt={!!avtale.avtaleInngått}
                 />
             </Innholdsboks>
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}

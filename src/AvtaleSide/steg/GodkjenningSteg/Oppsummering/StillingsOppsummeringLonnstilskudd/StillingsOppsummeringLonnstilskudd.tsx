@@ -1,7 +1,7 @@
 import StillingIkon from '@/assets/ikoner/toolbox.svg?react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { lonnstilskuddFormaal as lonnstilskuddFormaalMsg, stillingstype as stillingtypeMsg } from '@/messages';
-import { Stilling, TiltaksType } from '@/types/avtale';
+import { Stilling, TiltaksType, VersjonInnhold } from '@/types/avtale';
 import { Label } from '@navikt/ds-react';
 import React from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
@@ -10,15 +10,14 @@ import { erNil } from '@/utils/predicates';
 
 interface Props extends Stilling {
     tiltakstype: TiltaksType;
-    erAvtaleInngaatt: boolean;
+    versjonInnhold: VersjonInnhold;
 }
 
 const StillingsOppsummeringLonnstilskudd = (props: Props) => {
-    const { tiltakstype, stillingstittel, arbeidsoppgaver, stillingstype, lonnstilskuddFormaal, erAvtaleInngaatt } =
+    const { tiltakstype, stillingstittel, arbeidsoppgaver, stillingstype, lonnstilskuddFormaal, versjonInnhold } =
         props;
 
     const erIkkeSommerjobb = tiltakstype !== 'SOMMERJOBB';
-    const visFormaalForNyeAvtaler = !erAvtaleInngaatt || !erNil(lonnstilskuddFormaal);
 
     return (
         <Stegoppsummering tittel="Stilling" ikon={<StillingIkon />}>
@@ -31,7 +30,7 @@ const StillingsOppsummeringLonnstilskudd = (props: Props) => {
             <Label>Stillingstype</Label>
             <SjekkOmVerdiEksisterer verdi={stillingstype} formatertVerdi={stillingtypeMsg[stillingstype!]} />
             <VerticalSpacer rem={2} />
-            {erIkkeSommerjobb && visFormaalForNyeAvtaler && (
+            {versjonInnhold === 'LONNSTILSKUDD_FORMAAL' && erIkkeSommerjobb && (
                 <>
                     <Label>Formålet med avtalen</Label>
                     <SjekkOmVerdiEksisterer
