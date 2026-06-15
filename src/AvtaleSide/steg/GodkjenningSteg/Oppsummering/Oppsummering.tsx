@@ -31,7 +31,7 @@ function Oppsummering(props: Props) {
         case 'ARBEIDSTRENING':
             return <OppsummeringArbeidstrening avtaleinnhold={avtaleInnhold} />;
         case 'MENTOR':
-            return <OppsummeringMentor avtaleinnhold={avtaleInnhold} erAvtaleInngaatt={erAvtaleInngaatt} />;
+            return <OppsummeringMentor avtaleinnhold={avtaleInnhold} />;
         case 'INKLUDERINGSTILSKUDD':
             return <OppsummeringInkluderingstilskudd avtaleinnhold={avtaleInnhold} />;
         case 'VTAO':

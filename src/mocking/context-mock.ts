@@ -76,6 +76,7 @@ const avtaleInnhold: Avtale | Avtaleinnhold = {
     inkluderingstilskuddSats: 149_100,
     innholdType: 'INNGÅ',
     tilskuddstrinn: [],
+    erMigrertVersjon: false,
 };
 
 export const contextMock: Partial<Context> = {

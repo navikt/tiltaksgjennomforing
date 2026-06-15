@@ -139,6 +139,7 @@ export type Avtaleinnhold = {
     mentorValgtLonnstype?: MentorValgtLonnstype;
     mentorValgtLonnstypeBelop?: number;
     innholdType: AvtaleInnholdType;
+    erMigrertVersjon: boolean;
 } & InkluderingsInnhold;
 
 export type MentorInnhold = Pick<

@@ -21,14 +21,14 @@ const verdi = (tall?: number) => {
 };
 
 interface Props extends Mentorinfo {
-    visInnholdFraEtterMigrering: boolean;
+    erMigrertVersjon: boolean;
 }
 
 const OmMentorOppsummering = (props: Props) => {
-    const { visInnholdFraEtterMigrering } = props;
+    const { erMigrertVersjon } = props;
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const periodeType = visInnholdFraEtterMigrering ? 'måned' : 'uke';
+    const periodeType = erMigrertVersjon ? 'måned' : 'uke';
 
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
@@ -78,7 +78,7 @@ const OmMentorOppsummering = (props: Props) => {
                                     verdi={verdi(props.mentorAntallTimer)}
                                 />
                             </Column>
-                            {!visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
+                            {!erMigrertVersjon && rolle !== 'DELTAKER' && (
                                 <Column md="6" sm="6" xs="6">
                                     <Label className={cls.element('label')}>
                                         Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
@@ -92,7 +92,7 @@ const OmMentorOppsummering = (props: Props) => {
                                 </Column>
                             )}
                         </Row>
-                        {visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
+                        {erMigrertVersjon && rolle !== 'DELTAKER' && (
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Row>
