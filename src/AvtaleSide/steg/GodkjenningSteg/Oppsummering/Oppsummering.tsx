@@ -10,28 +10,21 @@ import OppsummeringVTAO from './OppsummeringVTAO/OppsummeringVTAO';
 interface Props {
     tiltakstype: TiltaksType;
     avtaleInnhold: Avtaleinnhold;
-    erAvtaleInngaatt: boolean;
 }
 
 function Oppsummering(props: Props) {
-    const { tiltakstype, avtaleInnhold, erAvtaleInngaatt } = props;
+    const { tiltakstype, avtaleInnhold } = props;
 
     switch (tiltakstype) {
         case 'FIREARIG_LONNSTILSKUDD':
         case 'MIDLERTIDIG_LONNSTILSKUDD':
         case 'SOMMERJOBB':
         case 'VARIG_LONNSTILSKUDD':
-            return (
-                <OppsummeringLonnstilskudd
-                    avtaleinnhold={avtaleInnhold}
-                    tiltakstype={tiltakstype}
-                    erAvtaleInngaatt={erAvtaleInngaatt}
-                />
-            );
+            return <OppsummeringLonnstilskudd avtaleinnhold={avtaleInnhold} tiltakstype={tiltakstype} />;
         case 'ARBEIDSTRENING':
             return <OppsummeringArbeidstrening avtaleinnhold={avtaleInnhold} />;
         case 'MENTOR':
-            return <OppsummeringMentor avtaleinnhold={avtaleInnhold} erAvtaleInngaatt={erAvtaleInngaatt} />;
+            return <OppsummeringMentor avtaleinnhold={avtaleInnhold} />;
         case 'INKLUDERINGSTILSKUDD':
             return <OppsummeringInkluderingstilskudd avtaleinnhold={avtaleInnhold} />;
         case 'VTAO':

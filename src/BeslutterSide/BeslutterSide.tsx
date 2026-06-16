@@ -86,7 +86,6 @@ const BeslutterSide: FunctionComponent = () => {
                                     <Oppsummering
                                         tiltakstype={avtale.tiltakstype}
                                         avtaleInnhold={avtale.gjeldendeInnhold}
-                                        erAvtaleInngaatt={!!avtale.avtaleInngått}
                                     />
                                 </Innholdsboks>
                             </ExpansionCard.Content>

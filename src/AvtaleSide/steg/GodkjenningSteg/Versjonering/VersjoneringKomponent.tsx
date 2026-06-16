@@ -20,11 +20,7 @@ const VersjoneringKomponent = (props: Props) => {
     return (
         <MediaQuery print={false}>
             <Innholdsboks>
-                <TidligereVersjoner
-                    versjoner={versjoner}
-                    tiltakstype={avtale.tiltakstype}
-                    erAvtaleInngaatt={!!avtale.avtaleInngått}
-                />
+                <TidligereVersjoner versjoner={versjoner} tiltakstype={avtale.tiltakstype} />
             </Innholdsboks>
         </MediaQuery>
     );

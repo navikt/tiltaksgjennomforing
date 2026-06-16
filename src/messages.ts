@@ -68,6 +68,7 @@ export const avtaleFelterBokmal: { [key in keyof Avtaleinnhold]: string } = {
     inkluderingstilskuddSats: 'Årlig gjeldende inkluderingstilskuddsats',
     innholdType: 'INNGÅ',
     tilskuddstrinn: 'Trinn for prosentreduksjon av tilskuddsperioder',
+    versjonInnhold: '',
 };
 
 export const inkluderingstilskuddtypeTekst: { [key in InkluderingstilskuddsutgiftType]: string } = {

@@ -3,7 +3,7 @@ import TaushetserklæringTekst from '@/AvtaleOversikt/Taushetserklæring/Taushet
 import { AvtaleContext } from '@/AvtaleProvider';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Mentorinfo } from '@/types/avtale';
+import { Mentorinfo, VersjonInnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { ExpansionCard, Heading, Label, ReadMore } from '@navikt/ds-react';
 import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
@@ -21,14 +21,14 @@ const verdi = (tall?: number) => {
 };
 
 interface Props extends Mentorinfo {
-    visInnholdFraEtterMigrering: boolean;
+    versjonInnhold: VersjonInnhold;
 }
 
 const OmMentorOppsummering = (props: Props) => {
-    const { visInnholdFraEtterMigrering } = props;
+    const { versjonInnhold } = props;
     const { rolle } = useContext(InnloggetBrukerContext);
     const { avtale } = useContext(AvtaleContext);
-    const periodeType = visInnholdFraEtterMigrering ? 'måned' : 'uke';
+    const periodeType = versjonInnhold === 'MENTOR_BEREGNING' ? 'måned' : 'uke';
 
     return (
         <Stegoppsummering ikon={<MentorIkon />} tittel="Om mentoren">
@@ -78,7 +78,7 @@ const OmMentorOppsummering = (props: Props) => {
                                     verdi={verdi(props.mentorAntallTimer)}
                                 />
                             </Column>
-                            {!visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
+                            {versjonInnhold === 'OPPRINNELIG' && rolle !== 'DELTAKER' && (
                                 <Column md="6" sm="6" xs="6">
                                     <Label className={cls.element('label')}>
                                         Timelønn inkl. Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon
@@ -92,7 +92,7 @@ const OmMentorOppsummering = (props: Props) => {
                                 </Column>
                             )}
                         </Row>
-                        {visInnholdFraEtterMigrering && rolle !== 'DELTAKER' && (
+                        {versjonInnhold === 'MENTOR_BEREGNING' && rolle !== 'DELTAKER' && (
                             <>
                                 <VerticalSpacer rem={1} />
                                 <Row>

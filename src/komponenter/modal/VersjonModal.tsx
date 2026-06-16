@@ -9,12 +9,11 @@ interface Props {
     isOpen: boolean;
     lukkModal: () => void;
     avtaleInnhold: AvtaleVersjon;
-    erAvtaleInngaatt: boolean;
     tiltakstype: TiltaksType;
 }
 
 const VersjonModal = (props: Props) => {
-    const { avtaleInnhold, tiltakstype, lukkModal, isOpen, erAvtaleInngaatt } = props;
+    const { avtaleInnhold, tiltakstype, lukkModal, isOpen } = props;
 
     return (
         <Modal className="versjon__modal" aria-label="Versjon modal" open={isOpen} onClose={() => lukkModal()}>
@@ -22,11 +21,7 @@ const VersjonModal = (props: Props) => {
                 <SkjemaTittel>Versjon {avtaleInnhold.versjon}</SkjemaTittel>
             </Modal.Header>
             <Modal.Body>
-                <Oppsummering
-                    tiltakstype={tiltakstype}
-                    avtaleInnhold={avtaleInnhold}
-                    erAvtaleInngaatt={erAvtaleInngaatt}
-                />
+                <Oppsummering tiltakstype={tiltakstype} avtaleInnhold={avtaleInnhold} />
             </Modal.Body>
         </Modal>
     );
