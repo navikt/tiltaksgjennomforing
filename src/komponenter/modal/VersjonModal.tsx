@@ -21,10 +21,7 @@ const VersjonModal = (props: Props) => {
                 <SkjemaTittel>Versjon {avtaleInnhold.versjon}</SkjemaTittel>
             </Modal.Header>
             <Modal.Body>
-                <Oppsummering
-                    tiltakstype={tiltakstype}
-                    avtaleInnhold={avtaleInnhold}
-                />
+                <Oppsummering tiltakstype={tiltakstype} avtaleInnhold={avtaleInnhold} />
             </Modal.Body>
         </Modal>
     );
