@@ -18,7 +18,7 @@ interface Props {
 
 const OppsummeringLonnstilskudd: FunctionComponent<Props> = (props: Props) => {
     const { avtaleinnhold, tiltakstype } = props;
-    const { lonnstilskuddProsent, manedslonn, versjonInnhold } = avtaleinnhold;
+    const { lonnstilskuddProsent, manedslonn } = avtaleinnhold;
 
     return (
         <>
