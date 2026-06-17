@@ -64,7 +64,7 @@ const getAvtalepartStatus = (avtale: Avtale): AvtalepartStatus => {
     if (isVenterPaMentor) {
         return 'VENTER_PÅ_ARBEIDSGIVER_DELTAKER_OG_MENTOR';
     }
-    if (isArena) {
+    if (isArena && avtale.tiltakstype !== 'MENTOR') {
         return 'VENTER_PÅ_ARBEIDSGIVER_OG_DELTAKER_ARENA';
     }
 
