@@ -1,5 +1,4 @@
-import React from 'react';
-import { AvtaleContext, useAvtale } from '@/AvtaleProvider';
+import { useAvtale } from '@/AvtaleProvider';
 
 import GodkjennPaVegneAvDeltaker from './GodkjennPaVegneAvDeltaker';
 import GodkjennPaVegneAvFlereParter from './GodkjennPaVegneAvFlereParter';
