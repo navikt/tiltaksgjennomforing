@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { Label } from '@navikt/ds-react';
+import { HGrid, Label } from '@navikt/ds-react';
 
 import HvaManglerOppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/HvaManglerOppsummering';
 import SjekkOmVerdiEksisterer from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
@@ -38,18 +37,18 @@ const BeregningTilskuddOppsummering = (props: Props) => {
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
             {!erDeltaker && (
-                <Row className={styles.row}>
-                    <Column md="4" sm="6" xs="6">
+                <HGrid columns={{ xs: 1, sm: 2, md: 3 }} gap="space-16" className={styles.row}>
+                    <div>
                         <Label>Kontonummer</Label>
                         <SjekkOmVerdiEksisterer verdi={arbeidsgiverKontonummer} />
-                    </Column>
+                    </div>
                     {arbeidsgiverKid && (
-                        <Column md="4" sm="6" xs="6">
+                        <div>
                             <Label>KID-nummer</Label>
                             <SjekkOmVerdiEksisterer verdi={arbeidsgiverKid} />
-                        </Column>
+                        </div>
                     )}
-                </Row>
+                </HGrid>
             )}
 
             {Beregningskomponent && (

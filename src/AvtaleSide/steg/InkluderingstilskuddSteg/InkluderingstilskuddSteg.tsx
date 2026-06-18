@@ -6,8 +6,7 @@ import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formaterPenger } from '@/utils/PengeUtils';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { BodyShort, Heading, Ingress } from '@navikt/ds-react';
+import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
@@ -63,14 +62,10 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 <BodyShort size="small">I hvilken periode skal tilskuddet benyttes?</BodyShort>
                 <VerticalSpacer rem={1} />
-                <Row className="">
-                    <Column md="6">
-                        <Datovelger datoFelt="startDato" label="StartDato" />
-                    </Column>
-                    <Column md="6">
-                        <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
-                    </Column>
-                </Row>
+                <HGrid columns={{ xs: 1, md: 2 }} gap="space-16">
+                    <Datovelger datoFelt="startDato" label="StartDato" />
+                    <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
+                </HGrid>
 
                 <VerticalSpacer rem={2} />
 

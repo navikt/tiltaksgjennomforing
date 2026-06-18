@@ -1,16 +1,15 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
-import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import { Link } from '@navikt/ds-react';
+import { HGrid, Link } from '@navikt/ds-react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import type { FunctionComponent } from 'react';
 import { useContext, useState } from 'react';
 import { TasklistIcon } from '@navikt/aksel-icons';
+import styles from './EndreOmMentor.module.less';
 
 const EndreOmMentor: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -38,7 +37,7 @@ const EndreOmMentor: FunctionComponent = () => {
     return (
         <>
             <Link
-                style={{ display: 'flex', alignItems: 'center' }}
+                className={styles.endreOmMentorLenke}
                 onClick={(event) => {
                     event.stopPropagation();
                     setModalApen(true);
@@ -46,7 +45,7 @@ const EndreOmMentor: FunctionComponent = () => {
                 href="#"
                 role="menuitem"
             >
-                <div style={{ marginRight: '0.5rem' }} aria-hidden={true}>
+                <div className={styles.endreOmMentorTekst} aria-hidden={true}>
                     <TasklistIcon />
                 </div>
                 Endre om Mentor
@@ -60,57 +59,37 @@ const EndreOmMentor: FunctionComponent = () => {
                 bekreftOnClick={kallEndreOmMentor}
                 lukkModal={lukkModal}
             >
-                <div>
-                    <Container fluid={true}>
-                        <Row className={''}>
-                            <Column md="6">
-                                <div className={'rad'}>
-                                    <VisueltDisabledInputFelt
-                                        label="Fødselsnummer"
-                                        tekst={avtaleContext.avtale.mentorFnr}
-                                    />
-                                </div>
-                            </Column>
-                        </Row>
-                        <VerticalSpacer rem={1} />
-                        <Row className="rad">
-                            <Column md="6">
-                                <PakrevdInput
-                                    label="Fornavn"
-                                    verdi={mentorInfo.mentorFornavn}
-                                    settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorFornavn: verdi })}
-                                />
-                            </Column>
-                            <Column md="6">
-                                <PakrevdInput
-                                    label="Etternavn"
-                                    verdi={mentorInfo.mentorEtternavn}
-                                    settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}
-                                />
-                            </Column>
-                        </Row>
-                        <VerticalSpacer rem={1} />
-                        <Row className={'rad'}>
-                            <Column md="6">
-                                <TelefonnummerInput
-                                    label="Mobilnummer"
-                                    verdi={mentorInfo.mentorTlf}
-                                    settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
-                                />
-                            </Column>
-                        </Row>
-                    </Container>
-                    <VerticalSpacer rem={1} />
-                    <Container fluid={true}>
-                        <PakrevdTextarea
-                            label="Arbeidsoppgaver til mentor"
-                            verdi={mentorInfo.mentorOppgaver}
-                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorOppgaver: verdi })}
-                            maxLengde={1000}
-                            feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
-                        />
-                    </Container>
-                </div>
+                <HGrid columns={2} gap="space-16">
+                    <VisueltDisabledInputFelt
+                        label="Fødselsnummer"
+                        className={styles.limitMaxWidth}
+                        tekst={avtaleContext.avtale.mentorFnr}
+                    />
+                    <PakrevdInput
+                        label="Fornavn"
+                        verdi={mentorInfo.mentorFornavn}
+                        settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorFornavn: verdi })}
+                    />
+                    <PakrevdInput
+                        label="Etternavn"
+                        verdi={mentorInfo.mentorEtternavn}
+                        settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}
+                    />
+                    <TelefonnummerInput
+                        label="Mobilnummer"
+                        className={styles.limitMaxWidth}
+                        verdi={mentorInfo.mentorTlf}
+                        settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
+                    />
+                    <PakrevdTextarea
+                        label="Arbeidsoppgaver til mentor"
+                        className={styles.span2}
+                        verdi={mentorInfo.mentorOppgaver}
+                        settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorOppgaver: verdi })}
+                        maxLengde={1000}
+                        feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
+                    />
+                </HGrid>
             </BekreftelseModal>
         </>
     );

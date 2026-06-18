@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import InfoBoks from '@/AvtaleSide/steg/VarighetSteg/InfoBoks/InfoBoks';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
+import { HGrid } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import { formaterVarighet } from '@/utils/datoUtils';
 import React, { useContext } from 'react';
@@ -30,26 +30,20 @@ const VarighetInputfelt: React.FC<Props> = ({ className }: Props) => {
     const cls = BEMHelper(className);
     return (
         <div>
-            <Row className={cls.element('rad')}>
-                <Column md="6">
-                    <div className={cls.element('Stillingsprosent-input-container')}>
-                        <StillingsprosentInput
-                            label="Stillingsprosent for deltaker"
-                            verdi={avtale.gjeldendeInnhold.stillingprosent}
-                            size="medium"
-                            settVerdi={(verdi) => settAvtaleInnholdVerdi('stillingprosent', verdi)}
-                        />
-                    </div>
-                </Column>
-                <Column md="6">
-                    <AntallDagerInput
-                        label="Antall dager per uke"
-                        verdi={avtale.gjeldendeInnhold.antallDagerPerUke}
-                        size="medium"
-                        settVerdi={(verdi) => settAvtaleInnholdVerdi('antallDagerPerUke', verdi)}
-                    />
-                </Column>
-            </Row>
+            <HGrid columns={{ xs: 1, md: 2 }} gap="space-16" className={cls.element('rad')}>
+                <StillingsprosentInput
+                    label="Stillingsprosent for deltaker"
+                    verdi={avtale.gjeldendeInnhold.stillingprosent}
+                    size="medium"
+                    settVerdi={(verdi) => settAvtaleInnholdVerdi('stillingprosent', verdi)}
+                />
+                <AntallDagerInput
+                    label="Antall dager per uke"
+                    verdi={avtale.gjeldendeInnhold.antallDagerPerUke}
+                    size="medium"
+                    settVerdi={(verdi) => settAvtaleInnholdVerdi('antallDagerPerUke', verdi)}
+                />
+            </HGrid>
             <InfoBoks timerIUka={timerIUka} dagerIUka={dagerIUka} varighet={avtaleDuration} />
         </div>
     );

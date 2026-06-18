@@ -1,8 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Varighet } from '@/types/avtale';
-import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import { Label } from '@navikt/ds-react';
+import { HGrid, Label } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
@@ -21,40 +20,37 @@ const VarighetOppsummering: FunctionComponent<Varighet> = ({
     antallDagerPerUke,
 }) => {
     const avtaleContext = useContext(AvtaleContext);
+    const erMentorAvtale = avtaleContext.avtale?.tiltakstype === 'MENTOR';
 
     return (
         <Stegoppsummering ikon={<VarighetIkon />} tittel="Dato og arbeidstid">
-            <Container fluid={true}>
-                <Row className={''}>
-                    <Column md="4" sm="6" xs="6">
-                        <Label>Startdato</Label>
-                        <SjekkOmVerdiEksisterer verdi={harDato(startDato)} />
-                        <VerticalSpacer rem={1} />
-                    </Column>
-                    <Column md="4" sm="6" xs="6">
-                        <Label>Sluttdato</Label>
-                        <SjekkOmVerdiEksisterer verdi={harDato(sluttDato)} />
-                    </Column>
-                    {avtaleContext.avtale?.tiltakstype !== 'MENTOR' && (
-                        <Column md="4" sm="12" xs="12">
-                            <Label>Stillingsprosent</Label>
-                            <SjekkOmVerdiEksisterer
-                                verdi={stillingprosent}
-                                formatertVerdi={`${formaterNorskeTall(stillingprosent)} %`}
-                            />
-                        </Column>
-                    )}
-                </Row>
-                <Row className={''}>
-                    <Column md="4" sm="12" xs="12">
-                        <Label>Antall dager per uke</Label>
+            <HGrid columns={{ xs: 1, sm: 2, md: 3 }} gap="space-16">
+                <div>
+                    <Label>Startdato</Label>
+                    <SjekkOmVerdiEksisterer verdi={harDato(startDato)} />
+                    <VerticalSpacer rem={1} />
+                </div>
+                <div>
+                    <Label>Sluttdato</Label>
+                    <SjekkOmVerdiEksisterer verdi={harDato(sluttDato)} />
+                </div>
+                {!erMentorAvtale && (
+                    <div>
+                        <Label>Stillingsprosent</Label>
                         <SjekkOmVerdiEksisterer
-                            verdi={antallDagerPerUke}
-                            formatertVerdi={formaterNorskeTall(antallDagerPerUke?.toString())}
+                            verdi={stillingprosent}
+                            formatertVerdi={`${formaterNorskeTall(stillingprosent)} %`}
                         />
-                    </Column>
-                </Row>
-            </Container>
+                    </div>
+                )}
+            </HGrid>
+            <div>
+                <Label>Antall dager per uke</Label>
+                <SjekkOmVerdiEksisterer
+                    verdi={antallDagerPerUke}
+                    formatertVerdi={formaterNorskeTall(antallDagerPerUke?.toString())}
+                />
+            </div>
         </Stegoppsummering>
     );
 };
