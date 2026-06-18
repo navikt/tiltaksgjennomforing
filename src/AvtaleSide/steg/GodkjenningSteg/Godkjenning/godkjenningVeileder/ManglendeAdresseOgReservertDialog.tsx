@@ -1,8 +1,6 @@
 import { Button, Dialog } from '@navikt/ds-react';
 import { ExclamationmarkTriangleIcon } from '@navikt/aksel-icons';
 
-export const MANGLER_ADRESSE_OG_RESERVERT_FEILKODE = 'KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT';
-
 interface Props {
     open: boolean;
     onClose: () => void;

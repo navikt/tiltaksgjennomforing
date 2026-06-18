@@ -16,9 +16,8 @@ import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTilta
 import { useAvtale } from '@/AvtaleProvider';
 import { FeilkodeError } from '@/types';
 import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
-import ManglendeAdresseOgReservertDialog, {
-    MANGLER_ADRESSE_OG_RESERVERT_FEILKODE,
-} from './ManglendeAdresseOgReservertDialog';
+import { KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT } from '@/types/feilkode';
+import ManglendeAdresseOgReservertDialog from './ManglendeAdresseOgReservertDialog';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -103,7 +102,7 @@ function GodkjennPaVegneAvDeltaker() {
             try {
                 await godkjenn();
             } catch (err) {
-                if (err instanceof FeilkodeError && err.message === MANGLER_ADRESSE_OG_RESERVERT_FEILKODE) {
+                if (err instanceof FeilkodeError && err.message === KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
                     setManglerAdresseOgReservertDialogIsOpen(true);
                 }
                 throw err;
@@ -185,7 +184,7 @@ function GodkjennPaVegneAvDeltaker() {
                 onLagre={onLagre}
                 onLukk={() => setGodkjenningsModalApen(false)}
                 onFeilkodeError={(feilkode) => {
-                    if (feilkode !== MANGLER_ADRESSE_OG_RESERVERT_FEILKODE) {
+                    if (feilkode !== KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
                         return false;
                     }
                     setManglerAdresseOgReservertDialogIsOpen(true);
