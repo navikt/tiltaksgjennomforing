@@ -108,7 +108,8 @@ export type Feilkode =
     | 'IKKE_TILGANG_TIL_A_OPPRETTE_AVTALE'
     | 'ENHET_IKKE_TILGANG_PA_TILTAK'
     | 'OPPFOLGINGSTATUS_ENDRET'
-    | 'ENHET_MANGLER';
+    | 'ENHET_MANGLER'
+    | 'KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT';
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -252,4 +253,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Fireårig lønnstilskudd for unge kan ikke brukes til å beholde arbeid',
     ENHET_MANGLER:
         'Oppfølgingsenhet mangler. Vennligst påse at deltaker er under oppfølging og har en gyldig oppfølgingsperiode.',
+    KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT:
+        'Person er reservet mot digital kommunikasjon og har ikke registrert adresse',
 };
