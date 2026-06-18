@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import InfoModal from '@/komponenter/modal/InfoModal';
 import { Alert, Heading } from '@navikt/ds-react';
@@ -12,10 +12,12 @@ interface Props {
     onLagre: () => Promise<void>;
     onLukk: () => void;
     isApen: boolean;
+    onFeilkodeError?: (feilkode: string) => boolean;
+    feilkodeDialog?: ReactNode;
 }
 
 const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
-    const { alleredeRegistrertAvtale, isApen, onLagre, onLukk } = props;
+    const { alleredeRegistrertAvtale, isApen, onLagre, onLukk, onFeilkodeError, feilkodeDialog } = props;
     const { hentAvtale } = useAvtale();
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
 
@@ -25,6 +27,8 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
         } catch (err) {
             if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                 setInnsatsbehovVarselModalIsOpen(true);
+            } else if (err instanceof FeilkodeError && onFeilkodeError?.(err.message)) {
+                return;
             } else {
                 throw err;
             }
@@ -50,6 +54,7 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
                     }}
                 />
             )}
+            {feilkodeDialog}
         </InfoModal>
     );
 };

@@ -14,6 +14,10 @@ import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-se
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
 import LagreKnapp, { useLagreKnapp } from '@/komponenter/LagreKnapp/LagreKnappBase';
+import { FeilkodeError } from '@/types';
+import ManglendeAdresseOgReservertDialog, {
+    MANGLER_ADRESSE_OG_RESERVERT_FEILKODE,
+} from './ManglendeAdresseOgReservertDialog';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -43,6 +47,7 @@ function GodkjennPaVegneAvFlereParter() {
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
+    const [manglerAdresseOgReservertDialogIsOpen, setManglerAdresseOgReservertDialogIsOpen] = useState(false);
 
     const isKunGodkjentAvDeltaker = godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKunGodkjentAvArbeidsgiver = godkjentAvArbeidsgiver && !godkjentAvDeltaker;
@@ -116,7 +121,14 @@ function GodkjennPaVegneAvFlereParter() {
             });
         }
 
-        await godkjenn();
+        try {
+            await godkjenn();
+        } catch (err) {
+            if (err instanceof FeilkodeError && err.message === MANGLER_ADRESSE_OG_RESERVERT_FEILKODE) {
+                setManglerAdresseOgReservertDialogIsOpen(true);
+            }
+            throw err;
+        }
     };
 
     return (
@@ -179,6 +191,23 @@ function GodkjennPaVegneAvFlereParter() {
                 isApen={isGodkjenningsModalApen}
                 onLagre={onLagre}
                 onLukk={() => setGodkjenningsModalApen(false)}
+                onFeilkodeError={(feilkode) => {
+                    if (feilkode !== MANGLER_ADRESSE_OG_RESERVERT_FEILKODE) {
+                        return false;
+                    }
+                    setManglerAdresseOgReservertDialogIsOpen(true);
+                    return true;
+                }}
+                feilkodeDialog={
+                    <ManglendeAdresseOgReservertDialog
+                        open={manglerAdresseOgReservertDialogIsOpen}
+                        onClose={() => setManglerAdresseOgReservertDialogIsOpen(false)}
+                    />
+                }
+            />
+            <ManglendeAdresseOgReservertDialog
+                open={manglerAdresseOgReservertDialogIsOpen && !isGodkjenningsModalApen}
+                onClose={() => setManglerAdresseOgReservertDialogIsOpen(false)}
             />
         </>
     );
