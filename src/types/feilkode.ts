@@ -254,5 +254,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_MANGLER:
         'Oppfølgingsenhet mangler. Vennligst påse at deltaker er under oppfølging og har en gyldig oppfølgingsperiode.',
     KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT:
-        'Person er reservet mot digital kommunikasjon og har ikke registrert adresse',
+        'Person er reservert mot digital kommunikasjon og har ikke registrert adresse',
 };
