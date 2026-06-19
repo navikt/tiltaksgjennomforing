@@ -253,5 +253,5 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Fireårig lønnstilskudd for unge kan ikke brukes til å beholde arbeid',
     ENHET_MANGLER:
         'Oppfølgingsenhet mangler. Vennligst påse at deltaker er under oppfølging og har en gyldig oppfølgingsperiode.',
-    FOR_SEN_STARTDATO_VTAO: 'Seneste mulig oppstart er er 31.08.2026.',
+    FOR_SEN_STARTDATO_VTAO: 'Seneste mulig oppstart er 31.08.2026.',
 };
