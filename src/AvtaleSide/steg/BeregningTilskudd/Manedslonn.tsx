@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
+import { Box, Alert } from '@navikt/ds-react';
 import ValutaInput from '@/komponenter/form/ValutaInput';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
-import { Alert } from '@navikt/ds-react';
 
 interface Props {
     cls: BEMWrapper;
@@ -15,8 +14,8 @@ const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
         avtale.gjeldendeInnhold.manedslonn !== undefined && avtale.gjeldendeInnhold.manedslonn > 99999;
 
     return (
-        <Row className={cls.element('rad', 'input')}>
-            <Column md="6" className={cls.element('valuta-input')}>
+        <Box className={cls.element('rad', 'input')}>
+            <Box className={cls.element('valuta-input')}>
                 <ValutaInput
                     className="input"
                     name="manedslonn"
@@ -35,8 +34,8 @@ const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
                         Er du sikker på at dette er riktig månedslønn?
                     </Alert>
                 )}
-            </Column>
-        </Row>
+            </Box>
+        </Box>
     );
 };
 export default Manedslonn;

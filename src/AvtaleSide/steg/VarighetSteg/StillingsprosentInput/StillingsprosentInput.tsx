@@ -12,6 +12,7 @@ interface Props {
     settVerdi: (verdi?: number) => void;
     description?: string;
     size?: 'medium' | 'small';
+    className?: string;
 }
 
 const schema = z.object({
@@ -55,6 +56,7 @@ function StillingsprosentInput(props: Props) {
     return (
         <TextField
             {...field}
+            className={props.className}
             error={formState.errors.stillingsprosent?.message}
             label={props.label}
             onChange={onChange}

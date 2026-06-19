@@ -8,7 +8,8 @@ import VarighetTilbakeTidAlert from '@/AvtaleSide/steg/VarighetSteg/VarighetTilb
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
+import { Alert, HGrid } from '@navikt/ds-react';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import Datovelger from '@/komponenter/datovelger/Datovelger';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import BEMHelper from '@/utils/bem';
@@ -16,8 +17,6 @@ import { VellykketGenerertIsoDatoString, genererFnrdatostringFraFnr } from '@/ut
 import { addYears, differenceInDays } from 'date-fns';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import './varighetSteg.less';
-import { Alert } from '@navikt/ds-react';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const VarighetSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale } = useContext(AvtaleContext);
@@ -54,62 +53,42 @@ const VarighetSteg: FunctionComponent = () => {
         <div className={cls.className}>
             <AvtaleStatus />
             <Innholdsboks>
-                <Container fluid={true}>
-                    <Row className={cls.element('rad')}>
-                        <Column md="12">
-                            <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
-                            <VarighetIngress tiltakstype={avtale.tiltakstype} className={cls.className} />
-                        </Column>
-                    </Row>
-                    {skalViseEtterregistreringsinstruks && <EtterregistreringInstruks className={cls.className} />}
-                    {skalIkkeKunneEndreStartdato && (
-                        <>
-                            <Row>
-                                <Column md="12">
-                                    <Alert variant="info" size="small">
-                                        Avtalen er {avtale.opphav === 'ARENA' ? 'importert fra ' : 'synkronisert med '}
-                                        gammel løsning, og oppstartsdato kan derfor ikke endres.
-                                    </Alert>
-                                </Column>
-                            </Row>
-                            <VerticalSpacer rem={2} />
-                        </>
-                    )}
-                    <Row className={cls.element('rad')}>
-                        <Column md="12">
-                            {startDato !== undefined && (
-                                <InfoArenaOppryddingAlert
-                                    tiltakstype={tiltakstype}
-                                    startDato={startDato}
-                                    erRyddeAvtale={erRyddeAvtale}
-                                    erNavAnsatt={innloggetBruker.erNavAnsatt}
-                                    opphav={opphav}
-                                    className={cls.className}
-                                />
-                            )}
-                        </Column>
-                        <Column md="6">
-                            <Datovelger readOnly={skalIkkeKunneEndreStartdato} datoFelt="startDato" label="Startdato" />
-                        </Column>
-                        <Column md="6">
-                            <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
-                        </Column>
-                    </Row>
-                    <VarighetTilbakeTidAlert
+                <SkjemaTittel>Oppstart og varighet</SkjemaTittel>
+                <VarighetIngress tiltakstype={avtale.tiltakstype} className={cls.className} />
+                {skalViseEtterregistreringsinstruks && <EtterregistreringInstruks className={cls.className} />}
+                {skalIkkeKunneEndreStartdato && (
+                    <>
+                        <Alert variant="info" size="small">
+                            Avtalen er {avtale.opphav === 'ARENA' ? 'importert fra ' : 'synkronisert med '}
+                            gammel løsning, og oppstartsdato kan derfor ikke endres.
+                        </Alert>
+                        <VerticalSpacer rem={2} />
+                    </>
+                )}
+                {startDato !== undefined && (
+                    <InfoArenaOppryddingAlert
+                        tiltakstype={tiltakstype}
                         startDato={startDato}
-                        erArbeidsgiverOgUfordelt={erArbeidsgiverOgUfordelt}
+                        erRyddeAvtale={erRyddeAvtale}
+                        erNavAnsatt={innloggetBruker.erNavAnsatt}
+                        opphav={opphav}
                         className={cls.className}
-                        sommerjobbDeltakerOver30VedStartdato={sommerjobbDeltakerOver30VedStartdato}
                     />
-                    <VarighetInputfelt className={cls.className} />
-                    <LagreKnapp
-                        lagre={lagreAvtale}
-                        suksessmelding={'Avtale lagret'}
-                        className={cls.element('lagre-knapp')}
-                    >
-                        Lagre
-                    </LagreKnapp>
-                </Container>
+                )}
+                <HGrid columns={{ xs: 1, md: 2 }} gap="space-16" className={cls.element('rad')}>
+                    <Datovelger readOnly={skalIkkeKunneEndreStartdato} datoFelt="startDato" label="Startdato" />
+                    <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
+                </HGrid>
+                <VarighetTilbakeTidAlert
+                    startDato={startDato}
+                    erArbeidsgiverOgUfordelt={erArbeidsgiverOgUfordelt}
+                    className={cls.className}
+                    sommerjobbDeltakerOver30VedStartdato={sommerjobbDeltakerOver30VedStartdato}
+                />
+                <VarighetInputfelt className={cls.className} />
+                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'} className={cls.element('lagre-knapp')}>
+                    Lagre
+                </LagreKnapp>
             </Innholdsboks>
         </div>
     );

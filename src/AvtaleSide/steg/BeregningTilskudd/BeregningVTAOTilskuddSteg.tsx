@@ -4,7 +4,6 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { BodyShort, Heading } from '@navikt/ds-react';
 import { FunctionComponent, useContext } from 'react';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
@@ -32,11 +31,7 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={2} />
                 <VisningTilskuddsperioderTabellVtao />
                 <VerticalSpacer rem={2} />
-                <Row className={cls.element('rad-kontonummer')}>
-                    <Column md="12" className={cls.element('kontonummer')}>
-                        <KidOgKontonummer />
-                    </Column>
-                </Row>
+                <KidOgKontonummer />
                 <VerticalSpacer rem={2} />
                 <LagreKnapp lagre={lagreAvtale} suksessmelding="Avtale lagret">
                     Lagre

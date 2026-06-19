@@ -5,9 +5,8 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BEMHelper from '@/utils/bem';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
-import { BodyShort, Heading, Label } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext } from 'react';
+import { HGrid, BodyShort, Heading, Label } from '@navikt/ds-react';
+import { FunctionComponent, useContext } from 'react';
 import Lonnstilskuddprosent from '@/AvtaleSide/steg/BeregningTilskudd/Lonnstilskuddprosent';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
@@ -45,26 +44,18 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                     onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                 />
                 <VerticalSpacer rem={1.5} />
-                <Row>
-                    <Column md="5">
-                        <Arbeidsgiveravgift
-                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
-                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
-                        />
-                    </Column>
-                    <Column md="5">
-                        <Feriepenger
-                            sats={avtale.gjeldendeInnhold.feriepengesats}
-                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
-                        />
-                    </Column>
-                </Row>
+                <HGrid columns={{ xs: 1, md: 2 }} gap="space-16">
+                    <Arbeidsgiveravgift
+                        sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                        onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                    />
+                    <Feriepenger
+                        sats={avtale.gjeldendeInnhold.feriepengesats}
+                        onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                    />
+                </HGrid>
                 <VerticalSpacer rem={2} />
-                <Row>
-                    <Column md="12">
-                        <KidOgKontonummer />
-                    </Column>
-                </Row>
+                <KidOgKontonummer />
                 <UtregningPanel {...avtale.gjeldendeInnhold} tiltakstype={avtale.tiltakstype} />
                 <VerticalSpacer rem={1.25} />
                 {innloggetBruker.erNavAnsatt &&

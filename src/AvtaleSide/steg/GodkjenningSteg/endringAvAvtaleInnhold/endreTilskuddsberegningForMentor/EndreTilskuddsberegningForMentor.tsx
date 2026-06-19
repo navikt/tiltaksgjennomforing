@@ -2,8 +2,7 @@ import styles from './EndreTilskuddsberegningForMentor.module.less';
 import { useAvtale } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdateretilskuddsBeregning, oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
-import { Column, Container, Row } from '@/komponenter/NavGrid/Grid';
-import { debounce, Heading, Link } from '@navikt/ds-react';
+import { debounce, Heading, HGrid, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Avtale, Beregningsgrunnlag } from '@/types';
 import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
@@ -102,7 +101,7 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                 Endre beregning av tilskudd
             </Link>
             <BekreftelseModal
-                style={{ width: '40rem' }}
+                className={styles.modal}
                 avbrytelseTekst="Avbryt"
                 bekreftelseTekst="Endre"
                 oversiktTekst="Endre beregning av tilskudd"
@@ -110,50 +109,40 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                 bekreftOnClick={kallOppdateretilskuddsBeregning}
                 lukkModal={lukkModal}
             >
-                <div className={styles.modalInnhold}>
-                    <Container fluid={true}>
-                        <MentorAntallTimerPerMnd
-                            verdi={nyBeregning.mentorAntallTimer}
-                            settVerdi={(mentorAntallTimer) => settOgKalkulerBeregningsverdier({ mentorAntallTimer })}
+                <HGrid className={styles.modalInnhold} columns={1} gap="space-16">
+                    <MentorAntallTimerPerMnd
+                        verdi={nyBeregning.mentorAntallTimer}
+                        settVerdi={(mentorAntallTimer) => settOgKalkulerBeregningsverdier({ mentorAntallTimer })}
+                    />
+                    <VerticalSpacer rem={1} />
+                    <Heading size="small" spacing>
+                        Om mentors lønnsforhold hos arbeidsgiver
+                    </Heading>
+                    <Timeloenn
+                        stillingsprosent={nyBeregning.stillingprosent}
+                        mentorValgtLonnstype={
+                            erNil(nyBeregning.mentorValgtLonnstype) ? 'ÅRSLØNN' : nyBeregning.mentorValgtLonnstype
+                        }
+                        mentorValgtLonnstypeBelop={nyBeregning.mentorValgtLonnstypeBelop}
+                        mentorTimelonn={nyAvtale.gjeldendeInnhold.mentorTimelonn}
+                        onChange={settOgKalkulerBeregningsverdier}
+                    />
+                    <ObligatoriskTjenestepensjon
+                        sats={nyBeregning.otpSats}
+                        onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                    />
+                    <HGrid columns={2} gap="space-16">
+                        <Arbeidsgiveravgift
+                            sats={nyBeregning.arbeidsgiveravgift}
+                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
                         />
-                        <VerticalSpacer rem={2} />
-                        <Heading size="small" spacing>
-                            Om mentors lønnsforhold hos arbeidsgiver
-                        </Heading>
-                        <Timeloenn
-                            stillingsprosent={nyBeregning.stillingprosent}
-                            mentorValgtLonnstype={
-                                erNil(nyBeregning.mentorValgtLonnstype) ? 'ÅRSLØNN' : nyBeregning.mentorValgtLonnstype
-                            }
-                            mentorValgtLonnstypeBelop={nyBeregning.mentorValgtLonnstypeBelop}
-                            mentorTimelonn={nyAvtale.gjeldendeInnhold.mentorTimelonn}
-                            onChange={settOgKalkulerBeregningsverdier}
+                        <Feriepenger
+                            sats={nyBeregning.feriepengesats}
+                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
                         />
-                        <ObligatoriskTjenestepensjon
-                            sats={nyBeregning.otpSats}
-                            onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
-                        />
-                        <VerticalSpacer rem={1.5} />
-                        <Row>
-                            <Column md="5">
-                                <Arbeidsgiveravgift
-                                    sats={nyBeregning.arbeidsgiveravgift}
-                                    onChange={(arbeidsgiveravgift) =>
-                                        settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })
-                                    }
-                                />
-                            </Column>
-                            <Column md="5">
-                                <Feriepenger
-                                    sats={nyBeregning.feriepengesats}
-                                    onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
-                                />
-                            </Column>
-                        </Row>
-                        <VerticalSpacer rem={1} />
-                        <UtregningPanelMentorTilskudd {...nyAvtale.gjeldendeInnhold} />
-                    </Container>
-                </div>
+                    </HGrid>
+                    <UtregningPanelMentorTilskudd {...nyAvtale.gjeldendeInnhold} />
+                </HGrid>
             </BekreftelseModal>
         </>
     );

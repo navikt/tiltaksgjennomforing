@@ -83,6 +83,7 @@ const KidOgKontonummer = (props: Props) => {
                     readOnly
                 />
                 <LagreKnapp
+                    className={styles.hentKontonummerKnapp}
                     lagre={async () => {
                         const arbeidsgiverKontonummer = await hentKontonummerForArbeidsgiver(avtaleId);
                         onChange({ kontonummer: arbeidsgiverKontonummer, kid });
@@ -97,6 +98,8 @@ const KidOgKontonummer = (props: Props) => {
                     className={styles.kidInput}
                     description="Det er valgfritt å oppgi KID-nummer"
                     error={formState.errors.kid?.message}
+                    maxLength={25}
+                    minLength={3}
                     inputMode="numeric"
                     label="KID-nummer"
                     size="medium"
