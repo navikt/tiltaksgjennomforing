@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { BodyShort, Tag } from '@navikt/ds-react';
+import styles from './SjekkOmVerdiEksisterer.module.less';
+
 const SjekkOmVerdiEksisterer: FunctionComponent<{
     verdi?: string | number;
     formatertVerdi?: JSX.Element | string;
@@ -9,7 +11,7 @@ const SjekkOmVerdiEksisterer: FunctionComponent<{
 }> = (props) => {
     if (props.verdi || props.verdi === 0) {
         return (
-            <BodyShort size="small" aria-label={props.ariaLabel}>
+            <BodyShort size="small" aria-label={props.ariaLabel} className={styles.wordBreak}>
                 {props.label} {props.formatertVerdi ? props.formatertVerdi : props.verdi}
             </BodyShort>
         );
