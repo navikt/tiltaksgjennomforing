@@ -18,7 +18,11 @@ body .tiltaksgjennomforing {
     font-family: 'Source Sans Pro', Arial, sans-serif;
 }
 
-svg {
+/* Avgrenset for å utelate Aksel-komponenter: CSS-en deres bruker @layer,
+   som blir overstyrt av stiler uten lag.
+   SVG-er uten «aksel» i class (app-ikoner, inline SVG-er) får fortsatt display: block
+   for å unngå mellomrom på baseline for inline-elementer. */
+svg:not([class*='aksel']) {
     display: block;
 }
 

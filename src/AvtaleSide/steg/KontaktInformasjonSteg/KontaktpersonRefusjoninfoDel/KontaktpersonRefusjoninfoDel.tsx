@@ -3,12 +3,13 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
 import BEMHelper from '@/utils/bem';
-import { Alert } from '@navikt/ds-react';
+import { Alert, HGrid, HStack } from '@navikt/ds-react';
 import { Fieldset, Checkbox, Button } from '@navikt/ds-react';
 import { useContext, useState } from 'react';
 import useKontaktPersonErAlleredeDefinert from '@/AvtaleSide/steg/KontaktInformasjonSteg/KontaktpersonRefusjoninfoDel/useKontaktPersonErAlleredeDefinert';
 import { HelpText } from '@navikt/ds-react';
 import './KontaktpersonRefusjoninfoDel.less';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const KontaktpersonRefusjoninfoDel = () => {
     const cls = BEMHelper('kontaktpersonRefusjoninfo');
@@ -57,12 +58,12 @@ const KontaktpersonRefusjoninfoDel = () => {
 
     return (
         <div className={cls.element('container')}>
-            <div className={cls.element('rad', 'header')}>
+            <HStack align="end">
                 <SkjemaTittel>Kontaktperson hos arbeidsgiver for refusjon</SkjemaTittel>
                 <HelpText className={cls.element('helptekst')} title="Hva menes med kontaktperson for refusjon?">
                     For eksempel en regnskapsfører som skal motta varslinger om refusjon
                 </HelpText>
-            </div>
+            </HStack>
             <Fieldset legend="" title="">
                 {!visEkstraKontaktpersonFelt && !kontaktpersonAlleredeDefinert && (
                     <div className={cls.element('buttonSpaceing')}>
@@ -85,10 +86,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                         </Button>
                     </div>
                 )}
-
                 {(kontaktpersonAlleredeDefinert || visEkstraKontaktpersonFelt) && (
                     <>
-                        <div className={cls.element('rad')}>
+                        <HGrid gap="space-16" columns={2}>
                             <PakrevdInput
                                 label="Kontaktperson for refusjon sitt fornavn"
                                 verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn}
@@ -109,28 +109,24 @@ const KontaktpersonRefusjoninfoDel = () => {
                                     })
                                 }
                             />
-                        </div>
-                        <div className={cls.element('rad')}>
-                            <TelefonnummerInput
-                                label="Kontaktperson for refusjon sitt mobilnummer"
-                                verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf}
-                                settVerdi={(verdi) =>
-                                    settAvtaleInnholdVerdi('refusjonKontaktperson', {
-                                        ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                        refusjonKontaktpersonTlf: verdi ?? '',
-                                    })
-                                }
-                            />
-                        </div>
-                        <div>
-                            <Checkbox
-                                checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
-                                onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
-                            >
-                                Arbeidsgiver for avtalen {getArbeidsgivernavn()} ønsker også å motta varslinger om
-                                refusjon
-                            </Checkbox>
-                        </div>
+                        </HGrid>
+                        <VerticalSpacer rem={1} />
+                        <TelefonnummerInput
+                            label="Kontaktperson for refusjon sitt mobilnummer"
+                            verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf}
+                            settVerdi={(verdi) =>
+                                settAvtaleInnholdVerdi('refusjonKontaktperson', {
+                                    ...avtale.gjeldendeInnhold.refusjonKontaktperson,
+                                    refusjonKontaktpersonTlf: verdi ?? '',
+                                })
+                            }
+                        />
+                        <Checkbox
+                            checked={avtale.gjeldendeInnhold?.refusjonKontaktperson?.ønskerVarslingOmRefusjon}
+                            onChange={() => sjekkeOmVarslingOmRefusjonKanSkrusAv()}
+                        >
+                            Arbeidsgiver for avtalen {getArbeidsgivernavn()} ønsker også å motta varslinger om refusjon
+                        </Checkbox>
                         {feilmelding && (
                             <Alert variant="warning" style={{ marginBottom: '1rem' }}>
                                 {feilmelding}
