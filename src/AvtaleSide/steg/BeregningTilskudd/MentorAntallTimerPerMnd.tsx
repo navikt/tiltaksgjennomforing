@@ -69,7 +69,7 @@ function MentorAntallTimerPerMnd(props: Props) {
             />
             {(value ?? 0) > NORMAL_ARBEIDSTID_PER_MND && (
                 <>
-                    <VerticalSpacer rem={0.5} />
+                    <VerticalSpacer rem={1} />
                     <Alert variant="warning" size="small">
                         <Heading size="xsmall">Kontroller at antall timer er korrekt.</Heading>
                         Antall timer overstiger normal arbeidstid per måned.

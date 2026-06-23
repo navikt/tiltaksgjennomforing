@@ -62,7 +62,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
     const forHoyTimeLonn = (mentorTimelonn || 0) > TIMELONN_TERSKEL;
 
     return (
-        <VStack gap="space-24">
+        <VStack gap="space-16">
             <SelectInput
                 label="Lønn per arbeidsavtale"
                 className={styles.limitMaxWidth}
