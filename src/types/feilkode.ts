@@ -1,3 +1,5 @@
+export const KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT = 'KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT';
+
 export type Feilkode =
     | 'ALT_MA_VAERE_FYLT_UT'
     | 'ARBEIDSGIVER_SKAL_GODKJENNE_FOER_VEILEDER'
@@ -109,7 +111,8 @@ export type Feilkode =
     | 'ENHET_IKKE_TILGANG_PA_TILTAK'
     | 'OPPFOLGINGSTATUS_ENDRET'
     | 'ENHET_MANGLER'
-    | 'FOR_SEN_STARTDATO_VTAO';
+    | 'FOR_SEN_STARTDATO_VTAO'
+    | typeof KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT;
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
     ALT_MA_VAERE_FYLT_UT: 'Alt må være fylt ut før du kan godkjenne',
@@ -254,4 +257,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_MANGLER:
         'Oppfølgingsenhet mangler. Vennligst påse at deltaker er under oppfølging og har en gyldig oppfølgingsperiode.',
     FOR_SEN_STARTDATO_VTAO: 'Seneste mulig oppstart er 31.08.2026.',
+    [KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT]:
+        'Person er reservert mot digital kommunikasjon og har ikke registrert adresse',
 };

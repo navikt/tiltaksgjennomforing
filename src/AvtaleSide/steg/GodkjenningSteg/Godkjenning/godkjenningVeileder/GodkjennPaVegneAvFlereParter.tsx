@@ -14,6 +14,9 @@ import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-se
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
 import LagreKnapp, { useLagreKnapp } from '@/komponenter/LagreKnapp/LagreKnappBase';
+import { FeilkodeError } from '@/types';
+import { KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT } from '@/types/feilkode';
+import ManglendeAdresseOgReservertDialog from './ManglendeAdresseOgReservertDialog';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -38,18 +41,20 @@ function GodkjennPaVegneAvFlereParter() {
         godkjennPaVegneAvDeltaker,
         godkjennPaVegneAvArbeidsgiver,
         godkjennPaVegneAvDeltakerOgArbeidsgiver,
+        hentAvtale,
     } = useAvtale();
     const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker, godkjentAvArbeidsgiver } = avtale;
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
+    const [manglerAdresseOgReservertDialogIsOpen, setManglerAdresseOgReservertDialogIsOpen] = useState(false);
 
     const isKunGodkjentAvDeltaker = godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKunGodkjentAvArbeidsgiver = godkjentAvArbeidsgiver && !godkjentAvDeltaker;
     const isIkkeGodkjentAvNoen = !godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker || !godkjentAvArbeidsgiver;
 
-    const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
+    const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
             isInformert: false,
             isSkalGodkjennesPaVegne: false,
@@ -116,7 +121,21 @@ function GodkjennPaVegneAvFlereParter() {
             });
         }
 
-        await godkjenn();
+        try {
+            await godkjenn();
+        } catch (err) {
+            if (err instanceof FeilkodeError && err.message === KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
+                setManglerAdresseOgReservertDialogIsOpen(true);
+            }
+            throw err;
+        }
+    };
+
+    const onLukkManglerAdresseOgReservertDialog = async () => {
+        setManglerAdresseOgReservertDialogIsOpen(false);
+        setGodkjenningsModalApen(false);
+        await hentAvtale();
+        reset();
     };
 
     return (
@@ -179,6 +198,23 @@ function GodkjennPaVegneAvFlereParter() {
                 isApen={isGodkjenningsModalApen}
                 onLagre={onLagre}
                 onLukk={() => setGodkjenningsModalApen(false)}
+                onFeilkodeError={(feilkode) => {
+                    if (feilkode !== KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
+                        return false;
+                    }
+                    setManglerAdresseOgReservertDialogIsOpen(true);
+                    return true;
+                }}
+                feilkodeDialog={
+                    <ManglendeAdresseOgReservertDialog
+                        open={manglerAdresseOgReservertDialogIsOpen}
+                        onClose={onLukkManglerAdresseOgReservertDialog}
+                    />
+                }
+            />
+            <ManglendeAdresseOgReservertDialog
+                open={manglerAdresseOgReservertDialogIsOpen && !isGodkjenningsModalApen}
+                onClose={onLukkManglerAdresseOgReservertDialog}
             />
         </>
     );
