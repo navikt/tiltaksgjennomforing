@@ -30,8 +30,7 @@ const BehandlingAvPersonopplysninger: React.FC<Props> = ({ tiltakstype }) => {
             <p>
                 Du kan ikke sende taushetsbelagte og sensitive personopplysninger til NAV på usikret epost. Skal du gi
                 beskjed om endringer som har betydning for saken og oppfølgingen din fra NAV, kan du bruke{' '}
-                <EksternLenke href="https://www.nav.no/person/dittnav/">Ditt NAV</EksternLenke>
-                eller{' '}
+                <EksternLenke href="https://www.nav.no/minside">Min side</EksternLenke> eller{' '}
                 <EksternLenke href="https://www.nav.no/person/kontakt-oss/nb/skriv-til-oss">Skriv til oss</EksternLenke>
                 .
             </p>
