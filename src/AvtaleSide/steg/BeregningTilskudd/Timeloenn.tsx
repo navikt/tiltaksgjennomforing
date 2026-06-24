@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { formaterValuta } from '@/komponenter/form/ValutaInput';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import { storForbokstav } from '@/utils/stringUtils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
-import { Alert, Heading, ReadMore, TextField } from '@navikt/ds-react';
+import { Alert, Heading, HGrid, ReadMore, TextField, VStack } from '@navikt/ds-react';
 import KronerInput from '@/AvtaleSide/steg/BeregningTilskudd/KronerInput';
+import styles from './Timeloenn.module.less';
 
 type TimeloennProps = {
     stillingsprosent: number | undefined;
@@ -62,62 +62,55 @@ const Timeloenn: React.FC<TimeloennProps> = ({
     const forHoyTimeLonn = (mentorTimelonn || 0) > TIMELONN_TERSKEL;
 
     return (
-        <>
-            <Row>
-                <Column md="5">
-                    <SelectInput
-                        label="Lønn per arbeidsavtale"
-                        name="mentorLonnsType"
-                        options={LONN_OPTIONS}
-                        value={mentorValgtLonnstype}
-                        onChange={handleSelectedTypeChange}
-                        children={''}
-                    />
-                </Column>
-            </Row>
-            <VerticalSpacer rem={1.5} />
-            <Row>
-                <Column md="5">
-                    <KronerInput
-                        label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
-                        verdi={mentorValgtLonnstypeBelop}
-                        settVerdi={(nyVerdi) => onChange({ mentorValgtLonnstypeBelop: nyVerdi })}
-                    />
-                </Column>
+        <VStack gap="space-16">
+            <SelectInput
+                label="Lønn per arbeidsavtale"
+                className={styles.limitMaxWidth}
+                name="mentorLonnsType"
+                options={LONN_OPTIONS}
+                value={mentorValgtLonnstype}
+                onChange={handleSelectedTypeChange}
+                children={''}
+            />
+            <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                <KronerInput
+                    label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
+                    verdi={mentorValgtLonnstypeBelop}
+                    settVerdi={(nyVerdi) => onChange({ mentorValgtLonnstypeBelop: nyVerdi })}
+                />
                 {mentorValgtLonnstype !== 'TIMELØNN' && (
-                    <Column md="5">
+                    <>
                         <StillingsprosentInput
                             label="Stillingsprosent"
                             verdi={stillingsprosent}
                             settVerdi={(nyVerdi) => onChange({ stillingprosent: nyVerdi })}
                         />
-                    </Column>
+                    </>
                 )}
-            </Row>
+            </HGrid>
             {mentorValgtLonnstype !== 'TIMELØNN' && (
                 <>
-                    <VerticalSpacer rem={1.5} />
-                    <Row>
-                        <Column md="5">
-                            <TextField value={formaterValuta(mentorTimelonn)} label="Beregnet timelønn" readOnly />
-                        </Column>
-                    </Row>
+                    <TextField
+                        className={styles.limitMaxWidth}
+                        value={formaterValuta(mentorTimelonn)}
+                        label="Beregnet timelønn"
+                        readOnly
+                    />
                 </>
             )}
-            <VerticalSpacer rem={0.5} />
             {forHoyTimeLonn && (
-                <Alert variant="warning" size="small">
-                    <Heading size="xsmall">Kontroller at oppgitt timelønn er korrekt.</Heading>
-                    Timelønnen er mer enn 50% over det norske gjennomsnittet. (2024)
-                </Alert>
+                <>
+                    <Alert variant="warning" size="small">
+                        <Heading size="xsmall">Kontroller at oppgitt timelønn er korrekt.</Heading>
+                        Timelønnen er mer enn 50% over det norske gjennomsnittet. (2024)
+                    </Alert>
+                </>
             )}
-            <div>
-                <ReadMore header={'Slik beregnes timelønn'} size={'small'}>
-                    <TimeloennHjelpetekst />
-                </ReadMore>
-            </div>
-            <VerticalSpacer rem={2} />
-        </>
+            <ReadMore header={'Slik beregnes timelønn'} size={'small'}>
+                <TimeloennHjelpetekst />
+            </ReadMore>
+            <VerticalSpacer rem={1} />
+        </VStack>
     );
 };
 export default Timeloenn;

@@ -1,5 +1,4 @@
 import { TextField } from '@navikt/ds-react';
-import { describe } from 'node:test';
 import { FunctionComponent } from 'react';
 
 interface Props {
@@ -7,10 +6,18 @@ interface Props {
     tekst: string;
     description?: string;
     size?: 'medium' | 'small';
+    className?: string;
 }
 
-const VisueltDisabledInputFelt: FunctionComponent<Props> = ({ description, label, tekst }) => (
-    <TextField label={label} value={tekst} description={description} readOnly style={{ backgroundColor: '#f1f1f1' }} />
+const VisueltDisabledInputFelt: FunctionComponent<Props> = ({ description, label, tekst, className }) => (
+    <TextField
+        label={label}
+        value={tekst}
+        description={description}
+        readOnly
+        style={{ backgroundColor: '#f1f1f1' }}
+        className={className}
+    />
 );
 
 export default VisueltDisabledInputFelt;

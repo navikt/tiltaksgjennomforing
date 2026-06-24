@@ -38,7 +38,7 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
             />
             {hoyOtp && (
                 <>
-                    <VerticalSpacer rem={0.5} />
+                    <VerticalSpacer rem={1} />
                     <Alert variant="warning" size="small">
                         <Heading size="xsmall">Kontroller at obligatorisk tjenestepensjon er korrekt</Heading>
                         Obligatorisk tjenestepensjon er svært sjeldent høyere enn 25%

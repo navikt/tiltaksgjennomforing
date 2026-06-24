@@ -1,15 +1,14 @@
 import { AvtaleContext, noenHarGodkjentMenIkkeInngått } from '@/AvtaleProvider';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import React, { FunctionComponent, useContext, useEffect } from 'react';
+import { FunctionComponent, useContext, useEffect } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/ObligatoriskTjenestepensjon';
 import Arbeidsgiveravgift from '@/AvtaleSide/steg/BeregningTilskudd/Arbeidsgiveravgift';
 import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
-import { Column, Row } from '@/komponenter/NavGrid/Grid';
 import KidOgKontonummer from '@/komponenter/form/kid-og-kontonummer';
 import UtregningPanelMentorTilskudd from '@/AvtaleSide/steg/BeregningTilskudd/UtregningPanelMentorTilskudd';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
@@ -86,26 +85,19 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                 />
                 <VerticalSpacer rem={1.5} />
-                <Row>
-                    <Column md="5">
-                        <Arbeidsgiveravgift
-                            sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
-                            onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
-                        />
-                    </Column>
-                    <Column md="5">
-                        <Feriepenger
-                            sats={avtale.gjeldendeInnhold.feriepengesats}
-                            onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
-                        />
-                    </Column>
-                </Row>
+
+                <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                    <Arbeidsgiveravgift
+                        sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
+                        onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
+                    />
+                    <Feriepenger
+                        sats={avtale.gjeldendeInnhold.feriepengesats}
+                        onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
+                    />
+                </HGrid>
                 <VerticalSpacer rem={2} />
-                <Row>
-                    <Column md="12">
-                        <KidOgKontonummer />
-                    </Column>
-                </Row>
+                <KidOgKontonummer />
                 <UtregningPanelMentorTilskudd {...beregninger?.gjeldendeInnhold} />
                 <VerticalSpacer rem={1} />
                 <VisningTilskuddsperioder />
