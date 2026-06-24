@@ -12,12 +12,11 @@ interface Props {
     onLagre: () => Promise<void>;
     onLukk: () => void;
     isApen: boolean;
-    onFeilkodeError?: (feilkode: string) => boolean;
     feilkodeDialog?: ReactNode;
 }
 
 const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
-    const { alleredeRegistrertAvtale, isApen, onLagre, onLukk, onFeilkodeError, feilkodeDialog } = props;
+    const { alleredeRegistrertAvtale, isApen, onLagre, onLukk, feilkodeDialog } = props;
     const { hentAvtale } = useAvtale();
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
 
@@ -27,8 +26,6 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
         } catch (err) {
             if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
                 setInnsatsbehovVarselModalIsOpen(true);
-            } else if (err instanceof FeilkodeError && onFeilkodeError?.(err.message)) {
-                return;
             } else {
                 throw err;
             }

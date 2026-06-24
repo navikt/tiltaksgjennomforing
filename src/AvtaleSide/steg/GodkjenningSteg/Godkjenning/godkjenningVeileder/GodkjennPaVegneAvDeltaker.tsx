@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import * as z from 'zod';
 import { Alert, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useForm } from 'react-hook-form';
@@ -11,12 +11,11 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp, { useLagreKnapp } from '@/komponenter/LagreKnapp/LagreKnappBase';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-service';
+import { kanDeltakerMottaPost, sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-service';
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
 import { FeilkodeError } from '@/types';
 import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
-import { KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT } from '@/types/feilkode';
 import ManglendeAdresseOgReservertDialog from './ManglendeAdresseOgReservertDialog';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
@@ -49,6 +48,7 @@ function GodkjennPaVegneAvDeltaker() {
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
     const [manglerAdresseOgReservertDialogIsOpen, setManglerAdresseOgReservertDialogIsOpen] = useState(false);
+    const harLukketManglerAdresseOgReservertDialog = useRef(false);
 
     const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
@@ -87,9 +87,17 @@ function GodkjennPaVegneAvDeltaker() {
             }
         }
     });
+    const onGodkjennSubmit = handleSubmit(onSubmit);
 
     const onLagre = async () => {
         const { isSkalGodkjennesPaVegne, godkjentPaVegneAvGrunner } = getValues();
+
+        if (harLukketManglerAdresseOgReservertDialog.current) {
+            harLukketManglerAdresseOgReservertDialog.current = false;
+        } else if (!(await kanDeltakerMottaPost(id))) {
+            setManglerAdresseOgReservertDialogIsOpen(true);
+            return;
+        }
 
         if (isSkalGodkjennesPaVegne) {
             await godkjennPaVegneAvDeltaker({
@@ -99,27 +107,18 @@ function GodkjennPaVegneAvDeltaker() {
                 arenaMigreringDeltaker: false,
             });
         } else {
-            try {
-                await godkjenn();
-            } catch (err) {
-                if (err instanceof FeilkodeError && err.message === KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
-                    setManglerAdresseOgReservertDialogIsOpen(true);
-                }
-                throw err;
-            }
+            await godkjenn();
         }
     };
 
-    const onLukkManglerAdresseOgReservertDialog = async () => {
+    const onLukkManglerAdresseOgReservertDialog = () => {
+        harLukketManglerAdresseOgReservertDialog.current = true;
         setManglerAdresseOgReservertDialogIsOpen(false);
-        setGodkjenningsModalApen(false);
-        await hentAvtale();
-        reset();
     };
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={onGodkjennSubmit}>
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
@@ -190,13 +189,6 @@ function GodkjennPaVegneAvDeltaker() {
                 isApen={isGodkjenningsModalApen}
                 onLagre={onLagre}
                 onLukk={() => setGodkjenningsModalApen(false)}
-                onFeilkodeError={(feilkode) => {
-                    if (feilkode !== KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
-                        return false;
-                    }
-                    setManglerAdresseOgReservertDialogIsOpen(true);
-                    return true;
-                }}
                 feilkodeDialog={
                     <ManglendeAdresseOgReservertDialog
                         open={manglerAdresseOgReservertDialogIsOpen}

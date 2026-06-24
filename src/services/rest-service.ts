@@ -247,6 +247,11 @@ export const godkjennAvtale = async (avtale: Avtale) => {
     return hentAvtale(avtale.id);
 };
 
+export const kanDeltakerMottaPost = async (avtaleId: string): Promise<boolean> => {
+    const response = await api.get<boolean>(`/avtaler/${avtaleId}/kan-deltaker-motta-post`);
+    return response.data;
+};
+
 export const godkjennAvtalePaVegne = async (avtale: Avtale, paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => {
     await api.post(`/avtaler/${avtale.id}/godkjenn-paa-vegne-av`, paVegneGrunn, {
         headers: {
