@@ -41,6 +41,7 @@ function GodkjennPaVegneAvFlereParter() {
         godkjennPaVegneAvDeltaker,
         godkjennPaVegneAvArbeidsgiver,
         godkjennPaVegneAvDeltakerOgArbeidsgiver,
+        hentAvtale,
     } = useAvtale();
     const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker, godkjentAvArbeidsgiver } = avtale;
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
@@ -53,7 +54,7 @@ function GodkjennPaVegneAvFlereParter() {
     const isIkkeGodkjentAvNoen = !godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker || !godkjentAvArbeidsgiver;
 
-    const { register, handleSubmit, formState, watch, getValues } = useForm<Schema>({
+    const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
             isInformert: false,
             isSkalGodkjennesPaVegne: false,
@@ -130,6 +131,13 @@ function GodkjennPaVegneAvFlereParter() {
         }
     };
 
+    const onLukkManglerAdresseOgReservertDialog = async () => {
+        setManglerAdresseOgReservertDialogIsOpen(false);
+        setGodkjenningsModalApen(false);
+        await hentAvtale();
+        reset();
+    };
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -200,13 +208,13 @@ function GodkjennPaVegneAvFlereParter() {
                 feilkodeDialog={
                     <ManglendeAdresseOgReservertDialog
                         open={manglerAdresseOgReservertDialogIsOpen}
-                        onClose={() => setManglerAdresseOgReservertDialogIsOpen(false)}
+                        onClose={onLukkManglerAdresseOgReservertDialog}
                     />
                 }
             />
             <ManglendeAdresseOgReservertDialog
                 open={manglerAdresseOgReservertDialogIsOpen && !isGodkjenningsModalApen}
-                onClose={() => setManglerAdresseOgReservertDialogIsOpen(false)}
+                onClose={onLukkManglerAdresseOgReservertDialog}
             />
         </>
     );

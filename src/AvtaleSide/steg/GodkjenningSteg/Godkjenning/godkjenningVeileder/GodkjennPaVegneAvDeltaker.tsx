@@ -110,6 +110,13 @@ function GodkjennPaVegneAvDeltaker() {
         }
     };
 
+    const onLukkManglerAdresseOgReservertDialog = async () => {
+        setManglerAdresseOgReservertDialogIsOpen(false);
+        setGodkjenningsModalApen(false);
+        await hentAvtale();
+        reset();
+    };
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -193,13 +200,13 @@ function GodkjennPaVegneAvDeltaker() {
                 feilkodeDialog={
                     <ManglendeAdresseOgReservertDialog
                         open={manglerAdresseOgReservertDialogIsOpen}
-                        onClose={() => setManglerAdresseOgReservertDialogIsOpen(false)}
+                        onClose={onLukkManglerAdresseOgReservertDialog}
                     />
                 }
             />
             <ManglendeAdresseOgReservertDialog
                 open={manglerAdresseOgReservertDialogIsOpen && !isGodkjenningsModalApen}
-                onClose={() => setManglerAdresseOgReservertDialogIsOpen(false)}
+                onClose={onLukkManglerAdresseOgReservertDialog}
             />
         </>
     );
