@@ -80,8 +80,6 @@ function GodkjennPaVegneAvFlereParter() {
             await onLagre();
         }
     });
-    const onGodkjennSubmit = handleSubmit(onSubmit);
-
     const onLagre = async () => {
         const { isSkalGodkjennesPaVegne } = getValues();
 
@@ -133,7 +131,7 @@ function GodkjennPaVegneAvFlereParter() {
 
     return (
         <>
-            <form onSubmit={onGodkjennSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />

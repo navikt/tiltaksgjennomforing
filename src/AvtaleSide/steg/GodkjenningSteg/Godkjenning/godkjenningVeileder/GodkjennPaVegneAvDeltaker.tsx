@@ -87,8 +87,6 @@ function GodkjennPaVegneAvDeltaker() {
             }
         }
     });
-    const onGodkjennSubmit = handleSubmit(onSubmit);
-
     const onLagre = async () => {
         const { isSkalGodkjennesPaVegne, godkjentPaVegneAvGrunner } = getValues();
 
@@ -118,7 +116,7 @@ function GodkjennPaVegneAvDeltaker() {
 
     return (
         <>
-            <form onSubmit={onGodkjennSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
