@@ -112,6 +112,8 @@ export type Feilkode =
     | 'OPPFOLGINGSTATUS_ENDRET'
     | 'ENHET_MANGLER'
     | 'FOR_SEN_STARTDATO_VTAO'
+    | 'MANGLER_BESLUTTERTILGANG'
+    | 'UGYLDIG_KOMBINASJON_AV_ISSUER_OG_ROLLE'
     | typeof KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT;
 
 export const Feilmeldinger: { [key in Feilkode]: string } = {
@@ -257,6 +259,10 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_MANGLER:
         'Oppfølgingsenhet mangler. Vennligst påse at deltaker er under oppfølging og har en gyldig oppfølgingsperiode.',
     FOR_SEN_STARTDATO_VTAO: 'Seneste mulig oppstart er 31.08.2026.',
+    MANGLER_BESLUTTERTILGANG:
+        'Du har ikke tilgang som beslutter i denne løsningen. Ta kontakt med din leder for å få tildelt nødvendige rettigheter.',
+    UGYLDIG_KOMBINASJON_AV_ISSUER_OG_ROLLE:
+        'Vi gjenkjenner ikke innloggingen din for denne tjenesten. Logg ut og forsøk igjen – ta kontakt med brukerstøtte hvis problemet vedvarer',
     [KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT]:
         'Person er reservert mot digital kommunikasjon og har ikke registrert adresse',
 };
