@@ -217,6 +217,7 @@ export interface AvtaleMetadata {
     kommendeOppfolging?: KommendeOppfolging;
     feilregistrert: boolean;
     erOpprettetEllerEndretAvArena: boolean;
+    kanDeltakerMottaPost: boolean | null;
 }
 
 export interface RefusjonKontaktperson {
