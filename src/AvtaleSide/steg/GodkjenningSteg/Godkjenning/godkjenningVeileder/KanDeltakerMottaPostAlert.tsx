@@ -6,7 +6,7 @@ type Props = {
     avtale: Avtale;
 };
 
-const KanMottaPostAlert = ({ avtale }: Props) =>
+const KanDeltakerMottaPostAlert = ({ avtale }: Props) =>
     !avtale.kanDeltakerMottaPost && (
         <>
             <LocalAlert status="warning">
@@ -22,4 +22,4 @@ const KanMottaPostAlert = ({ avtale }: Props) =>
             <VerticalSpacer rem={1} />
         </>
     );
-export default KanMottaPostAlert;
+export default KanDeltakerMottaPostAlert;

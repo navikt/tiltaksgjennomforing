@@ -14,7 +14,7 @@ import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-se
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
 import LagreKnapp, { useLagreKnapp } from '@/komponenter/LagreKnapp/LagreKnappBase';
-import KanMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanMottaPostAlert';
+import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
         isSkalGodkjennesPaVegne: z.literal(false),
@@ -132,7 +132,7 @@ function GodkjennPaVegneAvFlereParter() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
-                    <KanMottaPostAlert avtale={avtale} />
+                    <KanDeltakerMottaPostAlert avtale={avtale} />
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
                             <Checkbox {...register('isSkalGodkjennesPaVegne')}>
