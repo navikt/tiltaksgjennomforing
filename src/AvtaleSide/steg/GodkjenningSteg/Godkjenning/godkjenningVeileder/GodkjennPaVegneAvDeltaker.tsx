@@ -16,7 +16,7 @@ import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTilta
 import { useAvtale } from '@/AvtaleProvider';
 import { FeilkodeError } from '@/types';
 import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
-import KanMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanMottaPostAlert';
+import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -106,7 +106,7 @@ function GodkjennPaVegneAvDeltaker() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
-                    <KanMottaPostAlert avtale={avtale} />
+                    <KanDeltakerMottaPostAlert avtale={avtale} />
                     <VerticalSpacer rem={1} />
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
