@@ -28,8 +28,7 @@ const RelasjonHjelpetekst: FunctionComponent<Props> = (props) => {
             </BodyLong>
             <BodyLong size="small" spacing>
                 For at noen skal bli definert som tiltaksdeltakerens «egne familiemedlemmer eller andre nærstående»
-                forutsettes det at denne personen har bestemmende innflytelse over virksomheten, jf aksjeloven
-                <HorizontalSpacer rem={0.3} />
+                forutsettes det at denne personen har bestemmende innflytelse over virksomheten, jf aksjeloven{' '}
                 <EksternLenke href="https://lovdata.no/nav/lov/1997-06-13-44/kapII/%C2%A71-5">§ 1-5</EksternLenke>.
             </BodyLong>
             <BodyLong size="small">Den som fyller ut skjemaet og den meldingen gjelder er:</BodyLong>

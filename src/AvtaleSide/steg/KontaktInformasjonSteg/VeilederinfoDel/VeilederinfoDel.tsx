@@ -47,13 +47,12 @@ const VeilederinfoDel = () => {
                 />
             </div>
             <VerticalSpacer rem={1} />
-            <div className={cls.element('rad')}>
-                <TelefonnummerInput
-                    label="Mobilnummer"
-                    verdi={avtale.gjeldendeInnhold.veilederTlf}
-                    settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederTlf', verdi)}
-                />
-            </div>
+            <TelefonnummerInput
+                label="Mobilnummer"
+                verdi={avtale.gjeldendeInnhold.veilederTlf}
+                settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederTlf', verdi)}
+            />
+            <VerticalSpacer rem={1} />
         </div>
     );
 };
