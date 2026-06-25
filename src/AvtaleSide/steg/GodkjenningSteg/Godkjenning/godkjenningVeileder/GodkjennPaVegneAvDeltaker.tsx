@@ -41,7 +41,7 @@ type Schema = z.infer<typeof schema>;
 function GodkjennPaVegneAvDeltaker() {
     const cls = BEMHelper('godkjenning');
     const { avtale, godkjenn, godkjennPaVegneAvDeltaker, hentAvtale } = useAvtale();
-    const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker, kanDeltakerMottaPost } = avtale;
+    const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker } = avtale;
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
@@ -106,7 +106,7 @@ function GodkjennPaVegneAvDeltaker() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
-                    <KanDeltakerMottaPostAlert avtale={avtale} />
+                    <KanDeltakerMottaPostAlert avtaleId={id} />
                     <VerticalSpacer rem={1} />
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
