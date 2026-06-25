@@ -107,7 +107,6 @@ function GodkjennPaVegneAvDeltaker() {
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
                     <KanDeltakerMottaPostAlert avtaleId={id} />
-                    <VerticalSpacer rem={1} />
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
                             <Checkbox {...register('isSkalGodkjennesPaVegne')}>
