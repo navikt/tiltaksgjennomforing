@@ -9,15 +9,12 @@ import GodkjenningInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Alert, Checkbox, CheckboxGroup } from '@navikt/ds-react';
+import { Alert, Checkbox, CheckboxGroup, LocalAlert } from '@navikt/ds-react';
 import { sjekkOmDeltakerAlleredeErRegistrertPaaTiltak } from '@/services/rest-service';
 import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import { useAvtale } from '@/AvtaleProvider';
 import LagreKnapp, { useLagreKnapp } from '@/komponenter/LagreKnapp/LagreKnappBase';
-import { FeilkodeError } from '@/types';
-import { KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT } from '@/types/feilkode';
-import ManglendeAdresseOgReservertDialog from './ManglendeAdresseOgReservertDialog';
-
+import KanMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanMottaPostAlert';
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
         isSkalGodkjennesPaVegne: z.literal(false),
@@ -41,13 +38,19 @@ function GodkjennPaVegneAvFlereParter() {
         godkjennPaVegneAvDeltaker,
         godkjennPaVegneAvArbeidsgiver,
         godkjennPaVegneAvDeltakerOgArbeidsgiver,
-        hentAvtale,
     } = useAvtale();
-    const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker, godkjentAvArbeidsgiver } = avtale;
+    const {
+        deltakerFnr,
+        tiltakstype,
+        id,
+        gjeldendeInnhold,
+        godkjentAvDeltaker,
+        godkjentAvArbeidsgiver,
+        kanDeltakerMottaPost,
+    } = avtale;
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
-    const [manglerAdresseOgReservertDialogIsOpen, setManglerAdresseOgReservertDialogIsOpen] = useState(false);
 
     const isKunGodkjentAvDeltaker = godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKunGodkjentAvArbeidsgiver = godkjentAvArbeidsgiver && !godkjentAvDeltaker;
@@ -120,22 +123,7 @@ function GodkjennPaVegneAvFlereParter() {
                 },
             });
         }
-
-        try {
-            await godkjenn();
-        } catch (err) {
-            if (err instanceof FeilkodeError && err.message === KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
-                setManglerAdresseOgReservertDialogIsOpen(true);
-            }
-            throw err;
-        }
-    };
-
-    const onLukkManglerAdresseOgReservertDialog = async () => {
-        setManglerAdresseOgReservertDialogIsOpen(false);
-        setGodkjenningsModalApen(false);
-        await hentAvtale();
-        reset();
+        await godkjenn();
     };
 
     return (
@@ -144,6 +132,7 @@ function GodkjennPaVegneAvFlereParter() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
+                    <KanMottaPostAlert avtale={avtale} />
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
                             <Checkbox {...register('isSkalGodkjennesPaVegne')}>
@@ -188,6 +177,7 @@ function GodkjennPaVegneAvFlereParter() {
                             <VerticalSpacer rem={1} />
                         </>
                     )}
+
                     <LagreKnapp className={cls.element('lagreKnapp')} type="submit" {...lagreKnappProps}>
                         Godkjenn avtalen
                     </LagreKnapp>
@@ -198,23 +188,6 @@ function GodkjennPaVegneAvFlereParter() {
                 isApen={isGodkjenningsModalApen}
                 onLagre={onLagre}
                 onLukk={() => setGodkjenningsModalApen(false)}
-                onFeilkodeError={(feilkode) => {
-                    if (feilkode !== KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
-                        return false;
-                    }
-                    setManglerAdresseOgReservertDialogIsOpen(true);
-                    return true;
-                }}
-                feilkodeDialog={
-                    <ManglendeAdresseOgReservertDialog
-                        open={manglerAdresseOgReservertDialogIsOpen}
-                        onClose={onLukkManglerAdresseOgReservertDialog}
-                    />
-                }
-            />
-            <ManglendeAdresseOgReservertDialog
-                open={manglerAdresseOgReservertDialogIsOpen && !isGodkjenningsModalApen}
-                onClose={onLukkManglerAdresseOgReservertDialog}
             />
         </>
     );
