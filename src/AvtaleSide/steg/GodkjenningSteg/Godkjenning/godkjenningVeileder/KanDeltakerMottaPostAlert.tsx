@@ -1,13 +1,19 @@
 import { LocalAlert } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Avtale } from '@/types';
+import { useKanDeltakerMottaPost } from '@/services/use-rest';
 
 type Props = {
-    avtale: Avtale;
+    avtaleId: string;
 };
 
-const KanDeltakerMottaPostAlert = ({ avtale }: Props) =>
-    !avtale.kanDeltakerMottaPost && (
+const KanDeltakerMottaPostAlert = ({ avtaleId }: Props) => {
+    const { data: kanDeltakerMottaPost } = useKanDeltakerMottaPost(avtaleId);
+
+    if (kanDeltakerMottaPost !== false) {
+        return null;
+    }
+
+    return (
         <>
             <LocalAlert status="warning">
                 <LocalAlert.Header>
@@ -22,4 +28,5 @@ const KanDeltakerMottaPostAlert = ({ avtale }: Props) =>
             <VerticalSpacer rem={1} />
         </>
     );
+};
 export default KanDeltakerMottaPostAlert;

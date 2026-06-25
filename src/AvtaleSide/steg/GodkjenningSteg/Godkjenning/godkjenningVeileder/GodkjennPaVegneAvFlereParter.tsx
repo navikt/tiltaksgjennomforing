@@ -39,15 +39,7 @@ function GodkjennPaVegneAvFlereParter() {
         godkjennPaVegneAvArbeidsgiver,
         godkjennPaVegneAvDeltakerOgArbeidsgiver,
     } = useAvtale();
-    const {
-        deltakerFnr,
-        tiltakstype,
-        id,
-        gjeldendeInnhold,
-        godkjentAvDeltaker,
-        godkjentAvArbeidsgiver,
-        kanDeltakerMottaPost,
-    } = avtale;
+    const { deltakerFnr, tiltakstype, id, gjeldendeInnhold, godkjentAvDeltaker, godkjentAvArbeidsgiver } = avtale;
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
@@ -132,7 +124,7 @@ function GodkjennPaVegneAvFlereParter() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
-                    <KanDeltakerMottaPostAlert avtale={avtale} />
+                    <KanDeltakerMottaPostAlert avtaleId={id} />
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
                             <Checkbox {...register('isSkalGodkjennesPaVegne')}>
