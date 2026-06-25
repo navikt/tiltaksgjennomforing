@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { useAvtale } from '@/AvtaleProvider';
 import { Feilkode } from '@/types/feilkode';
-import { TiltaksType } from '@/types';
+import { Avtale, TiltaksType } from '@/types';
 import { tiltakstypeTekst } from '@/messages';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Alert } from '@navikt/ds-react';
@@ -15,7 +15,7 @@ interface Props {
     lukkModal: () => void;
 }
 
-const parseFeilmelding = (tiltakstype: TiltaksType, error: Error) => {
+const parseFeilmelding = (avtale: Avtale, error: Error) => {
     const message = error?.message as Feilkode;
     switch (message) {
         case 'ENHET_IKKE_TILGANG_PA_TILTAK': {
@@ -28,8 +28,11 @@ const parseFeilmelding = (tiltakstype: TiltaksType, error: Error) => {
         case 'KVALIFISERINGSGRUPPE_VTAO_FEIL':
         case 'KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL': {
             return `Oppfølgingsbehovet til deltaker er endret og avviker fra det som er oppgitt i avtalen.
-                    Deltaker kvalifiserer ikke lengre til ${tiltakstypeTekst[tiltakstype]}.`;
+                    Deltaker kvalifiserer ikke lengre til ${tiltakstypeTekst[avtale.tiltakstype]}.`;
         }
+        case 'ENHET_ER_SLETTET':
+            return `${avtale.gjeldendeInnhold.bedriftNavn} er ikke lengre aktiv. 
+                    Dette kan skyldes at virksomheten har lagt ned eller blitt omorganisert.`;
         default: {
             return undefined;
         }
@@ -51,7 +54,7 @@ function BeslutterTilskuddsperiodeBekreftelseModal(props: Props) {
                         lukkModal();
                     }
                 } catch (error) {
-                    const feil = parseFeilmelding(avtale.tiltakstype, error as Error);
+                    const feil = parseFeilmelding(avtale, error as Error);
                     if (feil) {
                         setFeilmelding(feil);
                     } else {
