@@ -73,3 +73,10 @@ export const useAvtaleKreverAktsomhet = (avtaleId?: string) => {
         revalidateOnFocus: false,
     });
 };
+
+export const useKanDeltakerMottaPost = (avtaleId?: string) => {
+    return useSWR<boolean>(avtaleId ? `/avtaler/${avtaleId}/kan-deltaker-motta-post` : undefined, {
+        ...swrConfig,
+        revalidateOnFocus: false,
+    });
+};
