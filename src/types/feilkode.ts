@@ -262,7 +262,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     MANGLER_BESLUTTERTILGANG:
         'Du har ikke tilgang som beslutter i denne løsningen. Ta kontakt med din leder for å få tildelt nødvendige rettigheter.',
     UGYLDIG_KOMBINASJON_AV_ISSUER_OG_ROLLE:
-        'Vi gjenkjenner ikke innloggingen din for denne tjenesten. Logg ut og forsøk igjen – ta kontakt med brukerstøtte hvis problemet vedvarer',
+        'Vi gjenkjenner ikke innloggingen din for denne tjenesten. Logg ut og forsøk igjen – ta kontakt med brukerstøtte hvis problemet vedvarer.',
     [KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT]:
         'Person er reservert mot digital kommunikasjon og har ikke registrert adresse',
 };
