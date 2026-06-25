@@ -11,6 +11,7 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentAvArbeidsgiver: '',
     godkjentAvVeileder: '',
     godkjentPaVegneAv: false,
+    kanDeltakerMottaPost: true,
 
     kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
     formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
