@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as z from 'zod';
-import { Alert, Checkbox, CheckboxGroup, LocalAlert } from '@navikt/ds-react';
+import { Alert, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
