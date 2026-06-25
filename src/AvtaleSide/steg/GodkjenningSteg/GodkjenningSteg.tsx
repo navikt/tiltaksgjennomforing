@@ -15,7 +15,6 @@ import { Rolle } from '@/types';
 import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     switch (rolle) {
