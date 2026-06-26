@@ -31,7 +31,7 @@ const parseFeilmelding = (avtale: Avtale, error: Error) => {
                     Deltaker kvalifiserer ikke lenger til ${tiltakstypeTekst[avtale.tiltakstype]}.`;
         }
         case 'ENHET_ER_SLETTET':
-            return `${avtale.gjeldendeInnhold.bedriftNavn} er ikke lengre aktiv. 
+            return `${avtale.gjeldendeInnhold.bedriftNavn} er ikke lenger aktiv.
                     Dette kan skyldes at virksomheten har lagt ned eller blitt omorganisert.`;
         default: {
             return undefined;
