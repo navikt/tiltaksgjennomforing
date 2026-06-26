@@ -58,6 +58,9 @@ const TelefonnummerInput: React.FunctionComponent<Props> = (props: PropsWithChil
                 className={cls.element('tekstField')}
                 label={props.label}
                 value={telefonnummer || ''}
+                inputMode="tel"
+                type="tel"
+                maxLength={15}
                 error={feil}
                 onChange={(event) => {
                     // Aksepter kun tall, space, og pluss tegn
