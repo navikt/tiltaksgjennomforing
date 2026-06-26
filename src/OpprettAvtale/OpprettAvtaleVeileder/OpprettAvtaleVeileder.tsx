@@ -196,7 +196,7 @@ const OpprettAvtaleVeileder: FunctionComponent = () => {
             )}
             <InformasjonsboksTopVeilederOppretterAvtale />
             <TiltaksTypeValg
-                className={cls.className}
+                className={cls.element('tiltakstypevalg')}
                 setTiltaksType={setTiltaksType}
                 ugyldigAvtaletype={ugyldigAvtaletype}
                 valgtTiltaksType={valgtTiltaksType}
