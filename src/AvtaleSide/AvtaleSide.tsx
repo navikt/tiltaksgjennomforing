@@ -6,17 +6,15 @@ import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import { avtaleTittel } from '@/messages';
 import { Path } from '@/Router';
-import BEMHelper from '@/utils/bem';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './AvtaleSide.less';
+import styles from './AvtaleSide.module.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';
 import VarselModal from './VarselModal/VarselModal';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
-
-const cls = BEMHelper('avtaleside');
+import classNames from 'classnames';
 
 export type StegId =
     | 'kontaktinformasjon'
@@ -74,7 +72,7 @@ const AvtaleSide: FunctionComponent = () => {
     const erDesktop = useWindowWidth() > 768;
 
     return aktivtSteg ? (
-        <>
+        <div className={styles.avtalesideLayout}>
             <Dokumenttittel tittel={sideTittel} />
             <VarselModal />
             <Banner
@@ -84,11 +82,11 @@ const AvtaleSide: FunctionComponent = () => {
                 valgtOrganisasjon={avtale.bedriftNr}
             />
 
-            <div className="avtaleside" role="main">
+            <div className={styles.avtaleside} role="main">
                 {
-                    <div className={erAvtaleLaast ? cls.element('innhold') : cls.element('')}>
+                    <div className={classNames({ [styles.avtalesideInnhold]: erAvtaleLaast })}>
                         {erAvtaleLaast && (
-                            <div className={cls.element('innhold')}>
+                            <div className={styles.avtalesideInnhold}>
                                 <BannerNAVAnsatt tekst={sideTittel} undertittel={`Avtalenummer: ${avtale.avtaleNr}`} />
                                 <OppgaveLinje />
                                 {aktivtSteg.komponent}
@@ -113,7 +111,7 @@ const AvtaleSide: FunctionComponent = () => {
                     </div>
                 }
             </div>
-        </>
+        </div>
     ) : null;
 };
 

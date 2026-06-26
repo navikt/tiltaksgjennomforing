@@ -13,10 +13,8 @@ import IkonTekstRad from '@/komponenter/EkspanderbartPanelRad/IkonTekstRad';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 import { Path } from '@/Router';
-import BEMHelper from '@/utils/bem';
-import './informasjonsside.less';
+import styles from './informasjonsside.module.less';
 
-const cls = BEMHelper('informasjonsside');
 const tilbakeTilOversikt = (pathName: string) => {
     if (pathName === Path.INFORMASJONSSIDE) {
         return <TilbakeTilOversiktLenke />;
@@ -30,8 +28,8 @@ const Informasjonsside: FunctionComponent = () => {
 
     const veilederOgArbeidsgiverOppretter = (
         <IkonTekstRad
-            classname={cls.element('info')}
-            svgIkon={<Keyboard role="presentation" focusable="false" className={cls.element('SubIkon')} />}
+            classname={styles.informasjonssideInfo}
+            svgIkon={<Keyboard role="presentation" focusable="false" className={styles.informasjonssideSubIkon} />}
             headerTekst={{
                 tekst: 'NAV eller arbeidsgiver oppretter en avtale',
                 headingType: 'small',
@@ -59,15 +57,15 @@ const Informasjonsside: FunctionComponent = () => {
     return (
         <div>
             <Banner tekst="Avtale om tiltak" />
-            <div className={cls.className}>
-                <div className={cls.element('container')}>
-                    <div className="tilbaketiloversikt">{tilbakeTilOversikt(pathname)}</div>
+            <div className={styles.informasjonsside}>
+                <div className={styles.informasjonssideContainer}>
+                    <div className={styles.tilbaketiloversikt}>{tilbakeTilOversikt(pathname)}</div>
 
-                    <div className={cls.element('innhold')}>
-                        <div className={cls.element('innholdstittel')}>
+                    <div className={styles.informasjonssideInnhold}>
+                        <div className={styles.informasjonssideInnholdstittel}>
                             <Heading size="large">Hvordan fungerer løsningen?</Heading>
                         </div>
-                        <div className={cls.element('ingress')}>
+                        <div className={styles.informasjonssideIngress}>
                             <BodyShort size="small">
                                 Vi innfører en digital avtale om tiltak. Her får du en rask introduksjon til hvordan den
                                 nye løsningen fungerer:
@@ -75,12 +73,12 @@ const Informasjonsside: FunctionComponent = () => {
                         </div>
 
                         <IkonTekstRad
-                            classname={cls.element('info')}
+                            classname={styles.informasjonssideInfo}
                             svgIkon={
                                 <DigitalAvtale
                                     role="presentation"
                                     focusable="false"
-                                    className={cls.element('SubIkon')}
+                                    className={styles.informasjonssideSubIkon}
                                 />
                             }
                             headerTekst={{
@@ -97,9 +95,13 @@ const Informasjonsside: FunctionComponent = () => {
                         {veilederOgArbeidsgiverOppretter}
 
                         <IkonTekstRad
-                            classname={cls.element('info')}
+                            classname={styles.informasjonssideInfo}
                             svgIkon={
-                                <Altinn role="presentation" focusable="false" className={cls.element('SubIkon')} />
+                                <Altinn
+                                    role="presentation"
+                                    focusable="false"
+                                    className={styles.informasjonssideSubIkon}
+                                />
                             }
                             headerTekst={{
                                 tekst: 'Tilgang og innlogging til avtalen',
@@ -118,7 +120,7 @@ const Informasjonsside: FunctionComponent = () => {
                                 <li>Avtale om varig tilrettelagt arbeid i ordinær virksomhet</li>
                                 <li>Avtale om sommerjobb</li>
                             </ul>
-                            <span className={cls.element('lenke')}>
+                            <span className={styles.informasjonssideLenke}>
                                 <EksternLenke href="https://info.altinn.no/hjelp/ny-tilgangsstyring/steg-for-steg-guider/">
                                     Finn informasjon om roller og rettigheter på Altinn.no
                                 </EksternLenke>
@@ -126,12 +128,12 @@ const Informasjonsside: FunctionComponent = () => {
                         </IkonTekstRad>
 
                         <IkonTekstRad
-                            classname={cls.element('info')}
+                            classname={styles.informasjonssideInfo}
                             svgIkon={
                                 <DynamiskAvtale
                                     role="presentation"
                                     focusable="false"
-                                    className={cls.element('SubIkon')}
+                                    className={styles.informasjonssideSubIkon}
                                 />
                             }
                             headerTekst={{
@@ -144,9 +146,13 @@ const Informasjonsside: FunctionComponent = () => {
                         </IkonTekstRad>
 
                         <IkonTekstRad
-                            classname={cls.element('info')}
+                            classname={styles.informasjonssideInfo}
                             svgIkon={
-                                <Historikk role="presentation" focusable="false" className={cls.element('SubIkon')} />
+                                <Historikk
+                                    role="presentation"
+                                    focusable="false"
+                                    className={styles.informasjonssideSubIkon}
+                                />
                             }
                             headerTekst={{
                                 tekst: 'Avtalens historikk',
@@ -158,12 +164,12 @@ const Informasjonsside: FunctionComponent = () => {
                             parter se utviklingen og vurdere måloppnåelse i etterkant.
                         </IkonTekstRad>
                         <IkonTekstRad
-                            classname={cls.element('info')}
+                            classname={styles.informasjonssideInfo}
                             svgIkon={
                                 <DigitalAvtale
                                     role="presentation"
                                     focusable="false"
-                                    className={cls.element('SubIkon')}
+                                    className={styles.informasjonssideSubIkon}
                                 />
                             }
                             headerTekst={{

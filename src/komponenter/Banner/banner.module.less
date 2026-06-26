@@ -17,6 +17,49 @@
 .arbeidsgiver-banner {
     background-color: @white;
     border-top: 1px solid rgb(203, 207, 213);
+    border-bottom: 1px solid rgb(203, 207, 213);
+}
+
+.banner-innhold {
+    margin: auto;
+    width: 100%;
+    max-width: var(--banner-innhold-max-width, 60rem);
+    padding-left: var(--banner-innhold-side-padding, 1rem);
+    padding-right: var(--banner-innhold-side-padding, 1rem);
+    box-sizing: border-box;
+
+    > * {
+        border: none;
+    }
+}
+
+.arbeidsgiver-banner-innhold {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    column-gap: 3rem;
+    row-gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.arbeidsgiver-banner-header {
+    max-width: 30rem;
+}
+
+.arbeidsgiver-banner-widgets {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+@media (max-width: 48rem) {
+    .arbeidsgiver-banner-widgets {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
 
 .banner-veileder-container {
@@ -34,5 +77,6 @@
 }
 
 .banner-lang-tittel {
-    font-size: var(--a-font-line-height-heading-xsmall);
+    font-size: var(--ax-font-size-heading-medium);
+    line-height: var(--ax-font-line-height-heading-small);
 }

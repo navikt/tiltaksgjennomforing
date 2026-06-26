@@ -2,6 +2,7 @@ import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import { Rolle } from '@/types/innlogget-bruker';
 import { Accordion } from '@navikt/ds-react';
 import React from 'react';
+import styles from './MobilAvtaleSide.module.less';
 import { StegInfo } from '../AvtaleSide';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
     const ekspanderbartPanel = props.avtaleSteg.map((steg) => (
-        <div role="main" className="avtaleside__ekspanderbart-panel" key={steg.id}>
+        <div role="main" className={styles.ekspanderbartPanel} key={steg.id}>
             <Accordion className="accordion">
                 <Accordion.Item>
                     <Accordion.Header>{steg.label}</Accordion.Header>

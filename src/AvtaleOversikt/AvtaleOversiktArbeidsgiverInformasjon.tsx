@@ -1,15 +1,13 @@
 import React from 'react';
 import { BodyShort, ExpansionCard, Label } from '@navikt/ds-react';
 import { Rolle } from '@/types/innlogget-bruker';
-import { BEMWrapper } from '@/utils/bem';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
     rolle: Rolle;
-    cls: BEMWrapper;
 }
 
-const AvtaleOversiktArbeidsgiverInformasjon: React.FC<Props> = ({ rolle, cls }: Props) => {
+const AvtaleOversiktArbeidsgiverInformasjon: React.FC<Props> = ({ rolle }: Props) => {
     if (rolle !== 'ARBEIDSGIVER') {
         return null;
     }
