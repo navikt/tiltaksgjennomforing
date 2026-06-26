@@ -28,7 +28,7 @@ const parseFeilmelding = (avtale: Avtale, error: Error) => {
         case 'KVALIFISERINGSGRUPPE_VTAO_FEIL':
         case 'KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL': {
             return `Oppfølgingsbehovet til deltaker er endret og avviker fra det som er oppgitt i avtalen.
-                    Deltaker kvalifiserer ikke lengre til ${tiltakstypeTekst[avtale.tiltakstype]}.`;
+                    Deltaker kvalifiserer ikke lenger til ${tiltakstypeTekst[avtale.tiltakstype]}.`;
         }
         case 'ENHET_ER_SLETTET':
             return `${avtale.gjeldendeInnhold.bedriftNavn} er ikke lengre aktiv. 
