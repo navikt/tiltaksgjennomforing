@@ -9,6 +9,7 @@ import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 import { tiltakToggleFilter } from '@/utils/firearigltToggleFilter';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import { tiltaksTypeValg } from './TiltaksTypeValg.module.less';
 
 interface Props {
     className: string;
@@ -42,6 +43,7 @@ const TiltaksTypeValg: FunctionComponent<Props> = ({
             </BodyLong>
             <VerticalSpacer rem={0.5} />
             <Select
+                className={tiltaksTypeValg}
                 label="Velg type avtale"
                 hideLabel
                 value={valgtTiltaksType}

@@ -17,14 +17,11 @@ import { Path, basename } from '@/Router';
 import { opprettAvtaleSomArbeidsgiver, opprettMentorAvtale } from '@/services/rest-service';
 import { TiltaksType } from '@/types/avtale';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import BEMHelper from '@/utils/bem';
 import { setFnrBrukerOnChange, validatorer, validerFnr } from '@/utils/fnrUtils';
 import { validerOrgnr } from '@/utils/orgnrUtils';
 import { storForbokstav } from '@/utils/stringUtils';
 import { findRecursive } from '@navikt/virksomhetsvelger';
-import './OpprettAvtaleArbeidsgiver.less';
-
-const cls = BEMHelper('opprett-avtale-arbeidsgiver');
+import styles from './OpprettAvtaleArbeidsgiver.module.less';
 
 const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const innloggetBruker = useInnloggetBruker();
@@ -118,7 +115,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         <>
             <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" byttetOrg={oppdaterBedriftIUrl} />
-            <div className={cls.className}>
+            <div className={styles.opprettAvtaleArbeidsgiver}>
                 {migreringSkrivebeskyttet && (
                     <>
                         <Alert variant={'warning'}>
@@ -146,8 +143,8 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         </EksternLenke>
                     </BodyShort>
                 </Innholdsboks>
-                <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Heading level="2" size="medium" className={cls.element('innholdstittel')}>
+                <Innholdsboks>
+                    <Heading level="2" size="medium">
                         Velg type avtale
                     </Heading>
                     <VerticalSpacer rem={1} />
@@ -157,6 +154,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <VerticalSpacer rem={1} />
                     <Select
                         label="Velg type avtale"
+                        className={styles.tiltakstypeSelect}
                         hideLabel
                         value={valgtTiltaksType}
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -165,16 +163,19 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         }}
                     >
                         <option value="">- Velg tiltakstype -</option>
-                        {(innloggetBruker.altinnTilganger.tilganger[valgtBedriftNr] ?? []).sort().map((tiltakType) => (
-                            <option key={tiltakType} value={tiltakType} disabled={erSkrivebeskyttet(tiltakType)}>
-                                {storForbokstav(tiltakstypeTekst[tiltakType])}
-                            </option>
-                        ))}
+                        {(innloggetBruker.altinnTilganger.tilganger[valgtBedriftNr] ?? [])
+                            .filter((tiltakstype) => tiltakstype !== 'FIREARIG_LONNSTILSKUDD')
+                            .sort()
+                            .map((tiltakType) => (
+                                <option key={tiltakType} value={tiltakType} disabled={erSkrivebeskyttet(tiltakType)}>
+                                    {storForbokstav(tiltakstypeTekst[tiltakType])}
+                                </option>
+                            ))}
                     </Select>
                     {ugyldigAvtaletype && <ErrorMessage>{Feilmeldinger.UGYLDIG_AVTALETYPE}</ErrorMessage>}
                 </Innholdsboks>
-                <Innholdsboks className={cls.element('innholdsboks')}>
-                    <Heading level="2" size="medium" className={cls.element('innholdstittel')}>
+                <Innholdsboks>
+                    <Heading level="2" size="medium">
                         Hvem skal inngå i avtalen
                     </Heading>
                     <VerticalSpacer rem={1} />
@@ -186,7 +187,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     )}
                     <VerticalSpacer rem={1} />
                     <TextField
-                        className="typo-element"
+                        className={styles.hvemSkalInngaAvtaleInput}
                         label="Deltakers fødselsnummer"
                         value={deltakerFnr}
                         width={'L'}
@@ -196,7 +197,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     />
                     <VerticalSpacer rem={1} />
                     <TextField
-                        className="typo-element"
+                        className={styles.hvemSkalInngaAvtaleInput}
                         width={'L'}
                         label="Opprettes på bedrift"
                         description={
@@ -241,7 +242,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     </BodyShort>
                 </Alert>
 
-                <div className={cls.element('knappRad')}>
+                <div className={styles.knappRad}>
                     <LagreKnapp
                         lagre={opprettAvtaleKlikk}
                         setFeilmelding={setFeilmelding}
