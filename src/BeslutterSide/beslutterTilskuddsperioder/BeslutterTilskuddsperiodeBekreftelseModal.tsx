@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { useAvtale } from '@/AvtaleProvider';
 import { Feilkode } from '@/types/feilkode';
-import { Avtale, TiltaksType } from '@/types';
+import type { Avtale } from '@/types';
 import { tiltakstypeTekst } from '@/messages';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Alert } from '@navikt/ds-react';
