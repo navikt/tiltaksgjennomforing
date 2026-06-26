@@ -39,7 +39,7 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
     };
 
     const { rolle } = useContext(InnloggetBrukerContext);
-    const isKanEndreFamilierelasjon =
+    const kanEndreFamilierelasjon =
         rolle === 'ARBEIDSGIVER' || (avtale.opphav === 'ARENA' && avtale.tiltakstype === 'VTAO');
 
     return (
@@ -56,7 +56,7 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
             <Label>Er det familiære eller økonomiske relasjoner mellom arbeidsgiveren og deltakeren?</Label>
             <VerticalSpacer rem={1} />
             <div className={cls.element('familietilknytning-valg')} id="familievalg">
-                {isKanEndreFamilierelasjon ? (
+                {kanEndreFamilierelasjon ? (
                     <>
                         <RadioBlocks
                             legend="Familierelasjoner"
@@ -83,21 +83,25 @@ const Relasjoner: FunctionComponent<Props> = ({ tiltakstype }: Props) => {
                 )}
             </div>
             {harFamilietilknytning && (
-                <div className={cls.element('harFamilietilknytning-forklaring')}>
-                    {isKanEndreFamilierelasjon ? (
-                        <PakrevdTextarea
-                            label="Vennligst utdyp denne relasjonen"
-                            maxLengde={500}
-                            verdi={familietilknytningForklaring || ''}
-                            settVerdi={(verdi) => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
-                        />
-                    ) : (
-                        <>
-                            <Label>Vennligst utdyp denne relasjonen</Label>
-                            <BodyShort size="small">{familietilknytningForklaring || ''}</BodyShort>
-                        </>
-                    )}
-                </div>
+                <>
+                    <VerticalSpacer rem={2} />
+                    <div className={cls.element('harFamilietilknytning-forklaring')}>
+                        {kanEndreFamilierelasjon ? (
+                            <PakrevdTextarea
+                                label="Vennligst utdyp denne relasjonen"
+                                maxLengde={500}
+                                verdi={familietilknytningForklaring || ''}
+                                settVerdi={(verdi) => settAvtaleVerdier({ familietilknytningForklaring: verdi })}
+                            />
+                        ) : (
+                            <>
+                                <Label>Beskrivelse av denne relasjonen</Label>
+                                <VerticalSpacer rem={1} />
+                                <BodyShort size="small">{familietilknytningForklaring || ''}</BodyShort>
+                            </>
+                        )}
+                    </div>
+                </>
             )}
             <VerticalSpacer rem={1} />
             <RelasjonHjelpetekst tiltakstype={tiltakstype} />
