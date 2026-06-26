@@ -1,5 +1,5 @@
 import { Radio, RadioGroup, Stack } from '@navikt/ds-react';
-import { radioBlock, checked } from './radioBlocks.module.less';
+import { radioBlock, checked, isDisabled } from './radioBlocks.module.less';
 import classNames from 'classnames';
 
 type Key = string;
@@ -15,6 +15,7 @@ export interface Properties {
     onChange: React.ChangeEventHandler<HTMLInputElement>;
     direction: 'column' | 'row';
     error?: React.ReactNode;
+    disabled?: boolean;
 }
 
 const RadioBlocks: React.FC<Properties> = ({
@@ -24,6 +25,7 @@ const RadioBlocks: React.FC<Properties> = ({
     onChange,
     direction,
     error,
+    disabled,
 }: Properties) => {
     return (
         <RadioGroup legend={legend} error={error} value={selectedValue}>
@@ -33,8 +35,9 @@ const RadioBlocks: React.FC<Properties> = ({
                         key={value}
                         value={value}
                         onChange={onChange}
+                        disabled={disabled}
                         checked={selectedValue === value}
-                        className={classNames(radioBlock, selectedValue === value && checked)}
+                        className={classNames(radioBlock, selectedValue === value && checked, disabled && isDisabled)}
                     >
                         {description}
                     </Radio>
