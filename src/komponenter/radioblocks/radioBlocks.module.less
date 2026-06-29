@@ -4,8 +4,9 @@
     background-color: @white;
     border: 1px solid @grayModia;
     border-radius: @border-radius-base;
-    padding: 1rem;
     width: 100%;
+    padding: 0 0 0 1rem;
+    align-items: center;
 
     &:hover:not(.is-disabled) {
         border: 1px solid #0067c5;
@@ -16,6 +17,11 @@
     &::after {
         padding: 2rem 1rem 1rem;
         inset: 0;
+    }
+
+    > label {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
 
     @media (min-width: 768px) {
