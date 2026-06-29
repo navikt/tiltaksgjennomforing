@@ -349,7 +349,6 @@ export const hentVarsellogg = async (avtaleId: string): Promise<Varsel[]> => {
     return response.data;
 };
 
-
 export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<void> => {
     await api.post(`/varsler/sett-alle-til-lest`, varselIder);
 };
