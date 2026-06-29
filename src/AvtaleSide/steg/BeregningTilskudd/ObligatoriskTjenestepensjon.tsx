@@ -27,6 +27,10 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
     const [isFocused, setIsFocused] = useState(false);
     const [rawValue, setRawValue] = useState(() => formatertSats(sats));
 
+    React.useEffect(() => {
+        if (!isFocused) setRawValue(formatertSats(sats));
+    }, [sats, isFocused]);
+
     const { tall, feil } = parseOgValider(rawValue);
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
