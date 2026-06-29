@@ -5,7 +5,7 @@ import { Radio, RadioGroup } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 import { useFilterGammel } from './useFilterGammel';
 
-export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
+type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilterGammel: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
     const { endreFilter, filtre } = useFilterGammel();
 

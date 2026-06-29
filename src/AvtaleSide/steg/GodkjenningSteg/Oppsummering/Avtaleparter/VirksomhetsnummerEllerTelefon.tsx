@@ -8,7 +8,7 @@ interface Props {
     key?: number;
 }
 
-export const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) => {
+const VirksomhetsnummerEllerTelefon: FunctionComponent<Props> = (props) => {
     function hentTallMedDotterOgMellomrom() {
         return props.verdi?.split('').join('. ');
     }

@@ -8,7 +8,7 @@ export interface OptionProps {
     value: string;
 }
 
-export interface SelectInputProps extends SelectProps {
+interface SelectInputProps extends SelectProps {
     options: OptionProps[];
 }
 

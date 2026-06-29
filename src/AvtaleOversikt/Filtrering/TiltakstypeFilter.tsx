@@ -5,7 +5,7 @@ import { TiltaksType } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
-export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
+type FiltreringMedBeslutterProps = { erBeslutter: boolean };
 const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
     const { endreFilter, filtre } = useFilter();
 

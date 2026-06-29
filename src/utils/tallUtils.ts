@@ -20,14 +20,14 @@ export const parseNorskeTallFraInput = <T>(value: T): number | undefined => {
     return undefined;
 };
 
-export const visTalletEller0 = (tallet?: number) => (tallet === 0 || tallet ? tallet : 0);
+const visTalletEller0 = (tallet?: number) => (tallet === 0 || tallet ? tallet : 0);
 
 export const parseFloatIfFloatable = (verdi: string) => {
     const floatedValue = parseFloat(verdi);
     return !isNaN(floatedValue) ? floatedValue : undefined;
 };
 
-export const inputToNumber = (verdi: string | undefined): number | undefined => {
+const inputToNumber = (verdi: string | undefined): number | undefined => {
     verdi = verdi?.replace(/,/g, '.');
     if (!isNaN(Number(verdi))) {
         return Number(verdi);

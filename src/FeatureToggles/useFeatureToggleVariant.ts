@@ -4,7 +4,7 @@ import { hentFeatureTogglesVarianter } from '@/services/rest-service';
 
 import { FeatureToggleProviderInitialState, Feature } from './FeatureToggleProvider';
 
-export type FeatureToggleVariant = { enabled: boolean; payload?: { type: string; value: null | string } };
+type FeatureToggleVariant = { enabled: boolean; payload?: { type: string; value: null | string } };
 
 export type FeatureToggleVariants = Record<Feature, FeatureToggleVariant>;
 

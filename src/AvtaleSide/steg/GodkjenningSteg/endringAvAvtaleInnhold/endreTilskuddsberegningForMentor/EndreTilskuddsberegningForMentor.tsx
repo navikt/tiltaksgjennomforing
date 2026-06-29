@@ -16,7 +16,7 @@ import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import { erNil } from '@/utils/predicates';
 import { TasklistIcon } from '@navikt/aksel-icons';
 
-export type EndreTilskuddsberegningForMentorFelter = Pick<
+type EndreTilskuddsberegningForMentorFelter = Pick<
     Beregningsgrunnlag,
     | 'otpSats'
     | 'feriepengesats'
