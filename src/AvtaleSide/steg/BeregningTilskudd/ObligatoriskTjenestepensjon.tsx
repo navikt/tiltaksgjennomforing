@@ -34,7 +34,7 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
     const { tall, feil } = parseOgValider(rawValue);
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        const raw = e.target.value;
+        const raw = e.target.value.replaceAll('%', '').trim();
         setRawValue(raw);
         const { tall } = parseOgValider(raw);
         onChange(tall !== undefined ? tall / 100 : undefined);
