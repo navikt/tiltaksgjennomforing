@@ -79,9 +79,9 @@ export const erDatoTilbakeITid = (dato?: string) => {
 
 export const visPeriodeForTiltak = (fra?: string, til?: string): string => {
     if (fra && til) return formaterPeriode(fra, til, 'dd.MM.yy');
-    if (fra && !til) return formaterDato(fra, 'dd.MM.yy') + ' - sluttdato ikke satt';
-    if (!fra && til) return 'startdato ikke satt - ' + formaterDato(til, 'dd.MM.yy');
-    return 'ikke satt';
+    if (fra && !til) return formaterDato(fra, 'dd.MM.yy') + ' - Sluttdato ikke satt';
+    if (!fra && til) return 'Startdato ikke satt - ' + formaterDato(til, 'dd.MM.yy');
+    return 'Ikke satt';
 };
 
 export const formaterDatoHvisDefinert = (
