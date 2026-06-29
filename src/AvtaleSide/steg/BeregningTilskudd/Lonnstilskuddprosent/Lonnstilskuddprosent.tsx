@@ -101,7 +101,9 @@ const Lonnstilskuddprosent = (props: Props) => {
                                 </Table.DataCell>
                                 <Table.DataCell>{visPeriodeForTiltak(trinn.start, trinn.slutt)}</Table.DataCell>
                                 <Table.DataCell>
-{trinn.prosent != null ? formaterProsent(trinn.prosent) : getSatsIkkeSatt(avtale, erNavAnsatt)}
+                                    {trinn.prosent != null
+                                        ? formaterProsent(trinn.prosent)
+                                        : getSatsIkkeSatt(avtale, erNavAnsatt)}
                                 </Table.DataCell>
                             </Table.Row>
                         );
