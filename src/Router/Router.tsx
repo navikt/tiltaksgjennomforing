@@ -23,9 +23,7 @@ import AvtaleKontroll from '@/AvtaleSide/AvtaleKontroll';
 import AvtaleRouteError from './AvtaleRouteError';
 import OversiktRouteError from './OversiktRouteError';
 import IkkeFunnet404 from './IkkeFunnet404';
-import { Path } from './path';
-
-const basename = '/tiltaksgjennomforing';
+import { Path, basename } from './path';
 
 const router = createBrowserRouter(
     [
