@@ -65,9 +65,10 @@ const LonnstilskuddFormaal = (props: Props) => {
             <RadioBlocks
                 legend="Hva er formålet med avtalen?"
                 values={lonnstilskuddFormaalVerdier}
-                selectedValue={verdi}
+                selectedValue={field.value}
                 onChange={onChange}
                 direction="row"
+                error={formState.errors.lonnstilskuddFormaal?.message}
             />
             <VerticalSpacer rem={2} />
         </>
