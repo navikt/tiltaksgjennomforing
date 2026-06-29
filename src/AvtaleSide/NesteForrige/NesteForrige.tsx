@@ -8,7 +8,7 @@ import { Path } from '@/Router';
 import { StegInfo } from '@/AvtaleSide/AvtaleSide';
 import { ChevronLeftIcon, ChevronRightIcon } from '@navikt/aksel-icons';
 
-export interface Props {
+interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
 }

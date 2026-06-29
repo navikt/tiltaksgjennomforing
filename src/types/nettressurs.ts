@@ -8,34 +8,34 @@ export enum Status {
     OMLAST,
 }
 
-export interface IkkeLastet {
+interface IkkeLastet {
     status: Status.IKKE_LASTET;
 }
 
-export interface LasterInn {
+interface LasterInn {
     status: Status.LASTER_INN;
 }
 
-export interface SenderInn<T> {
+interface SenderInn<T> {
     status: Status.SENDER_INN;
     data: T;
 }
 
-export interface Lastet<T> {
+interface Lastet<T> {
     status: Status.LASTET;
     data: T;
 }
 
-export interface Sendt {
+interface Sendt {
     status: Status.SENDT;
 }
 
-export interface Feil {
+interface Feil {
     status: Status.FEIL;
     error: Error;
 }
 
-export interface Omlast {
+interface Omlast {
     status: Status.OMLAST;
 }
 

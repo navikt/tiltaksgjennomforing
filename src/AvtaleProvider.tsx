@@ -24,18 +24,18 @@ export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
     return noenHarGodkjent && !avtale.erAvtaleInngått;
 };
 
-export interface TemporaryLagring {
+interface TemporaryLagring {
     id?: string;
     kategori: Maalkategori;
     beskrivelse: string;
 }
 
-export type SettAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
+type SettAvtaleInnholdVerdi = <K extends keyof NonNullable<Avtaleinnhold>, T extends Avtaleinnhold>(
     felt: K,
     verdi: T[K],
 ) => void;
 
-export type SettFlereAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
+type SettFlereAvtaleInnholdVerdier = (endringer: Partial<Avtaleinnhold>, lagre?: boolean) => Avtale | undefined;
 type SettOgKalkulerBeregningsverdier = (endringer: Partial<Beregningsgrunnlag>) => Promise<void>;
 
 export interface Context {

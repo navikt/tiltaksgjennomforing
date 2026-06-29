@@ -7,7 +7,7 @@ export interface Innloggingskilde {
     url: string;
 }
 
-export interface NavEnhet {
+interface NavEnhet {
     verdi: string;
     navn: string;
 }
@@ -27,10 +27,4 @@ export interface InnloggetBruker {
     rolle: Rolle;
     navEnheter: NavEnhet[];
     kanVæreBeslutter?: boolean;
-}
-
-export interface Organisasjon {
-    bedriftNavn: string;
-    bedriftNr: string;
-    tilgangstyper: TiltaksType[];
 }

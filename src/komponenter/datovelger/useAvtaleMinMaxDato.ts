@@ -4,7 +4,7 @@ import { useAvtale } from '@/AvtaleProvider';
 import { Innsatsgruppe } from '@/types/innsatsgruppe';
 
 export declare type ISODateString = string;
-export interface DatepickerDateRange {
+interface DatepickerDateRange {
     from: ISODateString;
     to: ISODateString;
 }

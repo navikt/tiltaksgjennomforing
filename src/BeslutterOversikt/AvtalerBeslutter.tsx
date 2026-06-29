@@ -15,7 +15,7 @@ type Props = {
     varsler: Varsel[];
 };
 
-export const AvtalerBeslutter: FunctionComponent<Props> = (props) => {
+const AvtalerBeslutter: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
     if (props.avtalelisteRessurs.status === Status.LASTER_INN) {
         return <BeslutterOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
