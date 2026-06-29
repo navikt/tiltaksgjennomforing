@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Heading, TextField } from '@navikt/ds-react';
 import { formaterNorskeTall, parseNorskeTallFraInput } from '@/utils';
 import styles from './ObligatoriskTjenestepensjon.module.less';
@@ -27,7 +27,7 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
     const [isFocused, setIsFocused] = useState(false);
     const [rawValue, setRawValue] = useState(() => formatertSats(sats));
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!isFocused) setRawValue(formatertSats(sats));
     }, [sats, isFocused]);
 
