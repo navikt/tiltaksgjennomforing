@@ -6,7 +6,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
 import './omMentorSteg.less';
