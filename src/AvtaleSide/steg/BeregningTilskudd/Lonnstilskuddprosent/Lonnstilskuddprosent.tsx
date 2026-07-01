@@ -13,14 +13,14 @@ interface Props {
     cls: BEMWrapper;
 }
 
-const getSatsIkkeSatt = (avtale: Avtale) => {
+const getSatsIkkeSatt = (avtale: Avtale, erNavAnsatt: boolean) => {
     switch (avtale.tiltakstype) {
         case 'MIDLERTIDIG_LONNSTILSKUDD':
             return '40 % eller 60 % settes av veileder';
         case 'SOMMERJOBB':
             return '50 % eller 75 % settes av veileder';
         default:
-            return 'Settes av veileder i NAV';
+            return !erNavAnsatt ? 'Settes av veileder i Nav' : '–';
     }
 };
 
@@ -32,8 +32,9 @@ const Lonnstilskuddprosent = (props: Props) => {
     const erSommerjobb = avtale.tiltakstype === 'SOMMERJOBB';
     const erVarigLts = avtale.tiltakstype === 'VARIG_LONNSTILSKUDD';
     const erFirearigLts = avtale.tiltakstype === 'FIREARIG_LONNSTILSKUDD';
+    const erNavAnsatt = innloggetBruker.erNavAnsatt;
 
-    if (innloggetBruker.erNavAnsatt && erVarigLts) {
+    if (erNavAnsatt && erVarigLts) {
         return (
             <div className={cls.element('kvalifiseringsgruppe')}>
                 <div className={cls.element('tilskuddsprosent')}>
@@ -59,7 +60,7 @@ const Lonnstilskuddprosent = (props: Props) => {
         );
     }
 
-    if (innloggetBruker.erNavAnsatt && erSommerjobb) {
+    if (erNavAnsatt && erSommerjobb) {
         return (
             <>
                 <Select
@@ -100,7 +101,9 @@ const Lonnstilskuddprosent = (props: Props) => {
                                 </Table.DataCell>
                                 <Table.DataCell>{visPeriodeForTiltak(trinn.start, trinn.slutt)}</Table.DataCell>
                                 <Table.DataCell>
-                                    {trinn.prosent ? formaterProsent(trinn.prosent) : getSatsIkkeSatt(avtale)}
+                                    {trinn.prosent != null
+                                        ? formaterProsent(trinn.prosent)
+                                        : getSatsIkkeSatt(avtale, erNavAnsatt)}
                                 </Table.DataCell>
                             </Table.Row>
                         );
@@ -123,7 +126,7 @@ const Lonnstilskuddprosent = (props: Props) => {
                     <Table.DataCell>
                         {visPeriodeForTiltak(avtale.gjeldendeInnhold.startDato, avtale.gjeldendeInnhold.sluttDato)}
                     </Table.DataCell>
-                    <Table.DataCell>{getSatsIkkeSatt(avtale)}</Table.DataCell>
+                    <Table.DataCell>{getSatsIkkeSatt(avtale, erNavAnsatt)}</Table.DataCell>
                 </Table.Row>
             </Table.Body>
         </Table>
