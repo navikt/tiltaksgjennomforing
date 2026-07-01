@@ -7,8 +7,7 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { Alert, BodyShort, Label, Link } from '@navikt/ds-react';
 import { useState } from 'react';
-import BEMHelper from '@/utils/bem';
-import './forlengAvtale.less';
+import styles from './forlengAvtale.module.less';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import { addDays } from 'date-fns';
@@ -16,7 +15,6 @@ import { NotePencilIcon } from '@navikt/aksel-icons';
 
 const ForlengAvtale = () => {
     const { avtale, hentAvtale } = useAvtale();
-    const cls = BEMHelper('forlengAvtale');
 
     // Kan trygt anta at sluttdato er satt ved forlenging av avtale
     const naavaerendeSluttDato = avtale.gjeldendeInnhold.sluttDato!;
@@ -28,19 +26,22 @@ const ForlengAvtale = () => {
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const forleng = async (): Promise<void> => {
-        if (sluttDato) {
+        if (sluttDato && !feil) {
             await forlengAvtale(avtale, sluttDato);
             await hentAvtale();
             lukkModal();
         }
     };
     const onDatoChange = async (dato: string | undefined): Promise<void> => {
-        setSluttDato(dato);
-        if (dato) {
+        const harDato = dato && dato !== 'Invalid';
+
+        setSluttDato(harDato ? dato : undefined);
+        setFeil(undefined);
+
+        if (harDato) {
             try {
                 const nyAvtale = await forlengAvtaleDryRun(avtale, dato);
                 setTilskuddsperioder(nyAvtale.tilskuddPeriode);
-                setFeil(undefined);
             } catch (e: any) {
                 handterFeil(e, (feilmelding) => {
                     setFeil(feilmelding);
@@ -87,10 +88,10 @@ const ForlengAvtale = () => {
                 bekreftOnClick={kanForlenges ? forleng : undefined}
                 lukkModal={lukkModal}
             >
-                <div className={cls.className}>
+                <div className={styles.forlengAvtale}>
                     {kanForlenges && (
                         <>
-                            <div className={cls.element('navarende-sluttdato')}>
+                            <div className={styles.navarendeSluttdato}>
                                 <Label>Nåværende sluttdato for avtalen</Label>
                                 <BodyShort size="small">
                                     {formaterDato(naavaerendeSluttDato, NORSK_DATO_FORMAT)}
@@ -101,8 +102,16 @@ const ForlengAvtale = () => {
                                 legend="Velg ny sluttdato for avtalen"
                                 onChangeHåndtereNyDato={onDatoChange}
                                 minDate={formaterDato(addDays(naavaerendeSluttDato, 1).toISOString(), 'yyyy-MM-dd')}
-                                error={feil}
                             />
+                            {feil && (
+                                <>
+                                    <VerticalSpacer rem={1} />
+                                    <Alert variant="warning">
+                                        <strong>Avtalen kan ikke forlenges</strong>
+                                        <p className={styles.feilmeldingParagraf}>{feil}</p>
+                                    </Alert>
+                                </>
+                            )}
                             <VerticalSpacer rem={2} />
                             <SlikVilTilskuddsperioderSeUt
                                 overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forlenges"

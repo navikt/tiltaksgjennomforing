@@ -140,7 +140,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     ENHET_ER_JURIDISK: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke den juridiske enheten.',
     ENHET_ER_ORGLEDD: 'Avtale må registreres på virksomhetens virksomhetsnummer, ikke organisasjonsleddet.',
     ENHET_FINNES_IKKE: 'Finnes ikke i Enhetsregisteret.',
-    ENHET_ER_SLETTET: 'Enheten er slettet',
+    ENHET_ER_SLETTET:
+        'Virksomheten er ikke lenger aktiv. Dette kan skyldes at den har lagt ned eller blitt omorganisert.',
     IKKE_TILGANG_TIL_DELTAKER: 'Du har ikke tilgang til deltaker',
     ALTINN_FEIL: 'Feil ved oppslag mot altinn',
     GOSYS_FEIL: '',
