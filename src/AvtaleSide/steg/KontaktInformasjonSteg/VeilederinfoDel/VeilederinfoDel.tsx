@@ -11,7 +11,8 @@ import { Alert } from '@navikt/ds-react';
 const VeilederinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
     const { avtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
-    const { rolle } = useContext(InnloggetBrukerContext);
+    const { rolle, identifikator } = useContext(InnloggetBrukerContext);
+    const innloggetBrukerErEierAvAvtalen = avtale.veilederNavIdent === identifikator;
 
     return (
         <div className={cls.element('container')}>
@@ -28,10 +29,12 @@ const VeilederinfoDel = () => {
                         </p>
                     )}
                     {!avtale.veilederNavIdent && <Alert variant={'warning'}>Det er ingen eier av avtalen.</Alert>}
-                    <p>
-                        For å overta avtalen må du eller en ny veileder gå til menyen og velge "Overta avtale" i tillegg
-                        til å skrive inn navn og telefonnummer her.
-                    </p>
+                    {!innloggetBrukerErEierAvAvtalen && (
+                        <p>
+                            For å overta avtalen må du eller en ny veileder gå til menyen og velge "Overta avtale" i
+                            tillegg til å skrive inn navn og telefonnummer her.
+                        </p>
+                    )}
                 </>
             )}
             <div className={cls.element('rad')}>
