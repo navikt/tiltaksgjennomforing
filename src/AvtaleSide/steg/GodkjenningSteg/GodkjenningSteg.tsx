@@ -14,6 +14,7 @@ import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
 import { Rolle } from '@/types';
 import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
+import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
 
 const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
     switch (rolle) {
@@ -61,6 +62,7 @@ const GodkjenningSteg = () => {
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {harGodkjentSelv(avtale, innloggetBruker.rolle) && (
                 <Innholdsboks>
+                    <KanDeltakerMottaPostAlert avtaleId={avtale.id} />
                     <GodkjenningInstruks />
                 </Innholdsboks>
             )}
