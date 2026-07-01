@@ -16,8 +16,7 @@ import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTilta
 import { useAvtale } from '@/AvtaleProvider';
 import { FeilkodeError } from '@/types';
 import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
-import { KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT } from '@/types/feilkode';
-import ManglendeAdresseOgReservertDialog from './ManglendeAdresseOgReservertDialog';
+import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -48,8 +47,6 @@ function GodkjennPaVegneAvDeltaker() {
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
-    const [manglerAdresseOgReservertDialogIsOpen, setManglerAdresseOgReservertDialogIsOpen] = useState(false);
-
     const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
             isInformert: false,
@@ -99,22 +96,8 @@ function GodkjennPaVegneAvDeltaker() {
                 arenaMigreringDeltaker: false,
             });
         } else {
-            try {
-                await godkjenn();
-            } catch (err) {
-                if (err instanceof FeilkodeError && err.message === KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
-                    setManglerAdresseOgReservertDialogIsOpen(true);
-                }
-                throw err;
-            }
+            await godkjenn();
         }
-    };
-
-    const onLukkManglerAdresseOgReservertDialog = async () => {
-        setManglerAdresseOgReservertDialogIsOpen(false);
-        setGodkjenningsModalApen(false);
-        await hentAvtale();
-        reset();
     };
 
     return (
@@ -123,6 +106,7 @@ function GodkjennPaVegneAvDeltaker() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
+                    <KanDeltakerMottaPostAlert avtaleId={id} />
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
                             <Checkbox {...register('isSkalGodkjennesPaVegne')}>
@@ -190,23 +174,6 @@ function GodkjennPaVegneAvDeltaker() {
                 isApen={isGodkjenningsModalApen}
                 onLagre={onLagre}
                 onLukk={() => setGodkjenningsModalApen(false)}
-                onFeilkodeError={(feilkode) => {
-                    if (feilkode !== KAN_IKKE_SENDE_POST_MANGLER_ADRESSE_OG_RESERVERT) {
-                        return false;
-                    }
-                    setManglerAdresseOgReservertDialogIsOpen(true);
-                    return true;
-                }}
-                feilkodeDialog={
-                    <ManglendeAdresseOgReservertDialog
-                        open={manglerAdresseOgReservertDialogIsOpen}
-                        onClose={onLukkManglerAdresseOgReservertDialog}
-                    />
-                }
-            />
-            <ManglendeAdresseOgReservertDialog
-                open={manglerAdresseOgReservertDialogIsOpen && !isGodkjenningsModalApen}
-                onClose={onLukkManglerAdresseOgReservertDialog}
             />
         </>
     );
