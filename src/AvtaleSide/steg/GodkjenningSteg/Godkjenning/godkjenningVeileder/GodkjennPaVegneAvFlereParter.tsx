@@ -15,6 +15,7 @@ import { useAlleredeOpprettetAvtale } from '@/komponenter/alleredeOpprettetTilta
 import { useAvtale } from '@/AvtaleProvider';
 import LagreKnapp, { useLagreKnapp } from '@/komponenter/LagreKnapp/LagreKnappBase';
 import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
         isSkalGodkjennesPaVegne: z.literal(false),
@@ -43,7 +44,7 @@ function GodkjennPaVegneAvFlereParter() {
     const { startDato, sluttDato, harFamilietilknytning } = gjeldendeInnhold;
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
-
+    const { rolle } = useInnloggetBruker();
     const isKunGodkjentAvDeltaker = godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKunGodkjentAvArbeidsgiver = godkjentAvArbeidsgiver && !godkjentAvDeltaker;
     const isIkkeGodkjentAvNoen = !godkjentAvDeltaker && !godkjentAvArbeidsgiver;
@@ -124,7 +125,7 @@ function GodkjennPaVegneAvFlereParter() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
-                    <KanDeltakerMottaPostAlert avtaleId={id} />
+                    {rolle === 'VEILEDER' && <KanDeltakerMottaPostAlert avtaleId={id} />}
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
                             <Checkbox {...register('isSkalGodkjennesPaVegne')}>
