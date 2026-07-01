@@ -62,7 +62,7 @@ const GodkjenningSteg = () => {
             {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
             {harGodkjentSelv(avtale, innloggetBruker.rolle) && (
                 <Innholdsboks>
-                    <KanDeltakerMottaPostAlert avtaleId={avtale.id} />
+                    {innloggetBruker.rolle === 'VEILEDER' && <KanDeltakerMottaPostAlert avtaleId={avtale.id} />}
                     <GodkjenningInstruks />
                 </Innholdsboks>
             )}

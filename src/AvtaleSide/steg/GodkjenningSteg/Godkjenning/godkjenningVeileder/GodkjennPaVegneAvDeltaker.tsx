@@ -17,6 +17,7 @@ import { useAvtale } from '@/AvtaleProvider';
 import { FeilkodeError } from '@/types';
 import InnsatsbehovVarselModal from '@/AvtaleSide/steg/GodkjenningSteg/InnsatsbehovVarselModal/InnsatsbehovVarselModal';
 import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
+import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
@@ -46,6 +47,7 @@ function GodkjennPaVegneAvDeltaker() {
     const { alleredeRegistrertAvtale, setAlleredeRegistrertAvtale } = useAlleredeOpprettetAvtale();
     const [isGodkjenningsModalApen, setGodkjenningsModalApen] = useState<boolean>(false);
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker;
+    const { rolle } = useInnloggetBruker();
     const [innsatsbehovVarselModalIsOpen, setInnsatsbehovVarselModalIsOpen] = useState(false);
     const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
         defaultValues: {
@@ -106,7 +108,7 @@ function GodkjennPaVegneAvDeltaker() {
                 <Innholdsboks className={cls.className} ariaLabel={'Godkjenn avtalen'}>
                     <SkjemaTittel>Godkjenn avtalen</SkjemaTittel>
                     <GodkjenningInstruks />
-                    <KanDeltakerMottaPostAlert avtaleId={id} />
+                    {rolle === 'VEILEDER' && <KanDeltakerMottaPostAlert avtaleId={id} />}
                     {isKanGodkjennesPaVegneAv && (
                         <div className={cls.element('godkjenn-pa-vegne-av')}>
                             <Checkbox {...register('isSkalGodkjennesPaVegne')}>
