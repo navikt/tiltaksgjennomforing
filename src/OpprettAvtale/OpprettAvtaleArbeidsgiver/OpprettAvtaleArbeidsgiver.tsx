@@ -112,7 +112,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         ['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'SOMMERJOBB', 'FIREARIG_LONNSTILSKUDD'].includes(type);
 
     return (
-        <>
+        <div className={styles.layout}>
             <Dokumenttittel tittel="Opprett avtale" />
             <Banner tekst="Opprett avtale" byttetOrg={oppdaterBedriftIUrl} />
             <div className={styles.opprettAvtaleArbeidsgiver}>
@@ -253,7 +253,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     <TilbakeTilOversiktLenke />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

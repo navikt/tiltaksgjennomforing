@@ -1,20 +1,15 @@
 import BeslutterFiltrering from '@/AvtaleOversikt/Filtrering/BeslutterFiltrering';
 import { useFilterGammel } from '@/AvtaleOversikt/Filtrering/GammelFiltrering/useFilterGammel';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 import Dokumenttittel from '@/komponenter/Dokumenttittel';
 import { hentAvtalerForInnloggetBeslutter } from '@/services/rest-service';
 import { AvtalelisteMinimalForBeslutterRessurs, PageableAvtaleMinimalForBeslutter } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
-import BEMHelper from '@/utils/bem';
 import { Pagination, Select } from '@navikt/ds-react';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import '../AvtaleOversikt/AvtaleOversikt.less';
+import styles from '../AvtaleOversikt/AvtaleOversikt.module.less';
 import AvtalerBeslutter from './AvtalerBeslutter';
-
-const cls = BEMHelper('avtaleoversikt');
-const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const BeslutterOversikt: FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -37,31 +32,31 @@ const BeslutterOversikt: FunctionComponent = () => {
 
     const pageNumber = parseInt(filtre.page || '1', 10);
 
-    const layout = useAvtaleOversiktLayout();
     return (
-        <>
+        <div className={styles.avtaleoversikt}>
             <Dokumenttittel tittel={'Tilskuddsoversikt'} />
-            <BannerNAVAnsatt
-                tekst={`Tilskuddsoversikt ${currentPage ? '(' + currentPage.totalItems.toString() + ' avtaler)' : ''}`}
-            />
-            <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+            <div className={styles.avtaleoversiktBannerNavAnsatt}>
+                <BannerNAVAnsatt
+                    tekst={`Tilskuddsoversikt ${currentPage ? '(' + currentPage.totalItems.toString() + ' avtaler)' : ''}`}
+                />
+            </div>
+            <main className={styles.avtaleoversiktMain}>
                 <div
-                    style={layout.stylingAvFilterOgTabell}
-                    className={cls.element('filter-og-tabell')}
+                    className={styles.avtaleoversiktFilterOgTabell}
                     aria-label={'filter og tabell'}
                     role="complementary"
                 >
-                    <aside style={layout.stylingAvFilter}>
+                    <aside className={styles.avtaleoversiktFilter}>
                         <BeslutterFiltrering />
                     </aside>
 
-                    <section style={layout.stylingAvTabell}>
+                    <section className={styles.avtaleoversiktTabell}>
                         <AvtalerBeslutter
                             avtalelisteRessurs={nettressurs}
                             innloggetBruker={innloggetBruker}
                             varsler={[]}
                         />
-                        <div className={clsPagination.className}>
+                        <div className={styles.avtaleoversiktPagination}>
                             {pageNumber && nettressurs.status === Status.LASTET && currentPage!.totalPages > 0 && (
                                 <>
                                     <Pagination
@@ -72,12 +67,12 @@ const BeslutterOversikt: FunctionComponent = () => {
                                         count={currentPage!.totalPages}
                                         boundaryCount={1}
                                         siblingCount={1}
-                                        className={clsPagination.element('pagination')}
+                                        className={styles.avtaleoversiktPaginationPagination}
                                     />
                                     <Select
                                         label="Gå til side"
                                         hideLabel
-                                        className={clsPagination.element('page-select')}
+                                        className={styles.avtaleoversiktPaginationPageSelect}
                                         onChange={(x) => endreFilter({ page: x.target.value })}
                                     >
                                         {[...Array(currentPage!.totalPages).keys()]
@@ -94,7 +89,7 @@ const BeslutterOversikt: FunctionComponent = () => {
                     </section>
                 </div>
             </main>
-        </>
+        </div>
     );
 };
 

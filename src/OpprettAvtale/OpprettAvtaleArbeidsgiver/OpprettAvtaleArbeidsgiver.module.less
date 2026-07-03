@@ -1,8 +1,15 @@
 @import (reference) '../../tiltak_variabler.less';
 
+.layout {
+    --banner-innhold-max-width: 73rem;
+    --banner-innhold-side-padding: 0.5rem;
+}
+
 .opprett-avtale-arbeidsgiver {
     margin: 1rem auto;
-    max-width: @screen-md-min;
+    width: 100%;
+    max-width: 72rem;
+    box-sizing: border-box;
 
     > * {
         margin-top: 1rem;

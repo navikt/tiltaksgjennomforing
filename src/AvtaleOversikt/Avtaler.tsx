@@ -3,7 +3,6 @@ import AvtaleOversiktSkeleton from '@/AvtaleOversikt/AvtaleOversiktSkeleton/Avta
 import AvtaleTabell from '@/AvtaleOversikt/AvtaleTabell';
 import ResetFilterVedEndring from '@/AvtaleOversikt/Filtrering/ResetFilterVedEndring';
 import IngenAvtaler from '@/AvtaleOversikt/IngenAvtaler/IngenAvtaler';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { FeilVarselContext } from '@/FeilVarselProvider';
 import IkkeTilgang403 from '@/Router/IkkeTilgang403';
 import { PageableAvtalelisteRessurs } from '@/types/avtale';
@@ -13,6 +12,7 @@ import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import { handterFeil } from '@/utils/apiFeilUtils';
 import { FunctionComponent, useContext } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 type Props = {
     avtalelisteRessurs: PageableAvtalelisteRessurs;
@@ -24,7 +24,7 @@ const harIngenAltinnTilganger = (innloggetBruker: InnloggetBruker) =>
 
 export const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
-    const layout = useAvtaleOversiktLayout();
+    const erNokPlassTilTabell = useMediaQuery({ minWidth: '55rem' });
 
     if (props.avtalelisteRessurs.status === Status.LASTER_INN) {
         return <AvtaleOversiktSkeleton erNavAnsatt={props.innloggetBruker.erNavAnsatt} />;
@@ -36,7 +36,7 @@ export const Avtaler: FunctionComponent<Props> = (props) => {
     } else if (props.innloggetBruker.rolle === 'ARBEIDSGIVER' && harIngenAltinnTilganger(props.innloggetBruker)) {
         return <IngenAvtaler />;
     } else if (props.avtalelisteRessurs.status === Status.LASTET) {
-        return layout.erNokPlassTilTabell ? (
+        return erNokPlassTilTabell ? (
             <AvtaleTabell
                 avtaler={props.avtalelisteRessurs.data.avtaler}
                 varsler={props.varsler}

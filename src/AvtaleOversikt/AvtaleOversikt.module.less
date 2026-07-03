@@ -1,0 +1,87 @@
+.avtaleoversikt {
+    --banner-innhold-max-width: 73rem;
+    --banner-innhold-side-padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    &__banner-nav-ansatt:not(:empty) {
+        margin-top: 3rem;
+    }
+
+    &__main {
+        width: 100%;
+        padding: 0 0.5rem;
+        margin-top: 3rem;
+    }
+
+    &__filter-og-tabell {
+        display: flex;
+        flex-direction: column;
+        max-width: 72rem;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    &__opprett-knapp {
+        margin-bottom: 1rem;
+    }
+
+    &__tabell {
+        margin-top: 1rem;
+        width: 100%;
+        max-width: 55rem;
+    }
+
+    &__filter-og-tabell > &__tabell:only-child {
+        max-width: 72rem;
+    }
+
+    @media (min-width: 73rem) {
+        &__filter-og-tabell {
+            flex-direction: row;
+        }
+
+        &__filter {
+            width: 15rem;
+            margin-right: 2rem;
+        }
+
+        &__tabell {
+            width: 55rem;
+            max-width: none;
+            margin-top: 0;
+        }
+
+        &__filter-og-tabell > &__tabell:only-child {
+            width: 72rem;
+        }
+    }
+
+    &__alert {
+        p:first-of-type {
+            margin-top: 0;
+        }
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.avtaleoversikt-pagination {
+    margin-top: 2rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__page-select {
+        position: absolute;
+        right: 0;
+    }
+
+    &__pagination {
+        display: flex;
+        justify-content: center;
+    }
+}

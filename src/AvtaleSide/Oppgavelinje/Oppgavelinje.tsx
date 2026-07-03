@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Button } from '@navikt/ds-react';
 import { Popover } from '@navikt/ds-react';
 
-import BEMHelper from '@/utils/bem';
 import OppgaveLenker from '@/AvtaleSide/Oppgavelinje/OppgaveLenker';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { ApiError } from '@/types/errors';
@@ -13,8 +12,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 
 import Varsellogg from '../Varsellogg/Varsellogg';
 import { ChevronDownIcon } from '@navikt/aksel-icons';
-
-const cls = BEMHelper('avtaleside');
+import styles from './Oppgavelinje.module.less';
 
 const OppgaveLinje: React.FunctionComponent = () => {
     const innloggetBruker = useContext(InnloggetBrukerContext);
@@ -52,7 +50,7 @@ const OppgaveLinje: React.FunctionComponent = () => {
     const visKunHendelseslog = avtaleAnnullert || innloggetBruker.rolle !== 'VEILEDER';
 
     return (
-        <div className={cls.element('meny-wrapper')}>
+        <div className={styles.menyWrapper}>
             <TilbakeTilOversiktLenke onClick={lagreEndringer} />
             {visKunHendelseslog && (
                 <div>
@@ -65,7 +63,6 @@ const OppgaveLinje: React.FunctionComponent = () => {
                         icon={<ChevronDownIcon />}
                         iconPosition="right"
                         variant="secondary"
-                        className={cls.element('popover-knapp')}
                         id="menyKnapp"
                         onClick={(e) => toggleMenu(e)}
                         aria-expanded={dropdown !== undefined}

@@ -10,7 +10,6 @@ import ArbeidsgiverFiltrering from '@/AvtaleOversikt/Filtrering/ArbeidsgiverFilt
 import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 import VeilederFiltrering from '@/AvtaleOversikt/Filtrering/VeilederFiltrering';
 import LesMerOmLøsningen from '@/AvtaleOversikt/LesMerOmLøsningen/LesMerOmLøsningen';
-import useAvtaleOversiktLayout from '@/AvtaleOversikt/useAvtaleOversiktLayout';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import Banner from '@/komponenter/Banner/Banner';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
@@ -27,13 +26,9 @@ import { Avtale, PageableAvtale, PageableAvtaleMinimal } from '@/types/avtale';
 import { Status } from '@/types/nettressurs';
 import { Varsel } from '@/types/varsel';
 import { fjernTommeFelterFraObjekt } from '@/utils';
-import BEMHelper from '@/utils/bem';
 import { litenForbokstav } from '@/utils/stringUtils';
-import './AvtaleOversikt.less';
+import styles from './AvtaleOversikt.module.less';
 import { FiltreringContext } from './Filtrering/FiltreringProvider';
-
-const cls = BEMHelper('avtaleoversikt');
-const clsPagination = BEMHelper('avtaleoversikt-pagination');
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useInnloggetBruker();
@@ -185,8 +180,6 @@ const AvtaleOversikt: FunctionComponent = () => {
             .catch(() => setVarsler([]));
     }, []);
 
-    const layout = useAvtaleOversiktLayout();
-
     const harTilgangerSomArbeidsgiver =
         innloggetBruker.rolle === 'ARBEIDSGIVER' &&
         filtre.bedriftNr &&
@@ -206,7 +199,7 @@ const AvtaleOversikt: FunctionComponent = () => {
     const pageNumber = parseInt(filtre.page || '1');
 
     return (
-        <>
+        <div className={styles.avtaleoversikt}>
             <Dokumenttittel tittel={oversiktTekst} />
             <Banner
                 byttetOrg={(org) => {
@@ -216,47 +209,47 @@ const AvtaleOversikt: FunctionComponent = () => {
                 undertittel={`Logget inn som ${litenForbokstav(innloggetBruker.rolle)}`}
             />
 
-            <BannerNAVAnsatt tekst={oversiktTekst} />
-            <main className={cls.className} style={{ padding: layout.mellomromPåHverSide }}>
+            <div className={styles.avtaleoversiktBannerNavAnsatt}>
+                <BannerNAVAnsatt tekst={oversiktTekst} />
+            </div>
+            <main className={styles.avtaleoversiktMain}>
                 <div
-                    style={layout.stylingAvFilterOgTabell}
-                    className={cls.element('filter-og-tabell')}
-                    aria-labelledby={cls.element('filter-og-tabell')}
+                    className={styles.avtaleoversiktFilterOgTabell}
+                    aria-label="filtrering og tabell"
                     role="complementary"
-                    id={cls.element('filter-og-tabell')}
                 >
                     {innloggetBruker.rolle === 'VEILEDER' && (
-                        <aside style={layout.stylingAvFilter}>
-                            <LenkeKnapp style={layout.opprettKnapp} path={Path.OPPRETT_AVTALE} icon={<PlussIkon />}>
-                                Opprett ny avtale
-                            </LenkeKnapp>
+                        <aside className={styles.avtaleoversiktFilter}>
+                            <div className={styles.avtaleoversiktOpprettKnapp}>
+                                <LenkeKnapp path={Path.OPPRETT_AVTALE} icon={<PlussIkon />}>
+                                    Opprett ny avtale
+                                </LenkeKnapp>
+                            </div>
                             <VeilederFiltrering />
                         </aside>
                     )}
                     {innloggetBruker.rolle === 'ARBEIDSGIVER' &&
                         innloggetBruker.altinnTilganger.hierarki.length > 0 &&
                         innloggetBruker.altinnTilganger.tilganger[filtre.bedriftNr!] && (
-                            <aside style={layout.stylingAvFilter}>
+                            <aside className={styles.avtaleoversiktFilter}>
                                 {harTilgangerSomArbeidsgiver && (
-                                    <LenkeKnapp
-                                        style={layout.opprettKnapp}
-                                        path={Path.OPPRETT_AVTALE_ARBEIDSGIVER}
-                                        icon={<PlussIkon />}
-                                    >
-                                        Opprett ny avtale
-                                    </LenkeKnapp>
+                                    <div className={styles.avtaleoversiktOpprettKnapp}>
+                                        <LenkeKnapp path={Path.OPPRETT_AVTALE_ARBEIDSGIVER} icon={<PlussIkon />}>
+                                            Opprett ny avtale
+                                        </LenkeKnapp>
+                                    </div>
                                 )}
                                 <ArbeidsgiverFiltrering />
                             </aside>
                         )}
-                    <section style={layout.stylingAvTabell}>
+                    <section className={styles.avtaleoversiktTabell}>
                         <Avtaler
                             avtalelisteRessurs={nettressursCtx}
                             innloggetBruker={innloggetBruker}
                             varsler={varsler}
                         />
-                        <AvtaleOversiktArbeidsgiverInformasjon rolle={innloggetBruker.rolle} cls={cls} />
-                        <div className={clsPagination.className}>
+                        <AvtaleOversiktArbeidsgiverInformasjon rolle={innloggetBruker.rolle} />
+                        <div className={styles.avtaleoversiktPagination}>
                             {nettressursCtx.status === Status.LASTER_INN && <VerticalSpacer rem={3.9} />}
                             {pageNumber &&
                                 nettressursCtx.status === Status.LASTET &&
@@ -270,12 +263,12 @@ const AvtaleOversikt: FunctionComponent = () => {
                                             count={nettressursCtx.data.totalPages}
                                             boundaryCount={1}
                                             siblingCount={1}
-                                            className={clsPagination.element('pagination')}
+                                            className={styles.avtaleoversiktPaginationPagination}
                                         />
                                         <Select
                                             label="Gå til side"
                                             hideLabel
-                                            className={clsPagination.element('page-select')}
+                                            className={styles.avtaleoversiktPaginationPageSelect}
                                             onChange={(x) => endreFilter({ page: x.target.value })}
                                             value={pageNumber}
                                         >
@@ -295,7 +288,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                     </section>
                 </div>
             </main>
-        </>
+        </div>
     );
 };
 
