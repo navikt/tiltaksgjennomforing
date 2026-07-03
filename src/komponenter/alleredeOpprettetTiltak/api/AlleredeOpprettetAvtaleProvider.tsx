@@ -40,10 +40,10 @@ const endrePathAlleredeOpprettet = (
     }
 };
 
-const AlleredeOpprettetAvtaleProvider = ({ children }: PropsWithChildren<any>) => {
+const AlleredeOpprettetAvtaleProvider = ({ children }: PropsWithChildren) => {
     const [alleredeOpprettet, setAlleredeOpprettet] = useState<AlleredeOpprettetInfo>(initAlleredeOpprettetInfo);
 
-    let location = useLocation();
+    const location = useLocation();
 
     useEffect(() => {
         const pathnameList: string[] = location.pathname.split('/');
