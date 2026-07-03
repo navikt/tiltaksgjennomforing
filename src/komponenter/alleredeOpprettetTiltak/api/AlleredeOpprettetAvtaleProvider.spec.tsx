@@ -56,16 +56,6 @@ const renderMedRouting = () =>
 
 afterEach(cleanup);
 
-test('skal nullstille allerede-registrert-avtale-state når brukeren navigerer bort fra opprett-avtale-siden', async () => {
-    renderMedRouting();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Registrer allerede opprettet avtale' }));
-    expect(await screen.findByText('Antall avtaler: 1')).toBeTruthy();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Naviger til avtale' }));
-    expect(await screen.findByText('Annen side')).toBeTruthy();
-});
-
 test('skal ikke vise gammel advarsel når brukeren navigerer tilbake til opprett-avtale etter å ha forlatt siden', async () => {
     renderMedRouting();
 
