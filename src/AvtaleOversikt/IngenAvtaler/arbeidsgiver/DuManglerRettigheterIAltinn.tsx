@@ -40,7 +40,7 @@ const DuManglerRettigheterIAltinn: FunctionComponent = () => {
                         kunne delegere Altinn-roller på vegne av virksomheten. Hvis tilgangsstyring ikke er delegert til
                         HR-personell må man få tildelt tilgang fra daglig leder eller andre fra eiersiden.
                         <VerticalSpacer rem={1.25} />
-                        <EksternLenke href="https://info.altinn.no/hjelp/profil/enkelttjenester-og-roller/">
+                        <EksternLenke href="https://info.altinn.no/hjelp/ny-tilgangsstyring/steg-for-steg-guider/">
                             Les mer om roller og rettigheter på Altinn.no
                         </EksternLenke>
                     </div>

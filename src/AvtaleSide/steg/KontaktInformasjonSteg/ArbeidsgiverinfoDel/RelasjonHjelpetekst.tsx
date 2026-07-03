@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
-import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
 import { avtaleTittel } from '@/messages';
 import { TiltaksType } from '@/types/avtale';
 import { litenForbokstav } from '@/utils/stringUtils';

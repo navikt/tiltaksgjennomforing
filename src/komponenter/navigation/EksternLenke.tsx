@@ -8,12 +8,17 @@ interface EksternLenkeProps {
     target?: string;
     ariaLabel?: string;
     className?: string;
-    onClick?: () => void;
 }
 
 const EksternLenke: React.FunctionComponent<PropsWithChildren<EksternLenkeProps>> = (props) => {
     return (
-        <Link target="_blank" href={props.href}>
+        <Link
+            target="_blank"
+            href={props.href}
+            rel="noopener noreferrer"
+            className={props.className}
+            aria-label={props.ariaLabel}
+        >
             {props.children}
             <TilEkstern className="ekstern-lenke-icon" />
         </Link>
