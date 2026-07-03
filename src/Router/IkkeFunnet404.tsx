@@ -4,7 +4,7 @@ import { Button, BodyShort, Box, Heading, List, Page, VStack } from '@navikt/ds-
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Rolle } from '@/types/innlogget-bruker';
 
-import { Path } from './Router';
+import { Path } from './path';
 
 interface Props {
     rolle?: Rolle;

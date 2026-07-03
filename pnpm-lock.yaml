@@ -23,9 +23,6 @@ importers:
       '@navikt/ds-react':
         specifier: ^8.10.4
         version: 8.10.4(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@navikt/navspa':
-        specifier: ^7.5.0
-        version: 7.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@navikt/virksomhetsvelger':
         specifier: ^2.0.0
         version: 2.0.0(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -47,9 +44,6 @@ importers:
       lodash.isequal:
         specifier: ^4.5.0
         version: 4.5.0
-      prop-types:
-        specifier: ^15.8.1
-        version: 15.8.1
       react:
         specifier: ^19.2.5
         version: 19.2.5
@@ -117,15 +111,9 @@ importers:
       '@types/node':
         specifier: ^24.12.2
         version: 24.12.2
-      '@types/prop-types':
-        specifier: ^15.7.15
-        version: 15.7.15
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
-      '@types/react-collapse':
-        specifier: ^5.0.4
-        version: 5.0.4
       '@types/react-dom':
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.14)
@@ -613,12 +601,6 @@ packages:
     peerDependencies:
       html-react-parser: '>=5.x'
       react: '>=17.x'
-
-  '@navikt/navspa@7.5.0':
-    resolution: {integrity: sha512-md8EDCzOpv5aHdDYHxW23fxQCFghHklli+AyfSBkGZ5gGKApi4LatDYUoJuTlnTZihMI89FX80sFC79ms/QewA==, tarball: https://npm.pkg.github.com/download/@navikt/navspa/7.5.0/d82d23977eec915b4a7bcd7d287d53074632462e}
-    peerDependencies:
-      react: '>=19.2.1'
-      react-dom: '>=19.2.1'
 
   '@navikt/virksomhetsvelger@2.0.0':
     resolution: {integrity: sha512-x/jmRQ+Hlg+TgSCrw1iRc4RPdkv4GiWmM/mXqwJ4sghkrwIl4AGnL82rWeyRsmVjjKS6ch9wHOv+vukld/UZ9A==, tarball: https://npm.pkg.github.com/download/@navikt/virksomhetsvelger/2.0.0/c6dea3a0ce28bee897b0fc02a3a497ae3906ed74}
@@ -1171,12 +1153,6 @@ packages:
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==, tarball: https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.2.tgz}
-
-  '@types/prop-types@15.7.15':
-    resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==, tarball: https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.15.tgz}
-
-  '@types/react-collapse@5.0.4':
-    resolution: {integrity: sha512-tM5cVB6skGLneNYnRK2E3R56VOHguSeJQHslGPTIMC58ytL3oelT8L/l1onkwHGn5vSEs2BEq2Olzrur+YdliA==, tarball: https://registry.npmjs.org/@types/react-collapse/-/react-collapse-5.0.4.tgz}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==, tarball: https://registry.npmjs.org/@types/react-dom/-/react-dom-19.2.3.tgz}
@@ -2037,9 +2013,6 @@ packages:
   listr2@8.3.3:
     resolution: {integrity: sha512-LWzX2KsqcB1wqQ4AHgYb4RsDXauQiqhjLk+6hjbaeHG4zpjjVAB6wC/gz6X0l+Du1cN3pUB5ZlrvTbhGSNnUQQ==, tarball: https://registry.npmjs.org/listr2/-/listr2-8.3.3.tgz}
     engines: {node: '>=18.0.0'}
-
-  loadjs@4.3.0:
-    resolution: {integrity: sha512-vNX4ZZLJBeDEOBvdr2v/F+0aN5oMuPu7JTqrMwp+DtgK+AryOlpy6Xtm2/HpNr+azEa828oQjOtWsB6iDtSfSQ==, tarball: https://registry.npmjs.org/loadjs/-/loadjs-4.3.0.tgz}
 
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==, tarball: https://registry.npmjs.org/locate-path/-/locate-path-6.0.0.tgz}
@@ -3329,12 +3302,6 @@ snapshots:
       js-cookie: 3.0.5
       react: 19.2.5
 
-  '@navikt/navspa@7.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
-    dependencies:
-      loadjs: 4.3.0
-      react: 19.2.5
-      react-dom: 19.2.5(react@19.2.5)
-
   '@navikt/virksomhetsvelger@2.0.0(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       '@navikt/ds-css': 8.10.4
@@ -3880,12 +3847,6 @@ snapshots:
       undici-types: 7.16.0
 
   '@types/parse-json@4.0.2': {}
-
-  '@types/prop-types@15.7.15': {}
-
-  '@types/react-collapse@5.0.4':
-    dependencies:
-      '@types/react': 19.2.14
 
   '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:
@@ -4779,8 +4740,6 @@ snapshots:
       log-update: 6.1.0
       rfdc: 1.4.1
       wrap-ansi: 9.0.2
-
-  loadjs@4.3.0: {}
 
   locate-path@6.0.0:
     dependencies:

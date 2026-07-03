@@ -76,7 +76,7 @@ export type AvtaleMinimalForBeslutter = {
     harReturnertSomKanBehandles: boolean;
 };
 
-export type Tilskuddstrinn = {
+type Tilskuddstrinn = {
     start: string;
     slutt: string;
     prosent?: number;
@@ -177,7 +177,7 @@ export type AvtaleStatus =
     | 'AVSLUTTET'
     | 'OPPFØLGING_KREVES';
 
-export type AvtaleInnholdType =
+type AvtaleInnholdType =
     | 'INNGÅ'
     | 'LÅSE_OPP'
     | 'FORLENGE'
@@ -197,7 +197,7 @@ export type VersjonInnhold = 'MENTOR_BEREGNING' | 'LONNSTILSKUDD_FORMAAL' | 'OPP
 
 export type Avtaleopphav = 'VEILEDER' | 'ARBEIDSGIVER' | 'ARENA';
 
-export interface AvtaleMetadata {
+interface AvtaleMetadata {
     id: string;
     avtaleNr: number;
     opprettetTidspunkt: string;
@@ -219,20 +219,20 @@ export interface AvtaleMetadata {
     erOpprettetEllerEndretAvArena: boolean;
 }
 
-export interface RefusjonKontaktperson {
+interface RefusjonKontaktperson {
     refusjonKontaktpersonFornavn?: string;
     refusjonKontaktpersonEtternavn?: string;
     refusjonKontaktpersonTlf?: string;
     ønskerVarslingOmRefusjon?: boolean;
 }
 
-export interface KommendeOppfolging {
+interface KommendeOppfolging {
     oppfolgingKanUtfores: boolean;
     oppfolgingstarter: string;
     oppfolgingsfrist: string;
 }
 
-export interface Avtaleparter {
+interface Avtaleparter {
     bedriftNr: string;
     deltakerFnr: string;
     veilederNavIdent: string;
@@ -244,19 +244,19 @@ export interface Bedriftinfo {
     bedriftNavn: string;
 }
 
-export interface Arbeidsgiverinfo {
+interface Arbeidsgiverinfo {
     arbeidsgiverFornavn?: string;
     arbeidsgiverEtternavn?: string;
     arbeidsgiverTlf?: string;
 }
 
-export interface Deltakerinfo {
+interface Deltakerinfo {
     deltakerFornavn?: string;
     deltakerEtternavn?: string;
     deltakerTlf?: string;
 }
 
-export interface Veilederinfo {
+interface Veilederinfo {
     veilederFornavn?: string;
     veilederEtternavn?: string;
     veilederTlf?: string;
@@ -294,7 +294,7 @@ export type Stillingstype = 'FAST' | 'MIDLERTIDIG';
 
 export type LonnstilskuddFormaal = 'SKAFFE_ARBEID' | 'BEHOLDE_ARBEID';
 
-export type MentorValgtLonnstype = 'ÅRSLØNN' | 'MÅNEDSLØNN' | 'UKELØNN' | 'DAGSLØNN' | 'TIMELØNN';
+type MentorValgtLonnstype = 'ÅRSLØNN' | 'MÅNEDSLØNN' | 'UKELØNN' | 'DAGSLØNN' | 'TIMELØNN';
 
 export interface Beregningsgrunnlag {
     manedslonn?: number;
@@ -317,7 +317,7 @@ export interface Beregningsgrunnlag {
     tilskuddstrinn: Tilskuddstrinn[];
 }
 
-export interface TilskuddsPerioder {
+interface TilskuddsPerioder {
     tilskuddPeriode: TilskuddsPeriode[];
     gjeldendeTilskuddsperiode?: TilskuddsPeriode;
     enhetKostnadssted?: string;
@@ -369,7 +369,7 @@ export interface Tilrettelegging {
     tilrettelegging?: string;
 }
 
-export interface Godkjenninger {
+interface Godkjenninger {
     godkjentAvDeltaker?: string;
     godkjentAvArbeidsgiver?: string;
     godkjentAvVeileder?: string;
@@ -383,7 +383,7 @@ export interface Godkjenninger {
     ikrafttredelsestidspunkt?: string;
 }
 
-export interface Annullering {
+interface Annullering {
     annullertTidspunkt?: string;
     annullertGrunn?: string;
 }

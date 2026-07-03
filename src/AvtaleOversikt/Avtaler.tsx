@@ -22,7 +22,7 @@ type Props = {
 const harIngenAltinnTilganger = (innloggetBruker: InnloggetBruker) =>
     Object.entries(innloggetBruker.altinnTilganger.tilganger).length === 0;
 
-export const Avtaler: FunctionComponent<Props> = (props) => {
+const Avtaler: FunctionComponent<Props> = (props) => {
     const feilVarsel = useContext(FeilVarselContext);
     const layout = useAvtaleOversiktLayout();
 

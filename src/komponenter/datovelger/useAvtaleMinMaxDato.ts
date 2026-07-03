@@ -4,7 +4,7 @@ import { datoFraDagensDato, datoMinus, datoPluss } from '@/utils/datoUtils';
 import { useAvtale } from '@/AvtaleProvider';
 
 export declare type ISODateString = string;
-export interface DatepickerDateRange {
+interface DatepickerDateRange {
     from: ISODateString;
     to: ISODateString;
 }

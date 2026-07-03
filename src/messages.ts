@@ -128,11 +128,6 @@ export const tilskuddsperiodeStatusTekst: { [key in TilskuddPeriodeStatus]: stri
     OPPFØLGING_KREVES: 'Oppfølging kreves',
 };
 
-export const tilskuddsperiodeRefusjonStatusText: { [key in TilskuddPeriodeRefusjonStatus]: string } = {
-    SENDT_KRAV: 'Refusjon godkjent',
-    UTBETALT: 'Utbetalt',
-};
-
 export const avtaleStatusTekst: { [key in AvtaleStatus]: string } = {
     ANNULLERT: 'Annullert',
     PÅBEGYNT: 'Påbegynt',

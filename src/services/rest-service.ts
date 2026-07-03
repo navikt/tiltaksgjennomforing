@@ -89,7 +89,7 @@ const removeEmpty = (obj: any) => {
     return obj;
 };
 
-export const hentAvtalerForInnloggetBruker = async (
+const hentAvtalerForInnloggetBruker = async (
     søkekriterier: Filtrering,
     size: number = 2,
     page: number = 0,
@@ -349,11 +349,6 @@ export const hentVarsellogg = async (avtaleId: string): Promise<Varsel[]> => {
     return response.data;
 };
 
-export const hentHendelselogg = async (avtaleId: string): Promise<Hendelse[]> => {
-    const response = await api.get(`/hendelselogg?avtaleId=${avtaleId}`);
-    return response.data;
-};
-
 export const settAlleVarselerTilLest = async (varselIder: string[]): Promise<void> => {
     await api.post(`/varsler/sett-alle-til-lest`, varselIder);
 };
@@ -610,7 +605,7 @@ export const endreOmMentor = async (avtale: Avtale, mentorInnhold: MentorInnhold
     await mutate(`/avtaler/${avtale.id}/versjoner`);
 };
 
-export const hentVtaoSats = async (forDato?: string): Promise<{ aar: number; belop: number }> => {
+const hentVtaoSats = async (forDato?: string): Promise<{ aar: number; belop: number }> => {
     const queryParams = new URLSearchParams(removeEmpty({ forDato }));
     const response = await api.get(`/satser/vtao?${queryParams}`);
     return response.data;

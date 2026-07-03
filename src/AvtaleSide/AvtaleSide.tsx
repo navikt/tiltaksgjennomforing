@@ -18,7 +18,7 @@ import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 
 const cls = BEMHelper('avtaleside');
 
-export type StegId =
+type StegId =
     | 'kontaktinformasjon'
     | 'maal'
     | 'arbeidsoppgaver'

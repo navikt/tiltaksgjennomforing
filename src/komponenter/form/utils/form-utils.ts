@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const fromFormatted = (value: any) => {
+const fromFormatted = (value: any) => {
     return value ? value.replace(',', '.').replace(/[^0-9.]/g, '') + '' : '';
 };
 export const toNumberOnFocus = (event: React.FocusEvent<HTMLInputElement>) => {
