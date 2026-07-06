@@ -1,10 +1,6 @@
 @import (reference) '../../../../../tiltak_variabler.less';
 
 .instruks {
-    &__subheader {
-        padding: 0 0 0 0;
-    }
-
     &__instrukslistsvg {
         display: none;
         @media (min-width: @screen-sm-min) {
@@ -30,13 +26,5 @@
 .deltakerinstruks {
     @media print {
         display: none;
-    }
-}
-
-@media (min-width: @screen-sm-min) {
-    .instruks {
-        &__subheader {
-            padding: 0 0 0 1.25rem;
-        }
     }
 }

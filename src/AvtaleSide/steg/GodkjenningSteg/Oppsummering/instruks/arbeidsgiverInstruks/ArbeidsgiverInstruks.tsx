@@ -2,8 +2,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import VeilederpanelMedUtklippstavle from '@/komponenter/Veilederpanel/VeilederpanelMedUtklippstavleIkon';
 import { TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { BodyShort, Label } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { BodyShort, Heading } from '@navikt/ds-react';
+import { FunctionComponent } from 'react';
 import '../instruks.less';
 import OppfolgingOgVarighet from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/OppfølgingOgVarighet';
 import ArbeidsmiljLoven from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/arbeidsgiverInstruks/tekster/Arbeidsmiljøloven';
@@ -32,11 +32,10 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
             )}
             <VeilederpanelMedUtklippstavle>
                 <div className={cls.element('container')}>
-                    <div className={cls.element('subheader')}>
-                        <Label>Som arbeidsgiver må dere:</Label>
-                    </div>
-
-                    <VerticalSpacer rem={2} />
+                    <Heading size="medium" level="2">
+                        Som arbeidsgiver må dere:
+                    </Heading>
+                    <VerticalSpacer rem={1} />
                     <ArbeidsmiljLoven tiltakstype={tiltakstype} />
                     <OppfolgingOgVarighet tiltakstype={tiltakstype} />
                     <YrkesskadeforsikringOgSkadeerstatning tiltakstype={tiltakstype} />
