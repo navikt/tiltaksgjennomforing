@@ -25,6 +25,9 @@ const DuManglerRettigheterIAltinn: FunctionComponent = () => {
                     <li>Avtale om tilskudd til mentor</li>
                     <li>Avtale om midlertidig lønnstilskudd</li>
                     <li>Avtale om varig lønnstilskudd</li>
+                    <li>Avtale om varig tilrettelagt arbeid i ordinær virksomhet</li>
+                    <li>Avtale om sommerjobb</li>
+                    <li>Avtale om fireårig lønnstilskudd for unge</li>
                 </ul>
             </BodyShort>
             <VerticalSpacer rem={1} />

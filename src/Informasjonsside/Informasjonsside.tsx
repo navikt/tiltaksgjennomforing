@@ -119,6 +119,7 @@ const Informasjonsside: FunctionComponent = () => {
                                 <li>Avtale om varig lønnstilskudd</li>
                                 <li>Avtale om varig tilrettelagt arbeid i ordinær virksomhet</li>
                                 <li>Avtale om sommerjobb</li>
+                                <li>Avtale om fireårig lønnstilskudd for unge</li>
                             </ul>
                             <span className={styles.informasjonssideLenke}>
                                 <EksternLenke href="https://info.altinn.no/hjelp/ny-tilgangsstyring/steg-for-steg-guider/">
