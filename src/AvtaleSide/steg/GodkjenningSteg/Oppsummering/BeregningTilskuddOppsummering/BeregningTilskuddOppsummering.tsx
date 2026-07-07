@@ -10,6 +10,7 @@ import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary'
 
 import styles from './BeregningTilskuddOppsummering.module.less';
 import VisningTilskuddsperioder from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/VisningTilskuddsperioder';
+import { TilskuddstrinnTabell } from '@/AvtaleSide/steg/BeregningTilskudd/Lonnstilskuddprosent';
 
 interface Props extends Beregningsgrunnlag, Pick<Avtaleinnhold, 'arbeidsgiverKontonummer' | 'arbeidsgiverKid'> {
     ekstraAvhengigFelter?: Partial<Avtaleinnhold>;
@@ -36,24 +37,26 @@ const BeregningTilskuddOppsummering = (props: Props) => {
 
     return (
         <Stegoppsummering tittel="Beregning av tilskudd">
+            <TilskuddstrinnTabell />
             {!erDeltaker && (
-                <HGrid columns={{ xs: 1, sm: 2, md: 3 }} gap="space-16" className={styles.row}>
-                    <div>
-                        <Label>Kontonummer</Label>
-                        <SjekkOmVerdiEksisterer verdi={arbeidsgiverKontonummer} />
-                    </div>
-                    {arbeidsgiverKid && (
+                <>
+                    <HGrid columns={{ xs: 1, sm: 2, md: 3 }} gap="space-16" className={styles.row}>
                         <div>
-                            <Label>KID-nummer</Label>
-                            <SjekkOmVerdiEksisterer verdi={arbeidsgiverKid} />
+                            <Label>Kontonummer</Label>
+                            <SjekkOmVerdiEksisterer verdi={arbeidsgiverKontonummer} />
                         </div>
-                    )}
-                </HGrid>
+                        {arbeidsgiverKid && (
+                            <div>
+                                <Label>KID-nummer</Label>
+                                <SjekkOmVerdiEksisterer verdi={arbeidsgiverKid} />
+                            </div>
+                        )}
+                    </HGrid>
+                    <VerticalSpacer rem={1.5} />
+                </>
             )}
-
             {Beregningskomponent && (
                 <>
-                    <VerticalSpacer rem={1} />
                     <HvaManglerOppsummering avhengigFelter={avhengigFelter}>
                         <Beregningskomponent {...beregningsgrunnlag} />
                     </HvaManglerOppsummering>
