@@ -145,7 +145,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Avtalen inneholder tilskuddsperiode(er) med godkjente refusjon(er). Avtalen kan derfor ikke annulleres.',
     AVTALE_INNEHOLDER_UTBETALT_TILSKUDDSPERIODE:
         'Avtalen inneholder utbetalte tilskuddsperiode(er). Avtalen kan derfor ikke annulleres.',
-    DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER: 'Deltager og mentor kan ikke ha det samme fødselsnummeret',
+    DELTAGER_OG_MENTOR_KAN_IKKE_HA_SAMME_FØDSELSNUMMER: 'Deltaker og mentor kan ikke ha det samme fødselsnummeret',
     DELTAKER_67_AAR: 'Deltaker må være under 67 år ved sluttdatoen av tiltaket',
     DELTAKER_72_AAR: 'Deltaker må være under 72 år ved sluttdatoen av tiltaket',
     DELTAKER_HAR_GODKJENT: 'Deltaker har allerede godkjent avtalen',
@@ -177,7 +177,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     GODKJENN_PAA_VEGNE_AV_FEIL_OPPHAV: 'Kan ikke godkjenne på vegne av for avtaler som ikke er importert fra Arena',
     GODKJENN_PAA_VEGNE_AV_FEIL_TILTAKSTYPE: 'Kan ikke godkjenne på vegne av for mentoravtaler',
     GODKJENT_PAA_VEGNE_GRUNN_MAA_VELGES: 'Arbeidsgiver må godkjenne avtalen før veileder kan godkjenne',
-    GOSYS_FEIL: '',
+    GOSYS_FEIL: 'Klarte ikke å opprette oppgave i Gosys. Prøv igjen senere.',
     HENTING_AV_INNSATSBEHOV_FEILET: 'Feil ved henting av innsatsbehov',
     IKKE_ADMIN_TILGANG: 'Du har ikke tilgang til denne administrator-funksjonaliteten',
     IKKE_FORDELT: 'Avtalen er ikke fordelt til en veileder',
@@ -275,7 +275,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Du er innlogget med en rolle som ikke har tilgang til å utføre denne handlingen. Forsøk å oppfrisk siden og prøv igjen.',
     SAMTIDIGE_ENDRINGER:
         'Du må oppdatere siden før du kan lagre, godkjenne eller gjøre andre endringer. Det er gjort endringer i avtalen som du ikke har sett.',
-    SLUTTDATO_GRENSE_NÅDD: 'Maksimal sluttdato er overskredet. Makismal sluttdato er 31.12.2089',
+    SLUTTDATO_GRENSE_NÅDD: 'Maksimal sluttdato er overskredet. Maksimal sluttdato er 31.12.2089.',
     SOMMERJOBB_FOR_GAMMEL: 'Deltaker må være under 30 år for dette tiltaket',
     SOMMERJOBB_FOR_GAMMEL_FRA_OPPSTARTDATO: 'Deltaker kan ikke ha fylt 30 år før startdatoen til dette tiltaket',
     SOMMERJOBB_FOR_LANG_VARIGHET: 'Sommerjobb kan ikke vare lenger enn 4 uker',
