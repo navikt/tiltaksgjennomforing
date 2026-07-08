@@ -10,7 +10,7 @@ import { FormEvent, Fragment, FunctionComponent, useCallback, useContext, useEff
 
 type Validering = (verdi: string) => string | undefined;
 
-const navIdentValidering: Validering = (verdi) => (!verdi.match(/\w\d{6}/) ? 'Ugyldig NAV-ident' : undefined);
+const navIdentValidering: Validering = (verdi) => (!verdi.match(/\w\d{6}/) ? 'Ugyldig Nav-ident' : undefined);
 
 const fnrValidering: Validering = (verdi) => (!validerFnr(verdi) ? 'Ugyldig fødselsnummer' : undefined);
 
@@ -74,7 +74,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             utførSøk: () => endreFilter({ ...tomt, veilederNavIdent: innloggetBruker.identifikator }),
         },
         veileder: {
-            placeholder: 'NAV-ident',
+            placeholder: 'Nav-ident',
             label: 'På en veileder',
             maxLength: 7,
             validering: navIdentValidering,
@@ -194,7 +194,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             )}
             {avtalePrEnhet && (
                 <Select
-                    label="Filtere på NAV enhet"
+                    label="Filtere på Nav enhet"
                     hideLabel
                     name={aktueltSøk.key}
                     value={aktueltSøk.select}
@@ -210,7 +210,7 @@ export const DeltakerOgBedriftFilter: FunctionComponent = () => {
             )}
             {ufordelt && (
                 <Select
-                    label="Filtere på NAV enhet"
+                    label="Filtere på Nav enhet"
                     hideLabel
                     name={aktueltSøk.key}
                     value={aktueltSøk.select}

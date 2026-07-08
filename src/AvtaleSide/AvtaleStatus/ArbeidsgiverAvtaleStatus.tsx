@@ -36,7 +36,7 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
     if (avtale.erUfordelt) {
         return (
             <StatusPanel
-                header={'Avtalen er ikke fordelt til en veileder i NAV enda'}
+                header={'Avtalen er ikke fordelt til en veileder i Nav enda'}
                 body={<BodyShort size="small">Du kan begynne å fylle ut avtalen.</BodyShort>}
             />
         );
@@ -69,14 +69,7 @@ const ArbeidsgiverAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
                 />
             ) : (
                 <StatusPanel
-                    header={
-                        `Venter på godkjenning av avtalen fra ` +
-                        (avtale.godkjentAvVeileder
-                            ? 'NAV'
-                            : [!avtale.godkjentAvDeltaker && 'deltaker', !avtale.godkjentAvVeileder && 'NAV']
-                                  .filter((x) => x)
-                                  .join(' og '))
-                    }
+                    header={`Venter på godkjenning av avtalen fra ${!avtale.godkjentAvDeltaker ? 'deltaker og Nav' : 'Nav'}`}
                     body={
                         <>
                             <BodyShort size="small">Du har godkjent.</BodyShort>

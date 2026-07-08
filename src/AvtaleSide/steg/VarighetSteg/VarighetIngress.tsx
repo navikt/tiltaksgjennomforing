@@ -25,7 +25,7 @@ const VarighetIngress: React.FC<Props> = ({ tiltakstype, className }: Props) => 
             {['MIDLERTIDIG_LONNSTILSKUDD', 'VARIG_LONNSTILSKUDD', 'FIREARIG_LONNSTILSKUDD'].includes(tiltakstype) && (
                 <>
                     {' '}
-                    Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra NAV og kan avvike fra
+                    Godkjent tilskuddsperiode er styrende i henhold til økonomisk forpliktelse fra Nav og kan avvike fra
                     avtalt periode for tiltaksgjennomføringen.
                 </>
             )}

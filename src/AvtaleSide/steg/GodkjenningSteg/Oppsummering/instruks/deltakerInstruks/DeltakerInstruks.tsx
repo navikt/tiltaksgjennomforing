@@ -15,7 +15,7 @@ const DeltakerInstruksNy: FunctionComponent<Props> = (props) => {
     const { erLaast, tiltakstype } = props;
     return (
         <>
-            {!erLaast && <BodyShort size="small">Når du godkjenner avtalen godtar du kravene fra NAV</BodyShort>}
+            {!erLaast && <BodyShort size="small">Når du godkjenner avtalen godtar du kravene fra Nav</BodyShort>}
             <VeilederpanelMedUtklippstavleIkon>
                 <DittForholdTilArbeidsmiljLoven tiltakstype={tiltakstype} />
                 <GiBeskjedHvisDuErBorteFraJobb tiltakstype={tiltakstype} />

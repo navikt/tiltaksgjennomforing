@@ -87,7 +87,7 @@ const Avtaleparter: FunctionComponent<Props> = (props) => {
                             verdi: gjeldendeInnhold.veilederTlf,
                         },
                     ]}
-                    overskrift="NAV-veileder"
+                    overskrift="Nav-veileder"
                     borderFarge="farge-lysblaa"
                     skjulHvaMangler={erLåst}
                 />

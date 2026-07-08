@@ -27,7 +27,7 @@ const ArbeidsgiverInstruks: FunctionComponent<Props> = (props) => {
         <>
             {!erLaast && (
                 <BodyShort size="small">
-                    Når dere godkjenner denne avtalen, samtykker dere samtidig følgende forpliktelser overfor NAV.
+                    Når dere godkjenner denne avtalen, samtykker dere samtidig følgende forpliktelser overfor Nav.
                 </BodyShort>
             )}
             <VeilederpanelMedUtklippstavle>

@@ -15,7 +15,7 @@ const InformasjonsboksTopVeilederOppretterAvtale: React.FC = () => {
                 </EksternLenke>{' '}
                 og vite om{' '}
                 <EksternLenke href="https://www.nav.no/arbeidsgiver/inkludere">
-                    de ulike støtteordningene på NAV.no.
+                    de ulike støtteordningene på Nav.no.
                 </EksternLenke>{' '}
                 eller {''}
                 <EksternLenke href="https://navno.sharepoint.com/sites/fag-og-ytelser-arbeid-tiltak-og-virkemidler/SitePages/Alfabetisk-oversikt-over-alle-tiltak-og-virkemidler.aspx?web=1">
