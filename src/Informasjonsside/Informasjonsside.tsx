@@ -31,15 +31,15 @@ const Informasjonsside: FunctionComponent = () => {
             classname={styles.informasjonssideInfo}
             svgIkon={<Keyboard role="presentation" focusable="false" className={styles.informasjonssideSubIkon} />}
             headerTekst={{
-                tekst: 'NAV eller arbeidsgiver oppretter en avtale',
+                tekst: 'Nav eller arbeidsgiver oppretter en avtale',
                 headingType: 'small',
             }}
         >
             <VerticalSpacer rem={1} />
-            <Label>NAV oppretter en avtale</Label>
+            <Label>Nav oppretter en avtale</Label>
             <BodyShort size="small">
                 {' '}
-                Når deltakeren, arbeidsgiveren og NAV har blitt enige om å starte et tiltak, oppretter NAV en digital
+                Når deltakeren, arbeidsgiveren og Nav har blitt enige om å starte et tiltak, oppretter Nav en digital
                 avtale. Avtalen vil være tilgjengelig for arbeidsgiveren på Min side - arbeidsgiver og for deltakeren på
                 Min side. Arbeidsgiveren vil ikke få en automatisk SMS foreløpig.
             </BodyShort>
@@ -48,7 +48,7 @@ const Informasjonsside: FunctionComponent = () => {
             <Label>Arbeidsgiveren oppretter en avtale</Label>
             <BodyShort size="small">
                 Arbeidsgiveren kan også opprette en avtale selv. Når avtalen er opprettet kan arbeidsgiveren begynne å
-                fylle ut avtalen. NAV vil få en automatisk beskjed om å vurdere avtalen og ta kontakt med
+                fylle ut avtalen. Nav vil få en automatisk beskjed om å vurdere avtalen og ta kontakt med
                 arbeidsgiveren.
             </BodyShort>
         </IkonTekstRad>
@@ -86,9 +86,9 @@ const Informasjonsside: FunctionComponent = () => {
                                 headingType: 'small',
                             }}
                         >
-                            Deltakeren, arbeidsgiveren og NAV fyller ut, ser over og godkjenner avtalen i samme løsning
+                            Deltakeren, arbeidsgiveren og Nav fyller ut, ser over og godkjenner avtalen i samme løsning
                             i sanntid. Når innholdet i avtalen er ferdig utfylt skal alle parter godkjenne avtalen. Hvem
-                            som godkjenner avtalen først av arbeidsgiveren eller deltakeren har ikke noe å si. NAV skal
+                            som godkjenner avtalen først av arbeidsgiveren eller deltakeren har ikke noe å si. Nav skal
                             alltid godkjenne avtalen til slutt, og først da kan tiltaket starte.
                         </IkonTekstRad>
 
@@ -160,7 +160,7 @@ const Informasjonsside: FunctionComponent = () => {
                                 headingType: 'small',
                             }}
                         >
-                            Hvis det gjøres endringer i avtalen underveis i tiltaket, lagrer NAV den forrige, godkjente
+                            Hvis det gjøres endringer i avtalen underveis i tiltaket, lagrer Nav den forrige, godkjente
                             versjonen. Alle godkjente avtaler blir tilgjengelige i en liste. På den måten kan alle tre
                             parter se utviklingen og vurdere måloppnåelse i etterkant.
                         </IkonTekstRad>
@@ -178,7 +178,7 @@ const Informasjonsside: FunctionComponent = () => {
                                 headingType: 'small',
                             }}
                         >
-                            Vi sender varslinger til deltakeren, arbeidsgiveren og NAV på ulike plattformer.
+                            Vi sender varslinger til deltakeren, arbeidsgiveren og Nav på ulike plattformer.
                             <VerticalSpacer rem={1} />
                             <Heading size="xsmall">Deltaker:</Heading>
                             Når arbeidsgiveren har godkjent avtalen vil det sendes varsling til deltakeren automatisk i

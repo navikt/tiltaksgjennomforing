@@ -36,9 +36,9 @@ const TiltaksTypeValg: FunctionComponent<Props> = ({
             </Heading>
             <VerticalSpacer rem={0.5} />
             <BodyLong size="small">
-                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på NAV sine sider{' '}
+                Ønsker du å vite mer om de ulike støtteordningene finner du informasjon på Nav sine sider{' '}
                 <EksternLenke href="https://www.nav.no/arbeidsgiver/inkludere">
-                    hvordan kan NAV hjelpe med inkludering
+                    hvordan kan Nav hjelpe med inkludering
                 </EksternLenke>
             </BodyLong>
             <VerticalSpacer rem={0.5} />

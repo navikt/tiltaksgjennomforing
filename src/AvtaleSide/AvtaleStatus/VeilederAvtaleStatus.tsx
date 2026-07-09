@@ -136,7 +136,7 @@ function VeilederAvtaleStatus(props: Props) {
     if (avtale.erUfordelt) {
         return (
             <StatusPanel
-                header="Avtalen er ikke fordelt til en veileder i NAV enda"
+                header="Avtalen er ikke fordelt til en veileder i Nav enda"
                 body={
                     <div style={{ textAlign: 'center' }}>
                         {avtale.opphav === 'ARBEIDSGIVER' && (
@@ -308,7 +308,7 @@ function VeilederAvtaleStatus(props: Props) {
                                     Avtalen må godkjennes av deltaker.
                                     {avtale.godkjentAvArbeidsgiver && (
                                         <>
-                                            Deltaker fikk en varsling på min side på NAV.no om å godkjenne avtalen for{' '}
+                                            Deltaker fikk en varsling på min side på nav.no om å godkjenne avtalen for{' '}
                                             {tidSidenTidspunkt(avtale.godkjentAvArbeidsgiver)} siden
                                         </>
                                     )}

@@ -18,7 +18,7 @@ const VTAOVeilederTekst = () => (
             bekrefte at tiltaket skal fortsette for at arbeidsgiver skal få utbetalt refusjon.
         </List.Item>
         <List.Item>
-            Det går automatisk melding til NAV Arbeid og ytelser med beskjed om at bruker har fått innvilget
+            Det går automatisk melding til Nav Arbeid og ytelser med beskjed om at bruker har fått innvilget
             tiltaksplass.
         </List.Item>
         <List.Item>Avtalen blir automatisk journalført i Gosys.</List.Item>
