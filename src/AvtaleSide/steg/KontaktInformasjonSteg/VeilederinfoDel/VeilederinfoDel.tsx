@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
 import { useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
@@ -50,8 +50,9 @@ const VeilederinfoDel = () => {
                 />
             </div>
             <VerticalSpacer rem={1} />
-            <TelefonnummerInput
+            <MobilnummerInput
                 label="Mobilnummer"
+                name="veilederTlf"
                 verdi={avtale.gjeldendeInnhold.veilederTlf}
                 settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederTlf', verdi)}
             />

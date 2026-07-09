@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
 import { FunctionComponent, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
@@ -28,8 +28,9 @@ const DeltakerinfoDel: FunctionComponent = () => {
                 />
             </div>
             <div className={cls.element('rad')}>
-                <TelefonnummerInput
+                <MobilnummerInput
                     label="Mobilnummer"
+                    name="deltakerTlf"
                     verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerTlf}
                     settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerTlf', verdi)}
                 />

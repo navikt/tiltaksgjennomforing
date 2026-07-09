@@ -5,7 +5,7 @@ import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { Button, TextField } from '@navikt/ds-react';
 import React, { useContext, useEffect, useState } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
@@ -99,8 +99,9 @@ const OmMentorSteg = () => {
                     )}
                 </div>
                 <div className={cls.element('rad')}>
-                    <TelefonnummerInput
+                    <MobilnummerInput
                         label="Mobilnummer"
+                        name="mentorTlf"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTlf}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorTlf', verdi)}
                     />

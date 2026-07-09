@@ -10,8 +10,6 @@ const kronerFormat = new Intl.NumberFormat('nb-NO', {
     maximumFractionDigits: 0,
 });
 
-export const NORSK_TELEFONNUMMER_REGEX = /^((\+|00)47)?[1-9]\d{7}$/;
-
 export const parseNorskeTall = (value: unknown): number | undefined => {
     if (typeof value === 'number') {
         return value;
@@ -55,26 +53,6 @@ export const formaterKroner = (value: string | number | undefined): string | und
         return !erNil(value) ? String(value) : undefined;
     }
     return kronerFormat.format(tall);
-};
-
-export const parseNorskeTelefonnummer = (value: unknown): string | undefined => {
-    if (typeof value === 'string' && value !== '') {
-        const tlf = value.replace(/\s/g, '');
-        return NORSK_TELEFONNUMMER_REGEX.test(tlf) ? tlf.replace(/\+47|0047|/, '') : value;
-    }
-    return undefined;
-};
-
-export const formaterNorskeTelefonnummer = (value: string | number | undefined): string | undefined => {
-    const tlf = parseNorskeTelefonnummer(value);
-    if (erNil(tlf)) {
-        return undefined;
-    }
-    const match = tlf.match(/^(\d{2})(\d{2})(\d{2})(\d{2})$/);
-    if (NORSK_TELEFONNUMMER_REGEX.test(tlf) && match) {
-        return `+47\u00A0${match[1]}\u00A0${match[2]}\u00A0${match[3]}\u00A0${match[4]}`;
-    }
-    return tlf;
 };
 
 export const parseFloatIfFloatable = (verdi: string) => {

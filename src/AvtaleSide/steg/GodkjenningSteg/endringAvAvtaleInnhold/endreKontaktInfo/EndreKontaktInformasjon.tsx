@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
@@ -124,8 +124,9 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     />
                 </div>
                 <div className={cls.element('rad')}>
-                    <TelefonnummerInput
-                        label="Mobilnummer "
+                    <MobilnummerInput
+                        label="Mobilnummer"
+                        name="deltakerTlf"
                         verdi={kontaktInfo.deltakerTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerTlf', verdi)}
                     />
@@ -146,8 +147,9 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     />
                 </div>
                 <div className={cls.element('rad')}>
-                    <TelefonnummerInput
+                    <MobilnummerInput
                         label="Mobilnummer"
+                        name="veilederTlf"
                         verdi={kontaktInfo.veilederTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederTlf', verdi)}
                     />
@@ -168,8 +170,9 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                     />
                 </div>
                 <div className={cls.element('rad')}>
-                    <TelefonnummerInput
+                    <MobilnummerInput
                         label="Mobilnummer"
+                        name="arbeidsgiverTlf"
                         verdi={kontaktInfo.arbeidsgiverTlf}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverTlf', verdi)}
                     />
@@ -202,8 +205,9 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                             />
                         </div>
                         <div className={cls.element('rad')}>
-                            <TelefonnummerInput
+                            <MobilnummerInput
                                 label="Mobilnummer"
+                                name="refusjonKontaktpersonTlf"
                                 verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonTlf}
                                 settVerdi={(verdi) =>
                                     settNyKontaktInformasjon('refusjonKontaktperson', {
