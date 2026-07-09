@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Box, Alert } from '@navikt/ds-react';
-import ValutaInput from '@/komponenter/form/ValutaInput';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
+import KronerInput from '@/komponenter/form/KronerInput';
 
 interface Props {
     cls: BEMWrapper;
@@ -16,15 +16,14 @@ const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
     return (
         <Box className={cls.element('rad', 'input')}>
             <Box className={cls.element('valuta-input')}>
-                <ValutaInput
+                <KronerInput
                     className="input"
                     name="manedslonn"
                     size="medium"
                     label="Månedslønn før skatt"
-                    autoComplete={'off'}
-                    value={avtale.gjeldendeInnhold.manedslonn}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        settAvtaleInnholdVerdier({ manedslonn: parseFloat(event.target.value) });
+                    verdi={avtale.gjeldendeInnhold.manedslonn}
+                    settVerdi={(manedslonn?: number) => {
+                        settAvtaleInnholdVerdier({ manedslonn: manedslonn });
                     }}
                     onBlur={(event) => settOgKalkulerBeregningsverdier({ manedslonn: parseFloat(event.target.value) })}
                     min={0}

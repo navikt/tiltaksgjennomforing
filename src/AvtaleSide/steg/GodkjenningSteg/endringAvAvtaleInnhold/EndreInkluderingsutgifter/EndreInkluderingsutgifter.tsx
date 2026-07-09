@@ -6,7 +6,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { endreInkluderingstilskudd } from '@/services/rest-service';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils';
 import { Ingress, Label, Link } from '@navikt/ds-react';
 import type { FunctionComponent } from 'react';
 import { useContext, useState } from 'react';

@@ -1,11 +1,11 @@
-import ValutaInput from '@/komponenter/form/ValutaInput';
 import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils';
 import { BodyShort, Button, Select } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
+import KronerInput from '@/komponenter/form/KronerInput';
 
 type Props = {
     setIRedigeringsmodus: (iModus: boolean) => void;
@@ -57,13 +57,16 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                         ))}
                     </Select>
                     <VerticalSpacer rem={1} />
-                    <ValutaInput
+                    <KronerInput
                         name="beløp"
                         width="M"
                         label="Kostnadsoverslag"
-                        value={beløp}
-                        onChange={(event) => setBeløp(parseFloat(event.target.value))}
-                        min={0}
+                        verdi={beløp}
+                        settVerdi={(verdi) => {
+                            if (verdi) {
+                                setBeløp(verdi);
+                            }
+                        }}
                     />
                     <VerticalSpacer rem={1} />
                     <div style={{ display: 'flex' }}>

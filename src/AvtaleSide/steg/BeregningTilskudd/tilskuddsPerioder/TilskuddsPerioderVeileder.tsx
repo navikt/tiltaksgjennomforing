@@ -3,7 +3,7 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formaterPeriode } from '@/utils/datoUtils';
 import { formaterProsent } from '@/utils';
-import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import { FunctionComponent } from 'react';
 import './tilskuddsPerioder.less';
 

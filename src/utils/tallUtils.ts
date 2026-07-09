@@ -2,14 +2,6 @@ import { erNil } from '@/utils/predicates';
 
 const numberFormat = new Intl.NumberFormat('nb-NO', { style: 'decimal', maximumFractionDigits: 2 });
 
-const kronerFormat = new Intl.NumberFormat('nb-NO', {
-    style: 'currency',
-    currency: 'NOK',
-    currencyDisplay: 'symbol',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-});
-
 export const parseNorskeTall = (value: unknown): number | undefined => {
     if (typeof value === 'number') {
         return value;
@@ -45,14 +37,6 @@ export const formaterProsent = (value: string | number | undefined, desimalbrok 
         return !erNil(value) ? String(value) : undefined;
     }
     return (formaterNorskeTall(desimalbrok ? tall * 100 : tall) ?? '') + '\u00A0%';
-};
-
-export const formaterKroner = (value: string | number | undefined): string | undefined => {
-    const tall = parseNorskeTall(value);
-    if (tall === undefined || isNaN(tall)) {
-        return !erNil(value) ? String(value) : undefined;
-    }
-    return kronerFormat.format(tall);
 };
 
 export const parseFloatIfFloatable = (verdi: string) => {

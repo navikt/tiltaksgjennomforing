@@ -1,4 +1,4 @@
-export * from './PengeUtils';
+export * from './pengeUtils';
 export * from './tallUtils';
 export * from './tlfUtils';
 export * from './utils';

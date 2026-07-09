@@ -1,6 +1,6 @@
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift } from '@/types/avtale';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils';
 import { BodyShort } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 

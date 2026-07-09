@@ -12,7 +12,7 @@ import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksist
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
 import { storForbokstav } from '@/utils/stringUtils';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
-import { formaterValuta } from '@/komponenter/form/ValutaInput';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 
 const cls = BEMHelper('mentorOppsummering');
 
@@ -84,7 +84,7 @@ const OmMentorOppsummering = (props: Props) => {
                                 ariaLabel={
                                     'Kroner beløp for timelønn inkludert Feriepenger, arbeidsgiveravgift og obligatorisk tjenestepensjon'
                                 }
-                                verdi={formaterValuta(verdi(props.mentorTimelonn))}
+                                verdi={formaterPenger(props.mentorTimelonn, IKKE_NOE_BELOP_TEGN)}
                             />
                         </div>
                     )}
