@@ -1,13 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { TiltaksType } from '@/types/avtale';
-import { Alert, BodyShort, Heading, TextField } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading, HStack, ReadMore, TextField } from '@navikt/ds-react';
 import { erUnder18, setFnrBrukerOnChange } from '@/utils/fnrUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { AlleredeOpprettetInfo } from '@/komponenter/alleredeOpprettetTiltak/api/AlleredeOpprettetAvtaleProvider';
 import AlleredeOpprettetAvtaleAdvarsel from '@/komponenter/alleredeOpprettetTiltak/advarsel/AlleredeOpprettetAvtaleAdvarsel';
-import BEMHelper from '@/utils/bem';
-import './HvemSkalInngaaAvtalen.less';
+import styles from './HvemSkalInngaaAvtalen.module.less';
 import EksternLenke from '@/komponenter/navigation/EksternLenke';
 
 interface Props {
@@ -51,62 +50,62 @@ const HvemSkalInngaaAvtalen: React.FC<Props> = ({
     alleredeRegistrertAvtale,
     setModalIsOpen,
 }) => {
-    const cls = BEMHelper('hvem-skal-inngaa-avtalen-container');
-
     return (
         <Innholdsboks>
             <Heading level="2" size="medium">
                 Hvem skal inngå i avtalen?
             </Heading>
             <VerticalSpacer rem={1} />
-            <div className={cls.element('fnr-rad')}>
+
+            <HStack gap="space-16">
                 <TextField
-                    className={cls.element('typo-element')}
+                    className={styles.numberInput}
                     label="Deltakers fødselsnummer"
                     value={deltakerFnr}
-                    size={'small'}
                     onChange={(event) => setFnrBrukerOnChange(event, setDeltakerFnr, setDeltakerFnrFeil)}
                     onBlur={validerDeltakerFnr}
                     error={deltakerFnrFeil}
                 />
-
                 {valgtTiltaksType === 'MENTOR' && (
                     <TextField
-                        className={cls.element('typo-element')}
+                        className={styles.numberInput}
                         label="Mentors fødselsnummer"
                         value={mentorFnr}
-                        size="small"
                         onChange={(event) => setFnrBrukerOnChange(event, setMentorFnr, setMentorFnrFeil)}
                         onBlur={validerMentorFnr}
                         error={mentorFnrFeil}
                     />
                 )}
-            </div>
-            <div>
-                {erUnder18(deltakerFnr) && (
-                    <>
-                        <Alert variant="warning">
-                            Denne deltakeren er under 18 år. Det må derfor innhentes samtykke fra foresatte på at
-                            deltakeren kan delta i arbeidsrettet tiltak.
-                            <VerticalSpacer rem={1} />
-                            <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
-                                Samtykke fra foresatte {''}
-                            </EksternLenke>
-                        </Alert>
+            </HStack>
+            <VerticalSpacer rem={1} />
+            {erUnder18(deltakerFnr) && (
+                <>
+                    <Alert variant="warning">
+                        Denne deltakeren er under 18 år. Det må derfor innhentes samtykke fra foresatte på at deltakeren
+                        kan delta i arbeidsrettet tiltak.
                         <VerticalSpacer rem={1} />
-                    </>
-                )}
-            </div>
+                        <EksternLenke href={'https://www.nav.no/samtykke-foresatte'}>
+                            Samtykke fra foresatte
+                        </EksternLenke>
+                    </Alert>
+                    <VerticalSpacer rem={1} />
+                </>
+            )}
             <TextField
-                className={cls.element('typo-element')}
+                className={styles.numberInput}
                 label="Virksomhetsnummer"
                 value={bedriftNr}
-                size={'small'}
                 description="Virksomhetsnummeret må være det samme som der det blir registrert inntekt for deltaker i A-meldingen."
                 onChange={orgnrOnChange}
                 onBlur={orgnrOnBlur}
                 error={bedriftNrFeil}
             />
+            <VerticalSpacer rem={1} />
+            <ReadMore header="Hva er virksomhetsnummer?" variant="moderate">
+                Virksomhetsnummer (tidligere kalt bedriftsnummer) er organisasjonsnummeret som brukes for
+                ansettelsesforhold, og som A-meldingen registreres på. Dette er ikke det samme som organisasjonsnummeret
+                til hovedenheten.
+            </ReadMore>
             {bedriftNavn && (
                 <BodyShort size="small" className="opprett-avtale__bedriftNavn">
                     {bedriftNavn}
