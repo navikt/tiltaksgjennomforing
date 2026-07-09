@@ -18,7 +18,7 @@ const TILTAK_MED_MANUELL_REFUSJON = [
     'SOMMERJOBB',
 ];
 
-function ObligatoriskTjenestepensjon(props: Props) {
+function MobilnummerInput(props: Props) {
     const { verdi, ...restProps } = props;
     const {
         avtale: { tiltakstype },
