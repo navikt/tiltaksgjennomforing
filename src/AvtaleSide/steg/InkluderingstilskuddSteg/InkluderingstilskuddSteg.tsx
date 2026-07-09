@@ -112,10 +112,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <div className={cls.element('kostnadsoverslag-container')}>
                     <VisueltDisabledInputFelt
                         label="Totalt kostnadsoverslag"
-                        tekst={formaterPenger(
-                            avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
-                            IKKE_NOE_BELOP_TEGN,
-                        )}
+                        tekst={formaterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
                     />
                 </div>
                 <VerticalSpacer rem={2} />
