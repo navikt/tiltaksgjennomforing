@@ -5,7 +5,7 @@ import { useController, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import styles from './MentorAntallTimerPerMnd.module.less';
-import { formaterNorskeTallFraInput, parseNorskeTallFraInput } from '@/utils';
+import { formaterNorskeTall, parseNorskeTall } from '@/utils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
 interface Props {
@@ -18,7 +18,7 @@ const NORMAL_ARBEIDSTID_PER_MND = (ANTALL_TIMER_NORMAL_ARBEIDSUKE * 52) / 12;
 
 const schema = z.object({
     mentorAntallTimerPerMnd: z.preprocess(
-        parseNorskeTallFraInput,
+        parseNorskeTall,
         z
             .number({
                 invalid_type_error: 'Antall timer må være et tall',
@@ -43,7 +43,7 @@ function MentorAntallTimerPerMnd(props: Props) {
     const { field } = useController({
         control,
         name: 'mentorAntallTimerPerMnd',
-        defaultValue: formaterNorskeTallFraInput(verdi?.toString() ?? ''),
+        defaultValue: formaterNorskeTall(verdi?.toString() ?? '') ?? '',
     });
 
     const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -54,7 +54,7 @@ function MentorAntallTimerPerMnd(props: Props) {
         settVerdi(success ? data?.mentorAntallTimerPerMnd : undefined);
     };
 
-    const value = parseNorskeTallFraInput(field.value);
+    const value = parseNorskeTall(field.value);
 
     return (
         <>
