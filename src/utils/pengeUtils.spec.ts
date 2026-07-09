@@ -31,7 +31,7 @@ describe('formaterPenger', () => {
     });
 
     test('formaterer negativt beløp', () => {
-        expect(formaterPenger(-500)).toBe('\u2212500\u00a0kr');
+        expect(formaterPenger(-500)).toBe('-500\u00a0kr');
     });
 });
 
