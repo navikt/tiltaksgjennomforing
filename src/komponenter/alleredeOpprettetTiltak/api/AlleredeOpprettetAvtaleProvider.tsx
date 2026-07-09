@@ -33,26 +33,22 @@ export const useAlleredeOpprettetAvtale = () => useContext(AlleredeOpprettetAvta
 const endrePathAlleredeOpprettet = (
     pathnameList: string[],
     path: Path,
-    alleredeOpprettet: AlleredeOpprettetInfo,
     setAlleredeOpprettet: Dispatch<SetStateAction<AlleredeOpprettetInfo>>,
 ) => {
     if (pathnameList.includes(path)) {
-        if (alleredeOpprettet.steg !== path) {
-            setAlleredeOpprettet({ avtaler: [], deltaker: '', steg: path });
-        }
+        setAlleredeOpprettet({ avtaler: [], deltaker: '', steg: path });
     }
 };
 
-const AlleredeOpprettetAvtaleProvider = ({ children, history }: PropsWithChildren<any>) => {
+const AlleredeOpprettetAvtaleProvider = ({ children }: PropsWithChildren) => {
     const [alleredeOpprettet, setAlleredeOpprettet] = useState<AlleredeOpprettetInfo>(initAlleredeOpprettetInfo);
 
-    let location = useLocation();
+    const location = useLocation();
 
     useEffect(() => {
         const pathnameList: string[] = location.pathname.split('/');
-        endrePathAlleredeOpprettet(pathnameList, Path.OPPRETT, alleredeOpprettet, setAlleredeOpprettet);
-        endrePathAlleredeOpprettet(pathnameList, Path.GODKJENN, alleredeOpprettet, setAlleredeOpprettet);
-        // eslint-disable-next-line
+        endrePathAlleredeOpprettet(pathnameList, Path.OPPRETT, setAlleredeOpprettet);
+        endrePathAlleredeOpprettet(pathnameList, Path.GODKJENN, setAlleredeOpprettet);
     }, [location]);
 
     const context: Context = {
