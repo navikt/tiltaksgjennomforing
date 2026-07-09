@@ -47,4 +47,4 @@ function ObligatoriskTjenestepensjon(props: Props) {
     );
 }
 
-export default ObligatoriskTjenestepensjon;
+export default MobilnummerInput;
