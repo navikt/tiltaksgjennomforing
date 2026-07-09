@@ -25,7 +25,7 @@ const BeregningVTAOTilskuddSteg: FunctionComponent = () => {
                     Hvor mye dekker tilskuddet?
                 </Heading>
                 <BodyShort size="small">
-                    Arbeidsgiveren får et tilskudd fra NAV for varig tilrettelagt arbeid. Satsen settes årlig av
+                    Arbeidsgiveren får et tilskudd fra Nav for varig tilrettelagt arbeid. Satsen settes årlig av
                     departementet og avtale- og refusjonsløsningen vil automatisk oppdateres når det kommer nye satser.
                 </BodyShort>
                 <VerticalSpacer rem={2} />

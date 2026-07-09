@@ -244,7 +244,7 @@ const nyheter = [
         innhold: (
             <p>
                 Etter at avtale er godkjent av alle parter kan man nå laste ned en PDF-versjon av avtalen. Link til å
-                laste ned PDF-en ligger på oppsummeringssiden til avtalen. Både deltaker, arbeidsgiver og NAV har
+                laste ned PDF-en ligger på oppsummeringssiden til avtalen. Både deltaker, arbeidsgiver og Nav har
                 tilgang til denne linken.
             </p>
         ),
@@ -333,7 +333,7 @@ const nyheter = [
         innhold: (
             <>
                 <p>
-                    Den digitale lønnstilskuddsavtalen har vært pilotert på NAV Nordstrand i Oslo, og er fra i dag (1.
+                    Den digitale lønnstilskuddsavtalen har vært pilotert på Nav Nordstrand i Oslo, og er fra i dag (1.
                     sept.) tilgjengelig for alle fylker. Den digitale avtalen om lønnstilskudd er i samme løsning som
                     avtale om arbeidstrening, og gjelder både midlertidig og varig lønnstilskudd. Papirskjema og
                     søknadsskjema for arbeidsgiver i Altinn vil være tilgjengelig i en overgangsperiode, men digital

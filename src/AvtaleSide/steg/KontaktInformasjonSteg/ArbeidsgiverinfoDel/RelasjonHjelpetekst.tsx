@@ -22,7 +22,7 @@ const RelasjonHjelpetekst: FunctionComponent<Props> = (props) => {
             </BodyLong>
             <BodyLong size="small" spacing>
                 Du kan søke om oppstart av {litenForbokstav(avtaleTittel[props.tiltakstype])} selv om du har en nær
-                relasjon til deltakeren, men du må oppgi at det er en nær relasjon og utdype tilknytningen. NAV vil
+                relasjon til deltakeren, men du må oppgi at det er en nær relasjon og utdype tilknytningen. Nav vil
                 deretter vurdere om det foreligger særlige grunner for likevel å innvilge tiltaket.
             </BodyLong>
             <BodyLong size="small" spacing>

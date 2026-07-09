@@ -44,7 +44,7 @@ const HvemHarGodkjentModal: FunctionComponent<Props> = (props) => {
                                 godkjentAvtale={avtaleContext.avtale.godkjentAvArbeidsgiver}
                                 navn={avtaleContext.avtale.gjeldendeInnhold.bedriftNavn}
                             />
-                            <GodkjenningRad godkjentAvtale={avtaleContext.avtale.avtaleInngått} navn="NAV" />
+                            <GodkjenningRad godkjentAvtale={avtaleContext.avtale.avtaleInngått} navn="Nav" />
                         </div>
                     </div>
                 </Modal.Body>

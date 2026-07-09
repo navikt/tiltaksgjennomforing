@@ -172,7 +172,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Fireårig lønnstilskudd for unge kan ikke brukes til å beholde arbeid',
     FOR_SEN_STARTDATO_VTAO: 'Seneste mulig oppstart er 31.08.2026.',
     FORLENG_MIDLERTIDIG_IKKE_TILGJENGELIG: 'Forlengelse er ikke tilgjengelig for denne avtaletypen',
-    FORTIDLIG_STARTDATO: 'Startdatoen for avtalen er mer enn 7 dager tilbake i tid og må derfor åpnes av NAV',
+    FORTIDLIG_STARTDATO: 'Startdatoen for avtalen er mer enn 7 dager tilbake i tid og må derfor åpnes av Nav',
     FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
     GODKJENN_PAA_VEGNE_AV_FEIL_OPPHAV: 'Kan ikke godkjenne på vegne av for avtaler som ikke er importert fra Arena',
     GODKJENN_PAA_VEGNE_AV_FEIL_TILTAKSTYPE: 'Kan ikke godkjenne på vegne av for mentoravtaler',
@@ -268,7 +268,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Du har ikke tilgang som beslutter i denne løsningen. Ta kontakt med din leder for å få tildelt nødvendige rettigheter.',
     MANGLER_VEILEDER_PÅ_AVTALE: 'Avtalen trenger en veileder før du kan godkjenne',
     MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING: 'Veileder må godkjenne avtalen etter deltaker, mentor og arbeidsgiver.',
-    NAV_ENHET_IKKE_FUNNET: 'NAV-enheten ble ikke funnet',
+    NAV_ENHET_IKKE_FUNNET: 'Nav-enheten ble ikke funnet',
     OPPFOLGINGSTATUS_ENDRET:
         'Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.',
     ROLLE_HAR_IKKE_TILGANG:

@@ -5,7 +5,7 @@ type Props = {
 };
 
 const Dokumenttittel: FunctionComponent<Props> = (props) => {
-    document.title = `${props.tittel} - NAV`;
+    document.title = `${props.tittel} - Nav`;
     return null;
 };
 
