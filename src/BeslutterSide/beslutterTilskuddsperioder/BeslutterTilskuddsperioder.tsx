@@ -1,7 +1,7 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
 import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
 import { formaterProsent } from '@/utils';
-import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import React, { FunctionComponent, useContext, useEffect, useRef, useState } from 'react';
 import EtikettStatus from '../EtikettStatus';
 import BEMHelper from '@/utils/bem';

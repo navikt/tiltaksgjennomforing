@@ -1,7 +1,7 @@
 import { Beregningsgrunnlag } from '@/types/avtale';
 import BEMHelper, { BEMWrapper } from '@/utils/bem';
 import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { formaterPenger } from '@/utils/PengeUtils';
+import { formaterPenger } from '@/utils';
 import { ExpansionCard, Heading, Table } from '@navikt/ds-react';
 import React, { Fragment, FunctionComponent } from 'react';
 import {
