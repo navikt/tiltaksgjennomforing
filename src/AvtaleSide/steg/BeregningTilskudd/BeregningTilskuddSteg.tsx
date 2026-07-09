@@ -30,7 +30,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
             <AvtaleStatus />
             <Innholdsboks>
                 <SkjemaTittel>Beregning av tilskudd</SkjemaTittel>
-                <Lonnstilskuddprosent cls={cls} />
+                <Lonnstilskuddprosent />
+                <VerticalSpacer rem={1.5} />
                 <Heading level="3" size="small" className={cls.element('lonn-tittel')}>
                     Lønn
                 </Heading>
