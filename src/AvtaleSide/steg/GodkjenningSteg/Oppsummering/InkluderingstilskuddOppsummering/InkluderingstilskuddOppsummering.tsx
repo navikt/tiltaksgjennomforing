@@ -5,7 +5,7 @@ import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/Ti
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InkluderingsInnhold } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import { formaterPenger } from '@/utils';
 import { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
 import Stegoppsummering from '../Stegoppsummering/Stegoppsummering';
