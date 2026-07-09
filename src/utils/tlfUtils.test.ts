@@ -52,6 +52,22 @@ describe('NORSK_MOBILNUMMER_REGEX', () => {
     it('avviser fast telefon som starter med 2', () => {
         expect(NORSK_MOBILNUMMER_REGEX.test('21234567')).toBe(false);
     });
+
+    it('avviser nummer med for mange siffer uten landkode', () => {
+        expect(NORSK_MOBILNUMMER_REGEX.test('412345678')).toBe(false);
+    });
+
+    it('avviser nummer med for mange siffer med +47', () => {
+        expect(NORSK_MOBILNUMMER_REGEX.test('+47412345678')).toBe(false);
+    });
+
+    it('avviser nummer med for mange siffer med 0047', () => {
+        expect(NORSK_MOBILNUMMER_REGEX.test('0047412345678')).toBe(false);
+    });
+
+    it('avviser nummer med spesialtegn', () => {
+        expect(NORSK_MOBILNUMMER_REGEX.test('4123456!')).toBe(false);
+    });
 });
 
 describe('parseNorskeTelefonnummer', () => {
