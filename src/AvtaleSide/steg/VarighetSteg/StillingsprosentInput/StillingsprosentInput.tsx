@@ -1,3 +1,4 @@
+import React from 'react';
 import ProsentInput, { Props as ProsentInputProps } from '@/komponenter/form/ProsentInput';
 
 interface Props extends Omit<ProsentInputProps, 'label' | 'name' | 'min' | 'maks' | 'desimaler' | 'prosentType'> {
