@@ -234,7 +234,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                         <ul>
                             <li>Du kan begynne å fylle ut avtalen.</li>
                             <li>
-                                Avtalen blir tilgjengelig for veilederne på NAV kontoret til deltakeren. Når avtalen har
+                                Avtalen blir tilgjengelig for veilederne på Nav kontoret til deltakeren. Når avtalen har
                                 blitt fordelt til en veileder vil du se kontaktinformasjonen til denne veilederen inne i
                                 avtalen.
                             </li>

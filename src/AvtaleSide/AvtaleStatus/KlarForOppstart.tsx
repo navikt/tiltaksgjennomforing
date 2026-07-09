@@ -10,7 +10,7 @@ interface Props {
 const KlarForOppstart: FunctionComponent<Props> = ({ startDato }) => {
     return (
         <StatusPanel
-            header="Avtalen er ferdig utfylt og godkjent av NAV"
+            header="Avtalen er ferdig utfylt og godkjent av Nav"
             body={
                 <BodyShort size="small">Tiltaket starter {formaterDato(startDato, NORSK_DATO_FORMAT_FULL)}.</BodyShort>
             }

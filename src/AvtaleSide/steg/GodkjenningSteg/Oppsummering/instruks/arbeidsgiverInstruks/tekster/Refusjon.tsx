@@ -18,7 +18,7 @@ const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
             headerTekst={{ tekst: 'Refusjon', headingType: 'small' }}
         >
             <p>
-                For å få utbetalt pengene må dere sende inn refusjonskrav til NAV etter at tilskuddsperioden er over.
+                For å få utbetalt pengene må dere sende inn refusjonskrav til Nav etter at tilskuddsperioden er over.
                 Refusjonskravet sendes inn på papir. I tillegg til å fylle ut refusjonsskjemaet legger dere ved
                 dokumentasjon på de faktiske utgiftene. Refusjonskravet må sendes inn senest to måneder etter at
                 tilskuddsperioden er over.

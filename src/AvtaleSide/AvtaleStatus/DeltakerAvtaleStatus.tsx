@@ -63,14 +63,7 @@ const DeltakerAvtaleStatus: FunctionComponent<Props> = ({ avtale }) => {
         case 'MANGLER_GODKJENNING':
             return avtale.godkjentAvDeltaker ? (
                 <StatusPanel
-                    header={
-                        `Venter på godkjenning av avtalen fra ` +
-                        (avtale.godkjentAvVeileder
-                            ? 'NAV'
-                            : [!avtale.godkjentAvArbeidsgiver && 'arbeidsgiver', !avtale.godkjentAvVeileder && 'NAV']
-                                  .filter((x) => x)
-                                  .join(' og '))
-                    }
+                    header={`Venter på godkjenning av avtalen fra ${!avtale.godkjentAvArbeidsgiver ? 'arbeidsgiver og Nav' : 'Nav'}`}
                     body={
                         <>
                             <BodyShort size="small">Du har godkjent.</BodyShort>

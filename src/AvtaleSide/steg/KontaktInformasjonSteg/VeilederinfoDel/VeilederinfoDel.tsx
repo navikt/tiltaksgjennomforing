@@ -16,7 +16,7 @@ const VeilederinfoDel = () => {
 
     return (
         <div className={cls.element('container')}>
-            <SkjemaTittel>Kontaktperson i NAV</SkjemaTittel>
+            <SkjemaTittel>Kontaktperson i Nav</SkjemaTittel>
             {rolle === 'VEILEDER' && (
                 <>
                     {avtale.veilederNavIdent && (
