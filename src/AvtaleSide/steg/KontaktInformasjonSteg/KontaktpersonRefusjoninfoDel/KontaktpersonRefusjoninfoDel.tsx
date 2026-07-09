@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
 import { Alert, HGrid, HStack } from '@navikt/ds-react';
 import { Fieldset, Checkbox, Button } from '@navikt/ds-react';
@@ -111,8 +111,9 @@ const KontaktpersonRefusjoninfoDel = () => {
                             />
                         </HGrid>
                         <VerticalSpacer rem={1} />
-                        <TelefonnummerInput
+                        <MobilnummerInput
                             label="Kontaktperson for refusjon sitt mobilnummer"
+                            name="refusjonKontaktpersonTlf"
                             verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonTlf}
                             settVerdi={(verdi) =>
                                 settAvtaleInnholdVerdi('refusjonKontaktperson', {

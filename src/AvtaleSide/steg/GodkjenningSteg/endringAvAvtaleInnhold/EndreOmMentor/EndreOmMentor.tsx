@@ -2,7 +2,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
 import { HGrid, Link } from '@navikt/ds-react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
@@ -75,8 +75,9 @@ const EndreOmMentor: FunctionComponent = () => {
                         verdi={mentorInfo.mentorEtternavn}
                         settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}
                     />
-                    <TelefonnummerInput
+                    <MobilnummerInput
                         label="Mobilnummer"
+                        name="mentorTlf"
                         className={styles.limitMaxWidth}
                         verdi={mentorInfo.mentorTlf}
                         settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}

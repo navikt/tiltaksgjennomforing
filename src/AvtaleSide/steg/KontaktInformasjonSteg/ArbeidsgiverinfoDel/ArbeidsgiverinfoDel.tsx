@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
-import TelefonnummerInput from '@/komponenter/TelefonnummerInput/TelefonnummerInput';
+import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
 import { Fieldset } from '@navikt/ds-react';
@@ -35,8 +35,9 @@ const ArbeidsgiverinfoDel = () => {
                 </div>
 
                 <div className={cls.element('rad')}>
-                    <TelefonnummerInput
+                    <MobilnummerInput
                         label="Mobilnummer"
+                        name="arbeidsgiverTlf"
                         verdi={avtale.gjeldendeInnhold.arbeidsgiverTlf}
                         settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
                     />
