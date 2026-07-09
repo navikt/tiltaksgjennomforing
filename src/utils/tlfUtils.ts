@@ -1,5 +1,5 @@
 export const NORSK_TELEFONNUMMER_REGEX = /^((\+|00)47)?[1-9]\d{7}$/;
-export const NORSK_MOBILNUMMER_REGEX = /^(((0{2}?)|(\+){1})47)?(4|9)[\d]{7}/;
+export const NORSK_MOBILNUMMER_REGEX = /^((\+|00)47)?(4|9)\d{7}$/;
 
 export const parseNorskeTelefonnummer = (value: unknown): string | undefined => {
     if ((typeof value === 'string' || typeof value === 'number') && value !== '') {
