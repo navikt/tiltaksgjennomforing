@@ -1,6 +1,6 @@
 import { AvtaleContext, Context } from '@/AvtaleProvider';
 import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT, NORSK_DATO_FORMAT_FULL } from '@/utils/datoUtils';
-import { formaterProsent } from '@/utils/formaterProsent';
+import { formaterProsent } from '@/utils';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
 import React, { FunctionComponent, useContext, useEffect, useRef, useState } from 'react';
 import EtikettStatus from '../EtikettStatus';
@@ -8,7 +8,6 @@ import BEMHelper from '@/utils/bem';
 import './beslutterTilskuddsperioder.less';
 import { BodyShort, Button, Heading } from '@navikt/ds-react';
 import HorizontalSpacer from '@/komponenter/layout/HorizontalSpacer';
-import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { Periode, TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
 import { Returårsaker, TilskuddsPeriode } from '@/types/avtale';
 import { tilskuddsperiodeReturÅrsakTekst } from '@/messages';
