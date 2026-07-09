@@ -1,13 +1,13 @@
 import React from 'react';
 import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { formaterValuta } from '@/komponenter/form/ValutaInput';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 import { storForbokstav } from '@/utils/stringUtils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import { Alert, Heading, HGrid, ReadMore, TextField, VStack } from '@navikt/ds-react';
-import KronerInput from '@/AvtaleSide/steg/BeregningTilskudd/KronerInput';
+import KronerInput from '@/komponenter/form/KronerInput';
 import styles from './Timeloenn.module.less';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 
 type TimeloennProps = {
     stillingsprosent: number | undefined;
@@ -74,6 +74,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
             />
             <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
                 <KronerInput
+                    name="lonn"
                     label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
                     verdi={mentorValgtLonnstypeBelop}
                     settVerdi={(nyVerdi) => onChange({ mentorValgtLonnstypeBelop: nyVerdi })}
@@ -92,7 +93,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                 <>
                     <TextField
                         className={styles.limitMaxWidth}
-                        value={formaterValuta(mentorTimelonn)}
+                        value={formaterPenger(mentorTimelonn, IKKE_NOE_BELOP_TEGN)}
                         label="Beregnet timelønn"
                         readOnly
                     />

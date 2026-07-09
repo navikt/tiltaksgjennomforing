@@ -1,33 +1,33 @@
 import React from 'react';
 import { TextField, TextFieldProps } from '@navikt/ds-react';
 import * as z from 'zod';
+import { formaterPenger, parsePenger } from '@/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 
-import { formaterNorskeTelefonnummer, NORSK_TELEFONNUMMER_REGEX, parseNorskeTelefonnummer } from '@/utils';
-
-export interface Props extends TextFieldProps {
+interface Props extends TextFieldProps {
     name: string;
-    verdi?: string;
-    settVerdi: (verdi?: string) => void;
+    verdi?: number;
+    settVerdi: (verdi?: number) => void;
 }
 
 const schema = (name: string, label: string) =>
     z.object({
         [name]: z.preprocess(
-            parseNorskeTelefonnummer,
+            parsePenger,
             z
-                .string({
-                    invalid_type_error: `${label} er ugyldig`,
+                .number({
+                    invalid_type_error: `${label} må være et tall`,
                     required_error: `${label} er påkrevd`,
                 })
-                .regex(NORSK_TELEFONNUMMER_REGEX, `${label} er ugyldig`),
+                .int(`${label} må være et heltall`)
+                .min(1, `${label} må være minst 1`),
         ),
     });
 
-type Schema = z.infer<ReturnType<typeof schema>>;
+type Schema = Record<string, string>;
 
-function TelefonnummerInput(props: Props) {
+function KronerInput(props: Props) {
     const { settVerdi, verdi, ...restProps } = props;
     const name = restProps.name;
     const label = String(restProps.label);
@@ -37,7 +37,7 @@ function TelefonnummerInput(props: Props) {
     const { formState, control, reset } = useForm<Schema>({
         mode: 'onBlur',
         resolver: zodResolver(zodSchema),
-        values: { [name]: formaterNorskeTelefonnummer(verdi) ?? '' },
+        values: { [name]: formaterPenger(verdi) ?? '' },
         resetOptions: { keepDirtyValues: true },
     });
 
@@ -51,9 +51,9 @@ function TelefonnummerInput(props: Props) {
     };
 
     const onBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
-        const tlf = formaterNorskeTelefonnummer(e.target.value) ?? '';
-        field.onChange(tlf);
-        reset({ [name]: tlf });
+        const belop = formaterPenger(e.target.value) ?? '';
+        field.onChange(belop);
+        reset({ [name]: belop });
         field.onBlur();
         restProps.onBlur?.(e);
     };
@@ -65,11 +65,11 @@ function TelefonnummerInput(props: Props) {
             error={formState.errors[name]?.message ?? restProps.error}
             onChange={onChange}
             onBlur={onBlur}
-            inputMode="tel"
-            type="tel"
+            inputMode="numeric"
+            type="text"
             autoComplete="off"
         />
     );
 }
 
-export default TelefonnummerInput;
+export default KronerInput;

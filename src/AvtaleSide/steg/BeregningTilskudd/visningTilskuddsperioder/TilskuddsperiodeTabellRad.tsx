@@ -3,7 +3,7 @@ import { TilskuddsPeriode } from '@/types/avtale';
 import { Table } from '@navikt/ds-react';
 import { formaterPeriode } from '@/utils/datoUtils';
 import EtikettStatus from '@/BeslutterSide/EtikettStatus';
-import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils/PengeUtils';
+import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import './TilskuddsperiodeTabellRad.less';
 import BEMHelper from '@/utils/bem';
 import classNames from 'classnames';
