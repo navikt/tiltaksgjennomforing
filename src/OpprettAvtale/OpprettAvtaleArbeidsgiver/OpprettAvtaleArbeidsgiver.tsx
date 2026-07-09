@@ -36,7 +36,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
     const [ugyldigAvtaletype, setUgyldigAvtaletype] = useState(false);
     const [valgtTiltaksType, setTiltaksType] = useState<TiltaksType>();
     const navigate = useNavigate();
-    const { migreringSkrivebeskyttet } = useFeatureToggles();
+    const { migreringSkrivebeskyttet, firearigLonnstilskudd } = useFeatureToggles();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
     const [deltakerFnrFeil, setDeltakerFnrFeil, validerDeltakerFnr] = useValidering(
@@ -164,7 +164,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     >
                         <option value="">- Velg tiltakstype -</option>
                         {(innloggetBruker.altinnTilganger.tilganger[valgtBedriftNr] ?? [])
-                            .filter((tiltakstype) => tiltakstype !== 'FIREARIG_LONNSTILSKUDD')
+                            .filter((tiltakstype) => firearigLonnstilskudd || tiltakstype !== 'FIREARIG_LONNSTILSKUDD')
                             .sort()
                             .map((tiltakType) => (
                                 <option key={tiltakType} value={tiltakType} disabled={erSkrivebeskyttet(tiltakType)}>
