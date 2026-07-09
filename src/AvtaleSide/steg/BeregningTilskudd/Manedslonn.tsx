@@ -3,6 +3,7 @@ import { Box, Alert } from '@navikt/ds-react';
 import { BEMWrapper } from '@/utils/bem';
 import { AvtaleContext } from '@/AvtaleProvider';
 import KronerInput from '@/komponenter/form/KronerInput';
+import { parsePenger } from '@/utils';
 
 interface Props {
     cls: BEMWrapper;
@@ -25,7 +26,7 @@ const Manedslonn: React.FC<Props> = ({ cls }: Props) => {
                     settVerdi={(manedslonn?: number) => {
                         settAvtaleInnholdVerdier({ manedslonn: manedslonn });
                     }}
-                    onBlur={(event) => settOgKalkulerBeregningsverdier({ manedslonn: parseFloat(event.target.value) })}
+                    onBlur={(event) => settOgKalkulerBeregningsverdier({ manedslonn: parsePenger(event.target.value) })}
                     min={0}
                 />
                 {erHøyManedslønn && (

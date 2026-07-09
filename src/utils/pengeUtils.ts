@@ -11,6 +11,7 @@ const pengerFormat = new Intl.NumberFormat('nb-NO', {
     maximumFractionDigits: 0,
 });
 
+export function formaterPenger(value: number, fallback?: string): string;
 export function formaterPenger(value: string | number | undefined, fallback: string): string;
 export function formaterPenger(value: string | number | undefined, fallback?: undefined): string | undefined;
 export function formaterPenger(value: string | number | undefined, fallback?: string): string | undefined {

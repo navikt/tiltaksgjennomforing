@@ -32,7 +32,7 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
                     <div className={cls.element('kostnadsoverslag-container')}>
                         <VisueltDisabledInputFelt
                             label="Totalt kostnadsoverslag"
-                            tekst={formaterPenger(props.inkluderingstilskuddTotalBeløp, IKKE_NOE_BELOP_TEGN)}
+                            tekst={formaterPenger(props.inkluderingstilskuddTotalBeløp)}
                         />
                     </div>
                 </div>

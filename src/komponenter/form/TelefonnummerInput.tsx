@@ -55,6 +55,7 @@ function TelefonnummerInput(props: Props) {
         field.onChange(tlf);
         reset({ [name]: tlf });
         field.onBlur();
+        restProps.onBlur?.(e);
     };
 
     return (
