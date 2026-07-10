@@ -30,10 +30,11 @@ const PakrevdInput: React.FunctionComponent<Props> = (props: PropsWithChildren<P
 
     const zodSchema = React.useMemo(() => schema(name, label), [name, label]);
 
-    const { formState, control } = useForm<Schema>({
+    const { formState, control, reset } = useForm<Schema>({
         mode: 'onBlur',
         resolver: zodResolver(zodSchema),
         values: { [name]: verdi ?? '' },
+        resetOptions: { keepDirtyValues: true },
     });
 
     const { field } = useController({ control, name });
@@ -45,12 +46,21 @@ const PakrevdInput: React.FunctionComponent<Props> = (props: PropsWithChildren<P
         settVerdi(success ? data[name] : undefined);
     };
 
+    const onBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
+        const rawValue = e.target.value;
+        field.onChange(rawValue);
+        reset({ [name]: rawValue });
+        field.onBlur();
+        restProps.onBlur?.(e);
+    };
+
     return (
         <TextField
             {...restProps}
             {...field}
             error={formState.errors[name]?.message ?? restProps.error}
             onChange={onChange}
+            onBlur={onBlur}
             inputMode="text"
             type="text"
         />
