@@ -67,6 +67,7 @@ function TallInput(props: Props) {
         field.onChange(tall);
         reset({ [name]: tall });
         field.onBlur();
+        restProps.onBlur?.(e);
     };
 
     return (

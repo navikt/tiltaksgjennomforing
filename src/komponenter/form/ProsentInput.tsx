@@ -76,6 +76,7 @@ function ProsentInput(props: Props) {
         field.onChange(belop);
         reset({ [name]: belop });
         field.onBlur();
+        restProps.onBlur?.(e);
     };
 
     return (
