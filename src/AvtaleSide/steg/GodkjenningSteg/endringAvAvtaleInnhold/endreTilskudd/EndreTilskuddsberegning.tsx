@@ -90,7 +90,6 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                         <>
                             <ProsentInput
                                 name="lonnstilskuddProsent"
-                                size="small"
                                 label="Tilskuddsprosent"
                                 verdi={nyBeregning.lonnstilskuddProsent}
                                 settVerdi={(verdi) => {
