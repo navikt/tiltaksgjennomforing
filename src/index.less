@@ -25,6 +25,13 @@ svg:not([class*='aksel']) {
     display: block;
 }
 
+/*  Overstyr Aksel slik at tekstfelt og feilmeldinger alltid holder seg øverst i
+    wrapperen. Dette hindrer at felt som står side om side hopper opp og ned når
+    feilmeldinger vises. */
+.aksel-form-field {
+    align-content: start;
+}
+
 .bedriftsmeny {
     background-color: #cce1ff !important;
     border-bottom: 0.25rem solid #99c3ff !important;
