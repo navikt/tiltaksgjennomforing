@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
@@ -66,11 +66,13 @@ const EndreOmMentor: FunctionComponent = () => {
                         tekst={avtaleContext.avtale.mentorFnr}
                     />
                     <PakrevdInput
+                        name="mentorFornavn"
                         label="Fornavn"
                         verdi={mentorInfo.mentorFornavn}
                         settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorFornavn: verdi })}
                     />
                     <PakrevdInput
+                        name="mentorEtternavn"
                         label="Etternavn"
                         verdi={mentorInfo.mentorEtternavn}
                         settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}

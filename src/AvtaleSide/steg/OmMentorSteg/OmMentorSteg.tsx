@@ -3,7 +3,7 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { Button, TextField } from '@navikt/ds-react';
@@ -39,9 +39,10 @@ const OmMentorSteg = () => {
                     {kanRedigereMentorFnr ? (
                         <>
                             <PakrevdInput
+                                name="mentorFnr"
                                 label="Fødselsnummer"
                                 error={mentorError}
-                                verdi={mentorFnr ?? ''}
+                                verdi={mentorFnr}
                                 settVerdi={(verdi) => {
                                     setMentorFnr(verdi);
                                     setMentorError(undefined);
@@ -78,6 +79,7 @@ const OmMentorSteg = () => {
                         />
                     ) : (
                         <PakrevdInput
+                            name="mentorFornavn"
                             label="Fornavn"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
                             settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
@@ -92,6 +94,7 @@ const OmMentorSteg = () => {
                         />
                     ) : (
                         <PakrevdInput
+                            name="mentorEtternavn"
                             label="Etternavn"
                             verdi={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
                             settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorEtternavn', verdi)}
