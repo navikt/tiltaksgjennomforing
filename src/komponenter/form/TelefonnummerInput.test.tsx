@@ -9,7 +9,7 @@ const renderInput = (settVerdi: (verdi?: string) => void) => {
 };
 
 describe('TelefonnummerInput', () => {
-    it('lagrer gyldig norsk nummer uten landkode', () => {
+    it('lagrer gyldig norsk nummer og fjerner +47-prefiks', () => {
         const settVerdi = vi.fn();
         const input = renderInput(settVerdi);
         fireEvent.change(input, { target: { value: '+4741234567' } });
