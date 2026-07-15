@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+    erGyldigTelefonnummer,
     formaterNorskeTelefonnummer,
     NORSK_MOBILNUMMER_REGEX,
     NORSK_TELEFONNUMMER_REGEX,
@@ -70,6 +71,72 @@ describe('NORSK_MOBILNUMMER_REGEX', () => {
     });
 });
 
+describe('erGyldigTelefonnummer', () => {
+    it('godtar norsk 8-sifret nummer uten landkode', () => {
+        expect(erGyldigTelefonnummer('21234567')).toBe(true);
+    });
+
+    it('godtar norsk mobilnummer uten landkode', () => {
+        expect(erGyldigTelefonnummer('41234567')).toBe(true);
+    });
+
+    it('godtar norsk nummer med mellomrom', () => {
+        expect(erGyldigTelefonnummer('412 34 567')).toBe(true);
+    });
+
+    it('godtar norsk nummer med +47', () => {
+        expect(erGyldigTelefonnummer('+4741234567')).toBe(true);
+    });
+
+    it('godtar norsk nummer med 0047', () => {
+        expect(erGyldigTelefonnummer('004741234567')).toBe(true);
+    });
+
+    it('avviser norsk nummer med feil lengde', () => {
+        expect(erGyldigTelefonnummer('4123456')).toBe(false);
+    });
+
+    it('avviser norsk nummer med for mange siffer', () => {
+        expect(erGyldigTelefonnummer('412345678')).toBe(false);
+    });
+
+    it('avviser norsk nummer med for mange siffer selv med +47', () => {
+        expect(erGyldigTelefonnummer('+47412345678')).toBe(false);
+    });
+
+    it('avviser norsk nummer som starter med 0', () => {
+        expect(erGyldigTelefonnummer('01234567')).toBe(false);
+    });
+
+    it('godtar utenlandsk nummer med +', () => {
+        expect(erGyldigTelefonnummer('+34636263227')).toBe(true);
+    });
+
+    it('godtar utenlandsk nummer med 00', () => {
+        expect(erGyldigTelefonnummer('004915123456789')).toBe(true);
+    });
+
+    it('avviser utenlandsk nummer uten landkodeprefiks', () => {
+        expect(erGyldigTelefonnummer('34636263227')).toBe(false);
+    });
+
+    it('avviser nummer med spesialtegn', () => {
+        expect(erGyldigTelefonnummer('+34 636!')).toBe(false);
+    });
+
+    it('avviser for langt nummer', () => {
+        expect(erGyldigTelefonnummer('+1234567890123456')).toBe(false);
+    });
+
+    it('avviser tom streng', () => {
+        expect(erGyldigTelefonnummer('')).toBe(false);
+    });
+
+    it('avviser undefined', () => {
+        expect(erGyldigTelefonnummer(undefined)).toBe(false);
+    });
+});
+
 describe('parseNorskeTelefonnummer', () => {
     it('returnerer undefined for undefined', () => {
         expect(parseNorskeTelefonnummer(undefined)).toBeUndefined();
@@ -97,6 +164,14 @@ describe('parseNorskeTelefonnummer', () => {
 
     it('returnerer ugyldig nummer uendret', () => {
         expect(parseNorskeTelefonnummer('abc')).toBe('abc');
+    });
+
+    it('fjerner mellomrom fra vilkårlig streng', () => {
+        expect(parseNorskeTelefonnummer('abc def')).toBe('abcdef');
+    });
+
+    it('fjerner mellomrom fra utenlandsk nummer men beholder landkode', () => {
+        expect(parseNorskeTelefonnummer('+34 636 263 227')).toBe('+34636263227');
     });
 
     it('håndterer number-type som input', () => {
