@@ -23,7 +23,7 @@ export const erGyldigTelefonnummer = (value: unknown): boolean => {
 export const parseNorskeTelefonnummer = (value: unknown): string | undefined => {
     if ((typeof value === 'string' || typeof value === 'number') && value !== '') {
         const tlf = String(value).replace(/\s/g, '');
-        return NORSK_TELEFONNUMMER_REGEX.test(tlf) ? tlf.replace(/^(\+47|0047)/, '') : String(value);
+        return NORSK_TELEFONNUMMER_REGEX.test(tlf) ? tlf.replace(/^(\+47|0047)/, '') : tlf;
     }
     return undefined;
 };

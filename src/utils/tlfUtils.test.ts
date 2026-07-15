@@ -166,12 +166,12 @@ describe('parseNorskeTelefonnummer', () => {
         expect(parseNorskeTelefonnummer('abc')).toBe('abc');
     });
 
-    it('beholder vilkårlig streng med mellomrom uendret', () => {
-        expect(parseNorskeTelefonnummer('abc def')).toBe('abc def');
+    it('fjerner mellomrom fra vilkårlig streng', () => {
+        expect(parseNorskeTelefonnummer('abc def')).toBe('abcdef');
     });
 
-    it('beholder utenlandsk nummer uendret', () => {
-        expect(parseNorskeTelefonnummer('+34 636 263 227')).toBe('+34 636 263 227');
+    it('fjerner mellomrom fra utenlandsk nummer men beholder landkode', () => {
+        expect(parseNorskeTelefonnummer('+34 636 263 227')).toBe('+34636263227');
     });
 
     it('håndterer number-type som input', () => {
