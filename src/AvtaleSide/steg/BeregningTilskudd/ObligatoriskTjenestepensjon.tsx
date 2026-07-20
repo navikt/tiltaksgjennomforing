@@ -1,42 +1,63 @@
-import React from 'react';
-import ProsentInput from '@/komponenter/form/ProsentInput';
-import { formaterNorskeTall, parsProsentFraInput } from '@/utils';
-import { erNil } from '@/utils/predicates';
+import React, { useEffect, useState } from 'react';
+import { Alert, Heading, TextField } from '@navikt/ds-react';
+import { formaterNorskeTall, parseNorskeTallFraInput } from '@/utils';
 import styles from './ObligatoriskTjenestepensjon.module.less';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Alert, Heading } from '@navikt/ds-react';
 
 type ObligatoriskTjenestepensjonProps = {
     sats?: number;
     onChange: (sats?: number) => void;
 };
 
-const OTP_TERSKEL = 0.25;
+const OTP_TERSKEL = 25;
 
-const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = (
-    props: ObligatoriskTjenestepensjonProps,
-) => {
-    const { sats, onChange } = props;
+const parseOgValider = (value: string): { tall?: number; feil?: string } => {
+    if (!value.trim()) return {};
+    const tall = parseNorskeTallFraInput(value);
+    if (tall === undefined || isNaN(tall)) return { feil: 'OTP må være et tall' };
+    if (tall < 0) return { feil: 'Kan ikke være negativ' };
+    if (tall > 30) return { feil: 'Kan ikke være mer enn 30 %' };
+    return { tall };
+};
 
-    const hoyOtp = (sats || 0) > OTP_TERSKEL;
+const formatertSats = (sats: number | undefined) =>
+    formaterNorskeTall(sats !== undefined ? sats * 100 : undefined) ?? '';
+
+const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = ({ sats, onChange }) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const [rawValue, setRawValue] = useState(() => formatertSats(sats));
+
+    useEffect(() => {
+        if (!isFocused) setRawValue(formatertSats(sats));
+    }, [sats, isFocused]);
+
+    const { tall, feil } = parseOgValider(rawValue);
+
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        const raw = e.target.value.replaceAll('%', '').trim();
+        setRawValue(raw);
+        const { tall } = parseOgValider(raw);
+        onChange(tall !== undefined ? tall / 100 : undefined);
+    };
+
+    const displayValue = !isFocused && !feil && rawValue ? rawValue + ' %' : rawValue;
 
     return (
         <>
-            <ProsentInput
+            <TextField
+                name="sats"
                 className={styles.beregningInput}
-                name="tjenestepensjon"
+                error={feil}
                 label="Obligatorisk tjenestepensjon (OTP)"
-                min={0}
-                max={30}
-                maxLength={4}
-                autoComplete="off"
                 description="OTP slik den fremgår i den ansattes pensjonsordning hos arbeidsgivers pensjonsleverandør"
-                value={!erNil(sats) ? formaterNorskeTall(sats * 100) : ''}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    onChange(parsProsentFraInput(event.target.value));
-                }}
+                onChange={handleChange}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                inputMode="decimal"
+                autoComplete="off"
+                value={displayValue}
             />
-            {hoyOtp && (
+            {(tall ?? 0) > OTP_TERSKEL && (
                 <>
                     <VerticalSpacer rem={1} />
                     <Alert variant="warning" size="small">
@@ -48,4 +69,5 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
         </>
     );
 };
+
 export default ObligatoriskTjenestepensjon;
