@@ -1,7 +1,7 @@
 import { useAvtale } from '@/AvtaleProvider';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import { Table } from '@navikt/ds-react';
-import { formaterProsent } from '@/utils/formaterProsent';
+import { formaterProsent } from '@/utils';
 import { visPeriodeForTiltak } from '@/utils/datoUtils';
 import { Avtale } from '@/types';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';

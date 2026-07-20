@@ -3,11 +3,11 @@ import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 import { storForbokstav } from '@/utils/stringUtils';
-import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 import { Alert, Heading, HGrid, ReadMore, TextField, VStack } from '@navikt/ds-react';
 import KronerInput from '@/komponenter/form/KronerInput';
 import styles from './Timeloenn.module.less';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 
 type TimeloennProps = {
     stillingsprosent: number | undefined;
@@ -82,7 +82,6 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                 {mentorValgtLonnstype !== 'TIMELØNN' && (
                     <>
                         <StillingsprosentInput
-                            label="Stillingsprosent"
                             verdi={stillingsprosent}
                             settVerdi={(nyVerdi) => onChange({ stillingprosent: nyVerdi })}
                         />

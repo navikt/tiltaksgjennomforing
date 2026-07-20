@@ -2,7 +2,6 @@ import { useAvtale } from '@/AvtaleProvider';
 import EndringsTilskuddUtregningPanel from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskudd/EndringsTilskuddUtregningPanel';
 import ProsentInput from '@/komponenter/form/ProsentInput';
 import SelectInput from '@/komponenter/form/SelectInput';
-import ValutaInput from '@/komponenter/form/ValutaInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdateretilskuddsBeregning } from '@/services/rest-service';
@@ -11,8 +10,10 @@ import BEMHelper from '@/utils/bem';
 import { Link, Select } from '@navikt/ds-react';
 import React, { FunctionComponent, useState } from 'react';
 import './EndreTilskuddsberegning.less';
-import { formaterNorskeTall, parsProsentFraInput } from '@/utils';
+import { formaterNorskeTall } from '@/utils';
 import { TasklistIcon } from '@navikt/aksel-icons';
+import KronerInput from '@/komponenter/form/KronerInput';
+import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/ObligatoriskTjenestepensjon';
 
 export type EndreBeregning = Pick<
     Beregningsgrunnlag & Varighet,
@@ -89,29 +90,26 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
                         <>
                             <ProsentInput
                                 name="lonnstilskuddProsent"
-                                width="S"
                                 label="Tilskuddsprosent"
-                                value={nyBeregning.lonnstilskuddProsent}
-                                onChange={(event) => {
-                                    settNyBeregningsverdi('lonnstilskuddProsent', parseFloat(event.target.value));
+                                verdi={nyBeregning.lonnstilskuddProsent}
+                                settVerdi={(verdi) => {
+                                    settNyBeregningsverdi('lonnstilskuddProsent', verdi);
                                 }}
                                 min={0}
-                                max={75}
+                                maks={75}
+                                prosentType="heltall"
                             />
                             <VerticalSpacer rem={1} />
                         </>
                     )}
-                    <ValutaInput
+                    <KronerInput
                         name="manedslonn"
                         size="medium"
                         label="Månedslønn før skatt"
-                        value={nyBeregning.manedslonn}
-                        onChange={(event: any) => settNyBeregningsverdi('manedslonn', parseFloat(event.target.value))}
-                        min={0}
+                        verdi={nyBeregning.manedslonn}
+                        settVerdi={(verdi) => settNyBeregningsverdi('manedslonn', verdi)}
                     />
-
                     <VerticalSpacer rem={1} />
-
                     <Select
                         label="Velg sats for feriepenger som arbeidstaker skal ha"
                         value={nyBeregning.feriepengesats}
@@ -128,21 +126,9 @@ const EndreTilskuddsberegning: FunctionComponent = () => {
 
                     <VerticalSpacer rem={1} />
 
-                    <ProsentInput
-                        size="medium"
-                        label={'Obligatorisk tjenestepensjon fra 0 - 30 %'}
-                        min={0}
-                        max={30}
-                        maxLength={4}
-                        autoComplete={'off'}
-                        value={
-                            nyBeregning.otpSats !== undefined && nyBeregning.otpSats !== null
-                                ? formaterNorskeTall(nyBeregning.otpSats * 100)
-                                : ''
-                        }
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                            settNyBeregningsverdi('otpSats', parsProsentFraInput(event.target.value))
-                        }
+                    <ObligatoriskTjenestepensjon
+                        verdi={nyBeregning.otpSats}
+                        settVerdi={(otpSats) => settNyBeregningsverdi('otpSats', otpSats)}
                     />
                     <VerticalSpacer rem={1} />
                     <SelectInput

@@ -116,7 +116,6 @@ const EndreStillingbeskrivelse: FunctionComponent = () => {
                     </div>
                     <div className={styles.stillingInput}>
                         <StillingsprosentInput
-                            label="Stillingsprosent"
                             verdi={stillingprosent}
                             settVerdi={(verdi) => setStillingprosent(verdi)}
                         />

@@ -128,8 +128,8 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                         onChange={settOgKalkulerBeregningsverdier}
                     />
                     <ObligatoriskTjenestepensjon
-                        sats={nyBeregning.otpSats}
-                        onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                        verdi={nyBeregning.otpSats}
+                        settVerdi={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                     />
                     <HGrid columns={2} gap="space-16">
                         <Arbeidsgiveravgift

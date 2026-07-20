@@ -27,17 +27,15 @@ const Lonnstilskuddprosent = () => {
                 <VerticalSpacer rem={0.5} />
                 <ProsentInput
                     name="lonnstilskuddProsent"
-                    width="S"
                     label="Tilskuddsprosent"
                     hideLabel
-                    value={avtale.gjeldendeInnhold.lonnstilskuddProsent}
-                    onChange={(event) => {
-                        settOgKalkulerBeregningsverdier({
-                            lonnstilskuddProsent: parseIntOrUndefined(event.target.value),
-                        });
+                    verdi={avtale.gjeldendeInnhold.lonnstilskuddProsent}
+                    settVerdi={(verdi) => {
+                        settOgKalkulerBeregningsverdier({ lonnstilskuddProsent: verdi });
                     }}
                     min={0}
-                    max={75}
+                    maks={75}
+                    prosentType="heltall"
                 />
             </div>
         );

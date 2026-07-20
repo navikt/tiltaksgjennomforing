@@ -19,7 +19,7 @@ export function formaterPenger(value: string | number | undefined, fallback?: st
     if (tall === undefined || isNaN(tall)) {
         return !erNil(value) ? String(value) : fallback;
     }
-    return pengerFormat.format(tall);
+    return pengerFormat.format(tall).replace(/\u2212/g, '-');
 }
 
 export const parsePenger = (value: unknown): number | undefined => {
