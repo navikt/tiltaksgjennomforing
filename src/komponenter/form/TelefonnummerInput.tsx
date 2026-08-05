@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 
-import { formaterNorskeTelefonnummer, NORSK_TELEFONNUMMER_REGEX, parseNorskeTelefonnummer } from '@/utils';
+import { erGyldigTelefonnummer, formaterNorskeTelefonnummer, parseNorskeTelefonnummer } from '@/utils';
 
 export interface Props extends TextFieldProps {
     name: string;
@@ -21,7 +21,7 @@ const schema = (name: string, label: string) =>
                     invalid_type_error: `${label} er ugyldig`,
                     required_error: `${label} er påkrevd`,
                 })
-                .regex(NORSK_TELEFONNUMMER_REGEX, `${label} er ugyldig`),
+                .refine(erGyldigTelefonnummer, `${label} er ugyldig`),
         ),
     });
 
