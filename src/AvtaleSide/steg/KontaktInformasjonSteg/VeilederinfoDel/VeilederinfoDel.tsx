@@ -1,7 +1,7 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
 import { useContext } from 'react';
@@ -39,11 +39,13 @@ const VeilederinfoDel = () => {
             )}
             <div className={cls.element('rad')}>
                 <PakrevdInput
+                    name="veilederFornavn"
                     label="Fornavn"
                     verdi={avtale.gjeldendeInnhold.veilederFornavn}
                     settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederFornavn', verdi)}
                 />
                 <PakrevdInput
+                    name="veilederEtternavn"
                     label="Etternavn"
                     verdi={avtale.gjeldendeInnhold.veilederEtternavn}
                     settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederEtternavn', verdi)}

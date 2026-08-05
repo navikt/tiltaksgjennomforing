@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
 import { Alert, HGrid, HStack } from '@navikt/ds-react';
@@ -90,22 +90,24 @@ const KontaktpersonRefusjoninfoDel = () => {
                     <>
                         <HGrid gap="space-16" columns={2}>
                             <PakrevdInput
+                                name="refusjonKontaktpersonFornavn"
                                 label="Kontaktperson for refusjon sitt fornavn"
                                 verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonFornavn}
                                 settVerdi={(verdi) =>
                                     settAvtaleInnholdVerdi('refusjonKontaktperson', {
                                         ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                        refusjonKontaktpersonFornavn: verdi ?? '',
+                                        refusjonKontaktpersonFornavn: verdi,
                                     })
                                 }
                             />
                             <PakrevdInput
+                                name="refusjonKontaktpersonEtternavn"
                                 label="Kontaktperson for refusjon sitt etternavn"
                                 verdi={avtale.gjeldendeInnhold.refusjonKontaktperson?.refusjonKontaktpersonEtternavn}
                                 settVerdi={(verdi) =>
                                     settAvtaleInnholdVerdi('refusjonKontaktperson', {
                                         ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                        refusjonKontaktpersonEtternavn: verdi ?? '',
+                                        refusjonKontaktpersonEtternavn: verdi,
                                     })
                                 }
                             />
@@ -118,7 +120,7 @@ const KontaktpersonRefusjoninfoDel = () => {
                             settVerdi={(verdi) =>
                                 settAvtaleInnholdVerdi('refusjonKontaktperson', {
                                     ...avtale.gjeldendeInnhold.refusjonKontaktperson,
-                                    refusjonKontaktpersonTlf: verdi ?? '',
+                                    refusjonKontaktpersonTlf: verdi,
                                 })
                             }
                         />

@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { oppdatereKontaktInformasjon } from '@/services/rest-service';
 import { EndreKontaktInfo, TiltaksType } from '@/types/avtale';
@@ -113,11 +113,13 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 </Heading>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
+                        name="deltakerFornavn"
                         label="Fornavn"
                         verdi={kontaktInfo.deltakerFornavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerFornavn', verdi)}
                     />
                     <PakrevdInput
+                        name="deltakerEtternavn"
                         label="Etternavn"
                         verdi={kontaktInfo.deltakerEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('deltakerEtternavn', verdi)}
@@ -136,11 +138,13 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 </Heading>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
+                        name="veilederFornavn"
                         label="Fornavn"
                         verdi={kontaktInfo.veilederFornavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederFornavn', verdi)}
                     />
                     <PakrevdInput
+                        name="veilederEtternavn"
                         label="Etternavn"
                         verdi={kontaktInfo.veilederEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('veilederEtternavn', verdi)}
@@ -159,11 +163,13 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                 </Heading>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
+                        name="arbeidsgiverFornavn"
                         label="Fornavn"
                         verdi={kontaktInfo.arbeidsgiverFornavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverFornavn', verdi)}
                     />
                     <PakrevdInput
+                        name="arbeidsgiverEtternavn"
                         label="Etternavn"
                         verdi={kontaktInfo.arbeidsgiverEtternavn}
                         settVerdi={(verdi) => settNyKontaktInformasjon('arbeidsgiverEtternavn', verdi)}
@@ -184,6 +190,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                         </Heading>
                         <div className={cls.element('rad')}>
                             <PakrevdInput
+                                name="refusjonKontaktpersonFornavn"
                                 label="Fornavn"
                                 verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonFornavn}
                                 settVerdi={(verdi) =>
@@ -194,6 +201,7 @@ const EndreKontaktInformasjon: FunctionComponent = () => {
                                 }
                             />
                             <PakrevdInput
+                                name="refusjonKontaktpersonEtternavn"
                                 label="Etternavn"
                                 verdi={kontaktInfo.refusjonKontaktperson.refusjonKontaktpersonEtternavn}
                                 settVerdi={(verdi) =>
