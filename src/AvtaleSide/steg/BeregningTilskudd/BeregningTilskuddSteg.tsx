@@ -41,8 +41,8 @@ const BeregningTilskuddSteg: FunctionComponent = () => {
                 <HvaMenesMedDette />
                 <Manedslonn cls={cls} />
                 <ObligatoriskTjenestepensjon
-                    sats={avtale.gjeldendeInnhold.otpSats}
-                    onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                    verdi={avtale.gjeldendeInnhold.otpSats}
+                    settVerdi={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                 />
                 <VerticalSpacer rem={1.5} />
                 <HGrid columns={{ xs: 1, md: 2 }} gap="space-16">
