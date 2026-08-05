@@ -67,7 +67,6 @@ function TelefonnummerInput(props: Props) {
             onBlur={onBlur}
             inputMode="tel"
             type="tel"
-            autoComplete="off"
         />
     );
 }

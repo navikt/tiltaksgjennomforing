@@ -21,7 +21,7 @@ const schema = (name: string, label: string) =>
                     required_error: `${label} er påkrevd`,
                 })
                 .int(`${label} må være et heltall`)
-                .min(1, `${label} må være minst 1`),
+                .min(1, `${label} må være minst 1 kr`),
         ),
     });
 

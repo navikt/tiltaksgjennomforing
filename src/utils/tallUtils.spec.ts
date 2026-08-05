@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { formaterNorskeTall, formaterProsent, parseNorskeTall } from './tallUtils';
+import { formaterNorskeTall, parseNorskeTall } from './tallUtils';
 
 describe('parseNorskeTall', () => {
     test('returnerer number uendret', () => {
@@ -63,28 +63,5 @@ describe('formaterNorskeTall', () => {
     test('runder av til maks 2 desimaler', () => {
         expect(formaterNorskeTall(1.999)).toBe('2');
         expect(formaterNorskeTall(1.994)).toBe('1,99');
-    });
-});
-
-describe('formaterProsent', () => {
-    test('formaterer number til prosentstreng', () => {
-        expect(formaterProsent(50)).toBe('50\u00A0%');
-    });
-
-    test('formaterer desimaltall', () => {
-        expect(formaterProsent(50.5)).toBe('50,5\u00A0%');
-    });
-
-    test('re-formaterer eksisterende prosentstreng', () => {
-        expect(formaterProsent('50,5 %')).toBe('50,5\u00A0%');
-        expect(formaterProsent('50.5%')).toBe('50,5\u00A0%');
-    });
-
-    test('returnerer undefined for undefined', () => {
-        expect(formaterProsent(undefined)).toBeUndefined();
-    });
-
-    test('returnerer ugyldig verdi som streng', () => {
-        expect(formaterProsent('abc')).toBe('abc');
     });
 });

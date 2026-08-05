@@ -81,8 +81,8 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     onChange={(value) => settOgKalkulerBeregningsverdier(value)}
                 />
                 <ObligatoriskTjenestepensjon
-                    sats={avtale.gjeldendeInnhold.otpSats}
-                    onChange={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
+                    verdi={avtale.gjeldendeInnhold.otpSats}
+                    settVerdi={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                 />
                 <VerticalSpacer rem={1.5} />
 
