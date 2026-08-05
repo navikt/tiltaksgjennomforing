@@ -4,6 +4,7 @@ import {
     NORSK_MOBILNUMMER_REGEX,
     NORSK_TELEFONNUMMER_REGEX,
     parseNorskeTelefonnummer,
+    UTENLANDSK_TELEFONNUMMER_REGEX,
 } from './tlfUtils';
 
 describe('NORSK_TELEFONNUMMER_REGEX', () => {
@@ -29,6 +30,52 @@ describe('NORSK_TELEFONNUMMER_REGEX', () => {
 
     it('avviser for langt nummer', () => {
         expect(NORSK_TELEFONNUMMER_REGEX.test('212345678')).toBe(false);
+    });
+
+    it('avviser for langt nummer med +47-prefiks', () => {
+        expect(NORSK_TELEFONNUMMER_REGEX.test('+47412345678')).toBe(false);
+    });
+
+    it('avviser for langt nummer med 0047-prefiks', () => {
+        expect(NORSK_TELEFONNUMMER_REGEX.test('0047412345678')).toBe(false);
+    });
+});
+
+describe('UTENLANDSK_TELEFONNUMMER_REGEX', () => {
+    it('godtar spansk nummer med +34', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('+34636263227')).toBe(true);
+    });
+
+    it('godtar svensk nummer med +46', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('+4612345678')).toBe(true);
+    });
+
+    it('godtar britisk nummer med +44', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('+441234567890')).toBe(true);
+    });
+
+    it('godtar nummer med 00-prefiks og utenlandsk landkode', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('0034636263227')).toBe(true);
+    });
+
+    it('avviser norsk nummer med +47', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('+4741234567')).toBe(false);
+    });
+
+    it('avviser norsk nummer med 0047', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('004741234567')).toBe(false);
+    });
+
+    it('avviser ugyldig norsk nummer med +47 og for mange siffer', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('+47412345678')).toBe(false);
+    });
+
+    it('avviser ugyldig norsk nummer med 0047 og for mange siffer', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('0047412345678')).toBe(false);
+    });
+
+    it('avviser nummer uten landkodeprefiks', () => {
+        expect(UTENLANDSK_TELEFONNUMMER_REGEX.test('41234567')).toBe(false);
     });
 });
 
