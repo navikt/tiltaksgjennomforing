@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext, useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import { AvtaleContext } from '@/AvtaleProvider';
 import { TilskuddsperiodeContext } from '@/BeslutterSide/BeslutterSide';
 import { useHentEnhet } from '@/services/use-rest';
@@ -37,13 +37,14 @@ const TilskuddsperiodeEndreKostnadssted: FunctionComponent = () => {
     return (
         <div className={styles.inputRad}>
             <PakrevdInput
+                name="kostnadssted"
                 className={styles.kostnadssted}
                 size="medium"
                 label="Endre kostnadssted"
                 verdi={verdi}
                 maxLength={4}
                 htmlSize={3}
-                feilmelding={visEnhetFeil ? getFeilmelding(verdi, enhet) : undefined}
+                error={visEnhetFeil ? getFeilmelding(verdi, enhet) : undefined}
                 settVerdi={(nyVerdi) => {
                     setVerdi(nyVerdi);
                     setVisEnhetFeil(false);

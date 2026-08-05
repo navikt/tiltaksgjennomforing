@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import PakrevdInput from '@/komponenter/PakrevdInput/PakrevdInput';
+import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
@@ -23,11 +23,13 @@ const ArbeidsgiverinfoDel = () => {
             <Fieldset legend="" title="Kontaktperson for avtalen" className={cls.element('skjemagruppe')}>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
+                        name="arbeidsgiverFornavn"
                         label="Fornavn"
                         verdi={avtale.gjeldendeInnhold.arbeidsgiverFornavn}
                         settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverFornavn', verdi)}
                     />
                     <PakrevdInput
+                        name="arbeidsgiverEtternavn"
                         label="Etternavn"
                         verdi={avtale.gjeldendeInnhold.arbeidsgiverEtternavn}
                         settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverEtternavn', verdi)}
