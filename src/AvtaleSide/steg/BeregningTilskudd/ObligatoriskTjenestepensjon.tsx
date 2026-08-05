@@ -1,42 +1,32 @@
 import React from 'react';
-import ProsentInput from '@/komponenter/form/ProsentInput';
-import { formaterNorskeTall, parsProsentFraInput } from '@/utils';
-import { erNil } from '@/utils/predicates';
-import styles from './ObligatoriskTjenestepensjon.module.less';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { Alert, Heading } from '@navikt/ds-react';
 
-type ObligatoriskTjenestepensjonProps = {
-    sats?: number;
-    onChange: (sats?: number) => void;
-};
+import styles from './ObligatoriskTjenestepensjon.module.less';
+import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import classNames from 'classnames';
+import ProsentInput, { Props as ProsentInputProps } from '@/komponenter/form/ProsentInput';
+
+type Props = Omit<ProsentInputProps, 'label' | 'name' | 'description' | 'min' | 'maks' | 'desimaler' | 'prosentType'>;
 
 const OTP_TERSKEL = 0.25;
 
-const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = (
-    props: ObligatoriskTjenestepensjonProps,
-) => {
-    const { sats, onChange } = props;
-
-    const hoyOtp = (sats || 0) > OTP_TERSKEL;
+function ObligatoriskTjenestepensjon(props: Props) {
+    const { verdi, ...restProps } = props;
 
     return (
         <>
             <ProsentInput
-                className={styles.beregningInput}
-                name="tjenestepensjon"
+                {...props}
+                verdi={verdi}
+                className={classNames(styles.beregningInput, restProps.className)}
+                name="otpSats"
                 label="Obligatorisk tjenestepensjon (OTP)"
-                min={0}
-                max={30}
-                maxLength={4}
-                autoComplete="off"
                 description="OTP slik den fremgår i den ansattes pensjonsordning hos arbeidsgivers pensjonsleverandør"
-                value={!erNil(sats) ? formaterNorskeTall(sats * 100) : ''}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    onChange(parsProsentFraInput(event.target.value));
-                }}
+                min={0}
+                maks={30}
+                desimaler
             />
-            {hoyOtp && (
+            {(verdi ?? 0) > OTP_TERSKEL && (
                 <>
                     <VerticalSpacer rem={1} />
                     <Alert variant="warning" size="small">
@@ -47,5 +37,6 @@ const ObligatoriskTjenestepensjon: React.FC<ObligatoriskTjenestepensjonProps> = 
             )}
         </>
     );
-};
+}
+
 export default ObligatoriskTjenestepensjon;

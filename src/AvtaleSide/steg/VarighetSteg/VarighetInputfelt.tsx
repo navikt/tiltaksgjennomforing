@@ -1,12 +1,12 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import InfoBoks from '@/AvtaleSide/steg/VarighetSteg/InfoBoks/InfoBoks';
-import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput';
 import { HGrid } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import { formaterVarighet } from '@/utils/datoUtils';
 import React, { useContext } from 'react';
 import AntallDagerInput from '@/AvtaleSide/steg/VarighetSteg/AntallDagerInput';
 import { addDays } from 'date-fns';
+import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 
 interface Props {
     className: string;
