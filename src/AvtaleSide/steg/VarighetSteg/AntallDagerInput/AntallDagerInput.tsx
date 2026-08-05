@@ -1,4 +1,4 @@
-import TallInput, { Props as TallInputProps } from '@/komponenter/form/TallIInput';
+import TallInput, { Props as TallInputProps } from '@/komponenter/form/TallInput';
 
 type Props = Omit<TallInputProps, 'name' | 'min' | 'maks' | 'desimaler'>;
 
