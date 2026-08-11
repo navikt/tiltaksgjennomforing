@@ -209,7 +209,7 @@ export interface AvtaleMetadata {
     enhetsnavnGeografisk?: string;
     enhetOppfolging?: string;
     enhetsnavnOppfolging?: string;
-    innsatsgruppe: {
+    innsatsgruppe?: {
         type: Innsatsgruppe;
         erGyldigForTiltakstype: boolean;
     };

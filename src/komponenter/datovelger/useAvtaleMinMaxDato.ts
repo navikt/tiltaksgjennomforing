@@ -81,7 +81,7 @@ export const useAvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitat
         }
         case 'MIDLERTIDIG_LONNSTILSKUDD': {
             const maksDato =
-                !avtale.innsatsgruppe.type || avtale.innsatsgruppe.type === Innsatsgruppe.TRENGER_VEILEDNING ? 1 : 2;
+                !avtale.innsatsgruppe?.type || avtale.innsatsgruppe?.type === Innsatsgruppe.TRENGER_VEILEDNING ? 1 : 2;
             if (!startDatePicker && avtale.gjeldendeInnhold.startDato) {
                 return {
                     minDate: sjekkMuligMinDato(maksDato),

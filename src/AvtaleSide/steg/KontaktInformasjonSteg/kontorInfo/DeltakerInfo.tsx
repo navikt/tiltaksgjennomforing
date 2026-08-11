@@ -60,18 +60,18 @@ const DeltakerInfo = (props: Props) => {
                 <div className={cls.element('info-container')}>
                     <BodyShort size="small">Innsatsgruppe (§ 14 a)</BodyShort>
                     <BodyShort size="small" className={cls.element('info-verdi')}>
-                        {innsatsgruppeTekst[innsatsgruppe.type] ?? <em>Ikke oppgitt</em>}
+                        {(innsatsgruppe?.type && innsatsgruppeTekst[innsatsgruppe.type]) ?? <em>Ikke oppgitt</em>}
                     </BodyShort>
                 </div>
             </div>
-            {!avtale.avtaleInngått && !innsatsgruppe.erGyldigForTiltakstype && (
+            {!avtale.avtaleInngått && !innsatsgruppe?.erGyldigForTiltakstype && (
                 <Alert variant="warning">
                     <div style={{ marginBottom: '0.5rem' }}>
-                        {innsatsgruppeTekst[innsatsgruppe.type] ? (
+                        {innsatsgruppe?.type ? (
                             <>
                                 Kandidat er registrert med innsatsgruppe{' '}
-                                <em>{innsatsgruppeTekst[innsatsgruppe.type]}</em>. Denne gruppen kvalifiserer ikke til
-                                dette tiltaket.
+                                <em>{innsatsgruppeTekst[innsatsgruppe?.type] ?? 'ukjent'}</em>. Denne gruppen
+                                kvalifiserer ikke til dette tiltaket.
                                 <br />
                                 Sjekk at innsatsbehovet stemmer. Om dette er den korrekte innsatsgruppen, bør avtalen
                                 annulleres og arbeidsgiver varsles.
