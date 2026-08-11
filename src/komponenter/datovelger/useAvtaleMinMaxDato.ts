@@ -1,7 +1,7 @@
 import useInnlogget from '@/InnloggingBoundary/useInnlogget';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { datoFraDagensDato, datoMinus, datoPluss } from '@/utils/datoUtils';
 import { useAvtale } from '@/AvtaleProvider';
+import { Innsatsgruppe } from '@/types/innsatsgruppe';
 
 export declare type ISODateString = string;
 export interface DatepickerDateRange {
@@ -81,10 +81,7 @@ export const useAvtaleMinMaxDato = (startDatePicker: boolean): DatepickerLimitat
         }
         case 'MIDLERTIDIG_LONNSTILSKUDD': {
             const maksDato =
-                !avtale.kvalifiseringsgruppe ||
-                avtale.kvalifiseringsgruppe === Kvalifiseringsgruppe.SITUASJONSBESTEMT_INNSATS
-                    ? 1
-                    : 2;
+                !avtale.innsatsgruppe.type || avtale.innsatsgruppe.type === Innsatsgruppe.TRENGER_VEILEDNING ? 1 : 2;
             if (!startDatePicker && avtale.gjeldendeInnhold.startDato) {
                 return {
                     minDate: sjekkMuligMinDato(maksDato),

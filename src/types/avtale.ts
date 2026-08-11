@@ -1,9 +1,8 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
-import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
 import { Diskresjonskode } from '@/types/diskresjon';
 import { Nettressurs } from '@/types/nettressurs';
 import { Maalkategori } from './maalkategorier';
+import { Innsatsgruppe } from '@/types/innsatsgruppe';
 
 export type Avtale = Annullering &
     Readonly<AvtaleMetadata> &
@@ -210,8 +209,10 @@ export interface AvtaleMetadata {
     enhetsnavnGeografisk?: string;
     enhetOppfolging?: string;
     enhetsnavnOppfolging?: string;
-    kvalifiseringsgruppe: Kvalifiseringsgruppe;
-    formidlingsgruppe: Formidlingsgruppe;
+    innsatsgruppe: {
+        type: Innsatsgruppe;
+        erGyldigForTiltakstype: boolean;
+    };
     godkjentForEtterregistrering: boolean;
     opphav: Avtaleopphav;
     kommendeOppfolging?: KommendeOppfolging;
