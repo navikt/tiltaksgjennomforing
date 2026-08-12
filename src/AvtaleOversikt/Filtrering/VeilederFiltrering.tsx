@@ -4,14 +4,16 @@ import TiltakstypeFilter from '@/AvtaleOversikt/Filtrering/TiltakstypeFilter';
 import BEMHelper from '@/utils/bem';
 import React, { FunctionComponent } from 'react';
 import './Filtrering.less';
+import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
 
 const cls = BEMHelper('filtrering');
 
 const VeilederFiltrering: FunctionComponent = () => {
+    const { endreFilter, filtre } = useFilter();
     return (
         <div className={cls.className}>
             <DeltakerOgBedriftFilter />
-            <TiltakstypeFilter erBeslutter={false} />
+            <TiltakstypeFilter filtre={filtre} endreFilter={endreFilter} erBeslutter={false} />
             <StatusFilter />
         </div>
     );

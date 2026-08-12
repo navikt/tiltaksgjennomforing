@@ -3,9 +3,10 @@ import { Select, SelectProps } from '@navikt/ds-react';
 
 export interface OptionProps {
     disabled?: boolean;
-    label?: string;
+    label: string;
     selected?: boolean;
     value: string;
+    description?: string;
 }
 
 export interface SelectInputProps extends SelectProps {
@@ -18,7 +19,13 @@ const SelectInput: React.FunctionComponent<SelectInputProps> = (props: PropsWith
         <Select value={value ?? ''} {...other}>
             {options.map((attr: OptionProps, index: number) => (
                 <React.Fragment key={index}>
-                    <option key={attr.value ?? ''} {...attr}>
+                    <option
+                        key={attr.value ?? ''}
+                        value={attr.value}
+                        disabled={attr.disabled}
+                        selected={attr.selected}
+                        label={attr.label}
+                    >
                         {attr.label}
                     </option>
                 </React.Fragment>
