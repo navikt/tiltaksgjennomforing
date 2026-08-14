@@ -22,14 +22,16 @@ const parseFeilmelding = (avtale: Avtale, error: Error) => {
             return `Deltakers oppfølgingsenhet er endret til en enhet som ikke deltar på forsøket om fireårig lønnstilskudd.`;
         }
         case 'FANT_IKKE_INNSATSBEHOV':
-        case 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET':
-        case 'KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL':
-        case 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL':
-        case 'KVALIFISERINGSGRUPPE_VTAO_FEIL':
-        case 'KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL': {
+        case 'INNSATSGRUPPE_IKKE_RETTIGHET':
+        case 'INNSATSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL':
+        case 'INNSATSGRUPPE_VARIG_LONNTILSKUDD_FEIL':
+        case 'INNSATSGRUPPE_VTAO_FEIL':
+        case 'INNSATSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL': {
             return `Oppfølgingsbehovet til deltaker er endret og avviker fra det som er oppgitt i avtalen.
                     Deltaker kvalifiserer ikke lenger til ${tiltakstypeTekst[avtale.tiltakstype]}.`;
         }
+        case 'INNSATSGRUPPE_MANGLER':
+            return 'Innsatsgruppen på avtalen mangler og må oppdateres før tilskuddsperioden kan godkjennes.';
         case 'ENHET_ER_SLETTET':
             return `${avtale.gjeldendeInnhold.bedriftNavn} er ikke lenger aktiv.
                     Dette kan skyldes at virksomheten har lagt ned eller blitt omorganisert.`;
