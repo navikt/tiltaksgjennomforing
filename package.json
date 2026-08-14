@@ -16,7 +16,6 @@
         "prepare": "husky",
         "prettier": "prettier -c .",
         "prettier:fix": "prettier -w .",
-        "release": "node sentry.js",
         "start": "vite",
         "svgo": "sh ./svgo.sh",
         "test": "vitest --environment=jsdom --run",
@@ -54,8 +53,6 @@
         "zod": "^3.25.76"
     },
     "devDependencies": {
-        "@sentry/cli": "^2.58.5",
-        "@sentry/react": "^9.47.1",
         "@storybook/addon-essentials": "8.6.18",
         "@storybook/blocks": "8.6.18",
         "@storybook/react": "8.6.18",

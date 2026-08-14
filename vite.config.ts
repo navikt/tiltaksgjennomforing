@@ -2,20 +2,13 @@ import path from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import { defineConfig } from 'vite';
-import { execSync } from 'node:child_process';
 
 import middlewarePlugin from './vite.middleware';
-
-const GIT_COMMIT_HASH = execSync("git log -n 1 --pretty=format:'%h'").toString();
 
 export default defineConfig({
     base: '/tiltaksgjennomforing',
     build: {
-        sourcemap: true,
         outDir: 'dist/client',
-    },
-    define: {
-        GIT_COMMIT_HASH: JSON.stringify(GIT_COMMIT_HASH),
     },
     resolve: {
         alias: {
