@@ -1,45 +1,50 @@
 import { Filter } from '@/AvtaleOversikt/Filtrering/Filter';
-import { useFilter } from '@/AvtaleOversikt/Filtrering/useFilter';
+import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { OptionProps } from '@/komponenter/form/SelectInput';
 import { TiltaksType } from '@/types/avtale';
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
-export type FiltreringMedBeslutterProps = { erBeslutter: boolean };
-const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = (props) => {
-    const { endreFilter, filtre } = useFilter();
+const alleTiltakstyperBeslutter: OptionProps[] = [
+    { value: '', label: 'Alle' },
+    { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
+    { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
+    { value: 'SOMMERJOBB', label: 'Sommerjobb' },
+    { value: 'MENTOR', label: 'Mentor' },
+    { value: 'VTAO', label: 'VTA-O', description: 'Varig tilrettelagt arbeid i ordinær virksomhet' },
+    { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' },
+].toSorted((a, b) => a.label.localeCompare(b.label, 'nb'));
 
-    const alleTiltakstyperBeslutter: OptionProps[] = [
-        { value: '', label: 'Alle' },
-        { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
-        { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
-        { value: 'SOMMERJOBB', label: 'Sommerjobb' },
-        { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
-        { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' },
-    ];
+const alleTiltakstyper: OptionProps[] = [
+    { value: '', label: 'Alle' },
+    { value: 'ARBEIDSTRENING', label: 'Arbeidstrening' },
+    { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
+    { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
+    { value: 'SOMMERJOBB', label: 'Sommerjobb' },
+    { value: 'MENTOR', label: 'Mentor' },
+    { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
+    { value: 'VTAO', label: 'VTA-O', description: 'Varig tilrettelagt arbeid i ordinær virksomhet' },
+    { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' },
+].toSorted((a, b) => a.label.localeCompare(b.label, 'nb'));
 
-    const alleTiltakstyper: OptionProps[] = [
-        { value: '', label: 'Alle' },
-        { value: 'ARBEIDSTRENING', label: 'Arbeidstrening' },
-        { value: 'MIDLERTIDIG_LONNSTILSKUDD', label: 'Midlertidig lønnstilskudd' },
-        { value: 'VARIG_LONNSTILSKUDD', label: 'Varig lønnstilskudd' },
-        { value: 'SOMMERJOBB', label: 'Sommerjobb' },
-        { value: 'MENTOR', label: 'Mentor' },
-        { value: 'INKLUDERINGSTILSKUDD', label: 'Inkluderingstilskudd' },
-        { value: 'VTAO', label: 'Varig tilrettelagt arbeid i ordinær virksomhet (VTA-O)' },
-        { value: 'FIREARIG_LONNSTILSKUDD', label: 'Fireårig lønnstilskudd for unge' },
-    ];
+export type FiltreringMedBeslutterProps = {
+    filtre: Filtrering;
+    endreFilter: (filtrering: Filtrering) => void;
+    erBeslutter: boolean;
+};
 
-    const tiltakstyper = props.erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
+const TiltakstypeFilter: FunctionComponent<FiltreringMedBeslutterProps> = ({ filtre, endreFilter, erBeslutter }) => {
+    const tiltakstyper = erBeslutter ? alleTiltakstyperBeslutter : alleTiltakstyper;
 
     return (
         <Filter tittel="Tiltakstype">
             <RadioGroup legend="" size="small" value={filtre.tiltakstype || ''}>
-                {tiltakstyper.map((tiltakstype: OptionProps, index: number) => (
+                {tiltakstyper.map((tiltakstype: OptionProps) => (
                     <Radio
-                        key={index}
+                        key={tiltakstype.value}
                         name={'tiltakstype'}
                         value={tiltakstype.value}
+                        description={tiltakstype.description}
                         onChange={(event) => {
                             const nyTiltakstype = event.currentTarget.value as TiltaksType;
                             endreFilter({ tiltakstype: nyTiltakstype });

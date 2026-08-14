@@ -3,16 +3,18 @@ import TilskuddPeriodeStatusFilter from '@/AvtaleOversikt/Filtrering/TilskuddPer
 import BEMHelper from '@/utils/bem';
 import { FunctionComponent } from 'react';
 import { DeltakerOgBedriftFilterGammel } from './GammelFiltrering/DeltakerOgBedriftFilterGammel';
-import TiltakstypeFilterGammel from './GammelFiltrering/TiltakstypeFilterGammel';
+import { useFilterGammel } from '@/AvtaleOversikt/Filtrering/GammelFiltrering/useFilterGammel';
+import TiltakstypeFilter from '@/AvtaleOversikt/Filtrering/TiltakstypeFilter';
 
 const cls = BEMHelper('filtrering');
 const BeslutterFiltrering: FunctionComponent = () => {
+    const { endreFilter, filtre } = useFilterGammel();
     return (
         <div className={cls.className}>
             <EtterRegistrering />
             <DeltakerOgBedriftFilterGammel />
             <TilskuddPeriodeStatusFilter />
-            <TiltakstypeFilterGammel erBeslutter={true} />
+            <TiltakstypeFilter filtre={filtre} endreFilter={endreFilter} erBeslutter={true} />
         </div>
     );
 };
