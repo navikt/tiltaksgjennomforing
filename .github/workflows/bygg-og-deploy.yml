@@ -57,11 +57,6 @@ jobs:
       - name: Kopier node-modules til server
         run: pnpm run dist
         working-directory: ./server
-      - name: Sentry release
-        run: pnpm run release
-      - name: Fjerne source maps
-        run: |
-          rm dist/client/assets/*.map
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0
         id: docker-build-push

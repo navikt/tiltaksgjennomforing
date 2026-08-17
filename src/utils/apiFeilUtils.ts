@@ -7,8 +7,6 @@ import {
     UfullstendigError,
 } from '@/types/errors';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
-import * as Sentry from '@sentry/react';
-
 export const handterFeil = (
     error: Error,
     visFeilmelding: (feilmelding: string) => void,
@@ -20,7 +18,6 @@ export const handterFeil = (
             const feilmeldingTekst = Feilmeldinger[(error?.message as Feilkode) ?? 'UKJENT_FEIL'];
             if (!feilmeldingTekst) {
                 visFeilmelding('Det har skjedd en feil: ' + error.message);
-                Sentry.captureEvent({ message: 'Feilmelding er ikke mappet: ' + error.message });
                 break;
             }
             visFeilmelding(feilmeldingTekst);
