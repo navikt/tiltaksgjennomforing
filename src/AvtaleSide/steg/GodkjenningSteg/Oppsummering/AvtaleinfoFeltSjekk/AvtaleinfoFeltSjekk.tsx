@@ -37,10 +37,8 @@ export const AvtaleinfoFeltSjekk: FunctionComponent<Props> = (props) => {
                 <Heading level="3" size="small">
                     {props.navnFelter.map((felt) => felt.verdi).join(' ')}
                 </Heading>
-                {props.tilleggFelter.map((felt, index) => (
-                    <React.Fragment key={index}>
-                        <VirksomhetsnummerEllerTelefon felt={felt.felt} verdi={felt.verdi} />
-                    </React.Fragment>
+                {props.tilleggFelter.map((felt) => (
+                    <VirksomhetsnummerEllerTelefon key={felt.felt} felt={felt.felt} verdi={felt.verdi} />
                 ))}
             </>
         );
