@@ -5,6 +5,25 @@ const tilDato = (dag: number, måned: number, år: number, timer: number = 0, mi
 
 const nyheter = [
     {
+        dato: tilDato(19, 8, 2026),
+        tittel: 'Integrasjon mot ny løsning for oppfølgingsvedtak § 14 a',
+        innhold: (
+            <>
+                <p>
+                    Kvalifiseringsgruppe i avtalene har blitt erstattet med innsatsgruppe fra oppfølgingsvedtak § 14 a.
+                </p>
+                <p>De nye innsatsgruppene er:</p>
+                <ul>
+                    <li>Gode muligheter (standardinnsats)</li>
+                    <li>Trenger veiledning (situasjonsbestemt innsats)</li>
+                    <li>Trenger veiledning, nedsatt arbeidsevne (spesielt tilpasset innsats)</li>
+                    <li>Jobbe delvis (delvis, varig tilpasset innsats)</li>
+                    <li>Liten mulighet til å jobbe (varig tilpasset innsats)</li>
+                </ul>
+            </>
+        ),
+    },
+    {
         dato: tilDato(3, 6, 2025),
         tittel: 'Endre Tilskuddsprosent - Varig lønnstilskudd',
         innhold: (
