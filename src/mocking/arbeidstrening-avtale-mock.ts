@@ -1,6 +1,5 @@
-import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Returårsaker, Avtale, Maal, TilskuddsPeriode } from '@/types/avtale';
+import { Avtale, Maal, Returårsaker, TilskuddsPeriode } from '@/types/avtale';
+import { Innsatsgruppe } from '@/types/innsatsgruppe';
 
 const maalListe: Maal[] = [
     {
@@ -95,8 +94,10 @@ const arbeidstreningAvtaleMock: Avtale = {
     enhetKostnadssted: undefined,
     enhetsnavnKostnadssted: undefined,
 
-    kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
-    formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
+    innsatsgruppe: {
+        type: Innsatsgruppe.GODE_MULIGHETER,
+        erGyldigForTiltakstype: true,
+    },
 
     godkjentForEtterregistrering: false,
     erAvtaleInngått: false,

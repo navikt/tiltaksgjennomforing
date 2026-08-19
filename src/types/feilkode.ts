@@ -90,11 +90,12 @@ export type Feilkode =
     | 'KONTOREGISTER_FEIL'
     | 'KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET'
     | 'KREVER_OPPFØLGING_AV_VTAO'
-    | 'KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL'
-    | 'KVALIFISERINGSGRUPPE_IKKE_RETTIGHET'
-    | 'KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL'
-    | 'KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
-    | 'KVALIFISERINGSGRUPPE_VTAO_FEIL'
+    | 'INNSATSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL'
+    | 'INNSATSGRUPPE_IKKE_RETTIGHET'
+    | 'INNSATSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL'
+    | 'INNSATSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
+    | 'INNSATSGRUPPE_VTAO_FEIL'
+    | 'INNSATSGRUPPE_MANGLER'
     | 'LONNSTILSKUDD_PROSENT_ER_UGYLDIG'
     | 'MANGLER_BEREGNING'
     | 'MANGLER_BESLUTTERTILGANG'
@@ -252,16 +253,17 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     KONTOREGISTER_FEIL_BEDRIFT_IKKE_FUNNET: 'Finner ikke bedrift hos kontonummerregister',
     KREVER_OPPFØLGING_AV_VTAO:
         'Tilskuddsperioden krever oppfølging. Startdatoen er etter fristen for oppfølging av VTAO-avtalen.',
-    KVALIFISERINGSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL:
+    INNSATSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
-    KVALIFISERINGSGRUPPE_IKKE_RETTIGHET:
-        'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale. Ved endringer i kvalifiseringsgruppe kan det ta opptil 5 min før det er oppdatert.',
-    KVALIFISERINGSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL:
+    INNSATSGRUPPE_IKKE_RETTIGHET:
+        'Deltakeren er registrert med en innsatsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer, gi beskjed til arbeidsgiver og annuller avtalen. Ved endringer i innsatsgruppe kan det ta opptil 5 min før det er oppdatert.',
+    INNSATSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
-    KVALIFISERINGSGRUPPE_VARIG_LONNTILSKUDD_FEIL:
+    INNSATSGRUPPE_VARIG_LONNTILSKUDD_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
-    KVALIFISERINGSGRUPPE_VTAO_FEIL:
+    INNSATSGRUPPE_VTAO_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
+    INNSATSGRUPPE_MANGLER: 'Innsatsgruppen på avtalen mangler og må oppdateres',
     LONNSTILSKUDD_PROSENT_ER_UGYLDIG: 'Ugyldig lønnstilskudd prosent',
     MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
     MANGLER_BESLUTTERTILGANG:

@@ -1,6 +1,5 @@
-import { Formidlingsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
-import { Kvalifiseringsgruppe } from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { Avtale, Avtaleopphav } from '@/types/avtale';
+import { Avtale } from '@/types/avtale';
+import { Innsatsgruppe } from '@/types/innsatsgruppe';
 
 const lonnstilskuddAvtaleMock: Avtale = {
     id: '1',
@@ -12,8 +11,10 @@ const lonnstilskuddAvtaleMock: Avtale = {
     godkjentAvVeileder: '',
     godkjentPaVegneAv: false,
 
-    kvalifiseringsgruppe: Kvalifiseringsgruppe.SPESIELT_TILPASSET_INNSATS,
-    formidlingsgruppe: Formidlingsgruppe.ARBEIDSSOKER,
+    innsatsgruppe: {
+        type: Innsatsgruppe.GODE_MULIGHETER,
+        erGyldigForTiltakstype: true,
+    },
 
     godkjentPaVegneGrunn: {
         ikkeBankId: false,

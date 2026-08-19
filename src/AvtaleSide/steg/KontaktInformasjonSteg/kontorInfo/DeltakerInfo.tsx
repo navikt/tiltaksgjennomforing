@@ -1,15 +1,11 @@
 import React from 'react';
-import { BodyShort, Heading } from '@navikt/ds-react';
+import { Alert, BodyShort, Heading } from '@navikt/ds-react';
 import './deltakerInfo.less';
 import BEMHelper from '@/utils/bem';
 import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import { useAvtale } from '@/AvtaleProvider';
-import {
-    hentKvalifiseringsgruppeTekst,
-    SjekkKvalifiseringsgruppeOppMotTiltakstype,
-} from '@/AvtaleSide/steg/BeregningTilskudd/Kvalifiseringsgruppe';
-import { hentFormidlingsgruppeTekst } from '@/AvtaleSide/steg/BeregningTilskudd/Formidlingsgruppe';
+import { innsatsgruppeTekst } from '@/types/innsatsgruppe';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 
 interface Props {
@@ -25,7 +21,7 @@ const DeltakerInfo = (props: Props) => {
         return null;
     }
 
-    const { tiltakstype, kvalifiseringsgruppe, formidlingsgruppe } = avtale;
+    const { innsatsgruppe } = avtale;
     const cls = BEMHelper('deltakerinfo');
     const ikon = () => (oppsummeringside ? <NavIkon className="kontorinfo__ikon" width={28} height={28} /> : null);
 
@@ -62,27 +58,29 @@ const DeltakerInfo = (props: Props) => {
 
             <div className={cls.element('info-rad')}>
                 <div className={cls.element('info-container')}>
-                    <BodyShort size="small">Kvalifisering/servicegruppe</BodyShort>
+                    <BodyShort size="small">Innsatsgruppe (§ 14 a)</BodyShort>
                     <BodyShort size="small" className={cls.element('info-verdi')}>
-                        {kvalifiseringsgruppe ? (
-                            hentKvalifiseringsgruppeTekst(kvalifiseringsgruppe)
-                        ) : (
-                            <em>Ikke oppgitt</em>
-                        )}
-                    </BodyShort>
-                </div>
-                <div className={cls.element('info-container')}>
-                    <BodyShort size="small">Formidlingsgruppe</BodyShort>
-                    <BodyShort size="small" className={cls.element('info-verdi')}>
-                        {formidlingsgruppe ? hentFormidlingsgruppeTekst(formidlingsgruppe) : <em>Ikke oppgitt</em>}
+                        {(innsatsgruppe?.type && innsatsgruppeTekst[innsatsgruppe.type]) ?? <em>Ikke oppgitt</em>}
                     </BodyShort>
                 </div>
             </div>
-            {!avtale.avtaleInngått && (
-                <SjekkKvalifiseringsgruppeOppMotTiltakstype
-                    tiltakstype={tiltakstype}
-                    kvalifiseringsgruppe={kvalifiseringsgruppe}
-                />
+            {!avtale.avtaleInngått && !innsatsgruppe?.erGyldigForTiltakstype && (
+                <Alert variant="warning">
+                    <div style={{ marginBottom: '0.5rem' }}>
+                        {innsatsgruppe?.type ? (
+                            <>
+                                Kandidat er registrert med innsatsgruppe{' '}
+                                <em>{innsatsgruppeTekst[innsatsgruppe?.type] ?? 'ukjent'}</em>. Denne gruppen
+                                kvalifiserer ikke til dette tiltaket.
+                                <br />
+                                Sjekk at innsatsbehovet stemmer. Om dette er den korrekte innsatsgruppen, bør avtalen
+                                annulleres og arbeidsgiver varsles.
+                            </>
+                        ) : (
+                            <>Det er ikke registrert noen innsatsgruppe (§ 14 a) på kandidaten.</>
+                        )}
+                    </div>
+                </Alert>
             )}
         </div>
     );
