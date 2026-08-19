@@ -256,7 +256,7 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     INNSATSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     INNSATSGRUPPE_IKKE_RETTIGHET:
-        'Deltakeren er registrert med en kvalifiseringsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer så gi beskjed til arbeidsgiver og annuller avtale. Ved endringer i kvalifiseringsgruppe kan det ta opptil 5 min før det er oppdatert.',
+        'Deltakeren er registrert med en innsatsgruppe som ikke kvalifiserer til dette tiltaket. Sjekk at innsatsbehovet stemmer. Hvis det stemmer, gi beskjed til arbeidsgiver og annuller avtalen. Ved endringer i innsatsgruppe kan det ta opptil 5 min før det er oppdatert.',
     INNSATSGRUPPE_MIDLERTIDIG_LONNTILSKUDD_OG_SOMMERJOBB_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     INNSATSGRUPPE_VARIG_LONNTILSKUDD_FEIL:
