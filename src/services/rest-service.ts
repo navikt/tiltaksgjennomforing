@@ -526,6 +526,15 @@ export const oppdaterOppfølgingsEnhet = async (avtale: Avtale): Promise<Avtale>
     return response.data;
 };
 
+export const oppdaterInnsatsgruppe = async (avtale: Avtale): Promise<Avtale> => {
+    const response = await api.post(`/avtaler/${avtale.id}/oppdater-innsatsgruppe`, null, {
+        headers: {
+            'If-Unmodified-Since': avtale.sistEndret,
+        },
+    });
+    return response.data;
+};
+
 export const forlengAvtale = async (avtale: Avtale, sluttDato: string) => {
     await api.post(
         `/avtaler/${avtale.id}/forleng`,
