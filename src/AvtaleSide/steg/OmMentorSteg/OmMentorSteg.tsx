@@ -28,13 +28,15 @@ const OmMentorSteg = () => {
                 </div>
                 <div className={cls.element('rad')}>
                     <PakrevdInput
-                        name="mentorFornavn"label="Fornavn"
+                        name="mentorFornavn"
+                        label="Fornavn"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
                     />
                     <HorizontalSpacer rem={1} />
                     <PakrevdInput
-                        name="mentorEtternavn"label="Etternavn"
+                        name="mentorEtternavn"
+                        label="Etternavn"
                         verdi={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
                         settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorEtternavn', verdi)}
                     />
