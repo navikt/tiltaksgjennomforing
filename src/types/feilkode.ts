@@ -96,6 +96,8 @@ export type Feilkode =
     | 'INNSATSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
     | 'INNSATSGRUPPE_VTAO_FEIL'
     | 'INNSATSGRUPPE_MANGLER'
+    | 'INNSATSGRUPPE_ER_ALLEREDE_SATT'
+    | 'INNSATSGRUPPE_IKKE_LIK_KVALIFISERINGSGRUPPE'
     | 'LONNSTILSKUDD_PROSENT_ER_UGYLDIG'
     | 'MANGLER_BEREGNING'
     | 'MANGLER_BESLUTTERTILGANG'
@@ -264,6 +266,9 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     INNSATSGRUPPE_VTAO_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     INNSATSGRUPPE_MANGLER: 'Innsatsgruppen på avtalen mangler og må oppdateres',
+    INNSATSGRUPPE_ER_ALLEREDE_SATT: 'Innsatsgruppen på avtalen er allerede satt og kan ikke endres',
+    INNSATSGRUPPE_IKKE_LIK_KVALIFISERINGSGRUPPE:
+        'Innsatsgruppen på avtalen samsvarer ikke med innsatsbehovet ved avtaleinngåelse',
     LONNSTILSKUDD_PROSENT_ER_UGYLDIG: 'Ugyldig lønnstilskudd prosent',
     MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
     MANGLER_BESLUTTERTILGANG:
