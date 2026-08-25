@@ -19,7 +19,7 @@ export type PageType =
     | 'avtale-steg'
     | 'avtale-beslutter'
     | 'avtale-beslutter-tilskuddsperiode'
-    | 'ikke-funnet';
+    | 'ukjent-side';
 
 const routePatterns: Array<{ path: string; pageType: PageType }> = [
     { path: Path.OVERSIKT, pageType: 'oversikt' },
@@ -35,7 +35,7 @@ const routePatterns: Array<{ path: string; pageType: PageType }> = [
 export function getPageType(pathname: string): PageType {
     const path = pathname.replace(basename, '') || '/';
     const match = routePatterns.find(({ path: pattern }) => matchPath({ path: pattern, end: true }, path));
-    return match?.pageType ?? 'ikke-funnet';
+    return match?.pageType ?? 'ukjent-side';
 }
 
 export function getWebsiteId(hostname: string): string | undefined {

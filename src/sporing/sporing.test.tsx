@@ -32,7 +32,7 @@ test('maps routes to page type', () => {
     expect(getPageType('/tiltaksgjennomforing/')).toBe('oversikt');
     expect(getPageType('/tiltaksgjennomforing/informasjonsside')).toBe('informasjonsside');
     expect(getPageType('/tiltaksgjennomforing/avtale/123/kontaktinformasjon')).toBe('avtale-steg');
-    expect(getPageType('/tiltaksgjennomforing/hva-er-dette')).toBe('ikke-funnet');
+    expect(getPageType('/tiltaksgjennomforing/hva-er-dette')).toBe('ukjent-side');
 });
 
 test('uses correct script source per environment', () => {
