@@ -1,13 +1,12 @@
 import { DatePicker, Fieldset, useDatepicker } from '@navikt/ds-react';
-import { formaterDato, formaterDatoHvisDefinert } from '@/utils/datoUtils';
-import { ISODateString } from './useAvtaleMinMaxDato';
-import { addDays, format } from 'date-fns';
+import { datoVedMidnatt, formaterDato } from '@/utils/datoUtils';
+import { addDays } from 'date-fns';
 
 interface Props {
     legend?: string;
     onChangeHåndtereNyDato: (dato?: string) => Promise<void> | void;
-    minDate: ISODateString;
-    maxDate?: ISODateString;
+    minDate?: Date;
+    maxDate?: Date;
     error?: string;
     value?: string;
 }
@@ -16,8 +15,8 @@ const DatovelgerForlengOgForkort = (props: Props) => {
     const { legend, onChangeHåndtereNyDato, minDate, maxDate, error, value } = props;
 
     const { datepickerProps, inputProps } = useDatepicker({
-        fromDate: new Date(minDate || ''),
-        toDate: new Date(maxDate || ''),
+        fromDate: datoVedMidnatt(minDate),
+        toDate: datoVedMidnatt(maxDate),
         inputFormat: 'dd.MM.yyyy',
         allowTwoDigitYear: false,
         defaultSelected: value ? new Date(value) : undefined,

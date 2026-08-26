@@ -101,7 +101,7 @@ const ForlengAvtale = () => {
                                 value={sluttDato}
                                 legend="Velg ny sluttdato for avtalen"
                                 onChangeHåndtereNyDato={onDatoChange}
-                                minDate={formaterDato(addDays(naavaerendeSluttDato, 1).toISOString(), 'yyyy-MM-dd')}
+                                minDate={addDays(naavaerendeSluttDato, 1)}
                             />
                             {feil && (
                                 <>

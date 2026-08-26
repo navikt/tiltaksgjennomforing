@@ -164,8 +164,8 @@ const ForkortAvtale: FunctionComponent = () => {
                                     onChange(dato);
                                     onBlur();
                                 }}
-                                minDate={formaterDato(minDate, 'yyyy-MM-dd')}
-                                maxDate={formaterDato(maxDate, 'yyyy-MM-dd')}
+                                minDate={minDate}
+                                maxDate={maxDate}
                                 error={formState.errors.sluttDato?.message}
                             />
                         )}
