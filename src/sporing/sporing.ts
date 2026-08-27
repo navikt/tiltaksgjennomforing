@@ -6,9 +6,8 @@ export const SPORING_ORIGIN = 'Tiltaksgjennomforing';
 export const SPORING_SCRIPT_ID = 'reops-sporing-script';
 export const SPORING_SCRIPT_SRC_PROD = 'https://cdn.nav.no/team-researchops/sporing/sporing.js';
 export const SPORING_SCRIPT_SRC_DEV = 'https://cdn.nav.no/team-researchops/sporing/sporing-dev.js';
-export const SPORING_WEBSITE_ID_PROD = 'bcc79a56-3b7a-4605-8a1e-11f88fadfe55';
-export const SPORING_WEBSITE_ID_DEV = 'c76ee4a2-0f48-4123-8bca-858841998da3';
-export const SPORING_DISABLED_KEY = 'sporing.disabled';
+export const SPORING_ID_PROD = 'bcc79a56-3b7a-4605-8a1e-11f88fadfe55';
+export const SPORING_ID_DEV = 'c76ee4a2-0f48-4123-8bca-858841998da3';
 
 export type PageType =
     | 'oversikt'
@@ -21,96 +20,61 @@ export type PageType =
     | 'avtale-beslutter-tilskuddsperiode'
     | 'ukjent-side';
 
-const routePatterns: Array<{ path: string; pageType: PageType }> = [
-    { path: Path.OVERSIKT, pageType: 'oversikt' },
-    { path: Path.INFORMASJONSSIDE, pageType: 'informasjonsside' },
-    { path: Path.OPPRETT_AVTALE, pageType: 'opprett-avtale-veileder' },
-    { path: Path.OPPRETT_AVTALE_ARBEIDSGIVER, pageType: 'opprett-avtale-arbeidsgiver' },
-    { path: Path.AVTALE_BESLUTTER_TILSKUDDSPERIODE, pageType: 'avtale-beslutter-tilskuddsperiode' },
-    { path: Path.AVTALE_BESLUTTER, pageType: 'avtale-beslutter' },
-    { path: Path.AVTALE_STEG, pageType: 'avtale-steg' },
-    { path: Path.AVTALE, pageType: 'avtale' },
+const sider: Array<{ path: string; sideType: PageType }> = [
+    { path: Path.OVERSIKT, sideType: 'oversikt' },
+    { path: Path.INFORMASJONSSIDE, sideType: 'informasjonsside' },
+    { path: Path.OPPRETT_AVTALE, sideType: 'opprett-avtale-veileder' },
+    { path: Path.OPPRETT_AVTALE_ARBEIDSGIVER, sideType: 'opprett-avtale-arbeidsgiver' },
+    { path: Path.AVTALE_BESLUTTER_TILSKUDDSPERIODE, sideType: 'avtale-beslutter-tilskuddsperiode' },
+    { path: Path.AVTALE_BESLUTTER, sideType: 'avtale-beslutter' },
+    { path: Path.AVTALE_STEG, sideType: 'avtale-steg' },
+    { path: Path.AVTALE, sideType: 'avtale' },
 ];
 
-export function getPageType(pathname: string): PageType {
-    const path = pathname.replace(basename, '') || '/';
-    const match = routePatterns.find(({ path: pattern }) => matchPath({ path: pattern, end: true }, path));
-    return match?.pageType ?? 'ukjent-side';
+export function hentSidetype(stiNavn: string): PageType {
+    const sti = stiNavn.replace(basename, '') || '/';
+    const treff = sider.find(({ path }) => matchPath({ path: path, end: true }, sti));
+    return treff?.sideType ?? 'ukjent-side';
 }
 
-export function getWebsiteId(hostname: string): string | undefined {
-    return isDevelopmentHostname(hostname) ? SPORING_WEBSITE_ID_DEV : SPORING_WEBSITE_ID_PROD;
+export function hentSporingsID(vertnavn: string): string | undefined {
+    return erDevMiljo(vertnavn) ? SPORING_ID_DEV : SPORING_ID_PROD;
 }
 
-export function getSporingScriptSrc(hostname: string): string {
-    return isDevelopmentHostname(hostname) ? SPORING_SCRIPT_SRC_DEV : SPORING_SCRIPT_SRC_PROD;
+export function hentSporingsSkriptUrl(vertnavn: string): string {
+    return erDevMiljo(vertnavn) ? SPORING_SCRIPT_SRC_DEV : SPORING_SCRIPT_SRC_PROD;
 }
 
 type BeforeSendAnalytics = (type: string, payload: Record<string, unknown>) => Record<string, unknown>;
 
-export function createBeforeSendAnalytics(): BeforeSendAnalytics {
+export function preInnsending(): BeforeSendAnalytics {
     return (_type, payload) => {
-        const nextPayload = { ...payload };
+        const nestePayload = { ...payload };
 
-        if (typeof nextPayload.url === 'string') {
-            nextPayload.url = redactTrackingValue(nextPayload.url);
+        if (typeof nestePayload.url === 'string') {
+            nestePayload.url = maskerSporingsVerdi(nestePayload.url);
         }
 
-        if (typeof nextPayload.referrer === 'string') {
-            nextPayload.referrer = redactTrackingValue(nextPayload.referrer);
+        if (typeof nestePayload.referrer === 'string') {
+            nestePayload.referrer = maskerSporingsVerdi(nestePayload.referrer);
         }
 
-        const pageType = getPageType(window.location.pathname);
-        nextPayload.name = pageType;
-        nextPayload.tag = SPORING_ORIGIN;
-        nextPayload.origin = SPORING_ORIGIN;
-        nextPayload.pageType = pageType;
+        const sidetype = hentSidetype(window.location.pathname);
+        nestePayload.name = sidetype;
+        nestePayload.tag = SPORING_ORIGIN;
+        nestePayload.origin = SPORING_ORIGIN;
+        nestePayload.pageType = sidetype;
 
-        return nextPayload;
+        return nestePayload;
     };
 }
 
-export function redactTrackingValue(value: string): string {
-    const maskedNavIdent = value.replace(/[A-Za-z]\d{6}/g, '*******');
-    return maskedNavIdent.replace(/\b\d{11}\b/g, '***********');
+export function maskerSporingsVerdi(verdi: string): string {
+    const maskertNavIdent = verdi.replace(/[A-Za-z]\d{6}/g, '*******');
+    return maskertNavIdent.replace(/\b\d{11}\b/g, '***********');
 }
 
-export function awaitDecoratorData(timeoutMs = 5000): Promise<void> {
-    return new Promise((resolve, reject) => {
-        let settled = false;
-        let retryTimeoutId: number | undefined;
-
-        const timeout = window.setTimeout(() => {
-            settled = true;
-            if (retryTimeoutId !== undefined) {
-                window.clearTimeout(retryTimeoutId);
-            }
-            reject(new Error(`Timed out after ${timeoutMs}ms waiting for decorator data.`));
-        }, timeoutMs);
-
-        const checkForDecoratorData = () => {
-            if (settled) {
-                return;
-            }
-
-            if (window.__DECORATOR_DATA__ && window.webStorageController) {
-                settled = true;
-                window.clearTimeout(timeout);
-                if (retryTimeoutId !== undefined) {
-                    window.clearTimeout(retryTimeoutId);
-                }
-                resolve();
-                return;
-            }
-
-            retryTimeoutId = window.setTimeout(checkForDecoratorData, 50);
-        };
-
-        checkForDecoratorData();
-    });
-}
-
-export function getCurrentConsent() {
+export function hentGjeldendeSamtykke() {
     return (
         window.webStorageController?.getCurrentConsent() ?? {
             consent: { analytics: false, surveys: false },
@@ -118,23 +82,27 @@ export function getCurrentConsent() {
     );
 }
 
-export function setSporingDisabled(disabled: boolean): void {
+export function deaktiverSporing(): void {
     try {
-        if (disabled) {
-            window.localStorage.setItem(SPORING_DISABLED_KEY, '1');
-        } else {
-            window.localStorage.removeItem(SPORING_DISABLED_KEY);
-        }
+        window.localStorage.setItem('sporing.disabled', '1');
     } catch {
-        // Ignore storage access errors (e.g. blocked storage)
+        // setItem kan kaste feil hvis lagring er fult eller blokkert av strengere cookie settings
     }
 }
 
-function isDevelopmentHostname(hostname: string): boolean {
+export function aktiverSporing(): void {
+    window.localStorage.removeItem('sporing.disabled');
+}
+
+export function erSporingDeaktivert(): boolean {
+    return window.localStorage.getItem('sporing.disabled') === '1';
+}
+
+function erDevMiljo(vertsnavn: string): boolean {
     return (
-        hostname === 'localhost' ||
-        hostname === '127.0.0.1' ||
-        hostname.includes('.dev.nav.no') ||
-        hostname.includes('.dev.intern.nav.no')
+        vertsnavn === 'localhost' ||
+        vertsnavn === '127.0.0.1' ||
+        vertsnavn.includes('.dev.nav.no') ||
+        vertsnavn.includes('.dev.intern.nav.no')
     );
 }

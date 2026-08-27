@@ -1,84 +1,91 @@
-import { useEffect, useMemo, useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { awaitDecoratorData } from '@navikt/nav-dekoratoren-moduler';
 import {
-    awaitDecoratorData,
-    createBeforeSendAnalytics,
-    getCurrentConsent,
-    getSporingScriptSrc,
-    getWebsiteId,
-    setSporingDisabled,
+    preInnsending,
+    hentGjeldendeSamtykke,
+    hentSporingsSkriptUrl,
+    hentSporingsID,
     SPORING_SCRIPT_ID,
     SPORING_ORIGIN,
+    deaktiverSporing,
+    aktiverSporing,
 } from './sporing';
 
 function InnblikkSporing() {
-    const hostname = window.location.hostname;
-    const websiteId = useMemo(() => getWebsiteId(hostname), [hostname]);
-    const scriptSrc = useMemo(() => getSporingScriptSrc(hostname), [hostname]);
-    const [hasGivenConsent, setHasGivenConsent] = useState(false);
+    const [harGittSamtykke, setHarGittSamtykke] = useState(false);
 
     useEffect(() => {
-        let active = true;
+        let aktiv = true;
 
-        const syncConsent = () => {
-            setHasGivenConsent(getCurrentConsent().consent.analytics);
+        const synkroniserSamtykke = () => {
+            setHarGittSamtykke(hentGjeldendeSamtykke().consent.analytics);
         };
 
         void (async () => {
             try {
                 await awaitDecoratorData();
-                if (!active) return;
-                syncConsent();
+                if (!aktiv) {
+                    return;
+                }
+                synkroniserSamtykke();
             } catch {
-                if (!active) return;
+                if (!aktiv) {
+                    return;
+                }
             }
         })();
 
-        window.addEventListener('consentAllWebStorage', syncConsent);
-        window.addEventListener('refuseOptionalWebStorage', syncConsent);
+        window.addEventListener('consentAllWebStorage', synkroniserSamtykke);
+        window.addEventListener('refuseOptionalWebStorage', synkroniserSamtykke);
 
         return () => {
-            active = false;
-            window.removeEventListener('consentAllWebStorage', syncConsent);
-            window.removeEventListener('refuseOptionalWebStorage', syncConsent);
+            aktiv = false;
+            window.removeEventListener('consentAllWebStorage', synkroniserSamtykke);
+            window.removeEventListener('refuseOptionalWebStorage', synkroniserSamtykke);
         };
     }, []);
 
     useEffect(() => {
-        if (!hasGivenConsent) {
-            setSporingDisabled(true);
+        if (!harGittSamtykke) {
+            deaktiverSporing();
             return;
         }
 
-        setSporingDisabled(false);
+        const vertnavn = window.location.hostname;
+        const nettstedsId = hentSporingsID(vertnavn);
+        const skriptUrl = hentSporingsSkriptUrl(vertnavn);
 
-        const existingScript = document.getElementById(SPORING_SCRIPT_ID) as HTMLScriptElement | null;
+        aktiverSporing();
 
-        if (!websiteId) return;
+        const eksisterendeSkript = document.getElementById(SPORING_SCRIPT_ID) as HTMLScriptElement | null;
+
+        if (!nettstedsId) {
+            return;
+        }
 
         if (!window.beforeSendAnalytics) {
-            window.beforeSendAnalytics = createBeforeSendAnalytics();
+            window.beforeSendAnalytics = preInnsending();
         }
 
-        if (existingScript) {
+        if (eksisterendeSkript) {
             return;
         }
 
-        const script = document.createElement('script');
-        script.id = SPORING_SCRIPT_ID;
-        script.defer = true;
-        script.src = scriptSrc;
-        script.setAttribute('data-website-id', websiteId);
-        script.setAttribute('data-exclude-search', 'true');
-        script.setAttribute('data-before-send', 'beforeSendAnalytics');
-        script.setAttribute('data-tag', SPORING_ORIGIN);
-        document.head.appendChild(script);
-    }, [hasGivenConsent, scriptSrc, websiteId]);
+        const skript = document.createElement('script');
+        skript.id = SPORING_SCRIPT_ID;
+        skript.defer = true;
+        skript.src = skriptUrl;
+        skript.setAttribute('data-website-id', nettstedsId);
+        skript.setAttribute('data-exclude-search', 'true');
+        skript.setAttribute('data-before-send', 'beforeSendAnalytics');
+        skript.setAttribute('data-tag', SPORING_ORIGIN);
+        document.head.appendChild(skript);
+    }, [harGittSamtykke]);
 
     useEffect(() => {
         return () => {
-            const script = document.getElementById(SPORING_SCRIPT_ID);
-            script?.remove();
+            const skript = document.getElementById(SPORING_SCRIPT_ID);
+            skript?.remove();
             delete window.sporing;
             delete window.beforeSendAnalytics;
         };
