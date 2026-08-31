@@ -16,7 +16,7 @@ import VarselModal from './VarselModal/VarselModal';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 import classNames from 'classnames';
 
-export type StegId =
+type StegId =
     | 'kontaktinformasjon'
     | 'maal'
     | 'arbeidsoppgaver'

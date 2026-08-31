@@ -38,7 +38,7 @@ export const formaterVarighet = (dato1: Date | string, dato2: Date | string): st
  */
 export const NORSK_DATO_OG_TID_FORMAT_FULL = 'PPPp';
 
-export const NORSK_DATO_OG_TID_FORMAT = 'dd.MM.yyyy HH:mm';
+const NORSK_DATO_OG_TID_FORMAT = 'dd.MM.yyyy HH:mm';
 
 /**
  * Eksempel:

@@ -6,7 +6,7 @@ import { InnloggetBruker, Innloggingskilde } from '@/types/innlogget-bruker';
 import { useEffect, useState } from 'react';
 import { FeilkodeError } from './../types/errors';
 
-export interface Innlogget {
+interface Innlogget {
     innloggetBruker: InnloggetBruker | null;
     uinnlogget: boolean | null;
     innloggingskilder: Innloggingskilde[];

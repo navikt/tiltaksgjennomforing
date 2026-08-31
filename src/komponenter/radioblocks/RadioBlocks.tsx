@@ -8,7 +8,7 @@ interface Values {
     [key: Key]: Value;
 }
 
-export interface Properties {
+interface Properties {
     legend: string;
     values: Values;
     selectedValue?: Value;
