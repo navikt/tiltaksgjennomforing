@@ -5,12 +5,11 @@ import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { forkortAvtale, forkortAvtaleDryRun } from '@/services/rest-service';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { handterFeil } from '@/utils/apiFeilUtils';
-import { BodyShort, debounce, Label, Link, Radio, RadioGroup, Textarea } from '@navikt/ds-react';
-import type { FunctionComponent } from 'react';
+import { Alert, BodyShort, debounce, Label, Link, Radio, RadioGroup, Textarea } from '@navikt/ds-react';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import BEMHelper from '@/utils/bem';
 import DatovelgerForlengOgForkort from '@/komponenter/datovelger/DatovelgerForlengOgForkort';
-import { formaterDato, formaterDatoHvisDefinert, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
+import { formaterDato, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
 import './forkortAvtale.less';
 import { addDays } from 'date-fns';
 import * as z from 'zod';
@@ -41,17 +40,18 @@ const schema = (min: Date, max: Date) =>
 
 type Schema = { grunn: z.infer<typeof grunnSchema>; sluttDato: string; annetGrunn?: string };
 
-const ForkortAvtale: FunctionComponent = () => {
+const ForkortAvtale = () => {
     const avtaleContext = useContext(AvtaleContext);
     const cls = BEMHelper('forkortAvtale');
 
+    const [feilmelding, setFeilmelding] = useState<string>();
     const [modalApen, setModalApen] = useState(false);
     const [tilskuddsperioder, setTilskuddsperioder] = useState<TilskuddsPeriode[]>([]);
 
     const minDate = new Date(avtaleContext.avtale.gjeldendeInnhold.startDato!);
     const maxDate = addDays(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, -1);
 
-    const { formState, register, control, watch, trigger, getValues, setError, subscribe } = useForm<Schema>({
+    const { formState, register, control, watch, trigger, getValues, subscribe } = useForm<Schema>({
         mode: 'onBlur',
         resolver: zodResolver(schema(minDate, maxDate)),
         defaultValues: {
@@ -75,14 +75,15 @@ const ForkortAvtale: FunctionComponent = () => {
             try {
                 const nyAvtale = await forkortAvtaleDryRun(avtaleContext.avtale, nySluttDato);
                 setTilskuddsperioder(nyAvtale.tilskuddPeriode);
+                setFeilmelding(undefined);
                 gammelSluttDato = nySluttDato;
             } catch (error: any) {
                 handterFeil(error, (message) => {
-                    setError('sluttDato', { message });
+                    setFeilmelding(message);
                 });
             }
         }, 500);
-    }, [avtaleContext.avtale, setTilskuddsperioder, setError]);
+    }, [avtaleContext.avtale, setTilskuddsperioder, setFeilmelding]);
 
     useEffect(() => {
         const unsubscribe = subscribe({
@@ -99,6 +100,7 @@ const ForkortAvtale: FunctionComponent = () => {
 
     const lukkModal = (): void => {
         setModalApen(false);
+        setFeilmelding(undefined);
         setTilskuddsperioder([]);
     };
 
@@ -207,6 +209,11 @@ const ForkortAvtale: FunctionComponent = () => {
                         overskrift="Slik vil tilskuddsperiodene se ut etter at avtalen forkortes"
                         tilskuddsperioder={tilskuddsperioder}
                     />
+                    {feilmelding && (
+                        <Alert variant="warning" size="small">
+                            {feilmelding}
+                        </Alert>
+                    )}
                 </div>
             </BekreftelseModal>
         </>
