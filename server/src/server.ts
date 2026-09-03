@@ -18,7 +18,17 @@ const eksternCspMiddleware = (): Handler => {
 
     return async (_, res, next) => {
         if (!csp) {
-            csp = await buildCspHeader({}, { env: ENV });
+            csp = await buildCspHeader(
+                {
+                    'script-src': ["'self'", 'https://cdn.nav.no'],
+                    'connect-src': [
+                        "'self'",
+                        'https://reops-event-proxy.nav.no',
+                        'https://reops-event-proxy.ekstern.dev.nav.no',
+                    ],
+                },
+                { env: ENV },
+            );
         }
         res.setHeader('Content-Security-Policy', csp);
         next();
@@ -40,7 +50,8 @@ if (ENABLE_EXTERNAL_MENU) {
                 useDefaults: true,
                 directives: {
                     'default-src': ["'self'", 'wss://*.nav.no', '*.nav.no'],
-                    'script-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
+                    'script-src': ["'self'", '*.nav.no', '*.adeo.no', 'https://cdn.nav.no', "'unsafe-inline'"],
+                    'connect-src': ["'self'", '*.nav.no'],
                     'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'font-src': ["'self'", '*.nav.no', 'data:'],
                     'img-src': ["'self'", '*.nav.no'],

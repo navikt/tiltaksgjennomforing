@@ -19,6 +19,7 @@ import { NotifikasjonWidgetProvider } from '@/NotifikasjonWidgetProvider';
 import { VarselOmNedetid } from '@/InnloggingBoundary/VarselOmNedetid';
 import ErrorBoundary from '@/komponenter/ErrorBoundary';
 import AvtaleKontroll from '@/AvtaleSide/AvtaleKontroll';
+import InnblikkSporing from '@/sporing/InnblikkSporing';
 
 import AvtaleRouteError from './AvtaleRouteError';
 import OversiktRouteError from './OversiktRouteError';
@@ -43,6 +44,7 @@ const router = createBrowserRouter(
             path: Path.OVERSIKT,
             element: (
                 <ErrorBoundary>
+                    <InnblikkSporing />
                     <AdvarselBannerTestversjon />
                     <VarselOmNedetid />
                     <Outlet />

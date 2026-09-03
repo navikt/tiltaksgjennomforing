@@ -31,6 +31,7 @@
         "@navikt/arbeidsgiver-notifikasjon-widget": "^8.0.5",
         "@navikt/ds-css": "^8.10.4",
         "@navikt/ds-react": "^8.10.4",
+        "@navikt/nav-dekoratoren-moduler": "^4.3.0",
         "@navikt/navspa": "^7.5.0",
         "@navikt/virksomhetsvelger": "^2.0.0",
         "axios": "^1.16.0",

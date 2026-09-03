@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@navikt/arbeidsgiver-notifikasjon-widget':
         specifier: ^8.0.5
-        version: 8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)
+        version: 8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@navikt/nav-dekoratoren-moduler@4.3.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)
       '@navikt/nav-dekoratoren-moduler':
-        specifier: ^4.0.0
-        version: 4.0.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1)
+        specifier: ^4.3.0
+        version: 4.3.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1)
       '@navikt/oasis':
         specifier: ^4.1.4
         version: 4.1.4
@@ -328,15 +328,12 @@ packages:
   '@navikt/ds-tokens@8.10.4':
     resolution: {integrity: sha512-mtqGpM/7+xOq0f0mJPP6/0Nxb8ye/F5x9g+LUYqpVa5ppY9F+gudhR+km70xQHkYr3vl1Ob3nwAaK6UAUE+D1w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.10.4/d707d19503f39451e30e3ad204912fa34170ca44}
 
-  '@navikt/nav-dekoratoren-moduler@4.0.0':
-    resolution: {integrity: sha512-jsZmmEnXT63gwy0Or6skvdrxVG+acFmK55SURFah9LuPn8KAmrQa3EHhUhRZNsdt+tP5UgsnPA8HVoyurwLPXA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.0.0/65595610e69365df6008576d13e7f24511715683}
+  '@navikt/nav-dekoratoren-moduler@4.3.0':
+    resolution: {integrity: sha512-DpUW0J1pIAncsEh698x6mSt7UsILEIbrYFzKTDuXem0y2bYjG+ki78NV2lhN/nPYXcoVYizsC1eetH72VMEoEw==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.3.0/d2d64c4afd0201f3a1e8ec8fba9651c05fdfb736}
     engines: {node: 24.x}
     peerDependencies:
       html-react-parser: '>=5.x'
       react: '>=17.x'
-    peerDependenciesMeta:
-      react:
-        optional: true
 
   '@navikt/oasis@4.1.4':
     resolution: {integrity: sha512-v+LW8V5CTiHkfIXhceQ8RXRtrBktCK8wSFYmiR6hmzl9CJRYRLUpFC7YbLiC7jwHIuLHKUyl+Zawf8zQm6fDeQ==, tarball: https://npm.pkg.github.com/download/@navikt/oasis/4.1.4/0d9c93820b9b6d93b1bd9da134feb95461ad8a47}
@@ -779,9 +776,8 @@ packages:
   jose@6.2.3:
     resolution: {integrity: sha512-YYVDInQKFJfR/xa3ojUTl8c2KoTwiL1R5Wg9YCydwH0x0B9grbzlg5HC7mMjCtUJjbQ/YnGEZIhI5tCgfTb4Hw==, tarball: https://registry.npmjs.org/jose/-/jose-6.2.3.tgz}
 
-  js-cookie@3.0.5:
-    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==, tarball: https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.5.tgz}
-    engines: {node: '>=14'}
+  js-cookie@3.0.8:
+    resolution: {integrity: sha512-yeJd4aNAdYZQjaon2bpD/Gb0B/omw7HQOsynXXcOiWVCacbBcPlgn8S/d1X6blFSaHao7ozqtW7NZW19xpCtIw==, tarball: https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.8.tgz}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==, tarball: https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz}
@@ -1265,13 +1261,13 @@ snapshots:
 
   '@navikt/analytics-types@0.0.9': {}
 
-  '@navikt/arbeidsgiver-notifikasjon-widget@8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)':
+  '@navikt/arbeidsgiver-notifikasjon-widget@8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@navikt/nav-dekoratoren-moduler@4.3.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)':
     dependencies:
       '@apollo/client': 4.1.6(graphql@16.13.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.2)
       '@navikt/aksel-icons': 8.10.4
       '@navikt/ds-css': 8.10.4
       '@navikt/ds-react': 8.10.4(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@navikt/nav-dekoratoren-moduler': 4.0.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1)
+      '@navikt/nav-dekoratoren-moduler': 4.3.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1)
       graphql: 16.13.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -1296,13 +1292,12 @@ snapshots:
 
   '@navikt/ds-tokens@8.10.4': {}
 
-  '@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1)':
+  '@navikt/nav-dekoratoren-moduler@4.3.0(html-react-parser@6.0.1(@types/react@18.3.28)(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@navikt/analytics-types': 0.0.9
       csp-header: 6.3.1
       html-react-parser: 6.0.1(@types/react@18.3.28)(react@18.3.1)
-      js-cookie: 3.0.5
-    optionalDependencies:
+      js-cookie: 3.0.8
       react: 18.3.1
 
   '@navikt/oasis@4.1.4':
@@ -1815,7 +1810,7 @@ snapshots:
 
   jose@6.2.3: {}
 
-  js-cookie@3.0.5: {}
+  js-cookie@3.0.8: {}
 
   js-tokens@4.0.0: {}
 
