@@ -71,6 +71,10 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
         if (!valgtTiltaksType) {
             valgtAvtaleType = true;
         }
+        if (valgtTiltaksType && valgtTiltaksType === 'VTAO') {
+            setUgyldigAvtaletype(true);
+            return;
+        }
         if (!validerFnr(deltakerFnr)) {
             feilDeltakerFNR = Feilmeldinger.UGYLDIG_FØDSELSNUMMER;
         }
@@ -164,6 +168,7 @@ const OpprettAvtaleArbeidsgiver: FunctionComponent = () => {
                     >
                         <option value="">- Velg tiltakstype -</option>
                         {(innloggetBruker.altinnTilganger.tilganger[valgtBedriftNr] ?? [])
+                            .filter((tiltakstype) => tiltakstype !== 'VTAO')
                             .filter((tiltakstype) => firearigLonnstilskudd || tiltakstype !== 'FIREARIG_LONNSTILSKUDD')
                             .sort()
                             .map((tiltakType) => (
