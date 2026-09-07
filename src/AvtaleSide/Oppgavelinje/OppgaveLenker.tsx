@@ -21,6 +21,7 @@ import FortsettTiltak from '../steg/GodkjenningSteg/endringAvAvtaleInnhold/Forts
 import EndreKidOgKontonummer from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endre-kid-og-kontoummer';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 import EndreTilskuddsberegningForMentor from '@/AvtaleSide/steg/GodkjenningSteg/endringAvAvtaleInnhold/endreTilskuddsberegningForMentor/EndreTilskuddsberegningForMentor';
+import OppdaterInnsatsgruppe from '@/AvtaleSide/OppdaterInnsatsgruppe';
 
 const OppgaveLenker: React.FunctionComponent = () => {
     const { avtale } = useContext(AvtaleContext);
@@ -74,6 +75,7 @@ const OppgaveLenker: React.FunctionComponent = () => {
                         {erOppdatertMentorAvtale && <EndreTilskuddsberegningForMentor />}
                         {avtale.tiltakstype === 'VTAO' && <FortsettTiltak />}
                         <OppdaterOppfølgingEnhet />
+                        {!avtale.innsatsgruppe && <OppdaterInnsatsgruppe />}
                     </>
                 )}
                 {avtale.gjeldendeTilskuddsperiode?.status === 'AVSLÅTT' && <SendTilbakeTilBeslutterUendret />}

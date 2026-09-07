@@ -96,6 +96,8 @@ export type Feilkode =
     | 'INNSATSGRUPPE_VARIG_LONNTILSKUDD_FEIL'
     | 'INNSATSGRUPPE_VTAO_FEIL'
     | 'INNSATSGRUPPE_MANGLER'
+    | 'INNSATSGRUPPE_ER_ALLEREDE_SATT'
+    | 'INNSATSGRUPPE_IKKE_LIK_KVALIFISERINGSGRUPPE'
     | 'LONNSTILSKUDD_PROSENT_ER_UGYLDIG'
     | 'MANGLER_BEREGNING'
     | 'MANGLER_BESLUTTERTILGANG'
@@ -126,7 +128,8 @@ export type Feilkode =
     | 'UGYLDIG_TLF'
     | 'UGYLDIG_VIRKSOMHETSNUMMER'
     | 'VARIGHET_DATO_TILBAKE_I_TID'
-    | 'VARIGHET_FOR_LANG_ARBEIDSTRENING'
+    | 'VARIGHET_FOR_LANG_ARBEIDSTRENING_12_MND'
+    | 'VARIGHET_FOR_LANG_ARBEIDSTRENING_18_MND'
     | 'VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_2_AAR'
     | 'VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_4_AAR'
     | 'VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD'
@@ -264,6 +267,9 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     INNSATSGRUPPE_VTAO_FEIL:
         'Deltaker kvalifiserer ikke til dette tiltaket. Ved endringer i innsatsbehovet kan det ta opptil 5 min før det er oppdatert.',
     INNSATSGRUPPE_MANGLER: 'Innsatsgruppen på avtalen mangler og må oppdateres',
+    INNSATSGRUPPE_ER_ALLEREDE_SATT: 'Innsatsgruppen på avtalen er allerede satt og kan ikke endres',
+    INNSATSGRUPPE_IKKE_LIK_KVALIFISERINGSGRUPPE:
+        'Innsatsgruppen på avtalen samsvarer ikke med innsatsbehovet ved avtaleinngåelse',
     LONNSTILSKUDD_PROSENT_ER_UGYLDIG: 'Ugyldig lønnstilskudd prosent',
     MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
     MANGLER_BESLUTTERTILGANG:
@@ -299,15 +305,16 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     UGYLDIG_TLF: 'Telefonnummeret er ikke et gyldig mobilnummer',
     UGYLDIG_VIRKSOMHETSNUMMER: 'Du må oppgi gyldig virksomhetsnummer',
     VARIGHET_DATO_TILBAKE_I_TID: 'Dato på varighet er tilbake i tid',
-    VARIGHET_FOR_LANG_ARBEIDSTRENING: 'Avtalens varighet er maksimalt 18 måneder',
+    VARIGHET_FOR_LANG_ARBEIDSTRENING_12_MND: 'Avtalens varighet kan maksimalt være 12 måneder',
+    VARIGHET_FOR_LANG_ARBEIDSTRENING_18_MND: 'Avtalens varighet kan maksimalt være 18 måneder',
     VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_2_AAR:
         'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 2 år ved midlertidig stilling',
     VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_4_AAR:
         'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 4 år ved fast stilling',
-    VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD: 'Avtalens varighet er maksimalt 12 måneder',
-    VARIGHET_FOR_LANG_MENTOR_36_MND: 'Avtalens varighet er maksimalt 36 måneder',
-    VARIGHET_FOR_LANG_MENTOR_6_MND: 'Avtalens varighet er maksimalt 6 måneder',
-    VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_12_MND: 'Avtalens varighet er maksimalt 12 måneder',
-    VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_24_MND: 'Avtalens varighet er maksimalt 24 måneder',
+    VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD: 'Avtalens varighet kan maksimalt være 12 måneder',
+    VARIGHET_FOR_LANG_MENTOR_36_MND: 'Avtalens varighet kan maksimalt være 36 måneder',
+    VARIGHET_FOR_LANG_MENTOR_6_MND: 'Avtalens varighet kan maksimalt være 6 måneder',
+    VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_12_MND: 'Avtalens varighet kan maksimalt være 12 måneder',
+    VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_24_MND: 'Avtalens varighet kan maksimalt være 24 måneder',
     VEILEDER_SKAL_GODKJENNE_SIST: 'Veileder må godkjenne avtalen etter deltaker og arbeidsgiver.',
 };

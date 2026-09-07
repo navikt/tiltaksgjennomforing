@@ -2,8 +2,8 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import { Avtaleinnhold } from '@/types/avtale';
 import { DateValidationT, DatePicker, useDatepicker } from '@navikt/ds-react';
 import { FunctionComponent, PropsWithChildren, useContext, useState } from 'react';
-import { formaterDatoHvisDefinert } from '@/utils/datoUtils';
-import { useAvtaleMinMaxDato } from './useAvtaleMinMaxDato';
+import { datoVedMidnatt, formaterDatoHvisDefinert } from '@/utils/datoUtils';
+import { useAvtaleTilOgFraDato } from './useAvtaleTilOgFraDato';
 
 interface Props {
     datoFelt: keyof Pick<Avtaleinnhold, 'startDato' | 'sluttDato'>;
@@ -14,10 +14,9 @@ interface Props {
 const Datovelger: FunctionComponent<Props> = ({ label, datoFelt, readOnly }: PropsWithChildren<Props>) => {
     const { avtale, settAvtaleInnholdVerdier } = useContext(AvtaleContext);
 
-    const fjernTid = (timestamp: string) => timestamp.split('T')[0];
     const erStartdato = datoFelt === 'startDato';
     const [feilmeldingTekst, setFeilmeldingTekst] = useState<string | undefined>();
-    const { minDate, maxDate } = useAvtaleMinMaxDato(erStartdato);
+    const { fromDate, toDate } = useAvtaleTilOgFraDato(erStartdato);
 
     const feilmelding = (val: DateValidationT | undefined, nedreGrense: string, ovreGrense: string) => {
         if (!val || val.isValidDate) {
@@ -35,8 +34,8 @@ const Datovelger: FunctionComponent<Props> = ({ label, datoFelt, readOnly }: Pro
     };
 
     const { datepickerProps, inputProps } = useDatepicker({
-        fromDate: new Date(fjernTid(minDate || '')),
-        toDate: new Date(fjernTid(maxDate || '')),
+        fromDate: datoVedMidnatt(fromDate),
+        toDate: datoVedMidnatt(toDate),
         inputFormat: 'dd.MM.yyyy',
         defaultSelected: avtale.gjeldendeInnhold[datoFelt] ? new Date(avtale.gjeldendeInnhold[datoFelt]!) : undefined,
         onDateChange: (dato) => {

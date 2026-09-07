@@ -10,6 +10,7 @@ import {
     addDays,
     add,
     sub,
+    subDays,
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
@@ -130,26 +131,17 @@ export const beregnDagenEtterOgFormater = (dato: string | Date, format: string =
     return formaterDato(addDays(dato, 1), format);
 };
 
-export const datoPluss = (dato: string, duration: Duration): string | undefined => {
-    try {
-        return format(add(addDays(dato, -1), duration), 'yyyy-MM-dd');
-    } catch (e) {
-        return undefined;
-    }
-};
+export const datoPluss = (dato: string | Date, duration: Duration) => add(subDays(dato, 1), duration);
 
-export const datoMinus = (dato: string, duration: Duration): string | undefined => {
-    try {
-        return format(sub(addDays(dato, 1), duration), 'yyyy-MM-dd');
-    } catch (e) {
-        return undefined;
-    }
-};
+export const datoMinus = (dato: string | Date, duration: Duration) => sub(addDays(dato, 1), duration);
 
-export const datoFraDagensDato = (duration: Duration): string | undefined => {
-    try {
-        return format(add(addDays(new Date(), -1), duration), 'yyyy-MM-dd');
-    } catch (e) {
+export const datoFraDagensDato = (duration: Duration) => datoPluss(new Date(), duration);
+
+export const datoVedMidnatt = (dato?: Date) => {
+    if (!dato) {
         return undefined;
     }
+    const d = new Date(dato);
+    d.setHours(0, 0, 0, 0);
+    return d;
 };
