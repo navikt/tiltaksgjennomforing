@@ -104,7 +104,7 @@ export type Feilkode =
     | 'MANGLER_VEILEDER_PÅ_AVTALE'
     | 'MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING'
     | 'NAV_ENHET_IKKE_FUNNET'
-    | 'OPPFOLGINGSTATUS_ENDRET'
+    | 'INNSATSGRUPPE_ENDRET'
     | 'ROLLE_HAR_IKKE_TILGANG'
     | 'SAMTIDIGE_ENDRINGER'
     | 'SLUTTDATO_GRENSE_NÅDD'
@@ -270,6 +270,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     INNSATSGRUPPE_ER_ALLEREDE_SATT: 'Innsatsgruppen på avtalen er allerede satt og kan ikke endres',
     INNSATSGRUPPE_IKKE_LIK_KVALIFISERINGSGRUPPE:
         'Innsatsgruppen på avtalen samsvarer ikke med innsatsbehovet ved avtaleinngåelse',
+    INNSATSGRUPPE_ENDRET:
+        'Deltakers innsatsbehov har endret seg. Avtalen må derfor godkjennes på nytt av alle parter. Ved forlenging må en ny avtale opprettes.',
     LONNSTILSKUDD_PROSENT_ER_UGYLDIG: 'Ugyldig lønnstilskudd prosent',
     MANGLER_BEREGNING: 'Beregning av tilskudd må være utfylt',
     MANGLER_BESLUTTERTILGANG:
@@ -277,8 +279,6 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     MANGLER_VEILEDER_PÅ_AVTALE: 'Avtalen trenger en veileder før du kan godkjenne',
     MENTOR_MÅ_SIGNERE_TAUSHETSERKLÆRING: 'Veileder må godkjenne avtalen etter deltaker, mentor og arbeidsgiver.',
     NAV_ENHET_IKKE_FUNNET: 'Nav-enheten ble ikke funnet',
-    OPPFOLGINGSTATUS_ENDRET:
-        'Deltakers innsatsbehov har endret seg, og avtalen må derfor signeres på nytt av alle parter.',
     ROLLE_HAR_IKKE_TILGANG:
         'Du er innlogget med en rolle som ikke har tilgang til å utføre denne handlingen. Forsøk å oppfrisk siden og prøv igjen.',
     SAMTIDIGE_ENDRINGER:

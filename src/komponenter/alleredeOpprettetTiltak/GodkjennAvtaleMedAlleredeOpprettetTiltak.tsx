@@ -23,7 +23,7 @@ const GodkjennMedAlleredeOpprettetTiltak = (props: Props) => {
         try {
             await onLagre();
         } catch (err) {
-            if (err instanceof FeilkodeError && err.message === 'OPPFOLGINGSTATUS_ENDRET') {
+            if (err instanceof FeilkodeError && err.message === 'INNSATSGRUPPE_ENDRET') {
                 setInnsatsbehovVarselModalIsOpen(true);
             } else {
                 throw err;
