@@ -67,7 +67,7 @@ const FortsettTiltak: FunctionComponent = () => {
                 bekreftelseTekst="Fortsett tiltak"
                 oversiktTekst="Fortsett tiltak"
                 modalIsOpen={modalApen}
-                bekreftOnClick={oppfolgingKanUtfores ? bekrefterOppfølgingAvAvtale : undefined}
+                bekreftOnClick={bekrefterOppfølgingAvAvtale}
                 lukkModal={() => setModalApen(false)}
             >
                 {oppfolgingKanUtfores && (
@@ -82,7 +82,7 @@ const FortsettTiltak: FunctionComponent = () => {
                 {!oppfolgingKanUtfores && (
                     <>
                         <BodyShort size="small" spacing>
-                            Det er ikke nødvendig å følge opp avtalen enda.
+                            Det er ikke nødvendig å følge opp avtalen enda, men det er mulig om du ønsker det.
                         </BodyShort>
                         {sisteOppfølgingTekst}
                         {harKommendeOppfolging && (
