@@ -9,7 +9,7 @@ import './Godkjenning.less';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import GodkjenningInstruks from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/instruks/GodkjenningInstruks';
 import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
-import GodkjenningBekreftelse from './GodkjenningBekreftelse/GodkjenningBekreftelse';
+import GodkjenningBekreftelse from './GodkjenningBekreftelse';
 
 interface Props {
     avtale: Avtale;
