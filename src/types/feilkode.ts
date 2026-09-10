@@ -174,7 +174,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     FIREARIG_LONNSTILSKUDD_FOR_TIDLIG_OPPSTART: 'Fireårig lønnstilskudd for unge kan tidligst starte 01.08.2026',
     FIREARIG_LONNSTILSKUDD_KAN_IKKE_BRUKES_TIL_A_BEHOLDE_ARBEID:
         'Fireårig lønnstilskudd for unge kan ikke brukes til å beholde arbeid',
-    FOR_SEN_STARTDATO_VTAO: 'Seneste mulig oppstart er 31.08.2026.',
+    FOR_SEN_STARTDATO_VTAO:
+        'Fra 01.09.2026 gjelder ny ordning TA-O. Det er derfor ikke mulig å opprette VTA-O med oppstart senere enn 31.08.2026. Ta kontakt i Porten dersom du trenger hjelp.',
     FORLENG_MIDLERTIDIG_IKKE_TILGJENGELIG: 'Forlengelse er ikke tilgjengelig for denne avtaletypen',
     FORTIDLIG_STARTDATO: 'Startdatoen for avtalen er mer enn 7 dager tilbake i tid og må derfor åpnes av Nav',
     FØDSELSNUMMER_IKKE_GYLDIG: 'Fødselsnummeret er ikke gyldig. Påse at det er skrevet inn riktig, og prøv igjen.',
