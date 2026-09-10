@@ -24,3 +24,7 @@ For å kunne installere nyere versjoner må pakker fra @navikt-orgen scopes til 
 1. Opprett et [PAT på github](https://github.com/settings/tokens) med `read:packages` scope.
 2. Kjør `pnpm login --registry=https://npm.pkg.github.com --auth-type=legacy` (bruk PAT fra forrige steg som passord ved login).
 3. Installer avhengigheter med `pnpm install` i prosjektroten og `pnpm install` i `server/`.
+
+## Sporing
+
+Applikasjonen bruker Innblikk-sporing for sidevisninger. Sporing lastes først etter samtykke til analytics.
