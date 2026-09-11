@@ -1,6 +1,6 @@
 import { Alert, BodyShort, ErrorMessage, Heading, Label, Select, TextField } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
-import { generatePath, useNavigate, useSearchParams } from 'react-router-dom';
+import { generatePath, useNavigate, useSearchParams } from 'react-router';
 import TilbakeTilOversiktLenke from '@/AvtaleSide/TilbakeTilOversiktLenke/TilbakeTilOversiktLenke';
 import { useFeatureToggles, useMigreringSkrivebeskyttet } from '@/FeatureToggles';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';

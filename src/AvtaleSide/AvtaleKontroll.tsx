@@ -1,6 +1,6 @@
 import type { FunctionComponent, PropsWithChildren } from 'react';
 import { useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { BodyLong, Button, Loader, Modal } from '@navikt/ds-react';
 import { Rolle } from '@/types';
 import { useAvtaleKreverAktsomhet } from '@/services/use-rest';

@@ -1,6 +1,6 @@
 import React, { Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 enum Path {
     OPPRETT = 'opprett-avtale',

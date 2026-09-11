@@ -1,4 +1,4 @@
-import { useRouteError } from 'react-router-dom';
+import { useRouteError } from 'react-router';
 
 import { IkkeFunnetError } from '@/types/errors';
 import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useCookies } from 'react-cookie';
 import MediaQuery from 'react-responsive';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Ingress, Heading, BodyShort, Button } from '@navikt/ds-react';
 
 import './Innloggingsside.less';
