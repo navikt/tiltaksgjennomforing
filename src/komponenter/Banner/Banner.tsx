@@ -4,7 +4,7 @@ import { Detail, Heading } from '@navikt/ds-react';
 import { Virksomhetsvelger } from '@navikt/virksomhetsvelger';
 import '@navikt/virksomhetsvelger/dist/assets/style.css';
 import React, { useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import VerticalSpacer from '../layout/VerticalSpacer';
 import styles from './banner.module.less';
 import classNames from 'classnames';
@@ -43,6 +43,7 @@ const Banner: React.FunctionComponent<Props> = ({ tekst, byttetOrg, undertittel,
                                     organisasjoner={innloggetBruker.altinnTilganger.hierarki}
                                     initValgtOrgnr={bedriftParam || valgtOrganisasjon}
                                     onChange={(org) => byttetOrg?.(org.orgnr)}
+                                    friKomponent
                                 />
                                 <NotifikasjonWidget />
                             </div>
