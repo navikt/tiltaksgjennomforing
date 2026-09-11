@@ -1,5 +1,5 @@
 import React, { CSSProperties, FunctionComponent, PropsWithChildren } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Button, ButtonProps } from '@navikt/ds-react';
 import BEMHelper from '@/utils/bem';
 import './lenkeknapp.less';

@@ -8,7 +8,7 @@ import { avtaleTittel } from '@/messages';
 import { Path } from '@/Router';
 import hentAvtaleSteg from '@/utils/hentAvtaleSteg';
 import React, { FunctionComponent, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import styles from './AvtaleSide.module.less';
 import DesktopAvtaleSide from './DesktopAvtaleSide/DesktopAvtaleSide';
 import MobilAvtaleSide from './MobilAvtaleSide/MobilAvtaleSide';

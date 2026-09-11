@@ -1,7 +1,7 @@
 import { omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
 import AvtaleOversiktArbeidsgiverInformasjon from '@/AvtaleOversikt/AvtaleOversiktArbeidsgiverInformasjon';
@@ -48,9 +48,10 @@ const AvtaleOversikt: FunctionComponent = () => {
         );
 
         const filterPage = parseInt(filtre.page ? filtre.page : '1', 10);
+        const sokIdFraUrl = searchParams.get('sokId');
         const sammePageIDataOgFilter = data.currentPage === filterPage - 1;
         const sammeSorteringIUrlOgFilter = searchParams.get('sorteringskolonne') === filtre.sorteringskolonne;
-        const sammeSokId = searchParams.get('sokId') === data.sokId;
+        const sammeSokId = sokIdFraUrl === data.sokId;
         const sammePageIUrlOgFilter = searchParams.get('page') === '' + filterPage;
         const sammeSorteringIDataOgFilter = data.sorteringskolonne === filtre.sorteringskolonne;
         const sammeSorteringOrderIDataOgFilter = data.sorteringOrder === filtre.sorteringOrder;
@@ -71,8 +72,10 @@ const AvtaleOversikt: FunctionComponent = () => {
         }
 
         setNettressursCtx({ status: Status.LASTER_INN });
-        if (!erFiltreLikeNettressursFiltre) {
-            // Filteret er endret - Nytt POST-søk
+        if (!erFiltreLikeNettressursFiltre || !sokIdFraUrl) {
+            // Filteret er endret - Nytt POST-søk.
+            // Mangler sokId i url'en er GET-søkene under umulige, og POST er eneste vei
+            // videre: det gir oss en ny sokId. Samme fallback som i FiltreringProvider.
             hentAvtalerForInnloggetBrukerMedPost(filtre, 10, filterPage - 1)
                 .then((pagableAvtale: PageableAvtale) => {
                     if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
@@ -104,34 +107,38 @@ const AvtaleOversikt: FunctionComponent = () => {
         } else if (!sammePageIDataOgFilter || !sammeSorteringIDataOgFilter || !sammeSorteringOrderIDataOgFilter) {
             // page/sortering er endret - Nytt GET-søk
             hentAvtalerForInnloggetBrukerMedSokId(
-                searchParams.get('sokId')!,
+                sokIdFraUrl,
                 10,
                 filterPage - 1,
                 filtre.sorteringskolonne || undefined,
                 filtre.sorteringOrder,
-            ).then((pagableAvtale: PageableAvtale) => {
-                if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
-                    setSearchParams(
-                        fjernTommeFelterFraObjekt({
-                            sokId: pagableAvtale.sokId,
-                            page: '' + (pagableAvtale.currentPage + 1),
-                            sorteringskolonne: pagableAvtale.sorteringskolonne,
-                            bedrift: pagableAvtale.sokeParametere.bedriftNr,
-                            sorteringOrder: filtre.sorteringOrder,
-                        }),
-                    );
-                } else {
-                    setSearchParams(
-                        fjernTommeFelterFraObjekt({
-                            sokId: pagableAvtale.sokId,
-                            page: '' + (pagableAvtale.currentPage + 1),
-                            sorteringskolonne: pagableAvtale.sorteringskolonne,
-                            sorteringOrder: filtre.sorteringOrder,
-                        }),
-                    );
-                }
-                setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
-            });
+            )
+                .then((pagableAvtale: PageableAvtale) => {
+                    if (innloggetBruker.rolle === 'ARBEIDSGIVER') {
+                        setSearchParams(
+                            fjernTommeFelterFraObjekt({
+                                sokId: pagableAvtale.sokId,
+                                page: '' + (pagableAvtale.currentPage + 1),
+                                sorteringskolonne: pagableAvtale.sorteringskolonne,
+                                bedrift: pagableAvtale.sokeParametere.bedriftNr,
+                                sorteringOrder: filtre.sorteringOrder,
+                            }),
+                        );
+                    } else {
+                        setSearchParams(
+                            fjernTommeFelterFraObjekt({
+                                sokId: pagableAvtale.sokId,
+                                page: '' + (pagableAvtale.currentPage + 1),
+                                sorteringskolonne: pagableAvtale.sorteringskolonne,
+                                sorteringOrder: filtre.sorteringOrder,
+                            }),
+                        );
+                    }
+                    setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
+                })
+                .catch((error) => {
+                    setNettressursCtx({ status: Status.FEIL, error });
+                });
         } else if (
             !sammeSokId ||
             !sammePageIUrlOgFilter ||
@@ -141,7 +148,6 @@ const AvtaleOversikt: FunctionComponent = () => {
             // sokId/page/sortering endret i en navigering - Nytt GET-søk
             // vi må da gjøre GET med sokId/page/sortering fra url, ikke fra filteret
             // Vi setter heller ingenting i searchParams her, da det er her endringen skjer via en frem/tilbake navigering, vi må derimot sette filter, da endringen ikke kommer herfra, men fra url'en.
-            const sokIdFraUrl = searchParams.get('sokId')!;
             const pageFraUrl = parseInt(searchParams.get('page') || '1');
             const sorteringFraUrl = (searchParams.get('sorteringskolonne') as keyof Avtale) || '';
             const sorteringOrderFraUrl = searchParams.get('sorteringOrder') || 'DESC';
@@ -151,26 +157,30 @@ const AvtaleOversikt: FunctionComponent = () => {
                 pageFraUrl - 1,
                 sorteringFraUrl || undefined,
                 sorteringOrderFraUrl,
-            ).then((pagableAvtale: PageableAvtale) => {
-                // const eksisterendeSearchParams = lagObjektAvSearchParams(searchParams);
-                // if (eksisterendeSearchParams.bedrift) setSearchParams({...eksisterendeSearchParams, bedrift: pagableAvtale.sokeParametere.bedriftNr});
-                setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
-                const oppdattertFilterParams = {
-                    page: '' + (pagableAvtale.currentPage + 1),
-                    sorteringskolonne: pagableAvtale.sorteringskolonne,
-                    sorteringOrder: pagableAvtale.sorteringOrder,
-                    ...pagableAvtale.sokeParametere,
-                };
-                setSearchParams(
-                    fjernTommeFelterFraObjekt({
-                        sokId: pagableAvtale.sokId,
-                        page: oppdattertFilterParams.page,
-                        sorteringskolonne: oppdattertFilterParams.sorteringskolonne,
-                        sorteringOrder: oppdattertFilterParams.sorteringOrder,
-                    }),
-                );
-                endreFilter(oppdattertFilterParams);
-            });
+            )
+                .then((pagableAvtale: PageableAvtale) => {
+                    // const eksisterendeSearchParams = lagObjektAvSearchParams(searchParams);
+                    // if (eksisterendeSearchParams.bedrift) setSearchParams({...eksisterendeSearchParams, bedrift: pagableAvtale.sokeParametere.bedriftNr});
+                    setNettressursCtx({ status: Status.LASTET, data: pagableAvtale });
+                    const oppdattertFilterParams = {
+                        page: '' + (pagableAvtale.currentPage + 1),
+                        sorteringskolonne: pagableAvtale.sorteringskolonne,
+                        sorteringOrder: pagableAvtale.sorteringOrder,
+                        ...pagableAvtale.sokeParametere,
+                    };
+                    setSearchParams(
+                        fjernTommeFelterFraObjekt({
+                            sokId: pagableAvtale.sokId,
+                            page: oppdattertFilterParams.page,
+                            sorteringskolonne: oppdattertFilterParams.sorteringskolonne,
+                            sorteringOrder: oppdattertFilterParams.sorteringOrder,
+                        }),
+                    );
+                    endreFilter(oppdattertFilterParams);
+                })
+                .catch((error) => {
+                    setNettressursCtx({ status: Status.FEIL, error });
+                });
         }
     }, [filtre, nettressursCtx, setNettressursCtx, searchParams, setSearchParams, endreFilter, innloggetBruker.rolle]);
 

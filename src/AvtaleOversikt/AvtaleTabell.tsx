@@ -12,7 +12,7 @@ import { ChevronRightIcon } from '@navikt/aksel-icons';
 import { BodyShort, Table } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
 import MediaQuery from 'react-responsive';
-import { generatePath, useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router';
 import './AvtaleTabell.less';
 import TaushetserklæringModal from './Taushetserklæring/Taushetserklæring';
 

@@ -1,6 +1,6 @@
 import { BodyShort, Heading, Label } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import Altinn from '@/assets/ikoner/altinn.svg?react';
 import DigitalAvtale from '@/assets/ikoner/digitalAvtale.svg?react';

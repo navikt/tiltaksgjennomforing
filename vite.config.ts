@@ -9,6 +9,7 @@ export default defineConfig({
     base: '/tiltaksgjennomforing',
     build: {
         outDir: 'dist/client',
+        target: ['es2023', 'chrome110', 'edge110', 'firefox115', 'safari16.4'],
     },
     resolve: {
         alias: {

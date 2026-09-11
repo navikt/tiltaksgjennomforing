@@ -1,7 +1,7 @@
 import { Path } from '@/Router';
 import BEMHelper from '@/utils/bem';
 import type { FunctionComponent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import './TilbakeTilOversiktLenke.less';
 import { ChevronLeftIcon } from '@navikt/aksel-icons';
 
