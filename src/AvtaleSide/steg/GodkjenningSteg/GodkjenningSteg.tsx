@@ -5,43 +5,20 @@ import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreSomPdfKnapp from '@/komponenter/LagreSomPdfKnapp/LagreSomPdfKnapp';
-import { Avtale } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import React from 'react';
 import Godkjenning from './Godkjenning/Godkjenning';
 import './GodkjenningSteg.less';
-import GodkjenningInstruks from './Oppsummering/instruks/GodkjenningInstruks';
-import { Rolle } from '@/types';
 import Oppsummering from '@/AvtaleSide/steg/GodkjenningSteg/Oppsummering/Oppsummering';
 import { useMigreringSkrivebeskyttet } from '@/FeatureToggles';
-import KanDeltakerMottaPostAlert from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/godkjenningVeileder/KanDeltakerMottaPostAlert';
-
-const harGodkjentSelv = (avtale: Avtale, rolle: Rolle) => {
-    switch (rolle) {
-        case 'DELTAKER':
-            return avtale.godkjentAvDeltaker;
-        case 'MENTOR':
-            return avtale.erGodkjentTaushetserklæringAvMentor;
-        case 'ARBEIDSGIVER':
-            return avtale.godkjentAvArbeidsgiver;
-        case 'VEILEDER':
-            return avtale.godkjentAvVeileder;
-        default:
-            return false;
-    }
-};
 
 const GodkjenningSteg = () => {
     const cls = BEMHelper('godkjenningSteg');
-    const innloggetBruker = useInnloggetBruker();
     const { avtale } = useAvtale();
+    const innloggetBruker = useInnloggetBruker();
     const erSkrivebeskyttet = useMigreringSkrivebeskyttet();
 
     const erMentor = innloggetBruker.rolle === 'MENTOR';
-    const skalViseGodkjenning =
-        avtale.status !== 'ANNULLERT' &&
-        (!innloggetBruker.erNavAnsatt || !avtale.erUfordelt) &&
-        !erSkrivebeskyttet(avtale);
 
     return (
         <div className={cls.className}>
@@ -59,13 +36,11 @@ const GodkjenningSteg = () => {
                 </div>
                 <Oppsummering tiltakstype={avtale.tiltakstype} avtaleInnhold={avtale.gjeldendeInnhold} />
             </Innholdsboks>
-            {skalViseGodkjenning && <Godkjenning avtale={avtale} rolle={innloggetBruker.rolle} />}
-            {harGodkjentSelv(avtale, innloggetBruker.rolle) && (
-                <Innholdsboks>
-                    {innloggetBruker.rolle === 'VEILEDER' && <KanDeltakerMottaPostAlert avtaleId={avtale.id} />}
-                    <GodkjenningInstruks />
-                </Innholdsboks>
-            )}
+            <Godkjenning
+                avtale={avtale}
+                innloggetBruker={innloggetBruker}
+                erSkrivebeskyttet={erSkrivebeskyttet(avtale)}
+            />
             <VersjoneringKomponent avtale={avtale} />
         </div>
     );
