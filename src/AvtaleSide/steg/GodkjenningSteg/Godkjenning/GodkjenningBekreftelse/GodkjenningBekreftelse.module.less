@@ -1,0 +1,25 @@
+@import (reference) '../../../../../tiltak_variabler.less';
+
+.fade-in {
+    animation: fade-in-keyframes 500ms ease-in-out;
+}
+
+.scroll-knapp {
+    display: none;
+}
+
+@media (min-width: @screen-sm) {
+    .scroll-knapp {
+        display: flex;
+    }
+}
+
+@keyframes fade-in-keyframes {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
