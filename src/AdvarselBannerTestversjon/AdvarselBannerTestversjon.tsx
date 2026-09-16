@@ -21,14 +21,15 @@ const AdvarselBannerTestversjon = () => {
                             Hvis du er veileder i Nav,{' '}
                             <EksternLenke
                                 href="https://tiltaksgjennomforing.intern.nav.no/tiltaksgjennomforing"
-                                ariaLabel="Åpne tiltaksgjennomføring i ny fane"
                             >
-                                klikk her
+                                åpne tiltaksgjennomføring (åpnes i ny fane)
                             </EksternLenke>{' '}
                             for å registrere ekte avtaler.
                             <br />
-                            Hvis du er arbeidsgiver eller deltaker kan du logge deg inn{' '}
-                            <EksternLenke href="https://arbeidsgiver.nav.no/tiltaksgjennomforing">her</EksternLenke>.
+                            Hvis du er arbeidsgiver eller deltaker kan du{' '}
+                            <EksternLenke href="https://arbeidsgiver.nav.no/tiltaksgjennomforing">
+                                åpne tiltaksgjennomføring (åpnes i ny fane)
+                            </EksternLenke>.
                         </p>
                         <p>
                             For å teste flyten, kan du opprette avtaler på fnr: <b>23090170716</b> (fiktivt) og
