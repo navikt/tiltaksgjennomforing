@@ -15,7 +15,7 @@ const AdvarselBannerTestversjon = () => {
                     <br />
                     Her kan du bli bedre kjent med digitale avtaler for tiltaksgjennomføring.
                     <br />
-                    <b>Vi ber også om at du ikke registrer ekte data i denne løsningen.</b>
+                    <b>Vi ber også om at du ikke registrerer ekte data i denne løsningen.</b>
                     <LesMerPanel åpneLabel="Les mer" lukkLabel="Lukk">
                         <p>
                             Hvis du er veileder i Nav,{' '}
