@@ -1,4 +1,4 @@
-import { generatePath, useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router';
 import { Table } from '@navikt/ds-react';
 
 import '../AvtaleOversikt/AvtaleTabell.less';

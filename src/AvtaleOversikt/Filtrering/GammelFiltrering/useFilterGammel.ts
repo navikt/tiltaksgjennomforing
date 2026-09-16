@@ -1,6 +1,6 @@
 import { Filtrering } from '@/AvtaleOversikt/Filtrering/filtrering';
 import { useContext, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { FiltreringContextGammel } from './FiltreringProviderGammel';
 import isEqual from 'lodash.isequal';
 

@@ -1,5 +1,5 @@
 import { Fragment, FunctionComponent, useState } from 'react';
-import { useNavigate, generatePath } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router';
 import { LinkPanel, Heading, Ingress, BodyShort } from '@navikt/ds-react';
 
 import './AvtalekortMobil.less';

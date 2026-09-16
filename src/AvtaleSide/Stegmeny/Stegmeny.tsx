@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { generatePath } from 'react-router-dom';
+import { generatePath } from 'react-router';
 
 import './Stegmeny.less';
 import StegmenyLenke from './StegmenyLenke/StegmenyLenke';

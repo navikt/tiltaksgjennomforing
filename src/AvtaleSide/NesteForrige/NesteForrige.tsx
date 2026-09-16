@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import { useContext } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Link, generatePath } from 'react-router';
 
 import './NesteForrige.less';
 import { AvtaleContext } from '@/AvtaleProvider';
