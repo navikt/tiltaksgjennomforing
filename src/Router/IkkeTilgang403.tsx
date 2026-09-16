@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Button, BodyShort, Box, Heading, List, Page, VStack } from '@navikt/ds-react';
 
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import { Rolle } from '@/types/innlogget-bruker';
 
-import { Path } from './Router';
+import { Path } from './path';
 import { Feilkode, Feilmeldinger } from '@/types/feilkode';
 
 interface Props {

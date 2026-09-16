@@ -1,6 +1,6 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import React, { FunctionComponent, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import './StegmenyLenke.less';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Alert, Heading } from '@navikt/ds-react';
-import { useNavigate, generatePath } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router';
 
 import './OpprettAvtale.less';
 import './opprettAvtaleVeileder.less';
