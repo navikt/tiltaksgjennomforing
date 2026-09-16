@@ -35,7 +35,7 @@ const AdvarselBannerTestversjon = () => {
                             <b>00000000000</b> som deltaker.
                         </p>
                         <p>
-                            <b>Testløsinge oppdateres uregelmessig</b>
+                            <b>Testløsningen oppdateres uregelmessig</b>
                             <br />
                             Noen funksjoner kan til tider derfor være utilgjengelige eller avvike fra
                             produksjonsløsningen.
