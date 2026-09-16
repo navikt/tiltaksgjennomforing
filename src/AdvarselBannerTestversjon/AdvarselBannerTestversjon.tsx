@@ -19,7 +19,10 @@ const AdvarselBannerTestversjon = () => {
                     <LesMerPanel åpneLabel="Les mer" lukkLabel="Lukk">
                         <p>
                             Hvis du er veileder i Nav,{' '}
-                            <EksternLenke href="https://tiltaksgjennomforing.intern.nav.no/tiltaksgjennomforing">
+                            <EksternLenke
+                                href="https://tiltaksgjennomforing.intern.nav.no/tiltaksgjennomforing"
+                                ariaLabel="Åpne tiltaksgjennomføring i ny fane"
+                            >
                                 klikk her
                             </EksternLenke>{' '}
                             for å registrere ekte avtaler.
