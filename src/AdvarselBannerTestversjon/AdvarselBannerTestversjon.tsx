@@ -19,9 +19,7 @@ const AdvarselBannerTestversjon = () => {
                     <LesMerPanel åpneLabel="Les mer" lukkLabel="Lukk">
                         <p>
                             Hvis du er veileder i Nav,{' '}
-                            <EksternLenke
-                                href="https://tiltaksgjennomforing.intern.nav.no/tiltaksgjennomforing"
-                            >
+                            <EksternLenke href="https://tiltaksgjennomforing.intern.nav.no/tiltaksgjennomforing">
                                 åpne tiltaksgjennomføring (åpnes i ny fane)
                             </EksternLenke>{' '}
                             for å registrere ekte avtaler.
@@ -29,7 +27,8 @@ const AdvarselBannerTestversjon = () => {
                             Hvis du er arbeidsgiver eller deltaker kan du{' '}
                             <EksternLenke href="https://arbeidsgiver.nav.no/tiltaksgjennomforing">
                                 åpne tiltaksgjennomføring (åpnes i ny fane)
-                            </EksternLenke>.
+                            </EksternLenke>
+                            .
                         </p>
                         <p>
                             For å teste flyten, kan du opprette avtaler på fnr: <b>23090170716</b> (fiktivt) og
