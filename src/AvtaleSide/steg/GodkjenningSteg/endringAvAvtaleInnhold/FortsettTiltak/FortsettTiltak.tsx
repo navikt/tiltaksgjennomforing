@@ -17,8 +17,8 @@ const FortsettTiltak: FunctionComponent = () => {
     const [sisteOppfolgingVarsel, setSisteOppfolgingVarsel] = useState<Varsel | undefined>(undefined);
 
     const [modalApen, setModalApen] = useState(false);
-    const harKommendeOppfolging = !erNil(avtale.kommendeOppfolging);
-    const oppfolgingKanUtfores = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
+    const harPlanlagtOppfolging = !erNil(avtale.kommendeOppfolging);
+    const erOppfolgingInnenforVindu = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
 
     useEffect(() => {
         if (modalApen) {
@@ -67,10 +67,10 @@ const FortsettTiltak: FunctionComponent = () => {
                 bekreftelseTekst="Fortsett tiltak"
                 oversiktTekst="Fortsett tiltak"
                 modalIsOpen={modalApen}
-                bekreftOnClick={oppfolgingKanUtfores ? bekrefterOppfølgingAvAvtale : undefined}
+                bekreftOnClick={bekrefterOppfølgingAvAvtale}
                 lukkModal={() => setModalApen(false)}
             >
-                {oppfolgingKanUtfores && (
+                {erOppfolgingInnenforVindu && (
                     <>
                         {sisteOppfølgingTekst}
                         <BodyShort size="small">
@@ -79,18 +79,15 @@ const FortsettTiltak: FunctionComponent = () => {
                         </BodyShort>
                     </>
                 )}
-                {!oppfolgingKanUtfores && (
+                {!erOppfolgingInnenforVindu && (
                     <>
-                        <BodyShort size="small" spacing>
-                            Det er ikke nødvendig å følge opp avtalen enda.
-                        </BodyShort>
                         {sisteOppfølgingTekst}
-                        {harKommendeOppfolging && (
+                        {harPlanlagtOppfolging && (
                             <BodyShort size="small" spacing>
-                                Neste oppfølging kan utføres fra og med{' '}
-                                {formaterDato(avtale.kommendeOppfolging.oppfolgingstarter, NORSK_DATO_FORMAT_FULL)} og
-                                må utføres innen{' '}
-                                {formaterDato(avtale.kommendeOppfolging.oppfolgingsfrist, NORSK_DATO_FORMAT_FULL)}
+                                Planlagt oppfølging må utføres innen{' '}
+                                {formaterDato(avtale.kommendeOppfolging.oppfolgingsfrist, NORSK_DATO_FORMAT_FULL)}. Det
+                                er likevel mulig å foreta en oppfølging før dette. Ved å gå videre bekrefter du at det
+                                er foretatt en ny oppfølging av avtalen og vurdert at tiltaket skal fortsette.
                             </BodyShort>
                         )}
                     </>
