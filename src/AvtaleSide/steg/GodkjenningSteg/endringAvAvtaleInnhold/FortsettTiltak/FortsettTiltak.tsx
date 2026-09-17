@@ -81,16 +81,13 @@ const FortsettTiltak: FunctionComponent = () => {
                 )}
                 {!oppfolgingKanUtfores && (
                     <>
-                        <BodyShort size="small" spacing>
-                            Det er ikke nødvendig å følge opp avtalen enda, men det er mulig om du ønsker det.
-                        </BodyShort>
                         {sisteOppfølgingTekst}
                         {harKommendeOppfolging && (
                             <BodyShort size="small" spacing>
-                                Neste oppfølging kan utføres fra og med{' '}
-                                {formaterDato(avtale.kommendeOppfolging.oppfolgingstarter, NORSK_DATO_FORMAT_FULL)} og
-                                må utføres innen{' '}
-                                {formaterDato(avtale.kommendeOppfolging.oppfolgingsfrist, NORSK_DATO_FORMAT_FULL)}
+                                Planlagt oppfølging må utføres innen{' '}
+                                {formaterDato(avtale.kommendeOppfolging.oppfolgingsfrist, NORSK_DATO_FORMAT_FULL)}. Det
+                                er likevel mulig å foreta en oppfølging før dette. Ved å gå videre bekrefter du at det
+                                er foretatt en ny oppfølging av avtalen og vurdert at tiltaket skal fortsette.
                             </BodyShort>
                         )}
                     </>
