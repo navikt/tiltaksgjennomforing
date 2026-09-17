@@ -17,8 +17,8 @@ const FortsettTiltak: FunctionComponent = () => {
     const [sisteOppfolgingVarsel, setSisteOppfolgingVarsel] = useState<Varsel | undefined>(undefined);
 
     const [modalApen, setModalApen] = useState(false);
-    const harKommendeOppfolging = !erNil(avtale.kommendeOppfolging);
-    const oppfolgingKanUtfores = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
+    const harPlanlagtOppfolging = !erNil(avtale.kommendeOppfolging);
+    const erOppfolgingInnenforVindu = avtale.kommendeOppfolging?.oppfolgingKanUtfores ?? false;
 
     useEffect(() => {
         if (modalApen) {
@@ -70,7 +70,7 @@ const FortsettTiltak: FunctionComponent = () => {
                 bekreftOnClick={bekrefterOppfølgingAvAvtale}
                 lukkModal={() => setModalApen(false)}
             >
-                {oppfolgingKanUtfores && (
+                {erOppfolgingInnenforVindu && (
                     <>
                         {sisteOppfølgingTekst}
                         <BodyShort size="small">
@@ -79,10 +79,10 @@ const FortsettTiltak: FunctionComponent = () => {
                         </BodyShort>
                     </>
                 )}
-                {!oppfolgingKanUtfores && (
+                {!erOppfolgingInnenforVindu && (
                     <>
                         {sisteOppfølgingTekst}
-                        {harKommendeOppfolging && (
+                        {harPlanlagtOppfolging && (
                             <BodyShort size="small" spacing>
                                 Planlagt oppfølging må utføres innen{' '}
                                 {formaterDato(avtale.kommendeOppfolging.oppfolgingsfrist, NORSK_DATO_FORMAT_FULL)}. Det
