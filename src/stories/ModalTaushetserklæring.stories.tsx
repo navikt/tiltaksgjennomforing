@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import TaushetserklæringModal from '@/AvtaleOversikt/Taushetserklæring/Taushetserklæring';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router';
 
 const meta = {
     title: 'Tiltaksgjennomforing/Modaler/Taushetserklæring',

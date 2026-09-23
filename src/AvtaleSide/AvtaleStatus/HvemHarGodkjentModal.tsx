@@ -15,9 +15,7 @@ const HvemHarGodkjentModal: FunctionComponent<Props> = (props) => {
 
     return (
         <div>
-            <Button size="xsmall" onClick={() => setModalOpen(true)}>
-                Hvem har godkjent?
-            </Button>
+            <Button onClick={() => setModalOpen(true)}>Hvem har godkjent?</Button>
 
             <Modal
                 style={{ minWidth: '40rem' }}

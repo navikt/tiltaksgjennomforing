@@ -1,5 +1,5 @@
 import React, { FunctionComponent, PropsWithChildren, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { useAvtale } from '@/AvtaleProvider';
 import { useAsyncError } from '@/komponenter/useError';

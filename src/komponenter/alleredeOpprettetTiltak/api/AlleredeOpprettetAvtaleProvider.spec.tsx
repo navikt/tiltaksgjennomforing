@@ -1,6 +1,6 @@
 import { afterEach, expect, test } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, useNavigate } from 'react-router';
 import { AlleredeRegistrertAvtale } from '@/types/avtale';
 import AlleredeOpprettetAvtaleProvider, { useAlleredeOpprettetAvtale } from './AlleredeOpprettetAvtaleProvider';
 

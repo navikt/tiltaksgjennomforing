@@ -2,3 +2,10 @@ allowBuilds:
   esbuild: true
 engineStrict: true
 lockfileIncludeTarballUrl: true
+
+# Storybook deklarerer react/react-dom som valgfrie peers. Uten dette løser pnpm
+# addon-docs-undertreet på egen hånd og drar inn en ekstra React-kopi, som gir
+# "dispatcher is null" i Storybook. Bind hele grafen til appens versjon.
+overrides:
+  react: $react
+  react-dom: $react-dom
