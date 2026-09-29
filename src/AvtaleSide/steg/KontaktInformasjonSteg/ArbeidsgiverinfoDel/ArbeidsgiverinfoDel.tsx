@@ -5,7 +5,7 @@ import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import BEMHelper from '@/utils/bem';
-import { Fieldset } from '@navikt/ds-react';
+import { Fieldset, HGrid } from '@navikt/ds-react';
 
 const ArbeidsgiverinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
@@ -14,37 +14,28 @@ const ArbeidsgiverinfoDel = () => {
     return (
         <div className={cls.element('container')}>
             <SkjemaTittel>Informasjon om arbeidsgiveren</SkjemaTittel>
-            <Fieldset legend="" title="Om bedriften" className={cls.element('skjemagruppe')}>
-                <div className={cls.element('rad')}>
-                    <VisueltDisabledInputFelt label="Bedriftens navn" tekst={avtale.gjeldendeInnhold.bedriftNavn} />
-                    <VisueltDisabledInputFelt label="Virksomhetsnummer" tekst={avtale.bedriftNr} />
-                </div>
-            </Fieldset>
-            <Fieldset legend="" title="Kontaktperson for avtalen" className={cls.element('skjemagruppe')}>
-                <div className={cls.element('rad')}>
-                    <PakrevdInput
-                        name="arbeidsgiverFornavn"
-                        label="Fornavn"
-                        verdi={avtale.gjeldendeInnhold.arbeidsgiverFornavn}
-                        settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverFornavn', verdi)}
-                    />
-                    <PakrevdInput
-                        name="arbeidsgiverEtternavn"
-                        label="Etternavn"
-                        verdi={avtale.gjeldendeInnhold.arbeidsgiverEtternavn}
-                        settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverEtternavn', verdi)}
-                    />
-                </div>
-
-                <div className={cls.element('rad')}>
-                    <MobilnummerInput
-                        label="Mobilnummer"
-                        name="arbeidsgiverTlf"
-                        verdi={avtale.gjeldendeInnhold.arbeidsgiverTlf}
-                        settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
-                    />
-                </div>
-            </Fieldset>
+            <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                <VisueltDisabledInputFelt label="Bedriftens navn" tekst={avtale.gjeldendeInnhold.bedriftNavn} />
+                <VisueltDisabledInputFelt label="Virksomhetsnummer" tekst={avtale.bedriftNr} />
+                <PakrevdInput
+                    name="arbeidsgiverFornavn"
+                    label="Fornavn"
+                    verdi={avtale.gjeldendeInnhold.arbeidsgiverFornavn}
+                    settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverFornavn', verdi)}
+                />
+                <PakrevdInput
+                    name="arbeidsgiverEtternavn"
+                    label="Etternavn"
+                    verdi={avtale.gjeldendeInnhold.arbeidsgiverEtternavn}
+                    settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverEtternavn', verdi)}
+                />
+                <MobilnummerInput
+                    label="Mobilnummer"
+                    name="arbeidsgiverTlf"
+                    verdi={avtale.gjeldendeInnhold.arbeidsgiverTlf}
+                    settVerdi={(verdi) => settAvtaleVerdi('arbeidsgiverTlf', verdi)}
+                />
+            </HGrid>
         </div>
     );
 };
