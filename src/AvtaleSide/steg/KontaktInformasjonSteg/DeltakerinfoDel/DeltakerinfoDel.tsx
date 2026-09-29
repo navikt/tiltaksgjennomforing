@@ -3,8 +3,9 @@ import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
-import { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
+import { HGrid, Hide } from '@navikt/ds-react';
 
 const DeltakerinfoDel: FunctionComponent = () => {
     const cls = BEMHelper('kontaktinfo');
@@ -12,10 +13,11 @@ const DeltakerinfoDel: FunctionComponent = () => {
     return (
         <div className={cls.element('container')}>
             <SkjemaTittel>Informasjon om deltakeren</SkjemaTittel>
-            <div className={cls.element('rad')}>
+            <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
                 <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.deltakerFnr} />
-            </div>
-            <div className={cls.element('rad')}>
+                <Hide below="md" asChild>
+                    <div aria-hidden="true" />
+                </Hide>
                 <PakrevdInput
                     name="deltakerFornavn"
                     label="Fornavn"
@@ -28,15 +30,13 @@ const DeltakerinfoDel: FunctionComponent = () => {
                     verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerEtternavn}
                     settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerEtternavn', verdi)}
                 />
-            </div>
-            <div className={cls.element('rad')}>
                 <MobilnummerInput
                     label="Mobilnummer"
                     name="deltakerTlf"
                     verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerTlf}
                     settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerTlf', verdi)}
                 />
-            </div>
+            </HGrid>
         </div>
     );
 };

@@ -1,12 +1,11 @@
 import { AvtaleContext } from '@/AvtaleProvider';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
 import { useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { Alert } from '@navikt/ds-react';
+import { Alert, HGrid } from '@navikt/ds-react';
 
 const VeilederinfoDel = () => {
     const cls = BEMHelper('kontaktinfo');
@@ -37,7 +36,7 @@ const VeilederinfoDel = () => {
                     )}
                 </>
             )}
-            <div className={cls.element('rad')}>
+            <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
                 <PakrevdInput
                     name="veilederFornavn"
                     label="Fornavn"
@@ -50,15 +49,13 @@ const VeilederinfoDel = () => {
                     verdi={avtale.gjeldendeInnhold.veilederEtternavn}
                     settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederEtternavn', verdi)}
                 />
-            </div>
-            <VerticalSpacer rem={1} />
-            <MobilnummerInput
-                label="Mobilnummer"
-                name="veilederTlf"
-                verdi={avtale.gjeldendeInnhold.veilederTlf}
-                settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederTlf', verdi)}
-            />
-            <VerticalSpacer rem={1} />
+                <MobilnummerInput
+                    label="Mobilnummer"
+                    name="veilederTlf"
+                    verdi={avtale.gjeldendeInnhold.veilederTlf}
+                    settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederTlf', verdi)}
+                />
+            </HGrid>
         </div>
     );
 };
