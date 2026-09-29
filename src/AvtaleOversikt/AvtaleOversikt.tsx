@@ -1,6 +1,7 @@
-import { omit, Pagination, Select } from '@navikt/ds-react';
+import { Hide, omit, Pagination, Select } from '@navikt/ds-react';
 import isEqual from 'lodash.isequal';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useSearchParams } from 'react-router';
 
 import PlussIkon from '@/assets/ikoner/pluss-tegn.svg?react';
@@ -32,6 +33,7 @@ import { FiltreringContext } from './Filtrering/FiltreringProvider';
 
 const AvtaleOversikt: FunctionComponent = () => {
     const innloggetBruker = useInnloggetBruker();
+    const erMobilvisning = useMediaQuery({ maxWidth: '767px' });
     const [varsler, setVarsler] = useState<Varsel[]>([]);
     const { filtre, endreFilter } = useFilter();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -265,6 +267,7 @@ const AvtaleOversikt: FunctionComponent = () => {
                                     <>
                                         <Pagination
                                             page={pageNumber}
+                                            size={erMobilvisning ? 'small' : 'medium'}
                                             onPageChange={(x) => {
                                                 endreFilter({ page: '' + x });
                                             }}
@@ -273,21 +276,23 @@ const AvtaleOversikt: FunctionComponent = () => {
                                             siblingCount={1}
                                             className={styles.avtaleoversiktPaginationPagination}
                                         />
-                                        <Select
-                                            label="Gå til side"
-                                            hideLabel
-                                            className={styles.avtaleoversiktPaginationPageSelect}
-                                            onChange={(x) => endreFilter({ page: x.target.value })}
-                                            value={pageNumber}
-                                        >
-                                            {[...Array(nettressursCtx.data.totalPages).keys()]
-                                                .map((x) => x + 1)
-                                                .map((x) => (
-                                                    <option value={x} key={x}>
-                                                        {x}
-                                                    </option>
-                                                ))}
-                                        </Select>
+                                        <Hide below="md" asChild>
+                                            <Select
+                                                label="Gå til side"
+                                                hideLabel
+                                                className={styles.avtaleoversiktPaginationPageSelect}
+                                                onChange={(x) => endreFilter({ page: x.target.value })}
+                                                value={pageNumber}
+                                            >
+                                                {[...Array(nettressursCtx.data.totalPages).keys()]
+                                                    .map((x) => x + 1)
+                                                    .map((x) => (
+                                                        <option value={x} key={x}>
+                                                            {x}
+                                                        </option>
+                                                    ))}
+                                            </Select>
+                                        </Hide>
                                     </>
                                 )}
                         </div>
