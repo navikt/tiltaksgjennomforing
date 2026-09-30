@@ -24,10 +24,10 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
     ));
 
     return (
-        <main>
+        <>
             <OppgaveLinje />
             {ekspanderbartPanel}
-        </main>
+        </>
     );
 };
 
