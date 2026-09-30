@@ -1,4 +1,3 @@
-import BurgerMenyIkon from '@/assets/ikoner/burgermeny.svg?react';
 import { AvtaleContext } from '@/AvtaleProvider';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { hentVarsellogg } from '@/services/rest-service';
@@ -10,6 +9,7 @@ import React, { FunctionComponent, useContext, useEffect, useState } from 'react
 import './Varsellogg.less';
 import VarselTabell from './VarselTabell';
 import { isBefore } from 'date-fns';
+import { MenuHamburgerIcon } from '@navikt/aksel-icons';
 
 const cls = BEMHelper('varsellogg');
 
@@ -37,9 +37,7 @@ const Varsellogg: FunctionComponent = () => {
                 className={cls.element('menylenke')}
                 role="menuitem"
             >
-                <div aria-hidden={true}>
-                    <BurgerMenyIkon className={cls.element('burger-ikon')} />
-                </div>
+                <MenuHamburgerIcon className={cls.element('burger-ikon')} />
                 Hendelselogg
             </Link>
             <Modal
