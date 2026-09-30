@@ -1,7 +1,7 @@
-import { Table } from '@navikt/ds-react';
+import { Detail, Hide, Show, Table } from '@navikt/ds-react';
 import React from 'react';
 import { formaterPenger } from '@/utils';
-import BEMHelper from '@/utils/bem';
+import styles from './UtregningPanel.module.less';
 
 interface UtregningsradProps {
     icon?: React.ReactNode;
@@ -9,7 +9,7 @@ interface UtregningsradProps {
     midtrekkeTekst?: string;
     operator?: React.ReactNode;
     verdi: string | number;
-    className: string;
+    className?: string;
     ikkePenger?: boolean;
 }
 
@@ -22,8 +22,6 @@ const Utregningsrad: React.FC<UtregningsradProps> = ({
     className,
     ikkePenger,
 }) => {
-    const cls = BEMHelper(className);
-
     const parseVerdi = (verdi: string | number) => {
         const verdiSomNumber = parseInt(verdi.toString(), 10);
         return !isNaN(verdiSomNumber) && !ikkePenger ? formaterPenger(verdiSomNumber) : verdi;
@@ -31,11 +29,26 @@ const Utregningsrad: React.FC<UtregningsradProps> = ({
 
     return (
         <Table.Row className={className}>
-            <Table.DataCell className={cls.element('col-icon')}>{icon}</Table.DataCell>
-            <Table.DataCell>{label}</Table.DataCell>
-            <Table.DataCell>{midtrekkeTekst}</Table.DataCell>
-            <Table.DataCell className={cls.element('operator-cell')}>{operator}</Table.DataCell>
-            <Table.DataCell align="right" className={cls.element('verdi-cell')}>
+            <Hide below="md" asChild>
+                <Table.DataCell textSize="small" className={styles.colIcon}>
+                    {icon}
+                </Table.DataCell>
+            </Hide>
+            <Table.DataCell textSize="small" className={styles.labelCell}>
+                {label}
+                {midtrekkeTekst && (
+                    <Show below="md" asChild>
+                        <Detail>{midtrekkeTekst}</Detail>
+                    </Show>
+                )}
+            </Table.DataCell>
+            <Hide below="md" asChild>
+                <Table.DataCell textSize="small">{midtrekkeTekst}</Table.DataCell>
+            </Hide>
+            <Table.DataCell textSize="small" className={styles.operatorCell}>
+                {operator}
+            </Table.DataCell>
+            <Table.DataCell textSize="small" align="right" className={styles.verdiCell}>
                 {parseVerdi(verdi)}
             </Table.DataCell>
         </Table.Row>
