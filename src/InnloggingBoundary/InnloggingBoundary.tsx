@@ -72,7 +72,7 @@ const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
                         show-search-area={dekoratorConfig.showSearchArea}
                     />
                 )}
-                <Innloggingslinje brukBackupmeny={brukBackupmeny} innloggetBruker={innloggetBruker} />
+                {brukBackupmeny && <Innloggingslinje innloggetBruker={innloggetBruker} />}
                 {innloggetBruker.rolle === 'VEILEDER' && innloggetBruker.kanVæreBeslutter && <ByttTilBeslutter />}
                 {innloggetBruker.rolle === 'BESLUTTER' && <ByttTilVeileder />}
                 <InnloggetBrukerContext.Provider value={innloggetBruker}>
