@@ -18,7 +18,7 @@ const Innloggingslinje: FunctionComponent<Props> = (props) => (
             paddingInline="space-8 space-16"
             className={styles.innhold}
         >
-            <Link href="/tiltaksgjennomforing">
+            <Link href="/tiltaksgjennomforing" aria-label="Gå til forsiden">
                 <NavIkon />
             </Link>
             <HStack align="center" gap="space-16">
