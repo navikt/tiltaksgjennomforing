@@ -1,14 +1,14 @@
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
-import { Rolle } from '@/types/innlogget-bruker';
 import { ExpansionCard } from '@navikt/ds-react';
 import React from 'react';
 import styles from './MobilAvtaleSide.module.less';
 import { StegInfo } from '../AvtaleSide';
+import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 
 interface Props {
     avtaleSteg: StegInfo[];
-    rolle: Rolle;
-    avtaleId: string;
+    avtaleNr: number;
+    sidetittel: string;
 }
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
@@ -25,6 +25,7 @@ const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
 
     return (
         <>
+            <BannerNAVAnsatt tekst={props.sidetittel} undertittel={`Avtalenummer: ${props.avtaleNr}`} />
             <OppgaveLinje />
             {ekspanderbartPanel}
         </>
