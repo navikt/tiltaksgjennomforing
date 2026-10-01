@@ -42,23 +42,11 @@ const BeslutterPanel: FunctionComponent = () => {
             />
             <InfoRadBesluttervisning
                 feltnavn="Geografisk enhet"
-                verdi={
-                    <HentNavEnhetFraContext
-                        className={'enhet-geo'}
-                        enhetsnr="enhetGeografisk"
-                        enhetsNavn="enhetsnavnGeografisk"
-                    />
-                }
+                verdi={<HentNavEnhetFraContext enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />}
             />
             <InfoRadBesluttervisning
                 feltnavn="Oppfølgingsenhet"
-                verdi={
-                    <HentNavEnhetFraContext
-                        className={'enhet-oppfolging'}
-                        enhetsnr="enhetOppfolging"
-                        enhetsNavn="enhetsnavnOppfolging"
-                    />
-                }
+                verdi={<HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />}
             />
             <TilskuddsperiodeEndreKostnadssted />
         </div>

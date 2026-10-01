@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, BodyShort, Heading } from '@navikt/ds-react';
-import './deltakerInfo.less';
-import BEMHelper from '@/utils/bem';
+import classNames from 'classnames';
+import styles from './DeltakerInfo.module.less';
 import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import { useAvtale } from '@/AvtaleProvider';
@@ -22,44 +22,35 @@ const DeltakerInfo = (props: Props) => {
     }
 
     const { innsatsgruppe } = avtale;
-    const cls = BEMHelper('deltakerinfo');
-    const ikon = () => (oppsummeringside ? <NavIkon className="kontorinfo__ikon" width={28} height={28} /> : null);
+    const ikon = () => (oppsummeringside ? <NavIkon className={styles.ikon} width={28} height={28} /> : null);
 
     return (
-        <div className={cls.className}>
-            <div className={cls.element('ingress', oppsummeringside ? 'oppsummering' : '')}>
+        <div className={styles.deltakerinfo}>
+            <div className={classNames(styles.ingress, oppsummeringside && styles.ingressOppsummering)}>
                 {ikon()}
                 <Heading level="2" size="medium">
                     Om deltakeren
                 </Heading>
             </div>
-            <div className={cls.element('info-rad')}>
-                <div className={cls.element('info-container')}>
+            <div className={styles.infoRad}>
+                <div className={styles.infoContainer}>
                     <BodyShort size="small">Geografisk enhet</BodyShort>
-                    <BodyShort size="small" className={cls.element('info-verdi')}>
-                        <HentNavEnhetFraContext
-                            className={cls.className}
-                            enhetsnr="enhetGeografisk"
-                            enhetsNavn="enhetsnavnGeografisk"
-                        />
+                    <BodyShort size="small" className={styles.infoVerdi}>
+                        <HentNavEnhetFraContext enhetsnr="enhetGeografisk" enhetsNavn="enhetsnavnGeografisk" />
                     </BodyShort>
                 </div>
-                <div className={cls.element('info-container')}>
+                <div className={styles.infoContainer}>
                     <BodyShort size="small">Oppfølgingsenhet</BodyShort>
-                    <BodyShort size="small" className={cls.element('info-verdi')}>
-                        <HentNavEnhetFraContext
-                            className={cls.className}
-                            enhetsnr="enhetOppfolging"
-                            enhetsNavn="enhetsnavnOppfolging"
-                        />
+                    <BodyShort size="small" className={styles.infoVerdi}>
+                        <HentNavEnhetFraContext enhetsnr="enhetOppfolging" enhetsNavn="enhetsnavnOppfolging" />
                     </BodyShort>
                 </div>
             </div>
 
-            <div className={cls.element('info-rad')}>
-                <div className={cls.element('info-container')}>
+            <div className={styles.infoRad}>
+                <div className={styles.infoContainer}>
                     <BodyShort size="small">Innsatsgruppe (§ 14 a)</BodyShort>
-                    <BodyShort size="small" className={cls.element('info-verdi')}>
+                    <BodyShort size="small" className={styles.infoVerdi}>
                         {(innsatsgruppe?.type && innsatsgruppeTekst[innsatsgruppe.type]) ?? <em>Ikke oppgitt</em>}
                     </BodyShort>
                 </div>
