@@ -1,30 +1,31 @@
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
-import { Rolle } from '@/types/innlogget-bruker';
-import { Accordion } from '@navikt/ds-react';
+import { ExpansionCard } from '@navikt/ds-react';
 import React from 'react';
 import styles from './MobilAvtaleSide.module.less';
 import { StegInfo } from '../AvtaleSide';
+import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
 
 interface Props {
     avtaleSteg: StegInfo[];
-    rolle: Rolle;
-    avtaleId: string;
+    avtaleNr: number;
+    sidetittel: string;
 }
 
 const MobilAvtaleSide: React.FunctionComponent<Props> = (props) => {
     const ekspanderbartPanel = props.avtaleSteg.map((steg) => (
-        <div role="main" className={styles.ekspanderbartPanel} key={steg.id}>
-            <Accordion className="accordion">
-                <Accordion.Item>
-                    <Accordion.Header>{steg.label}</Accordion.Header>
-                    <Accordion.Content>{steg.komponent}</Accordion.Content>
-                </Accordion.Item>
-            </Accordion>
-        </div>
+        <ExpansionCard key={steg.id} size="small" aria-label={steg.label} className={styles.ekspanderbartPanel}>
+            <ExpansionCard.Header>
+                <ExpansionCard.Title as="h2" size="small">
+                    {steg.label}
+                </ExpansionCard.Title>
+            </ExpansionCard.Header>
+            <ExpansionCard.Content className={styles.panelInnhold}>{steg.komponent}</ExpansionCard.Content>
+        </ExpansionCard>
     ));
 
     return (
         <>
+            <BannerNAVAnsatt tekst={props.sidetittel} undertittel={`Avtalenummer: ${props.avtaleNr}`} />
             <OppgaveLinje />
             {ekspanderbartPanel}
         </>
