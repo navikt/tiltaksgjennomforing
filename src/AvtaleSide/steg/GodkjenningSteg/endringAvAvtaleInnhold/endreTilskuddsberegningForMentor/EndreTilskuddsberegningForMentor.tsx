@@ -2,7 +2,7 @@ import styles from './EndreTilskuddsberegningForMentor.module.less';
 import { useAvtale } from '@/AvtaleProvider';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { oppdateretilskuddsBeregning, oppdateretilskuddsBeregningDryRun } from '@/services/rest-service';
-import { debounce, Heading, HGrid, Link } from '@navikt/ds-react';
+import { debounce, Heading, HGrid, HStack, Link } from '@navikt/ds-react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Avtale, Beregningsgrunnlag } from '@/types';
 import Feriepenger from '@/AvtaleSide/steg/BeregningTilskudd/Feriepenger';
@@ -15,6 +15,7 @@ import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorA
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import { erNil } from '@/utils/predicates';
 import { TasklistIcon } from '@navikt/aksel-icons';
+import feltbredde from '@/AvtaleSide/steg/BeregningTilskudd/Feltbredde.module.less';
 
 export type EndreTilskuddsberegningForMentorFelter = Pick<
     Beregningsgrunnlag,
@@ -128,19 +129,22 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                         onChange={settOgKalkulerBeregningsverdier}
                     />
                     <ObligatoriskTjenestepensjon
+                        htmlSize={8}
                         verdi={nyBeregning.otpSats}
                         settVerdi={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                     />
-                    <HGrid columns={2} gap="space-16">
+                    <HStack gap="space-16" align="end">
                         <Arbeidsgiveravgift
+                            className={feltbredde.bred}
                             sats={nyBeregning.arbeidsgiveravgift}
                             onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
                         />
                         <Feriepenger
+                            className={feltbredde.bred}
                             sats={nyBeregning.feriepengesats}
                             onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
                         />
-                    </HGrid>
+                    </HStack>
                     <UtregningPanelMentorTilskudd {...nyAvtale.gjeldendeInnhold} />
                 </HGrid>
             </BekreftelseModal>
