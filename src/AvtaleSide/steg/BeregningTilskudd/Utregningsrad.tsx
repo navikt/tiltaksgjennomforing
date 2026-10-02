@@ -29,7 +29,7 @@ const Utregningsrad: React.FC<UtregningsradProps> = ({
 
     return (
         <Table.Row className={className}>
-            <Hide below="md" asChild>
+            <Hide below="sm" asChild>
                 <Table.DataCell textSize="small" className={styles.colIcon}>
                     {icon}
                 </Table.DataCell>
@@ -37,13 +37,15 @@ const Utregningsrad: React.FC<UtregningsradProps> = ({
             <Table.DataCell textSize="small" className={styles.labelCell}>
                 {label}
                 {midtrekkeTekst && (
-                    <Show below="md" asChild>
+                    <Show below="sm" asChild>
                         <Detail>{midtrekkeTekst}</Detail>
                     </Show>
                 )}
             </Table.DataCell>
-            <Hide below="md" asChild>
-                <Table.DataCell textSize="small">{midtrekkeTekst}</Table.DataCell>
+            <Hide below="sm" asChild>
+                <Table.DataCell textSize="small" className={styles.satsCell}>
+                    {midtrekkeTekst}
+                </Table.DataCell>
             </Hide>
             <Table.DataCell textSize="small" className={styles.operatorCell}>
                 {operator}

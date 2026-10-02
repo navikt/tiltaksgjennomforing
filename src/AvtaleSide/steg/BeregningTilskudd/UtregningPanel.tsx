@@ -20,18 +20,18 @@ import { erNil } from '@/utils/predicates';
 
 const SummeringsRad: React.FC<{ sum: number }> = ({ sum }) => (
     <Table.Row>
-        <Hide below="md" asChild>
+        <Hide below="sm" asChild>
             <Table.DataCell textSize="small" aria-hidden="true" />
         </Hide>
         <Table.DataCell textSize="small">
             <strong>Sum tilskudd for en måned</strong>
         </Table.DataCell>
-        <Hide below="md" asChild>
+        <Hide below="sm" asChild>
             <Table.DataCell textSize="small" colSpan={3} align="right">
                 <strong>{`Inntil ${formaterPenger(sum)}`}</strong>
             </Table.DataCell>
         </Hide>
-        <Show below="md" asChild>
+        <Show below="sm" asChild>
             <Table.DataCell textSize="small" colSpan={2} align="right">
                 <strong>{`Inntil ${formaterPenger(sum)}`}</strong>
             </Table.DataCell>
@@ -41,7 +41,7 @@ const SummeringsRad: React.FC<{ sum: number }> = ({ sum }) => (
 
 const TilskuddsprosentRad: React.FC<{ label: string; prosent: number; borderTop?: boolean }> = ({ label, prosent }) => (
     <Table.Row>
-        <Hide below="md" asChild>
+        <Hide below="sm" asChild>
             <Table.DataCell textSize="small" className={styles.colIcon}>
                 <PieChartIcon />
             </Table.DataCell>
@@ -49,7 +49,7 @@ const TilskuddsprosentRad: React.FC<{ label: string; prosent: number; borderTop?
         <Table.DataCell textSize="small" className={styles.labelCell}>
             {label}
         </Table.DataCell>
-        <Hide below="md" asChild>
+        <Hide below="sm" asChild>
             <Table.DataCell textSize="small" />
         </Hide>
         <Table.DataCell textSize="small" className={styles.operatorCell}>
