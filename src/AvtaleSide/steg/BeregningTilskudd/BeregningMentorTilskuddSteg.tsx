@@ -84,9 +84,9 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     verdi={avtale.gjeldendeInnhold.otpSats}
                     settVerdi={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                 />
-                <VerticalSpacer rem={1.5} />
+                <VerticalSpacer rem={1} />
 
-                <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                <HGrid gap="space-16" columns={{ xs: 1, md: 2 }} align="end">
                     <Arbeidsgiveravgift
                         sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
                         onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
