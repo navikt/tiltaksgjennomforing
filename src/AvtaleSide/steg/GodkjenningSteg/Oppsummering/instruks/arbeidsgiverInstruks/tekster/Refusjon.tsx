@@ -24,7 +24,7 @@ const Refusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
                 tilskuddsperioden er over.
             </p>
             <p>
-                <EksternLenke href="https://www.nav.no/soknader/nb/bedrift/refusjoner/inkluderingstilskudd">
+                <EksternLenke href="https://www.nav.no/arbeidsgiver/soknader#inkluderingstilskudd">
                     Refusjonsskjema for inkluderingstilskudd
                 </EksternLenke>
             </p>
