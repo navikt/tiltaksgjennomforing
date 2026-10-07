@@ -6,7 +6,6 @@ import React, { FunctionComponent, useContext } from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import Relasjoner from './ArbeidsgiverinfoDel/Relasjoner';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import './kontaktinfo.less';
 import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
