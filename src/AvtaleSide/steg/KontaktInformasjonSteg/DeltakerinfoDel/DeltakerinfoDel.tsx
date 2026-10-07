@@ -3,8 +3,7 @@ import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { FunctionComponent, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
-import { Fieldset, Heading, HGrid } from '@navikt/ds-react';
-import grid from '@/komponenter/layout/Grid.module.less';
+import { Fieldset, Heading, HGrid, VStack } from '@navikt/ds-react';
 import styles from '../kontaktinfo.module.less';
 
 const DeltakerinfoDel: FunctionComponent = () => {
@@ -18,32 +17,33 @@ const DeltakerinfoDel: FunctionComponent = () => {
                 </Heading>
             }
         >
-            <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+            <VStack gap="space-16">
                 <VisueltDisabledInputFelt
                     label="Fødselsnummer"
                     tekst={avtaleContext.avtale.deltakerFnr}
                     htmlSize={13}
-                    className={grid.helRad}
                 />
-                <PakrevdInput
-                    name="deltakerFornavn"
-                    label="Fornavn"
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerFornavn}
-                    settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerFornavn', verdi)}
-                />
-                <PakrevdInput
-                    name="deltakerEtternavn"
-                    label="Etternavn"
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerEtternavn}
-                    settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerEtternavn', verdi)}
-                />
-                <MobilnummerInput
-                    label="Mobilnummer"
-                    name="deltakerTlf"
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerTlf}
-                    settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerTlf', verdi)}
-                />
-            </HGrid>
+                <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                    <PakrevdInput
+                        name="deltakerFornavn"
+                        label="Fornavn"
+                        verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerFornavn}
+                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerFornavn', verdi)}
+                    />
+                    <PakrevdInput
+                        name="deltakerEtternavn"
+                        label="Etternavn"
+                        verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerEtternavn}
+                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerEtternavn', verdi)}
+                    />
+                    <MobilnummerInput
+                        label="Mobilnummer"
+                        name="deltakerTlf"
+                        verdi={avtaleContext.avtale.gjeldendeInnhold.deltakerTlf}
+                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('deltakerTlf', verdi)}
+                    />
+                </HGrid>
+            </VStack>
         </Fieldset>
     );
 };
