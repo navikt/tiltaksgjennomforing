@@ -5,7 +5,8 @@ import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import BEMHelper from '@/utils/bem';
 import React, { FunctionComponent, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
-import { HGrid, Hide } from '@navikt/ds-react';
+import { HGrid } from '@navikt/ds-react';
+import grid from '@/komponenter/layout/Grid.module.less';
 
 const DeltakerinfoDel: FunctionComponent = () => {
     const cls = BEMHelper('kontaktinfo');
@@ -14,10 +15,12 @@ const DeltakerinfoDel: FunctionComponent = () => {
         <div className={cls.element('container')}>
             <SkjemaTittel>Informasjon om deltakeren</SkjemaTittel>
             <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
-                <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.deltakerFnr} />
-                <Hide below="md" asChild>
-                    <div aria-hidden="true" />
-                </Hide>
+                <VisueltDisabledInputFelt
+                    label="Fødselsnummer"
+                    tekst={avtaleContext.avtale.deltakerFnr}
+                    htmlSize={13}
+                    className={grid.helRad}
+                />
                 <PakrevdInput
                     name="deltakerFornavn"
                     label="Fornavn"

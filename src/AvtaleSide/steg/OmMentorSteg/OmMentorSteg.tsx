@@ -9,7 +9,8 @@ import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import React, { useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import { HGrid, Hide } from '@navikt/ds-react';
+import { HGrid } from '@navikt/ds-react';
+import grid from '@/komponenter/layout/Grid.module.less';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -20,10 +21,12 @@ const OmMentorSteg = () => {
             <Innholdsboks>
                 <SkjemaTittel>Om mentoren</SkjemaTittel>
                 <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
-                    <VisueltDisabledInputFelt label="Fødselsnummer" tekst={avtaleContext.avtale.mentorFnr} />
-                    <Hide below="md" asChild>
-                        <div aria-hidden="true" />
-                    </Hide>
+                    <VisueltDisabledInputFelt
+                        label="Fødselsnummer"
+                        tekst={avtaleContext.avtale.mentorFnr}
+                        htmlSize={13}
+                        className={grid.helRad}
+                    />
                     <PakrevdInput
                         name="mentorFornavn"
                         label="Fornavn"

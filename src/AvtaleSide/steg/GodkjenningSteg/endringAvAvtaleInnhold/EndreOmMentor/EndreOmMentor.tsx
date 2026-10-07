@@ -10,6 +10,7 @@ import type { FunctionComponent } from 'react';
 import { useContext, useState } from 'react';
 import { TasklistIcon } from '@navikt/aksel-icons';
 import styles from './EndreOmMentor.module.less';
+import grid from '@/komponenter/layout/Grid.module.less';
 
 const EndreOmMentor: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -62,8 +63,9 @@ const EndreOmMentor: FunctionComponent = () => {
                 <HGrid columns={2} gap="space-16">
                     <VisueltDisabledInputFelt
                         label="Fødselsnummer"
-                        className={styles.limitMaxWidth}
+                        className={grid.helRad}
                         tekst={avtaleContext.avtale.mentorFnr}
+                        htmlSize={13}
                     />
                     <PakrevdInput
                         name="mentorFornavn"
@@ -80,13 +82,12 @@ const EndreOmMentor: FunctionComponent = () => {
                     <MobilnummerInput
                         label="Mobilnummer"
                         name="mentorTlf"
-                        className={styles.limitMaxWidth}
                         verdi={mentorInfo.mentorTlf}
                         settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
                     />
                     <PakrevdTextarea
                         label="Arbeidsoppgaver til mentor"
-                        className={styles.span2}
+                        className={grid.helRad}
                         verdi={mentorInfo.mentorOppgaver}
                         settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorOppgaver: verdi })}
                         maxLengde={1000}
