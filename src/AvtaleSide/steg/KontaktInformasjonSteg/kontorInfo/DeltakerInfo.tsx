@@ -50,7 +50,7 @@ const DeltakerInfo = (props: Props) => {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <Heading level="2" size="medium" className={styles.ingress}>
                 Om deltakeren
             </Heading>
