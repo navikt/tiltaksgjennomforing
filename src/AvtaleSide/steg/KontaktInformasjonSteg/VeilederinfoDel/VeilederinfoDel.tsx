@@ -1,21 +1,25 @@
 import { AvtaleContext } from '@/AvtaleProvider';
-import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
 import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
-import BEMHelper from '@/utils/bem';
 import { useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
-import { Alert, HGrid } from '@navikt/ds-react';
+import { Alert, Fieldset, Heading, HGrid } from '@navikt/ds-react';
+import styles from '../kontaktinfo.module.less';
 
 const VeilederinfoDel = () => {
-    const cls = BEMHelper('kontaktinfo');
     const { avtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);
     const { rolle, identifikator } = useContext(InnloggetBrukerContext);
     const innloggetBrukerErEierAvAvtalen = avtale.veilederNavIdent === identifikator;
 
     return (
-        <div className={cls.element('container')}>
-            <SkjemaTittel>Kontaktperson i Nav</SkjemaTittel>
+        <Fieldset
+            className={styles.container}
+            legend={
+                <Heading level="2" size="medium">
+                    Kontaktperson i Nav
+                </Heading>
+            }
+        >
             {rolle === 'VEILEDER' && (
                 <>
                     {avtale.veilederNavIdent && (
@@ -56,7 +60,7 @@ const VeilederinfoDel = () => {
                     settVerdi={(verdi) => settAvtaleInnholdVerdi('veilederTlf', verdi)}
                 />
             </HGrid>
-        </div>
+        </Fieldset>
     );
 };
 
