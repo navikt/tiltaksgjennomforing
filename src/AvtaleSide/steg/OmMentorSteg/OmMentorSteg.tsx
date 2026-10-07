@@ -9,8 +9,7 @@ import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import React, { useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
-import { HGrid } from '@navikt/ds-react';
-import grid from '@/komponenter/layout/Grid.module.less';
+import { HGrid, VStack } from '@navikt/ds-react';
 
 const OmMentorSteg = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -20,40 +19,40 @@ const OmMentorSteg = () => {
             <AvtaleStatus />
             <Innholdsboks>
                 <SkjemaTittel>Om mentoren</SkjemaTittel>
-                <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                <VStack gap="space-16">
                     <VisueltDisabledInputFelt
                         label="Fødselsnummer"
                         tekst={avtaleContext.avtale.mentorFnr}
                         htmlSize={13}
-                        className={grid.helRad}
                     />
-                    <PakrevdInput
-                        name="mentorFornavn"
-                        label="Fornavn"
-                        verdi={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
-                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
+                    <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                        <PakrevdInput
+                            name="mentorFornavn"
+                            label="Fornavn"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorFornavn}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorFornavn', verdi)}
+                        />
+                        <PakrevdInput
+                            name="mentorEtternavn"
+                            label="Etternavn"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorEtternavn', verdi)}
+                        />
+                        <MobilnummerInput
+                            label="Mobilnummer"
+                            name="mentorTlf"
+                            verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTlf}
+                            settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorTlf', verdi)}
+                        />
+                    </HGrid>
+                    <PakrevdTextarea
+                        label="Arbeidsoppgaver til mentor"
+                        verdi={avtaleContext.avtale.gjeldendeInnhold.mentorOppgaver}
+                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorOppgaver', verdi)}
+                        maxLengde={1000}
+                        feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                     />
-                    <PakrevdInput
-                        name="mentorEtternavn"
-                        label="Etternavn"
-                        verdi={avtaleContext.avtale.gjeldendeInnhold.mentorEtternavn}
-                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorEtternavn', verdi)}
-                    />
-                    <MobilnummerInput
-                        label="Mobilnummer"
-                        name="mentorTlf"
-                        verdi={avtaleContext.avtale.gjeldendeInnhold.mentorTlf}
-                        settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorTlf', verdi)}
-                    />
-                </HGrid>
-                <VerticalSpacer rem={1} />
-                <PakrevdTextarea
-                    label="Arbeidsoppgaver til mentor"
-                    verdi={avtaleContext.avtale.gjeldendeInnhold.mentorOppgaver}
-                    settVerdi={(verdi) => avtaleContext.settAvtaleInnholdVerdi('mentorOppgaver', verdi)}
-                    maxLengde={1000}
-                    feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
-                />
+                </VStack>
                 <VerticalSpacer rem={2} />
                 <LagreKnapp lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
