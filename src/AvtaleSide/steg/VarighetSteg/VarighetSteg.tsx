@@ -86,7 +86,7 @@ const VarighetSteg: FunctionComponent = () => {
                     sommerjobbDeltakerOver30VedStartdato={sommerjobbDeltakerOver30VedStartdato}
                 />
                 <VarighetInputfelt className={cls.className} />
-                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'} className={cls.element('lagre-knapp')}>
+                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
                 </LagreKnapp>
             </Innholdsboks>
