@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Alert, BodyShort, Heading } from '@navikt/ds-react';
-import styles from './DeltakerInfo.module.less';
+import styles from './deltaker-info.module.less';
 import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import HentNavEnhetFraContext from '@/utils/HentNavEnhetFraContext';
 import { useAvtale } from '@/AvtaleProvider';
