@@ -5,7 +5,7 @@ import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennH
 import { storForbokstav } from '@/utils/stringUtils';
 import { Alert, Heading, HStack, ReadMore, TextField, VStack } from '@navikt/ds-react';
 import KronerInput from '@/komponenter/form/KronerInput';
-import styles from './Feltbredde.module.less';
+import styles from './feltbredde.module.less';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 

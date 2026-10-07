@@ -15,7 +15,7 @@ import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorA
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import { erNil } from '@/utils/predicates';
 import { TasklistIcon } from '@navikt/aksel-icons';
-import feltbredde from '@/AvtaleSide/steg/BeregningTilskudd/Feltbredde.module.less';
+import feltbredde from '@/AvtaleSide/steg/BeregningTilskudd/feltbredde.module.less';
 
 export type EndreTilskuddsberegningForMentorFelter = Pick<
     Beregningsgrunnlag,
