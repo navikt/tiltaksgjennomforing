@@ -18,7 +18,7 @@ import * as RestService from '@/services/rest-service';
 import useSWR from 'swr';
 import { useSWRKeyDebounce } from '@/utils/useSWRKeyDebounce';
 import { erNil } from '@/utils/predicates';
-import styles from './Feltbredde.module.less';
+import styles from './feltbredde.module.less';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
