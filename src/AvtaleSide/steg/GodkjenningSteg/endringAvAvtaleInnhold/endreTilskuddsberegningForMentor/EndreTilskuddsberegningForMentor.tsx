@@ -15,7 +15,6 @@ import MentorAntallTimerPerMnd from '@/AvtaleSide/steg/BeregningTilskudd/MentorA
 import Timeloenn from '@/AvtaleSide/steg/BeregningTilskudd/Timeloenn';
 import { erNil } from '@/utils/predicates';
 import { TasklistIcon } from '@navikt/aksel-icons';
-import feltbredde from '@/AvtaleSide/steg/BeregningTilskudd/feltbredde.module.less';
 
 export type EndreTilskuddsberegningForMentorFelter = Pick<
     Beregningsgrunnlag,
@@ -135,12 +134,12 @@ const EndreTilskuddsberegningForMentor: FunctionComponent = () => {
                     />
                     <HStack gap="space-16" align="end">
                         <Arbeidsgiveravgift
-                            className={feltbredde.bred}
+                            className={styles.bred}
                             sats={nyBeregning.arbeidsgiveravgift}
                             onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
                         />
                         <Feriepenger
-                            className={feltbredde.bred}
+                            className={styles.bred}
                             sats={nyBeregning.feriepengesats}
                             onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
                         />
