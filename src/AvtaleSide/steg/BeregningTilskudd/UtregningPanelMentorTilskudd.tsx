@@ -1,7 +1,7 @@
 import { Beregningsgrunnlag } from '@/types/avtale';
 import { ExpansionCard, Heading, Table } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import styles from './UtregningPanel.module.less';
+import styles from './utregning-panel.module.less';
 import {
     Buildings2Icon,
     EqualsIcon,

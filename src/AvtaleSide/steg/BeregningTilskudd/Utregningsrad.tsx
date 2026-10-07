@@ -1,7 +1,7 @@
 import { Detail, Hide, Show, Table } from '@navikt/ds-react';
 import React from 'react';
 import { formaterPenger } from '@/utils';
-import styles from './UtregningPanel.module.less';
+import styles from './utregning-panel.module.less';
 
 interface UtregningsradProps {
     icon?: React.ReactNode;
