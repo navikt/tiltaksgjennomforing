@@ -25,7 +25,7 @@ const DeltakerInfo = (props: Props) => {
     const ikon = () => (oppsummeringside ? <NavIkon className={styles.ikon} width={28} height={28} /> : null);
 
     return (
-        <div className={styles.deltakerinfo}>
+        <div>
             <div className={classNames(styles.ingress, oppsummeringside && styles.ingressOppsummering)}>
                 {ikon()}
                 <Heading level="2" size="medium">
