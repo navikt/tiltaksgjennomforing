@@ -60,7 +60,7 @@ const EndreOmMentor: FunctionComponent = () => {
                 bekreftOnClick={kallEndreOmMentor}
                 lukkModal={lukkModal}
             >
-                <HGrid columns={2} gap="space-16">
+                <HGrid columns={{ xs: 1, sm: 2 }} gap="space-16">
                     <VisueltDisabledInputFelt
                         label="Fødselsnummer"
                         className={grid.helRad}
