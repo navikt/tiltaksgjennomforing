@@ -60,7 +60,7 @@ const TilskuddsperiodeRadVtao = (props: Props) => {
                     <Table.DataCell align="right" textSize="small">
                         {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
                     </Table.DataCell>
-                    <Table.DataCell textSize="small">
+                    <Table.DataCell align="right" textSize="small">
                         {formaterDato(addDays(new Date(periode.sluttDato), 3), NORSK_DATO_FORMAT)}
                     </Table.DataCell>
                 </>
