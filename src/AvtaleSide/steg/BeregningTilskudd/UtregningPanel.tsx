@@ -13,7 +13,7 @@ import {
     PlusIcon,
     SackKronerIcon,
 } from '@navikt/aksel-icons';
-import styles from './UtregningPanel.module.less';
+import styles from './utregning-panel.module.less';
 import Utregningsrad from '@/AvtaleSide/steg/BeregningTilskudd/Utregningsrad';
 import { formaterNorskeTall } from '@/utils';
 import { erNil } from '@/utils/predicates';
