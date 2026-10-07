@@ -40,7 +40,9 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
                         <Table.HeaderCell textSize="small" align="right">
                             Beløp
                         </Table.HeaderCell>
-                        <Table.HeaderCell textSize="small">Utbetales</Table.HeaderCell>
+                        <Table.HeaderCell textSize="small" align="right">
+                            Utbetales
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
