@@ -1,58 +1,32 @@
 import NavIkon from '@/assets/ikoner/navikon.svg?react';
 import LoggUtKnapp from '@/InnloggingBoundary/LoggUtKnapp';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
-import BEMHelper from '@/utils/bem';
-import { Accordion } from '@navikt/ds-react';
-import { Link, Detail } from '@navikt/ds-react';
+import { Box, Detail, HStack, Link } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
-import MediaQuery from 'react-responsive';
-import './Innloggingslinje.less';
+import styles from './Innloggingslinje.module.less';
 
 type Props = {
     innloggetBruker: InnloggetBruker;
-    brukBackupmeny: boolean | undefined;
 };
 
-const cls = BEMHelper('innloggingslinje');
+const Innloggingslinje: FunctionComponent<Props> = (props) => (
+    <Box background="default" className={styles.innloggingslinje}>
+        <HStack
+            justify="space-between"
+            align="center"
+            paddingBlock="space-8"
+            paddingInline="space-8 space-16"
+            className={styles.innhold}
+        >
+            <Link href="/tiltaksgjennomforing" aria-label="Gå til forsiden">
+                <NavIkon />
+            </Link>
+            <HStack align="center" gap="space-16">
+                <Detail>{props.innloggetBruker.identifikator}</Detail>
+                <LoggUtKnapp />
+            </HStack>
+        </HStack>
+    </Box>
+);
 
-const Innloggingslinje: FunctionComponent<Props> = (props) => {
-    const bruker = props.innloggetBruker.identifikator;
-
-    return props.brukBackupmeny ? (
-        <div className="innloggingslinje">
-            <div className="innloggingslinje__innhold">
-                <MediaQuery minWidth={577}>
-                    <Link href="/tiltaksgjennomforing">
-                        <div className={cls.element('navIkon')}>
-                            <NavIkon />
-                        </div>
-                    </Link>
-                    <div className={cls.element('identitetogloggut')}>
-                        <Detail className={cls.element('identitetogloggut__identitet')}>{bruker}</Detail>
-                        <LoggUtKnapp />
-                    </div>
-                </MediaQuery>
-                <MediaQuery maxWidth={576}>
-                    <Accordion className="accordion">
-                        <Accordion.Item>
-                            <Accordion.Header>
-                                <div className={cls.element('mobileheader')}>
-                                    <NavIkon />
-                                    <div className={cls.element('brukernavn')} aria-label="innlogget bruker id">
-                                        {bruker}
-                                    </div>
-                                </div>
-                            </Accordion.Header>
-                            <Accordion.Content>
-                                <div className={cls.className}>
-                                    <LoggUtKnapp />
-                                </div>
-                            </Accordion.Content>
-                        </Accordion.Item>
-                    </Accordion>
-                </MediaQuery>
-            </div>
-        </div>
-    ) : null;
-};
 export default Innloggingslinje;
