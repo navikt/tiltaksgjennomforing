@@ -36,15 +36,7 @@ const BeslutterSide: FunctionComponent = () => {
             : defaultEnhet,
     );
     const [visEnhetFeil, setVisEnhetFeil] = useState<boolean>(false);
-    const [, setClsName] = useState<string>();
     const [visVersjon, setVisVersjon] = useState(false);
-
-    const fadeInOut = () => {
-        setClsName(cls.element('fade'));
-        setTimeout(() => {
-            setClsName(undefined);
-        }, 300);
-    };
 
     const context: Periode = {
         visReturModal,
