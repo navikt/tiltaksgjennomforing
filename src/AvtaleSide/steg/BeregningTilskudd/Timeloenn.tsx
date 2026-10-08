@@ -3,9 +3,9 @@ import SelectInput from '@/komponenter/form/SelectInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import TimeloennHjelpetekst from '@/AvtaleSide/steg/BeregningTilskudd/TimeloennHjelpetekst';
 import { storForbokstav } from '@/utils/stringUtils';
-import { Alert, Heading, HGrid, ReadMore, TextField, VStack } from '@navikt/ds-react';
+import { Alert, Heading, HStack, ReadMore, TextField, VStack } from '@navikt/ds-react';
 import KronerInput from '@/komponenter/form/KronerInput';
-import styles from './Timeloenn.module.less';
+import styles from './feltbredde.module.less';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import StillingsprosentInput from '@/AvtaleSide/steg/VarighetSteg/StillingsprosentInput/StillingsprosentInput';
 
@@ -65,33 +65,35 @@ const Timeloenn: React.FC<TimeloennProps> = ({
         <VStack gap="space-16">
             <SelectInput
                 label="Lønn per arbeidsavtale"
-                className={styles.limitMaxWidth}
+                className={styles.bred}
                 name="mentorLonnsType"
                 options={LONN_OPTIONS}
                 value={mentorValgtLonnstype}
                 onChange={handleSelectedTypeChange}
                 children={''}
             />
-            <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+            <HStack gap="space-16">
                 <KronerInput
                     name="lonn"
                     label={'Mentors ' + (mentorValgtLonnstype || '').toLowerCase()}
                     verdi={mentorValgtLonnstypeBelop}
                     settVerdi={(nyVerdi) => onChange({ mentorValgtLonnstypeBelop: nyVerdi })}
+                    className={styles.bred}
                 />
                 {mentorValgtLonnstype !== 'TIMELØNN' && (
                     <>
                         <StillingsprosentInput
+                            htmlSize={8}
                             verdi={stillingsprosent}
                             settVerdi={(nyVerdi) => onChange({ stillingprosent: nyVerdi })}
                         />
                     </>
                 )}
-            </HGrid>
+            </HStack>
             {mentorValgtLonnstype !== 'TIMELØNN' && (
                 <>
                     <TextField
-                        className={styles.limitMaxWidth}
+                        className={styles.bred}
                         value={formaterPenger(mentorTimelonn, IKKE_NOE_BELOP_TEGN)}
                         label="Beregnet timelønn"
                         readOnly

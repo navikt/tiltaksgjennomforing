@@ -7,9 +7,10 @@ interface Props {
     description?: string;
     size?: 'medium' | 'small';
     className?: string;
+    htmlSize?: number;
 }
 
-const VisueltDisabledInputFelt: FunctionComponent<Props> = ({ description, label, tekst, className }) => (
+const VisueltDisabledInputFelt: FunctionComponent<Props> = ({ description, label, tekst, className, htmlSize }) => (
     <TextField
         label={label}
         value={tekst}
@@ -17,6 +18,7 @@ const VisueltDisabledInputFelt: FunctionComponent<Props> = ({ description, label
         readOnly
         style={{ backgroundColor: '#f1f1f1' }}
         className={className}
+        htmlSize={htmlSize}
     />
 );
 

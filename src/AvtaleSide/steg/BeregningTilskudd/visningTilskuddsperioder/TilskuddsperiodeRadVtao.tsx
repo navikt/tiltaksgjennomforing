@@ -2,7 +2,7 @@ import EtikettStatus from '@/BeslutterSide/EtikettStatus';
 import { TilskuddsPeriode } from '@/types/avtale';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import { formaterDato, formaterPeriode, NORSK_DATO_FORMAT } from '@/utils/datoUtils';
-import { BodyShort, Table } from '@navikt/ds-react';
+import { BodyShort, Box, Hide, Show, Table } from '@navikt/ds-react';
 import { addDays, getYear, isWithinInterval } from 'date-fns';
 
 interface Props {
@@ -36,11 +36,20 @@ const TilskuddsperiodeRadVtao = (props: Props) => {
                         Sats for {periodeAar}
                     </BodyShort>
                 )}
+                {erNavAnsatt && (
+                    <Show below="sm" asChild>
+                        <Box paddingBlock="space-4 space-0">
+                            <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
+                        </Box>
+                    </Show>
+                )}
             </Table.DataCell>
             {erNavAnsatt && (
-                <Table.DataCell textSize="small">
-                    <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
-                </Table.DataCell>
+                <Hide below="sm" asChild>
+                    <Table.DataCell textSize="small">
+                        <EtikettStatus tilskuddsperiodestatus={periodeStatus} size="small" />
+                    </Table.DataCell>
+                </Hide>
             )}
             {periodeStatus === 'BEHANDLET_I_ARENA' ? (
                 <Table.DataCell colSpan={2} align="center" textSize="small">
@@ -51,7 +60,7 @@ const TilskuddsperiodeRadVtao = (props: Props) => {
                     <Table.DataCell align="right" textSize="small">
                         {formaterPenger(periode.beløp, IKKE_NOE_BELOP_TEGN)}
                     </Table.DataCell>
-                    <Table.DataCell textSize="small">
+                    <Table.DataCell align="right" textSize="small">
                         {formaterDato(addDays(new Date(periode.sluttDato), 3), NORSK_DATO_FORMAT)}
                     </Table.DataCell>
                 </>

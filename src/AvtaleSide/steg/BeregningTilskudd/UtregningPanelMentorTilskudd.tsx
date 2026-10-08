@@ -1,8 +1,7 @@
 import { Beregningsgrunnlag } from '@/types/avtale';
-import BEMHelper from '@/utils/bem';
 import { ExpansionCard, Heading, Table } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
-import './UtregningPanel.less';
+import styles from './utregning-panel.module.less';
 import {
     Buildings2Icon,
     EqualsIcon,
@@ -16,7 +15,6 @@ import Utregningsrad from './Utregningsrad';
 import { erNil } from '@/utils/predicates';
 
 const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (props) => {
-    const cls = BEMHelper('utregningspanel');
     const mentorTimelonn = props.mentorTimelonn ?? 0;
     const antallTimer = props.mentorAntallTimer ?? 0;
 
@@ -37,17 +35,15 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
                     </Heading>
                 </ExpansionCard.Header>
                 <ExpansionCard.Content>
-                    <Table className={cls.className}>
+                    <Table className={styles.utregningspanel}>
                         <Table.Body>
                             <Utregningsrad
-                                className={cls.className}
                                 icon={<SackKronerIcon />}
                                 label="Timelønn × antall timer"
                                 midtrekkeTekst={manedslonnUtregningTekst}
                                 verdi={mentorTimelonn * antallTimer}
                             />
                             <Utregningsrad
-                                className={cls.className}
                                 icon={<ParasolBeachIcon />}
                                 label="Feriepenger"
                                 midtrekkeTekst={prosentSats(props.feriepengesats)}
@@ -55,7 +51,6 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
                                 verdi={props.feriepengerBelop || 0}
                             />
                             <Utregningsrad
-                                className={cls.className}
                                 icon={<PiggybankIcon />}
                                 label="Obligatorisk tjenestepensjon"
                                 midtrekkeTekst={prosentSats(props.otpSats)}
@@ -63,7 +58,6 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
                                 verdi={props.otpBelop || 0}
                             />
                             <Utregningsrad
-                                className={cls.className}
                                 icon={<Buildings2Icon />}
                                 label="Arbeidsgiveravgift"
                                 midtrekkeTekst={prosentSats(props.arbeidsgiveravgift)}
@@ -71,13 +65,13 @@ const UtregningPanelMentorTilskudd: FunctionComponent<Beregningsgrunnlag> = (pro
                                 verdi={props.arbeidsgiveravgiftBelop || 0}
                             />
                             <Utregningsrad
-                                className={`${cls.element('fet-border-bottom')} ${cls.className}`}
+                                className={styles.fetBorderBottom}
                                 label="Sum utgifter"
                                 operator={<EqualsIcon />}
                                 verdi={props.sumLonnsutgifter || 0}
                             />
                             <Utregningsrad
-                                className={`${cls.element('fet-skrift')} ${cls.className}`}
+                                className={styles.fetSkrift}
                                 label="Sum tilskudd for en måned"
                                 verdi={props.sumLonnsutgifter || 0}
                             />

@@ -3,7 +3,7 @@ import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
 import { FunctionComponent, useContext, useEffect } from 'react';
 import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import SkjemaTittel from '@/komponenter/form/SkjemaTittel';
-import { BodyShort, Heading, HGrid } from '@navikt/ds-react';
+import { BodyShort, Heading, HStack } from '@navikt/ds-react';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import ObligatoriskTjenestepensjon from '@/AvtaleSide/steg/BeregningTilskudd/ObligatoriskTjenestepensjon';
@@ -18,6 +18,7 @@ import * as RestService from '@/services/rest-service';
 import useSWR from 'swr';
 import { useSWRKeyDebounce } from '@/utils/useSWRKeyDebounce';
 import { erNil } from '@/utils/predicates';
+import styles from './feltbredde.module.less';
 
 const BeregningMentorTilskuddSteg: FunctionComponent = () => {
     const { avtale, lagreAvtale, settOgKalkulerBeregningsverdier } = useContext(AvtaleContext);
@@ -81,21 +82,24 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                     onChange={(value) => settOgKalkulerBeregningsverdier(value)}
                 />
                 <ObligatoriskTjenestepensjon
+                    htmlSize={8}
                     verdi={avtale.gjeldendeInnhold.otpSats}
                     settVerdi={(otpSats) => settOgKalkulerBeregningsverdier({ otpSats })}
                 />
-                <VerticalSpacer rem={1.5} />
+                <VerticalSpacer rem={1} />
 
-                <HGrid gap="space-16" columns={{ xs: 1, md: 2 }}>
+                <HStack gap="space-16" align="end">
                     <Arbeidsgiveravgift
+                        className={styles.bred}
                         sats={avtale.gjeldendeInnhold.arbeidsgiveravgift}
                         onChange={(arbeidsgiveravgift) => settOgKalkulerBeregningsverdier({ arbeidsgiveravgift })}
                     />
                     <Feriepenger
+                        className={styles.bred}
                         sats={avtale.gjeldendeInnhold.feriepengesats}
                         onChange={(feriepengesats) => settOgKalkulerBeregningsverdier({ feriepengesats })}
                     />
-                </HGrid>
+                </HStack>
                 <VerticalSpacer rem={2} />
                 <KidOgKontonummer />
                 <UtregningPanelMentorTilskudd {...beregninger?.gjeldendeInnhold} />

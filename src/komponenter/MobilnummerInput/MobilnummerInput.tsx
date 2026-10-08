@@ -1,6 +1,5 @@
 import React from 'react';
 import { Alert } from '@navikt/ds-react';
-import classNames from 'classnames';
 
 import TelefonnummerInput, { Props as TelefonnummerInputProps } from '@/komponenter/form/TelefonnummerInput';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -26,11 +25,7 @@ function MobilnummerInput(props: Props) {
 
     return (
         <div className={styles.telefonnummerInputContainer}>
-            <TelefonnummerInput
-                {...props}
-                verdi={verdi}
-                className={classNames(styles.telefonnummerInput, restProps.className)}
-            />
+            <TelefonnummerInput htmlSize={13} {...props} verdi={verdi} className={restProps.className} />
             {verdi && NORSK_TELEFONNUMMER_REGEX.test(verdi) && !NORSK_MOBILNUMMER_REGEX.test(verdi) && (
                 <>
                     <VerticalSpacer rem={1} />

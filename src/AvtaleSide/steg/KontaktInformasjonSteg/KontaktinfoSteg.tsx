@@ -6,7 +6,6 @@ import React, { FunctionComponent, useContext } from 'react';
 import ArbeidsgiverinfoDel from './ArbeidsgiverinfoDel/ArbeidsgiverinfoDel';
 import Relasjoner from './ArbeidsgiverinfoDel/Relasjoner';
 import DeltakerinfoDel from './DeltakerinfoDel/DeltakerinfoDel';
-import './kontaktinfo.less';
 import KontaktpersonRefusjoninfoDel from './KontaktpersonRefusjoninfoDel/KontaktpersonRefusjoninfoDel';
 import VeilederinfoDel from './VeilederinfoDel/VeilederinfoDel';
 import AvtaleStatus from '@/AvtaleSide/AvtaleStatus/AvtaleStatus';
@@ -44,7 +43,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
                 {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
                 {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
                 <VeilederinfoDel />
-                <LagreKnapp className="kontaktinfo__lagre-knapp" lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
+                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
                     Lagre
                 </LagreKnapp>
             </Innholdsboks>

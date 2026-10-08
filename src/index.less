@@ -7,6 +7,16 @@
 @import 'AvtaleSide/steg/GodkjenningSteg/Oppsummering/Avtaleparter/Avtaleparter.less';
 @import (reference) 'tiltak_variabler.less';
 
+/*  Overstyr Aksel i Safari: WebKit regner ikke om høyden på åpne ExpansionCard-er når
+    innholdet brytes på nytt ved smalere bredde, og klipper bunnen av innholdet. Med
+    min-height: auto følger raden innholdet, men høyden animeres ikke ved åpning.
+    -apple-system-body støttes bare av WebKit, så andre nettlesere beholder animasjonen. */
+@supports (font: -apple-system-body) {
+    .aksel-expansioncard__content[data-open='true'] > .aksel-expansioncard__content-inner {
+        min-height: auto;
+    }
+}
+
 body {
     font-size: 1rem;
 }

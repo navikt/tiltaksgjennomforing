@@ -4,12 +4,13 @@ import { formaterNorskeTall, parseFloatIfFloatable } from '@/utils';
 import { erNil } from '@/utils/predicates';
 
 type ArbeidsgiveravgiftProps = {
+    className?: string;
     sats?: number;
     onChange: (sats?: number) => void;
 };
 
 const Arbeidsgiveravgift: React.FC<ArbeidsgiveravgiftProps> = (props: ArbeidsgiveravgiftProps) => {
-    const { sats, onChange } = props;
+    const { className, sats, onChange } = props;
 
     const arbeidsgiveravgiftAlternativer = (() => {
         const satser = [0, 0.051, 0.064, 0.079, 0.106, 0.141];
@@ -25,6 +26,7 @@ const Arbeidsgiveravgift: React.FC<ArbeidsgiveravgiftProps> = (props: Arbeidsgiv
 
     return (
         <SelectInput
+            className={className}
             name="arbeidsgiveravgift"
             options={arbeidsgiveravgiftAlternativer}
             label="Sats for arbeidsgiveravgift"
