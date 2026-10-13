@@ -2,8 +2,7 @@ import { ComponentProps, FunctionComponent, useState } from 'react';
 import { generatePath, Link } from 'react-router';
 import { BodyLong, BodyShort, LinkCard, Tag, VStack } from '@navikt/ds-react';
 
-import './AvtalekortMobil.less';
-import BEMHelper from '@/utils/bem';
+import styles from './AvtalekortMobil.module.less';
 import TaushetserklæringModal from '@/AvtaleOversikt/Taushetserklæring/Taushetserklæring';
 import { AvtaleMinimalListeVisning, AvtaleStatus } from '@/types/avtale';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
@@ -12,8 +11,6 @@ import { Varsel } from '@/types/varsel';
 import { avtaleStatusTekst } from '@/messages';
 import { formaterDatoHvisDefinert } from '@/utils/datoUtils';
 import NavnMedDiskresjonskode from '@/AvtaleOversikt/NavnMedDiskresjonskode';
-
-const cls = BEMHelper('avtalekortMobil');
 
 const statusfarge: { [key in AvtaleStatus]: ComponentProps<typeof Tag>['data-color'] } = {
     PÅBEGYNT: 'info',
@@ -34,7 +31,7 @@ const AvtalekortMobil: FunctionComponent<{
     const [visTaushetserklæringForAvtaleId, setVisTaushetserklæringForAvtaleId] = useState<string>('');
 
     return (
-        <VStack as="ul" gap="space-8" className={cls.className}>
+        <VStack as="ul" gap="space-8" className={styles.avtalekortMobil}>
             {avtaler.map((avtale: AvtaleMinimalListeVisning) => {
                 const ulestVarsel = varsler.find((value) => value.avtaleId === avtale.id);
                 const startdato = formaterDatoHvisDefinert(avtale.startDato) ?? 'Startdato';
@@ -43,11 +40,7 @@ const AvtalekortMobil: FunctionComponent<{
                     <li key={avtale.id}>
                         <LinkCard>
                             {ulestVarsel && (
-                                <span
-                                    role="img"
-                                    aria-label="Ulest varsel"
-                                    className={cls.element('ulest-varsel-ikon')}
-                                />
+                                <span role="img" aria-label="Ulest varsel" className={styles.ulestVarselIkon} />
                             )}
                             <LinkCard.Title>
                                 <LinkCard.Anchor asChild>
