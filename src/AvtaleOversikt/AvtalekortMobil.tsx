@@ -42,7 +42,13 @@ const AvtalekortMobil: FunctionComponent<{
                 return (
                     <li key={avtale.id}>
                         <LinkCard>
-                            {ulestVarsel && <span aria-hidden className={cls.element('ulest-varsel-ikon')} />}
+                            {ulestVarsel && (
+                                <span
+                                    role="img"
+                                    aria-label="Ulest varsel"
+                                    className={cls.element('ulest-varsel-ikon')}
+                                />
+                            )}
                             <LinkCard.Title>
                                 <LinkCard.Anchor asChild>
                                     <Link
