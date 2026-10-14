@@ -43,7 +43,7 @@ const KontaktinfoSteg: FunctionComponent = () => {
                 {skalViseKontaktpersonForRefusjon && <KontaktpersonRefusjoninfoDel />}
                 {skalViseRelasjoner && <Relasjoner tiltakstype={avtale.tiltakstype} />}
                 <VeilederinfoDel />
-                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
+                <LagreKnapp lagre={lagreAvtale} suksessmelding="Avtale lagret">
                     Lagre
                 </LagreKnapp>
             </Innholdsboks>

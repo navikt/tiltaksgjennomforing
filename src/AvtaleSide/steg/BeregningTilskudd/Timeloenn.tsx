@@ -70,7 +70,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                 options={LONN_OPTIONS}
                 value={mentorValgtLonnstype}
                 onChange={handleSelectedTypeChange}
-                children={''}
+                children=""
             />
             <HStack gap="space-16">
                 <KronerInput
@@ -108,7 +108,7 @@ const Timeloenn: React.FC<TimeloennProps> = ({
                     </Alert>
                 </>
             )}
-            <ReadMore header={'Slik beregnes timelønn'} size={'small'}>
+            <ReadMore header="Slik beregnes timelønn" size="small">
                 <TimeloennHjelpetekst />
             </ReadMore>
             <VerticalSpacer rem={1} />

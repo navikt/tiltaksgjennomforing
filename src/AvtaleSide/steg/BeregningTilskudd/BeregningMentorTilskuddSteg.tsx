@@ -106,7 +106,7 @@ const BeregningMentorTilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={1} />
                 <VisningTilskuddsperioder />
                 <VerticalSpacer rem={1} />
-                <LagreKnapp lagre={lagreAvtale} suksessmelding={'Avtale lagret'}>
+                <LagreKnapp lagre={lagreAvtale} suksessmelding="Avtale lagret">
                     Lagre
                 </LagreKnapp>
             </Innholdsboks>

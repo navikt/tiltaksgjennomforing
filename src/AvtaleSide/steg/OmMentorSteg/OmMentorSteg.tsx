@@ -54,7 +54,7 @@ const OmMentorSteg = () => {
                     />
                 </VStack>
                 <VerticalSpacer rem={2} />
-                <LagreKnapp lagre={avtaleContext.lagreAvtale} suksessmelding={'Avtale lagret'}>
+                <LagreKnapp lagre={avtaleContext.lagreAvtale} suksessmelding="Avtale lagret">
                     Lagre
                 </LagreKnapp>
             </Innholdsboks>

@@ -28,12 +28,12 @@ const SummeringsRad: React.FC<{ sum: number }> = ({ sum }) => (
         </Table.DataCell>
         <Hide below="sm" asChild>
             <Table.DataCell textSize="small" colSpan={3} align="right">
-                <strong>{`Inntil ${formaterPenger(sum)}`}</strong>
+                <strong>Inntil {formaterPenger(sum)}</strong>
             </Table.DataCell>
         </Hide>
         <Show below="sm" asChild>
             <Table.DataCell textSize="small" colSpan={2} align="right">
-                <strong>{`Inntil ${formaterPenger(sum)}`}</strong>
+                <strong>Inntil {formaterPenger(sum)}</strong>
             </Table.DataCell>
         </Show>
     </Table.Row>
