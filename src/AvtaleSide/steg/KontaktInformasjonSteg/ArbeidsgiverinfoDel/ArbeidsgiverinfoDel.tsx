@@ -3,7 +3,7 @@ import { AvtaleContext } from '@/AvtaleProvider';
 import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
-import styles from '../kontaktinfo.module.less';
+import styles from './arbeidsgiverinfo-del.module.less';
 import { Fieldset, Heading, HGrid, VStack } from '@navikt/ds-react';
 
 const ArbeidsgiverinfoDel = () => {

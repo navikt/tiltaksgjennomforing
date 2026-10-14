@@ -4,7 +4,7 @@ import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { useContext } from 'react';
 import { InnloggetBrukerContext } from '@/InnloggingBoundary/InnloggingBoundary';
 import { Alert, Fieldset, Heading, HGrid } from '@navikt/ds-react';
-import styles from '../kontaktinfo.module.less';
+import styles from './veilederinfo-del.module.less';
 
 const VeilederinfoDel = () => {
     const { avtale, settAvtaleInnholdVerdi } = useContext(AvtaleContext);

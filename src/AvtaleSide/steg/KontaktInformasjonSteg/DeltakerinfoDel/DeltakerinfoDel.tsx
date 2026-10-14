@@ -4,7 +4,7 @@ import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { FunctionComponent, useContext } from 'react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import { Fieldset, Heading, HGrid, VStack } from '@navikt/ds-react';
-import styles from '../kontaktinfo.module.less';
+import styles from './deltakerinfo-del.module.less';
 
 const DeltakerinfoDel: FunctionComponent = () => {
     const avtaleContext = useContext(AvtaleContext);
