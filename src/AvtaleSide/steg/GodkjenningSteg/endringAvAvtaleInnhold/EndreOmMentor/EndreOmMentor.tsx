@@ -4,7 +4,7 @@ import PakrevdInput from '@/komponenter/form/PakrevdInput';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import MobilnummerInput from '@/komponenter/MobilnummerInput/MobilnummerInput';
 import { endreOmMentor } from '@/services/rest-service';
-import { HGrid, Link } from '@navikt/ds-react';
+import { HGrid, Link, VStack } from '@navikt/ds-react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 import type { FunctionComponent } from 'react';
 import { useContext, useState } from 'react';
@@ -59,40 +59,40 @@ const EndreOmMentor: FunctionComponent = () => {
                 bekreftOnClick={kallEndreOmMentor}
                 lukkModal={lukkModal}
             >
-                <HGrid columns={2} gap="space-16">
+                <VStack gap="space-16">
                     <VisueltDisabledInputFelt
                         label="Fødselsnummer"
-                        className={styles.limitMaxWidth}
                         tekst={avtaleContext.avtale.mentorFnr}
+                        htmlSize={13}
                     />
-                    <PakrevdInput
-                        name="mentorFornavn"
-                        label="Fornavn"
-                        verdi={mentorInfo.mentorFornavn}
-                        settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorFornavn: verdi })}
-                    />
-                    <PakrevdInput
-                        name="mentorEtternavn"
-                        label="Etternavn"
-                        verdi={mentorInfo.mentorEtternavn}
-                        settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}
-                    />
-                    <MobilnummerInput
-                        label="Mobilnummer"
-                        name="mentorTlf"
-                        className={styles.limitMaxWidth}
-                        verdi={mentorInfo.mentorTlf}
-                        settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
-                    />
+                    <HGrid columns={{ xs: 1, sm: 2 }} gap="space-16">
+                        <PakrevdInput
+                            name="mentorFornavn"
+                            label="Fornavn"
+                            verdi={mentorInfo.mentorFornavn}
+                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorFornavn: verdi })}
+                        />
+                        <PakrevdInput
+                            name="mentorEtternavn"
+                            label="Etternavn"
+                            verdi={mentorInfo.mentorEtternavn}
+                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorEtternavn: verdi })}
+                        />
+                        <MobilnummerInput
+                            label="Mobilnummer"
+                            name="mentorTlf"
+                            verdi={mentorInfo.mentorTlf}
+                            settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorTlf: verdi })}
+                        />
+                    </HGrid>
                     <PakrevdTextarea
                         label="Arbeidsoppgaver til mentor"
-                        className={styles.span2}
                         verdi={mentorInfo.mentorOppgaver}
                         settVerdi={(verdi) => setMentorInfo({ ...mentorInfo, mentorOppgaver: verdi })}
                         maxLengde={1000}
                         feilmelding="Beskrivelse av arbeidsoppgaver er påkrevd"
                     />
-                </HGrid>
+                </VStack>
             </BekreftelseModal>
         </>
     );

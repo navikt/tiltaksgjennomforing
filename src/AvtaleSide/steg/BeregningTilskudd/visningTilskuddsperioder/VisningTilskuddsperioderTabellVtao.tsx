@@ -6,7 +6,7 @@ import { erNil } from '@/utils/predicates';
 import TilskuddsperiodeRadVtao from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/TilskuddsperiodeRadVtao';
 import { useTilskuddsperiodevisning } from '@/AvtaleSide/steg/BeregningTilskudd/visningTilskuddsperioder/visningTilskuddsperiodeUtils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { Table } from '@navikt/ds-react';
+import { Hide, Table } from '@navikt/ds-react';
 import { useContext } from 'react';
 
 const VisningTilskuddsperioderTabellVtao: React.FC = () => {
@@ -32,9 +32,17 @@ const VisningTilskuddsperioderTabellVtao: React.FC = () => {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell textSize="small">Periode</Table.HeaderCell>
-                        {innloggetBruker.erNavAnsatt && <Table.HeaderCell textSize="small">Status</Table.HeaderCell>}
-                        <Table.HeaderCell textSize="small">Beløp</Table.HeaderCell>
-                        <Table.HeaderCell textSize="small">Utbetales</Table.HeaderCell>
+                        {innloggetBruker.erNavAnsatt && (
+                            <Hide below="sm" asChild>
+                                <Table.HeaderCell textSize="small">Status</Table.HeaderCell>
+                            </Hide>
+                        )}
+                        <Table.HeaderCell textSize="small" align="right">
+                            Beløp
+                        </Table.HeaderCell>
+                        <Table.HeaderCell textSize="small" align="right">
+                            Utbetales
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
