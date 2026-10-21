@@ -4,7 +4,6 @@ import { Alert, Heading, TextField } from '@navikt/ds-react';
 import { useController, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import styles from './MentorAntallTimerPerMnd.module.less';
 import { formaterNorskeTall, parseNorskeTall } from '@/utils';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 
@@ -59,7 +58,7 @@ function MentorAntallTimerPerMnd(props: Props) {
     return (
         <>
             <TextField
-                className={styles.antallTimerInput}
+                htmlSize={8}
                 {...field}
                 error={formState.errors.mentorAntallTimerPerMnd?.message}
                 label="Antall timer med mentor per måned"

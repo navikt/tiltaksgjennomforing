@@ -1,7 +1,5 @@
 import OppgaveLinje from '@/AvtaleSide/Oppgavelinje/Oppgavelinje';
 import BannerNAVAnsatt from '@/komponenter/Banner/BannerNAVAnsatt';
-import { Avtale } from '@/types/avtale';
-import { Rolle } from '@/types/innlogget-bruker';
 import React from 'react';
 import { StegInfo } from '../AvtaleSide';
 import NesteForrige from '../NesteForrige/NesteForrige';
@@ -11,26 +9,22 @@ import styles from './DesktopAvtaleSide.module.less';
 interface Props {
     avtaleSteg: StegInfo[];
     aktivtSteg: StegInfo;
-    rolle: Rolle;
-    avtale: Avtale;
+    avtaleNr: number;
     sidetittel: string;
 }
 
-const DesktopAvtaleSide: React.FunctionComponent<Props> = (props) => {
-    return (
-        <>
-            <div className={styles.desktop}>
-                <BannerNAVAnsatt tekst={props.sidetittel} undertittel={`Avtalenummer: ${props.avtale.avtaleNr}`} />
-                <OppgaveLinje />
-                <div className={styles.container}>
-                    <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
-                    <div className={styles.innhold}>
-                        {props.aktivtSteg.komponent}
-                        <NesteForrige avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
-                    </div>
-                </div>
+const DesktopAvtaleSide: React.FunctionComponent<Props> = (props) => (
+    <div className={styles.desktop}>
+        <BannerNAVAnsatt tekst={props.sidetittel} undertittel={`Avtalenummer: ${props.avtaleNr}`} />
+        <OppgaveLinje />
+        <div className={styles.container}>
+            <Stegmeny steg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
+            <div className={styles.innhold}>
+                {props.aktivtSteg.komponent}
+                <NesteForrige avtaleSteg={props.avtaleSteg} aktivtSteg={props.aktivtSteg} />
             </div>
-        </>
-    );
-};
+        </div>
+    </div>
+);
+
 export default DesktopAvtaleSide;

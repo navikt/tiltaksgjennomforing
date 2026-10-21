@@ -97,15 +97,14 @@ const AvtaleSide: FunctionComponent = () => {
                                 sidetittel={sideTittel}
                                 avtaleSteg={avtaleSteg}
                                 aktivtSteg={aktivtSteg}
-                                rolle={innloggetBruker.rolle}
-                                avtale={avtale}
+                                avtaleNr={avtale.avtaleNr}
                             />
                         )}
                         {!erAvtaleLaast && !erDesktop && (
                             <MobilAvtaleSide
-                                avtaleId={avtale.id}
                                 avtaleSteg={avtaleSteg}
-                                rolle={innloggetBruker.rolle}
+                                avtaleNr={avtale.avtaleNr}
+                                sidetittel={sideTittel}
                             />
                         )}
                     </div>
