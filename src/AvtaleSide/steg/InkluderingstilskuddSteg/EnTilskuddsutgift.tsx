@@ -3,8 +3,8 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formaterPenger } from '@/utils';
-import { BodyShort, Button, Select } from '@navikt/ds-react';
-import { FunctionComponent, useState } from 'react';
+import { BodyShort, Button, Select, Table } from '@navikt/ds-react';
+import React, { FunctionComponent, useState } from 'react';
 import KronerInput from '@/komponenter/form/KronerInput';
 
 type Props = {
@@ -87,21 +87,22 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                 </>
             ) : (
                 <>
-                    <tr>
-                        <td>
+                    <Table.ExpandableRow content="Innhold i ekspanderbar rad">
+                        <Table.HeaderCell scope="row">
                             <BodyShort size="small">
                                 {inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}
                             </BodyShort>
-                        </td>
-                        <td>
+                        </Table.HeaderCell>
+                        <Table.DataCell>
                             <BodyShort size="small">{formaterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
-                        </td>
-                        <td>
+                        </Table.DataCell>
+                        <Table.DataCell>
+                            {' '}
                             {kanUtgiftSlettes() && (
                                 <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
                             )}
-                        </td>
-                    </tr>
+                        </Table.DataCell>
+                    </Table.ExpandableRow>
                     {props.iRegideringsmodus !== true && <div style={{ display: 'flex' }}></div>}
                 </>
             )}
