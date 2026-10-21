@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { awaitDecoratorData } from '@navikt/nav-dekoratoren-moduler';
 import {
     preInnsending,
@@ -9,10 +9,14 @@ import {
     SPORING_ORIGIN,
     deaktiverSporing,
     aktiverSporing,
+    abonnerPaSporingsRolle,
+    erSporingsRolleAvklart,
+    erOffentligSide,
 } from './sporing';
 
 function InnblikkSporing() {
     const [harGittSamtykke, setHarGittSamtykke] = useState(false);
+    const rolleAvklart = useSyncExternalStore(abonnerPaSporingsRolle, erSporingsRolleAvklart);
 
     useEffect(() => {
         let aktiv = true;
@@ -51,6 +55,11 @@ function InnblikkSporing() {
             return;
         }
 
+        // Vent med å laste skriptet til rollen er kjent, slik at første sidevisning får riktig rolle.
+        if (!rolleAvklart && !erOffentligSide(window.location.pathname)) {
+            return;
+        }
+
         const vertnavn = window.location.hostname;
         const nettstedsId = hentSporingsID(vertnavn);
         const skriptUrl = hentSporingsSkriptUrl(vertnavn);
@@ -80,7 +89,7 @@ function InnblikkSporing() {
         skript.setAttribute('data-before-send', 'beforeSendAnalytics');
         skript.setAttribute('data-tag', SPORING_ORIGIN);
         document.head.appendChild(skript);
-    }, [harGittSamtykke]);
+    }, [harGittSamtykke, rolleAvklart]);
 
     useEffect(() => {
         return () => {

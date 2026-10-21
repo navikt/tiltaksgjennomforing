@@ -1,4 +1,4 @@
-import { cleanup, render, waitFor } from '@testing-library/react';
+import { act, cleanup, render, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import { afterEach, expect, test, vi } from 'vitest';
 import InnblikkSporing from './InnblikkSporing';
@@ -15,6 +15,7 @@ import {
     aktiverSporing,
     erSporingDeaktivert,
     settSporingsRolle,
+    nullstillSporingsRolle,
 } from './sporing';
 import { awaitDecoratorData } from '@navikt/nav-dekoratoren-moduler';
 
@@ -22,7 +23,8 @@ afterEach(() => {
     cleanup();
     document.head.querySelectorAll('#reops-sporing-script').forEach((node) => node.remove());
     aktiverSporing();
-    settSporingsRolle('INGEN_ROLLE');
+    nullstillSporingsRolle();
+    window.history.replaceState(null, '', '/');
     vi.restoreAllMocks();
     delete window.__DECORATOR_DATA__;
     delete window.webStorageController;
@@ -121,6 +123,7 @@ test('laster ikke skript før samtykke', async () => {
 });
 
 test('laster dev-skript etter samtykke til analyse', async () => {
+    settSporingsRolle('ARBEIDSGIVER');
     window.__DECORATOR_DATA__ = {};
     window.webStorageController = {
         getCurrentConsent: () => ({ consent: { analytics: true, surveys: false } }),
@@ -145,6 +148,7 @@ test('laster dev-skript etter samtykke til analyse', async () => {
 });
 
 test('reagerer på at samtykke gis etter mount', async () => {
+    settSporingsRolle('ARBEIDSGIVER');
     window.__DECORATOR_DATA__ = {};
     let analyticsConsent = false;
     window.webStorageController = {
@@ -169,6 +173,7 @@ test('reagerer på at samtykke gis etter mount', async () => {
 });
 
 test('deaktiverer sporing når samtykke tilbakekalles etter init', async () => {
+    settSporingsRolle('ARBEIDSGIVER');
     window.__DECORATOR_DATA__ = {};
     let analyticsConsent = true;
     window.webStorageController = {
@@ -192,6 +197,7 @@ test('deaktiverer sporing når samtykke tilbakekalles etter init', async () => {
 });
 
 test('rydder opp sporing-skript og globale variabler ved unmount', async () => {
+    settSporingsRolle('ARBEIDSGIVER');
     window.__DECORATOR_DATA__ = {};
     window.webStorageController = {
         getCurrentConsent: () => ({ consent: { analytics: true, surveys: false } }),
@@ -211,4 +217,48 @@ test('rydder opp sporing-skript og globale variabler ved unmount', async () => {
     expect(document.getElementById('reops-sporing-script')).toBeNull();
     expect(window.sporing).toBeUndefined();
     expect(window.beforeSendAnalytics).toBeUndefined();
+});
+
+test('venter med å laste skript til rollen er avklart på innloggede sider', async () => {
+    window.__DECORATOR_DATA__ = {};
+    window.webStorageController = {
+        getCurrentConsent: () => ({ consent: { analytics: true, surveys: false } }),
+    };
+    const appendSpion = vi.spyOn(document.head, 'appendChild').mockImplementation((node: Node) => node);
+
+    render(
+        <MemoryRouter initialEntries={['/tiltaksgjennomforing/']}>
+            <InnblikkSporing />
+        </MemoryRouter>,
+    );
+
+    await act(async () => {
+        await awaitDecoratorData();
+    });
+    expect(appendSpion).not.toHaveBeenCalled();
+    expect(erSporingDeaktivert()).toBe(true);
+
+    act(() => settSporingsRolle('VEILEDER'));
+
+    await waitFor(() => expect(appendSpion).toHaveBeenCalledTimes(1));
+    expect(erSporingDeaktivert()).toBe(false);
+    expect(window.beforeSendAnalytics?.('event', {})).toMatchObject({ data: { role: 'veileder' } });
+});
+
+test('laster skript uten avklart rolle på offentlige sider', async () => {
+    window.history.replaceState(null, '', '/tiltaksgjennomforing/informasjonsside');
+    window.__DECORATOR_DATA__ = {};
+    window.webStorageController = {
+        getCurrentConsent: () => ({ consent: { analytics: true, surveys: false } }),
+    };
+    const appendSpion = vi.spyOn(document.head, 'appendChild').mockImplementation((node: Node) => node);
+
+    render(
+        <MemoryRouter initialEntries={['/tiltaksgjennomforing/informasjonsside']}>
+            <InnblikkSporing />
+        </MemoryRouter>,
+    );
+
+    await waitFor(() => expect(appendSpion).toHaveBeenCalledTimes(1));
+    expect(window.beforeSendAnalytics?.('event', {})).toMatchObject({ data: { role: 'ingen_rolle' } });
 });

@@ -5,7 +5,7 @@ import { useAsyncError } from '@/komponenter/useError';
 import VarselKomponent from '@/komponenter/Varsel/VarselKomponent';
 import { INNLOGGET_PART } from '@/RedirectEtterLogin';
 import { sjekkOmMenySkalBrukes } from '@/services/internt';
-import { settSporingsRolle } from '@/sporing/sporing';
+import { nullstillSporingsRolle, settSporingsRolle } from '@/sporing/sporing';
 import { InnloggetBruker } from '@/types/innlogget-bruker';
 import React, { FunctionComponent, PropsWithChildren, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -42,12 +42,15 @@ const InnloggingBoundary: FunctionComponent<PropsWithChildren> = (props) => {
     const { innloggetBruker, uinnlogget, innloggingskilder, feilmelding } = useInnlogget();
 
     useEffect(() => {
-        if (!innloggetBruker) {
+        if (innloggetBruker) {
+            settSporingsRolle(innloggetBruker.rolle);
+        } else if (uinnlogget || feilmelding) {
+            settSporingsRolle('INGEN_ROLLE');
+        } else {
             return;
         }
-        settSporingsRolle(innloggetBruker.rolle);
-        return () => settSporingsRolle('INGEN_ROLLE');
-    }, [innloggetBruker]);
+        return () => nullstillSporingsRolle();
+    }, [innloggetBruker, uinnlogget, feilmelding]);
 
     const urlParametere = new URLSearchParams(window.location.search);
     const innloggetPartIUrl = (urlParametere.get('part') || '').toUpperCase();

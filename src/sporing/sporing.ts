@@ -45,10 +45,41 @@ export function hentSporingsSkriptUrl(vertnavn: string): string {
     return erDevMiljo(vertnavn) ? SPORING_SCRIPT_SRC_DEV : SPORING_SCRIPT_SRC_PROD;
 }
 
+const OFFENTLIGE_SIDER: PageType[] = ['informasjonsside', 'ukjent-side'];
+
+export function erOffentligSide(stiNavn: string): boolean {
+    return OFFENTLIGE_SIDER.includes(hentSidetype(stiNavn));
+}
+
 let sporingsRolle: Rolle = 'INGEN_ROLLE';
+let sporingsRolleAvklart = false;
+const rolleLyttere = new Set<() => void>();
+
+function varsleRolleLyttere(): void {
+    rolleLyttere.forEach((lytter) => lytter());
+}
 
 export function settSporingsRolle(rolle: Rolle): void {
     sporingsRolle = rolle;
+    sporingsRolleAvklart = true;
+    varsleRolleLyttere();
+}
+
+export function nullstillSporingsRolle(): void {
+    sporingsRolle = 'INGEN_ROLLE';
+    sporingsRolleAvklart = false;
+    varsleRolleLyttere();
+}
+
+export function erSporingsRolleAvklart(): boolean {
+    return sporingsRolleAvklart;
+}
+
+export function abonnerPaSporingsRolle(lytter: () => void): () => void {
+    rolleLyttere.add(lytter);
+    return () => {
+        rolleLyttere.delete(lytter);
+    };
 }
 
 export function hentSporingsRolle(): Rolle {
@@ -101,12 +132,16 @@ export function deaktiverSporing(): void {
     try {
         window.localStorage.setItem('sporing.disabled', '1');
     } catch {
-        // setItem kan kaste feil hvis lagring er fult eller blokkert av strengere cookie settings
+        // setItem kan kaste feil hvis lagring er fullt eller blokkert av strengere cookie settings
     }
 }
 
 export function aktiverSporing(): void {
-    window.localStorage.removeItem('sporing.disabled');
+    try {
+        window.localStorage.removeItem('sporing.disabled');
+    } catch {
+        return;
+    }
 }
 
 export function erSporingDeaktivert(): boolean {
