@@ -95,9 +95,10 @@ Keep diffs small and focused so they are easy to review.
 ## Git Workflow
 
 - Keep commits as small as possible.
-- Create separate branches for features and fixes.
-- Never commit directly to `main` or `master`.
-- Keep commit messages short, descriptive, one line with a period at the end.
+- Never commit directly to `master`. A push to `master` deploys to production.
+- Work on a branch and open a pull request. CI builds every branch except `master`.
+- Commit messages: Conventional Commits in Norwegian, `type(scope): beskrivelse`, for example `fix(arbeidsgiver): Rette opp i visning av dato i refusjonsside`. Types: `feat`, `fix`, `chore`, `refactor`, `test`, `docs`.
+- The commit message should include a short title, but should also have a body that explains more in details what has been changed and why it was changed. If the reason for the changes are unclear just from the context of the code, please ask for more information to make the message descriptive enough for future readers.
 
 ## Boundaries
 
