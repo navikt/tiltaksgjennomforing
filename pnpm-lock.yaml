@@ -20,13 +20,16 @@ importers:
         version: 8.10.4
       '@navikt/arbeidsgiver-notifikasjon-widget':
         specifier: ^8.0.5
-        version: 8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(rxjs@7.8.2)
+        version: 8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@navikt/nav-dekoratoren-moduler@4.5.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(rxjs@7.8.2)
       '@navikt/ds-css':
         specifier: ^8.10.4
         version: 8.10.4
       '@navikt/ds-react':
         specifier: ^8.10.4
         version: 8.10.4(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@navikt/nav-dekoratoren-moduler':
+        specifier: ^4.5.0
+        version: 4.5.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
       '@navikt/navspa':
         specifier: ^7.5.0
         version: 7.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -602,8 +605,8 @@ packages:
   '@navikt/ds-tokens@8.10.4':
     resolution: {integrity: sha512-mtqGpM/7+xOq0f0mJPP6/0Nxb8ye/F5x9g+LUYqpVa5ppY9F+gudhR+km70xQHkYr3vl1Ob3nwAaK6UAUE+D1w==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.10.4/d707d19503f39451e30e3ad204912fa34170ca44}
 
-  '@navikt/nav-dekoratoren-moduler@4.0.0':
-    resolution: {integrity: sha512-jsZmmEnXT63gwy0Or6skvdrxVG+acFmK55SURFah9LuPn8KAmrQa3EHhUhRZNsdt+tP5UgsnPA8HVoyurwLPXA==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.0.0/65595610e69365df6008576d13e7f24511715683}
+  '@navikt/nav-dekoratoren-moduler@4.5.0':
+    resolution: {integrity: sha512-0eTtpgk+kOGjxncAA5PT2+yLPIobPdvIMVJzWDVdlZmuKUGG1NMoom8DYtnCPkro3Mw+dZeoFJ0TVY+4F57J5Q==, tarball: https://npm.pkg.github.com/download/@navikt/nav-dekoratoren-moduler/4.5.0/e3c7d8e6e3f2efd2fb46952564e6c9c47ca200ad}
     engines: {node: 24.x}
     peerDependencies:
       html-react-parser: '>=5.x'
@@ -1392,8 +1395,8 @@ packages:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==, tarball: https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz}
     engines: {node: '>= 8'}
 
-  csp-header@6.3.1:
-    resolution: {integrity: sha512-ykcqGMOGP/uU7RLXDD83k2Ge5Stgc/N3qgKgSN+dATDlNgLHnIoI1IdZBjOskD5Ev1RSKTabLdIETJ6VzXTmvA==, tarball: https://registry.npmjs.org/csp-header/-/csp-header-6.3.1.tgz}
+  csp-header@6.4.0:
+    resolution: {integrity: sha512-9YEpW20tPtKzVouyAxNtXqSE4EGaTd4ZiT1n/FbUQ5xhmFkPCjC3Db/gHDbesryQoO/TigBAUCqgKypOHviRgQ==, tarball: https://registry.npmjs.org/csp-header/-/csp-header-6.4.0.tgz}
     engines: {node: '>=18'}
 
   css-mediaquery@0.1.2:
@@ -1884,9 +1887,8 @@ packages:
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==, tarball: https://registry.npmjs.org/jackspeak/-/jackspeak-3.4.3.tgz}
 
-  js-cookie@3.0.5:
-    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==, tarball: https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.5.tgz}
-    engines: {node: '>=14'}
+  js-cookie@3.0.8:
+    resolution: {integrity: sha512-yeJd4aNAdYZQjaon2bpD/Gb0B/omw7HQOsynXXcOiWVCacbBcPlgn8S/d1X6blFSaHao7ozqtW7NZW19xpCtIw==, tarball: https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.8.tgz}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==, tarball: https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz}
@@ -3168,13 +3170,13 @@ snapshots:
 
   '@navikt/analytics-types@0.0.9': {}
 
-  '@navikt/arbeidsgiver-notifikasjon-widget@8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(rxjs@7.8.2)':
+  '@navikt/arbeidsgiver-notifikasjon-widget@8.0.5(@navikt/aksel-icons@8.10.4)(@navikt/ds-css@8.10.4)(@navikt/ds-react@8.10.4(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@navikt/nav-dekoratoren-moduler@4.5.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(rxjs@7.8.2)':
     dependencies:
       '@apollo/client': 4.1.6(graphql@16.13.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(rxjs@7.8.2)
       '@navikt/aksel-icons': 8.10.4
       '@navikt/ds-css': 8.10.4
       '@navikt/ds-react': 8.10.4(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@navikt/nav-dekoratoren-moduler': 4.0.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
+      '@navikt/nav-dekoratoren-moduler': 4.5.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)
       graphql: 16.13.1
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
@@ -3200,12 +3202,12 @@ snapshots:
 
   '@navikt/ds-tokens@8.10.4': {}
 
-  '@navikt/nav-dekoratoren-moduler@4.0.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)':
+  '@navikt/nav-dekoratoren-moduler@4.5.0(html-react-parser@6.1.0(@types/react@19.3.0)(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@navikt/analytics-types': 0.0.9
-      csp-header: 6.3.1
+      csp-header: 6.4.0
       html-react-parser: 6.1.0(@types/react@19.3.0)(react@19.3.0)
-      js-cookie: 3.0.5
+      js-cookie: 3.0.8
       react: 19.3.0
 
   '@navikt/navspa@7.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
@@ -4002,7 +4004,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  csp-header@6.3.1: {}
+  csp-header@6.4.0: {}
 
   css-mediaquery@0.1.2: {}
 
@@ -4485,7 +4487,7 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  js-cookie@3.0.5: {}
+  js-cookie@3.0.8: {}
 
   js-tokens@4.0.0: {}
 
