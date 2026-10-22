@@ -51,7 +51,12 @@ if (ENABLE_EXTERNAL_MENU) {
                 directives: {
                     'default-src': ["'self'", 'wss://*.nav.no', '*.nav.no'],
                     'script-src': ["'self'", '*.nav.no', '*.adeo.no', 'https://cdn.nav.no', "'unsafe-inline'"],
-                    'connect-src': ["'self'", '*.nav.no'],
+                    'connect-src': [
+                        "'self'",
+                        '*.nav.no',
+                        'wss://modiacontextholder.intern.nav.no',
+                        'wss://modiacontextholder.intern.dev.nav.no',
+                    ],
                     'style-src': ["'self'", '*.nav.no', '*.adeo.no', "'unsafe-inline'"],
                     'font-src': ["'self'", '*.nav.no', 'data:'],
                     'img-src': ["'self'", '*.nav.no'],
