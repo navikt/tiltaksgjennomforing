@@ -87,22 +87,23 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                 </>
             ) : (
                 <>
-                    <Table.ExpandableRow content="Innhold i ekspanderbar rad">
+                    <Table.Row key={props.tilskuddsutgift.id}>
                         <Table.HeaderCell scope="row">
-                            <BodyShort size="small">
-                                {inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}
-                            </BodyShort>
+                            <>
+                                <BodyShort size="small">
+                                    {inkluderingstilskuddtypeTekst[props.tilskuddsutgift.type]}
+                                </BodyShort>
+                            </>
                         </Table.HeaderCell>
                         <Table.DataCell>
                             <BodyShort size="small">{formaterPenger(props.tilskuddsutgift.beløp)}</BodyShort>
                         </Table.DataCell>
                         <Table.DataCell>
-                            {' '}
                             {kanUtgiftSlettes() && (
                                 <KnappMedIkon onClick={slettTilskuddsutgift} label="Slett" ikonType="soppelkasse" />
                             )}
                         </Table.DataCell>
-                    </Table.ExpandableRow>
+                    </Table.Row>
                     {props.iRegideringsmodus !== true && <div style={{ display: 'flex' }}></div>}
                 </>
             )}

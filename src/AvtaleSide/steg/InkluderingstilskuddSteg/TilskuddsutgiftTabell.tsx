@@ -11,7 +11,6 @@ const TilskuddsutgiftTabell: FunctionComponent<PropsWithChildren<Props>> = (prop
         <Table size="small">
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell />
                     <Table.HeaderCell scope="col">Tilskudd</Table.HeaderCell>
                     <Table.HeaderCell scope="col">Utgifter</Table.HeaderCell>
                     {props.redigerbar && <Table.HeaderCell scope="col">Handling</Table.HeaderCell>}
