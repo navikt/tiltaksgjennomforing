@@ -10,7 +10,10 @@ export const useTilskuddsutgift = (
     >(initiellInkluderingstilskuddutgiftListe);
     const [inkluderingstilskuddTotal, setInkluderingstilskuddTotal] = useState<number>(inkluderingstilskuddTotalBeløp);
 
-    const resettListe = (liste: Inkluderingstilskuddsutgift[]) => setInkluderingstilskuddsutgiftListe(liste);
+    const resettListe = (liste: Inkluderingstilskuddsutgift[]) => {
+        setInkluderingstilskuddsutgiftListe(liste);
+        setInkluderingstilskuddTotal(oppdatereTotalSummen(liste));
+    };
 
     const oppdatereTotalSummen = (initiellInkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]) => {
         let utgifterTotalsum = 0;
@@ -39,9 +42,10 @@ export const useTilskuddsutgift = (
         inkluderingstilskuddsutgiftListe,
     );
 
-    const sletteInkluderingstilskuddsutgift = (index: number) => {
-        const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
-        nyInkluderingstilskuddsutgiftListe.splice(index, 1);
+    const sletteInkluderingstilskuddsutgift = (id: string) => {
+        const nyInkluderingstilskuddsutgiftListe = inkluderingstilskuddsutgiftListe.filter(
+            (utgift) => utgift.id !== id,
+        );
         setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
         setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
         return nyInkluderingstilskuddsutgiftListe;

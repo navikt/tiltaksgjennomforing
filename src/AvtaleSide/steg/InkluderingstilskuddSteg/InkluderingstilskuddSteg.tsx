@@ -5,9 +5,9 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import { formaterPenger } from '@/utils';
 import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
 import './inkluderingstilskuddSteg.less';
@@ -28,10 +28,16 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
         leggTilInkluderingstilskuddsutgift,
         endreInkluderingstilskuddsutgift,
         sletteInkluderingstilskuddsutgift,
+        resettListe,
     } = useTilskuddsutgift(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
         avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
     );
+
+    useEffect(() => {
+        resettListe(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [avtale.gjeldendeInnhold.inkluderingstilskuddsutgift]);
 
     const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) =>
         settAvtaleInnholdVerdier(
@@ -39,8 +45,8 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
             true,
         );
 
-    const slett = (index: number) =>
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: sletteInkluderingstilskuddsutgift(index) }, true);
+    const slett = (id: string) =>
+        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: sletteInkluderingstilskuddsutgift(id) }, true);
 
     const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) =>
         settAvtaleInnholdVerdier(
@@ -94,21 +100,24 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 />
 
                 <VerticalSpacer rem={2} />
-
-                <TilskuddsutgiftTabell redigerbar={true}>
-                    {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
-                        <EnTilskuddsutgift
-                            skalKunneSlette={true}
-                            key={index}
-                            tilskuddsutgift={tilskuddsutgift}
-                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
-                            slett={() => slett(index)}
-                            ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
-                            setIRedigeringsmodus={setIRedigermodus}
-                            iRegideringsmodus={iRedigermodus}
-                        />
-                    ))}
-                </TilskuddsutgiftTabell>
+                {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.length > 0 && (
+                    <TilskuddsutgiftTabell redigerbar={true}>
+                        {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
+                            <EnTilskuddsutgift
+                                skalKunneSlette={true}
+                                key={tilskuddsutgift.id}
+                                tilskuddsutgift={tilskuddsutgift}
+                                endre={(beløp: number, type: InkluderingstilskuddsutgiftType) =>
+                                    endre(index, beløp, type)
+                                }
+                                slett={() => slett(tilskuddsutgift.id || '')}
+                                ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
+                                setIRedigeringsmodus={setIRedigermodus}
+                                iRegideringsmodus={iRedigermodus}
+                            />
+                        ))}
+                    </TilskuddsutgiftTabell>
+                )}
                 <div className={cls.element('kostnadsoverslag-container')}>
                     <VisueltDisabledInputFelt
                         label="Totalt kostnadsoverslag"
