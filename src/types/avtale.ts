@@ -157,12 +157,7 @@ export type TiltaksType =
     | 'FIREARIG_LONNSTILSKUDD';
 
 export type TilskuddPeriodeStatus =
-    | 'UBEHANDLET'
-    | 'GODKJENT'
-    | 'AVSLÅTT'
-    | 'ANNULLERT'
-    | 'BEHANDLET_I_ARENA'
-    | 'OPPFØLGING_KREVES';
+    'UBEHANDLET' | 'GODKJENT' | 'AVSLÅTT' | 'ANNULLERT' | 'BEHANDLET_I_ARENA' | 'OPPFØLGING_KREVES';
 
 export type TilskuddPeriodeRefusjonStatus = 'UTBETALT' | 'SENDT_KRAV';
 
