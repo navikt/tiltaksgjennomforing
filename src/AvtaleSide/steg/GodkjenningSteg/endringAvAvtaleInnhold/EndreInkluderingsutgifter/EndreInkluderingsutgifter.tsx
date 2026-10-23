@@ -5,7 +5,6 @@ import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/Ti
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import BekreftelseModal from '@/komponenter/modal/BekreftelseModal';
 import { endreInkluderingstilskudd } from '@/services/rest-service';
-import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formaterPenger } from '@/utils';
 import { Ingress, Label, Link } from '@navikt/ds-react';
 import type { FunctionComponent } from 'react';
@@ -13,7 +12,6 @@ import { useContext, useState } from 'react';
 import { TasklistIcon } from '@navikt/aksel-icons';
 import { useTilskuddsutgift } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from '@/AvtaleSide/steg/InkluderingstilskuddSteg/OpprettEnTilskuddsutgift';
-import EnTilskuddsutgift from '@/AvtaleSide/steg/InkluderingstilskuddSteg/EnTilskuddsutgift';
 
 const EndreInkluderingsutgifter: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
@@ -23,7 +21,6 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
         inkluderingstilskuddsutgiftListe,
         ledigeInkluderingstilskuddstyperInngåttAvtale,
         leggTilInkluderingstilskuddsutgift,
-        endreInkluderingstilskuddsutgift,
         sletteInkluderingstilskuddsutgift,
         resettListe,
     } = useTilskuddsutgift(
@@ -85,22 +82,12 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
 
                     <div>
-                        <TilskuddsutgiftTabell redigerbar={true}>
-                            {inkluderingstilskuddsutgiftListe.map((tilskuddsutgift, index) => (
-                                <EnTilskuddsutgift
-                                    skalKunneSlette={false}
-                                    key={index}
-                                    tilskuddsutgift={tilskuddsutgift}
-                                    endre={(beløp: number, type: InkluderingstilskuddsutgiftType) =>
-                                        endreInkluderingstilskuddsutgift(index, beløp, type)
-                                    }
-                                    slett={() => sletteInkluderingstilskuddsutgift(index)}
-                                    ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
-                                    setIRedigeringsmodus={setIRedigermodus}
-                                    iRegideringsmodus={iRedigermodus}
-                                />
-                            ))}
-                        </TilskuddsutgiftTabell>
+                        <TilskuddsutgiftTabell
+                            utgifter={inkluderingstilskuddsutgiftListe}
+                            redigerbar={true}
+                            skalKunneSlette={false}
+                            slett={sletteInkluderingstilskuddsutgift}
+                        />
                     </div>
                     <VerticalSpacer rem={2} />
                     <div>
