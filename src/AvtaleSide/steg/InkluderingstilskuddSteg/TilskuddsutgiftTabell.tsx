@@ -33,7 +33,7 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
                 {props.utgifter.map((utgift, index) => (
                     <Table.Row key={utgift.id ?? index}>
                         <Table.DataCell>{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
-                        <Table.DataCell>{formaterPenger(utgift.beløp)}</Table.DataCell>
+                        <Table.DataCell align="right">{formaterPenger(utgift.beløp)}</Table.DataCell>
                         {props.redigerbar && (
                             <Table.DataCell>
                                 {kanUtgiftSlettes(utgift) && (
