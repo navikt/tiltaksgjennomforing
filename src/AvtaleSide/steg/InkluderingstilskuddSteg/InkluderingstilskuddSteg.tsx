@@ -33,18 +33,24 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
         avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
     );
 
-    const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) =>
+    const endre = (
+        index: number,
+        name: string,
+        beløp: number,
+        beskrivelse: string,
+        type: InkluderingstilskuddsutgiftType,
+    ) =>
         settAvtaleInnholdVerdier(
-            { inkluderingstilskuddsutgift: endreInkluderingstilskuddsutgift(index, beløp, type) },
+            { inkluderingstilskuddsutgift: endreInkluderingstilskuddsutgift(index, name, beløp, beskrivelse, type) },
             true,
         );
 
     const slett = (index: number) =>
         settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: sletteInkluderingstilskuddsutgift(index) }, true);
 
-    const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) =>
+    const nyUtgift = (name: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) =>
         settAvtaleInnholdVerdier(
-            { inkluderingstilskuddsutgift: leggTilInkluderingstilskuddsutgift(beløp, type) },
+            { inkluderingstilskuddsutgift: leggTilInkluderingstilskuddsutgift(name, beløp, beskrivelse, type) },
             true,
         );
 
@@ -101,7 +107,12 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                             skalKunneSlette={true}
                             key={index}
                             tilskuddsutgift={tilskuddsutgift}
-                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
+                            endre={(
+                                name: string,
+                                beløp: number,
+                                beskrivelse: string,
+                                type: InkluderingstilskuddsutgiftType,
+                            ) => endre(index, name, beløp, beskrivelse, type)}
                             slett={() => slett(index)}
                             ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
                             setIRedigeringsmodus={setIRedigermodus}

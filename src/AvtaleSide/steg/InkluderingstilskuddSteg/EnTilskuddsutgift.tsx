@@ -12,7 +12,7 @@ type Props = {
     iRegideringsmodus: boolean;
     tilskuddsutgift: Inkluderingstilskuddsutgift;
     slett: () => void;
-    endre: (beløp: number, type: InkluderingstilskuddsutgiftType) => void;
+    endre: (name: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) => void;
     ledigeInkluderingstilskuddtyper: InkluderingstilskuddsutgiftType[];
     skalKunneSlette: boolean;
 };
@@ -27,7 +27,7 @@ const EnTilskuddsutgift: FunctionComponent<Props> = (props) => {
         props.slett();
     };
     const endreTilskuddsutgift = () => {
-        props.endre(beløp, type);
+        props.endre(props.tilskuddsutgift.name, beløp, props.tilskuddsutgift.beskrivelse, type);
         props.setIRedigeringsmodus(false);
         setEndrerTilskuddsutgift(false);
     };
