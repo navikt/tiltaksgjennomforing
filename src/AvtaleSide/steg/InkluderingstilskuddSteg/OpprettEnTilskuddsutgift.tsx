@@ -9,7 +9,7 @@ import KronerInput from '@/komponenter/form/KronerInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
-import styles from './OpprettEnTilskuddsutgift.less';
+import style from './OpprettEnTilskuddsutgift.module.less';
 
 type Props = {
     setIRedigeringsmodus: (iModus: boolean) => void;
@@ -100,7 +100,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                                 {...register('name')}
                                 label="Navn på utgift"
                                 description="En kort beskrivelse av utgiften"
-                                className={styles.halvBredde}
+                                className={style.halvBredde}
                                 error={formState.errors.name?.message}
                             />
                             <VerticalSpacer rem={1} />
@@ -108,7 +108,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                                 {...register('type')}
                                 error={formState.errors.type?.message}
                                 label="Kategori"
-                                className={styles.halvBredde}
+                                className={style.halvBredde}
                             >
                                 <option value="">Velg type utgift</option>
                                 {ledigeInkluderingstilskuddtyper.map((currentType: InkluderingstilskuddsutgiftType) => (
@@ -121,7 +121,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                             <Textarea
                                 {...register('beskrivelse')}
                                 label="Begrunnelse"
-                                className={styles.begrunnelse}
+                                className={style.begrunnelse}
                                 description="Beskriv kort hvorfor denne utgiften er nødvendig"
                                 maxLength={1000}
                                 error={formState.errors.beskrivelse?.message}
@@ -134,7 +134,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                                     <KronerInput
                                         error={fieldState.error?.message}
                                         name={field.name}
-                                        className={styles.belop}
+                                        className={style.belop}
                                         label="Pris inntil"
                                         description={'Inkludert moms'}
                                         verdi={field.value}
