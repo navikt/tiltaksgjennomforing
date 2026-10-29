@@ -2,7 +2,7 @@ import KnappMedIkon from '@/komponenter/KnappMedIkon/KnappMedIkon';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift } from '@/types/avtale';
 import { formaterPenger } from '@/utils';
-import { Table } from '@navikt/ds-react';
+import { HStack, Table } from '@navikt/ds-react';
 import React, { FunctionComponent } from 'react';
 
 type Props = {
@@ -25,8 +25,14 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell scope="col">Tilskudd</Table.HeaderCell>
-                    <Table.HeaderCell scope="col">Utgifter</Table.HeaderCell>
-                    {props.redigerbar && <Table.HeaderCell scope="col">Handling</Table.HeaderCell>}
+                    <Table.HeaderCell align="right" scope="col">
+                        Utgifter
+                    </Table.HeaderCell>
+                    {props.redigerbar && (
+                        <Table.HeaderCell align="center" scope="col">
+                            Handling
+                        </Table.HeaderCell>
+                    )}
                 </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -35,13 +41,15 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
                         <Table.DataCell>{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
                         <Table.DataCell align="right">{formaterPenger(utgift.beløp)}</Table.DataCell>
                         {props.redigerbar && (
-                            <Table.DataCell>
+                            <Table.DataCell align="center">
                                 {kanUtgiftSlettes(utgift) && (
-                                    <KnappMedIkon
-                                        onClick={() => props.slett?.(index)}
-                                        label="Slett"
-                                        ikonType="soppelkasse"
-                                    />
+                                    <HStack justify="center">
+                                        <KnappMedIkon
+                                            onClick={() => props.slett?.(index)}
+                                            label="Slett"
+                                            ikonType="soppelkasse"
+                                        />
+                                    </HStack>
                                 )}
                             </Table.DataCell>
                         )}
