@@ -9,15 +9,13 @@ interface Props {
 }
 
 const TilskuddsperiodeOgRefusjon: FunctionComponent<Props> = ({ tiltakstype }) => {
-    if (
-        !(
-            tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
-            tiltakstype === 'VARIG_LONNSTILSKUDD' ||
-            tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
-            tiltakstype === 'SOMMERJOBB' ||
-            tiltakstype === 'VTAO'
-        )
-    ) {
+    if (!(
+        tiltakstype === 'MIDLERTIDIG_LONNSTILSKUDD' ||
+        tiltakstype === 'VARIG_LONNSTILSKUDD' ||
+        tiltakstype === 'FIREARIG_LONNSTILSKUDD' ||
+        tiltakstype === 'SOMMERJOBB' ||
+        tiltakstype === 'VTAO'
+    )) {
         return null;
     }
     if (tiltakstype === 'FIREARIG_LONNSTILSKUDD') {
