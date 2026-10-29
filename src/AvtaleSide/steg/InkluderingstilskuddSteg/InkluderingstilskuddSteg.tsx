@@ -8,7 +8,6 @@ import BEMHelper from '@/utils/bem';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import EnTilskuddsutgift from './EnTilskuddsutgift';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
 import './inkluderingstilskuddSteg.less';
 import { useTilskuddsutgift } from './inkluderingstilskuddsUtils';
@@ -23,20 +22,10 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
     const cls = BEMHelper('inkluderingstilskudd');
     const { avtale, settAvtaleInnholdVerdier, settAvtaleInnholdVerdi, lagreAvtale } = useContext(AvtaleContext);
     const [iRedigermodus, setIRedigermodus] = useState(false);
-    const {
-        ledigeInkluderingstilskuddstyper,
-        leggTilInkluderingstilskuddsutgift,
-        endreInkluderingstilskuddsutgift,
-        sletteInkluderingstilskuddsutgift,
-    } = useTilskuddsutgift(
-        avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
-        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
-    );
-
-    const endre = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) =>
-        settAvtaleInnholdVerdier(
-            { inkluderingstilskuddsutgift: endreInkluderingstilskuddsutgift(index, beløp, type) },
-            true,
+    const { ledigeInkluderingstilskuddstyper, leggTilInkluderingstilskuddsutgift, sletteInkluderingstilskuddsutgift } =
+        useTilskuddsutgift(
+            avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
+            avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
         );
 
     const slett = (index: number) =>
@@ -95,20 +84,12 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
 
                 <VerticalSpacer rem={2} />
 
-                <TilskuddsutgiftTabell redigerbar={true}>
-                    {avtale.gjeldendeInnhold.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
-                        <EnTilskuddsutgift
-                            skalKunneSlette={true}
-                            key={index}
-                            tilskuddsutgift={tilskuddsutgift}
-                            endre={(beløp: number, type: InkluderingstilskuddsutgiftType) => endre(index, beløp, type)}
-                            slett={() => slett(index)}
-                            ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
-                            setIRedigeringsmodus={setIRedigermodus}
-                            iRegideringsmodus={iRedigermodus}
-                        />
-                    ))}
-                </TilskuddsutgiftTabell>
+                <TilskuddsutgiftTabell
+                    utgifter={avtale.gjeldendeInnhold.inkluderingstilskuddsutgift}
+                    redigerbar={true}
+                    skalKunneSlette={true}
+                    slett={slett}
+                />
                 <div className={cls.element('kostnadsoverslag-container')}>
                     <VisueltDisabledInputFelt
                         label="Totalt kostnadsoverslag"
