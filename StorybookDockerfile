@@ -1,8 +1,8 @@
 FROM cgr.dev/chainguard/nginx:latest-dev AS prepare
 USER root
-COPY ./saksbehandler/storybook-static /usr/share/nginx/html
+COPY ./storybook-static /usr/share/nginx/html
 RUN touch /usr/share/nginx/html/isAlive /usr/share/nginx/html/isReady
-COPY ./saksbehandler/storybook-nginx.conf /etc/nginx/nginx.conf
+COPY ./storybook-nginx.conf /etc/nginx/nginx.conf
 USER nginx
 RUN nginx -t
 
