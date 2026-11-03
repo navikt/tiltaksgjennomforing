@@ -16,7 +16,7 @@ type Props = {
     iRegideringsmodus: boolean;
     tilskuddsutgift: Inkluderingstilskuddsutgift[];
     leggTilTilskuddsutgift: (
-        name: string,
+        navn: string,
         beløp: number,
         beskrivelse: string,
         type: InkluderingstilskuddsutgiftType,
@@ -39,7 +39,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
     const [leggertilTilskuddsutgift, setLeggertilTilskuddsutgift] = useState(false);
 
     const schema = z.object({
-        name: z.string().refine((verdi) => verdi.trim().length > 0, 'Vennligst oppgi et navn på utgiften'),
+        navn: z.string().refine((verdi) => verdi.trim().length > 0, 'Vennligst oppgi et navn på utgiften'),
         type: z.custom<InkluderingstilskuddsutgiftType>(
             (verdi) => ledigeInkluderingstilskuddtyper.some((type) => type === verdi),
             'Vennligst velg en type utgift',
@@ -59,7 +59,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
     });
     const { register, control, handleSubmit, formState, getValues, reset } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
-        defaultValues: { name: '', beskrivelse: '' },
+        defaultValues: { navn: '', beskrivelse: '' },
     });
 
     const lukkModal = () => {
@@ -69,8 +69,8 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
     };
 
     const [onSubmit, lagreKnappProps] = useLagreKnapp(async () => {
-        const { name, beløp, beskrivelse, type } = getValues();
-        await leggTilTilskuddsutgift(name, beløp, beskrivelse, type);
+        const { navn, beløp, beskrivelse, type } = getValues();
+        await leggTilTilskuddsutgift(navn, beløp, beskrivelse, type);
         lukkModal();
     });
 
@@ -97,11 +97,11 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Modal.Body>
                             <TextField
-                                {...register('name')}
+                                {...register('navn')}
                                 label="Navn på utgift"
                                 description="En kort beskrivelse av utgiften"
                                 className={style.halvBredde}
-                                error={formState.errors.name?.message}
+                                error={formState.errors.navn?.message}
                             />
                             <VerticalSpacer rem={1} />
                             <Select

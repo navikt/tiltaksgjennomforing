@@ -5,7 +5,7 @@ import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
 import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
-import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
+import { formaterPenger } from '@/utils';
 import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import EnTilskuddsutgift from './EnTilskuddsutgift';
@@ -35,22 +35,22 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
 
     const endre = (
         index: number,
-        name: string,
+        navn: string,
         beløp: number,
         beskrivelse: string,
         type: InkluderingstilskuddsutgiftType,
     ) =>
         settAvtaleInnholdVerdier(
-            { inkluderingstilskuddsutgift: endreInkluderingstilskuddsutgift(index, name, beløp, beskrivelse, type) },
+            { inkluderingstilskuddsutgift: endreInkluderingstilskuddsutgift(index, navn, beløp, beskrivelse, type) },
             true,
         );
 
     const slett = (index: number) =>
         settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: sletteInkluderingstilskuddsutgift(index) }, true);
 
-    const nyUtgift = (name: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) =>
+    const nyUtgift = (navn: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) =>
         settAvtaleInnholdVerdier(
-            { inkluderingstilskuddsutgift: leggTilInkluderingstilskuddsutgift(name, beløp, beskrivelse, type) },
+            { inkluderingstilskuddsutgift: leggTilInkluderingstilskuddsutgift(navn, beløp, beskrivelse, type) },
             true,
         );
 
@@ -108,11 +108,11 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                             key={index}
                             tilskuddsutgift={tilskuddsutgift}
                             endre={(
-                                name: string,
+                                navn: string,
                                 beløp: number,
                                 beskrivelse: string,
                                 type: InkluderingstilskuddsutgiftType,
-                            ) => endre(index, name, beløp, beskrivelse, type)}
+                            ) => endre(index, navn, beløp, beskrivelse, type)}
                             slett={() => slett(index)}
                             ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyper}
                             setIRedigeringsmodus={setIRedigermodus}

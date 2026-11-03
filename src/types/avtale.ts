@@ -444,7 +444,7 @@ export interface InkluderingsInnhold {
 
 export interface Inkluderingstilskuddsutgift {
     id?: string;
-    name: string;
+    navn: string;
     beløp: number;
     beskrivelse: string;
     type: InkluderingstilskuddsutgiftType;

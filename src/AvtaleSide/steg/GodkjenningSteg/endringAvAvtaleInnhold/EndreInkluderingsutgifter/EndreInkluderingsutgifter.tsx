@@ -92,11 +92,11 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                                     key={index}
                                     tilskuddsutgift={tilskuddsutgift}
                                     endre={(
-                                        name: string,
+                                        navn: string,
                                         beløp: number,
                                         beskrivelse: string,
                                         type: InkluderingstilskuddsutgiftType,
-                                    ) => endreInkluderingstilskuddsutgift(index, name, beløp, beskrivelse, type)}
+                                    ) => endreInkluderingstilskuddsutgift(index, navn, beløp, beskrivelse, type)}
                                     slett={() => sletteInkluderingstilskuddsutgift(index)}
                                     ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
                                     setIRedigeringsmodus={setIRedigermodus}
