@@ -3,7 +3,7 @@ import Innholdsboks from '@/komponenter/Innholdsboks/Innholdsboks';
 import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import PakrevdTextarea from '@/komponenter/PakrevdTextarea/PakrevdTextarea';
-import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
+import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import BEMHelper from '@/utils/bem';
 import { formaterPenger, IKKE_NOE_BELOP_TEGN } from '@/utils';
 import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
@@ -28,8 +28,8 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
             avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
         );
 
-    const slett = (index: number) =>
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: sletteInkluderingstilskuddsutgift(index) }, true);
+    const slett = (utgift: Inkluderingstilskuddsutgift) =>
+        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: sletteInkluderingstilskuddsutgift(utgift) }, true);
 
     const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) =>
         settAvtaleInnholdVerdier(

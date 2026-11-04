@@ -9,7 +9,7 @@ type Props = {
     utgifter: Inkluderingstilskuddsutgift[];
     redigerbar: boolean;
     skalKunneSlette?: boolean;
-    slett?: (index: number) => void;
+    slett?: (utgift: Inkluderingstilskuddsutgift) => void;
 };
 
 const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
@@ -36,8 +36,8 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {props.utgifter.map((utgift, index) => (
-                    <Table.Row key={utgift.id ?? index}>
+                {props.utgifter.map((utgift) => (
+                    <Table.Row key={utgift.id ?? utgift.type}>
                         <Table.DataCell>{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
                         <Table.DataCell align="right">{formaterPenger(utgift.beløp)}</Table.DataCell>
                         {props.redigerbar && (
@@ -45,7 +45,7 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
                                 {kanUtgiftSlettes(utgift) && (
                                     <HStack justify="center">
                                         <KnappMedIkon
-                                            onClick={() => props.slett?.(index)}
+                                            onClick={() => props.slett?.(utgift)}
                                             label="Slett"
                                             ikonType="soppelkasse"
                                         />
