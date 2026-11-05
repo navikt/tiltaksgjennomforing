@@ -18,17 +18,28 @@ export const useTilskuddsutgift = (
         return utgifterTotalsum;
     };
 
-    const leggTilInkluderingstilskuddsutgift = (beløp: number, type: InkluderingstilskuddsutgiftType) => {
+    const leggTilInkluderingstilskuddsutgift = (
+        navn: string,
+        beløp: number,
+        beskrivelse: string,
+        type: InkluderingstilskuddsutgiftType,
+    ) => {
         const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
-        nyInkluderingstilskuddsutgiftListe.push({ beløp: beløp, type: type });
+        nyInkluderingstilskuddsutgiftListe.push({ navn: navn, beløp: beløp, beskrivelse: beskrivelse, type: type });
         setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
         setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
         return nyInkluderingstilskuddsutgiftListe;
     };
 
-    const endreInkluderingstilskuddsutgift = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
+    const endreInkluderingstilskuddsutgift = (
+        index: number,
+        navn: string,
+        beløp: number,
+        beskrivelse: string,
+        type: InkluderingstilskuddsutgiftType,
+    ) => {
         const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
-        nyInkluderingstilskuddsutgiftListe[index] = { beløp: beløp, type: type };
+        nyInkluderingstilskuddsutgiftListe[index] = { navn: navn, beløp: beløp, beskrivelse: beskrivelse, type: type };
         setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
         setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
         return nyInkluderingstilskuddsutgiftListe;
