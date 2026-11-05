@@ -1,3 +1,5 @@
 allowBuilds:
   esbuild: true
 lockfileIncludeTarballUrl: true
+minimumReleaseAgeExclude:
+  - '@navikt/nav-dekoratoren-moduler@4.6.0'
