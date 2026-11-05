@@ -2,7 +2,8 @@ allowBuilds:
   esbuild: true
 engineStrict: true
 lockfileIncludeTarballUrl: true
-
+minimumReleaseAgeExclude:
+  - '@navikt/nav-dekoratoren-moduler@4.6.0'
 # Storybook deklarerer react/react-dom som valgfrie peers. Uten dette løser pnpm
 # addon-docs-undertreet på egen hånd og drar inn en ekstra React-kopi, som gir
 # "dispatcher is null" i Storybook. Bind hele grafen til appens versjon.
