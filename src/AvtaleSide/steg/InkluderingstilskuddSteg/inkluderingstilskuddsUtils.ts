@@ -1,5 +1,5 @@
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useTilskuddsutgift = (
     initiellInkluderingstilskuddutgiftListe: Inkluderingstilskuddsutgift[],
@@ -9,6 +9,11 @@ export const useTilskuddsutgift = (
         Inkluderingstilskuddsutgift[]
     >(initiellInkluderingstilskuddutgiftListe);
     const [inkluderingstilskuddTotal, setInkluderingstilskuddTotal] = useState<number>(inkluderingstilskuddTotalBeløp);
+
+    useEffect(() => {
+        setInkluderingstilskuddsutgiftListe(initiellInkluderingstilskuddutgiftListe);
+        setInkluderingstilskuddTotal(inkluderingstilskuddTotalBeløp);
+    }, [initiellInkluderingstilskuddutgiftListe, inkluderingstilskuddTotalBeløp]);
 
     const resettListe = (liste: Inkluderingstilskuddsutgift[]) => setInkluderingstilskuddsutgiftListe(liste);
 
@@ -39,9 +44,8 @@ export const useTilskuddsutgift = (
         inkluderingstilskuddsutgiftListe,
     );
 
-    const sletteInkluderingstilskuddsutgift = (index: number) => {
-        const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
-        nyInkluderingstilskuddsutgiftListe.splice(index, 1);
+    const sletteInkluderingstilskuddsutgift = (utgift: Inkluderingstilskuddsutgift) => {
+        const nyInkluderingstilskuddsutgiftListe = inkluderingstilskuddsutgiftListe.filter((u) => u !== utgift);
         setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
         setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
         return nyInkluderingstilskuddsutgiftListe;
