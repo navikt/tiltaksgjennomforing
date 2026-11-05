@@ -45,9 +45,7 @@ export const useTilskuddsutgift = (
     );
 
     const sletteInkluderingstilskuddsutgift = (utgift: Inkluderingstilskuddsutgift) => {
-        const nyInkluderingstilskuddsutgiftListe = inkluderingstilskuddsutgiftListe.filter((u) =>
-            utgift.id !== undefined ? u.id !== utgift.id : u.id !== undefined || u.type !== utgift.type,
-        );
+        const nyInkluderingstilskuddsutgiftListe = inkluderingstilskuddsutgiftListe.filter((u) => u !== utgift);
         setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
         setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
         return nyInkluderingstilskuddsutgiftListe;
