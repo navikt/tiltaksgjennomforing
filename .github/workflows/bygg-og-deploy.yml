@@ -25,7 +25,7 @@ jobs:
       - name: Sett opp node.js
         uses: actions/setup-node@v5
         with:
-          node-version: 24
+          node-version: 26
           cache: 'pnpm'
           cache-dependency-path: |
             pnpm-lock.yaml
