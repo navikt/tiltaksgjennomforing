@@ -10,22 +10,14 @@ import { Ingress, Label, Link } from '@navikt/ds-react';
 import type { FunctionComponent } from 'react';
 import { useContext, useState } from 'react';
 import { TasklistIcon } from '@navikt/aksel-icons';
-import { useTilskuddsutgift } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
+import { useUlagredeUtgifter } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
 import OpprettEnTilskuddsutgift from '@/AvtaleSide/steg/InkluderingstilskuddSteg/OpprettEnTilskuddsutgift';
 
 const EndreInkluderingsutgifter: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
     const { avtale, hentAvtale } = useContext(AvtaleContext);
-    const {
-        inkluderingstilskuddTotal,
-        inkluderingstilskuddsutgiftListe,
-        ledigeInkluderingstilskuddstyperInngåttAvtale,
-        leggTilInkluderingstilskuddsutgift,
-        sletteInkluderingstilskuddsutgift,
-        resettListe,
-    } = useTilskuddsutgift(
+    const { utgifter, total, ledigeTyper, leggTil, slett, tilbakestill } = useUlagredeUtgifter(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
-        avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp,
     );
     const [iRedigermodus, setIRedigermodus] = useState(false);
 
@@ -33,7 +25,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
         setModalApen(false);
     };
     const endreUtgifter = async () => {
-        await endreInkluderingstilskudd(avtale, inkluderingstilskuddsutgiftListe);
+        await endreInkluderingstilskudd(avtale, utgifter);
         await hentAvtale();
         setModalApen(false);
     };
@@ -44,7 +36,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 style={{ display: 'flex', alignItems: 'center' }}
                 onClick={(event) => {
                     event.stopPropagation();
-                    resettListe(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
+                    tilbakestill(avtale.gjeldendeInnhold.inkluderingstilskuddsutgift);
                     setModalApen(true);
                 }}
                 href="#"
@@ -71,28 +63,28 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                     <VerticalSpacer rem={2} />
 
                     <OpprettEnTilskuddsutgift
-                        leggTilTilskuddsutgift={leggTilInkluderingstilskuddsutgift}
-                        ledigeInkluderingstilskuddtyper={ledigeInkluderingstilskuddstyperInngåttAvtale}
+                        leggTilTilskuddsutgift={leggTil}
+                        ledigeInkluderingstilskuddtyper={ledigeTyper}
                         setIRedigeringsmodus={setIRedigermodus}
                         iRegideringsmodus={iRedigermodus}
-                        tilskuddsutgift={inkluderingstilskuddsutgiftListe}
-                        totalBeløp={inkluderingstilskuddTotal}
+                        tilskuddsutgift={utgifter}
+                        totalBeløp={total}
                         inkluderingstilskuddSats={avtale.gjeldendeInnhold.inkluderingstilskuddSats}
                     />
                     <VerticalSpacer rem={2} />
 
                     <div>
                         <TilskuddsutgiftTabell
-                            utgifter={inkluderingstilskuddsutgiftListe}
+                            utgifter={utgifter}
                             redigerbar={true}
                             skalKunneSlette={false}
-                            slett={sletteInkluderingstilskuddsutgift}
+                            slett={slett}
                         />
                     </div>
                     <VerticalSpacer rem={2} />
                     <div>
                         <Label>Totalt kostnadsoverslag:</Label>
-                        <Ingress>{formaterPenger(inkluderingstilskuddTotal)}</Ingress>
+                        <Ingress>{formaterPenger(total)}</Ingress>
                     </div>
                 </div>
             </BekreftelseModal>
