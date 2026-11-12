@@ -1,106 +1,34 @@
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { useEffect, useState } from 'react';
+import { inkluderingstilskuddtypeTekst } from '@/messages';
+import { useState } from 'react';
 
-export const useTilskuddsutgift = (
-    initiellInkluderingstilskuddutgiftListe: Inkluderingstilskuddsutgift[],
-    inkluderingstilskuddTotalBeløp: number,
-) => {
-    const [inkluderingstilskuddsutgiftListe, setInkluderingstilskuddsutgiftListe] = useState<
-        Inkluderingstilskuddsutgift[]
-    >(initiellInkluderingstilskuddutgiftListe);
-    const [inkluderingstilskuddTotal, setInkluderingstilskuddTotal] = useState<number>(inkluderingstilskuddTotalBeløp);
+export const alleInkluderingstilskuddstyper = Object.keys(
+    inkluderingstilskuddtypeTekst,
+) as InkluderingstilskuddsutgiftType[];
 
-    useEffect(() => {
-        setInkluderingstilskuddsutgiftListe(initiellInkluderingstilskuddutgiftListe);
-        setInkluderingstilskuddTotal(inkluderingstilskuddTotalBeløp);
-    }, [initiellInkluderingstilskuddutgiftListe, inkluderingstilskuddTotalBeløp]);
+export const summerUtgifter = (utgifter: Inkluderingstilskuddsutgift[]): number =>
+    utgifter.reduce((sum, utgift) => sum + utgift.beløp, 0);
 
-    const resettListe = (liste: Inkluderingstilskuddsutgift[]) => setInkluderingstilskuddsutgiftListe(liste);
+export const leggTilUtgift = (
+    utgifter: Inkluderingstilskuddsutgift[],
+    beløp: number,
+    type: InkluderingstilskuddsutgiftType,
+): Inkluderingstilskuddsutgift[] => [...utgifter, { beløp, type }];
 
-    const oppdatereTotalSummen = (initiellInkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[]) => {
-        let utgifterTotalsum = 0;
-        initiellInkluderingstilskuddutgifter.forEach((utgift) => (utgifterTotalsum += utgift.beløp));
-        return utgifterTotalsum;
-    };
+export const slettUtgift = (
+    utgifter: Inkluderingstilskuddsutgift[],
+    utgift: Inkluderingstilskuddsutgift,
+): Inkluderingstilskuddsutgift[] => utgifter.filter((u) => u !== utgift);
 
-    const leggTilInkluderingstilskuddsutgift = (beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
-        nyInkluderingstilskuddsutgiftListe.push({ beløp: beløp, type: type });
-        setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
-        setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
-        return nyInkluderingstilskuddsutgiftListe;
-    };
-
-    const endreInkluderingstilskuddsutgift = (index: number, beløp: number, type: InkluderingstilskuddsutgiftType) => {
-        const nyInkluderingstilskuddsutgiftListe = [...inkluderingstilskuddsutgiftListe];
-        nyInkluderingstilskuddsutgiftListe[index] = { beløp: beløp, type: type };
-        setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
-        setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
-        return nyInkluderingstilskuddsutgiftListe;
-    };
-
-    const ledigeInkluderingstilskuddstyper = finnLedigeInkluderingstilskuddstyper(inkluderingstilskuddsutgiftListe);
-    const ledigeInkluderingstilskuddstyperInngåttAvtale = finnLedigeInkluderingstilskuddstyperInngåttAvtale(
-        inkluderingstilskuddsutgiftListe,
-    );
-
-    const sletteInkluderingstilskuddsutgift = (utgift: Inkluderingstilskuddsutgift) => {
-        const nyInkluderingstilskuddsutgiftListe = inkluderingstilskuddsutgiftListe.filter((u) => u !== utgift);
-        setInkluderingstilskuddsutgiftListe(nyInkluderingstilskuddsutgiftListe);
-        setInkluderingstilskuddTotal(oppdatereTotalSummen(nyInkluderingstilskuddsutgiftListe));
-        return nyInkluderingstilskuddsutgiftListe;
-    };
-
+export const useUlagredeUtgifter = (lagredeUtgifter: Inkluderingstilskuddsutgift[]) => {
+    const [utgifter, setUtgifter] = useState<Inkluderingstilskuddsutgift[]>(lagredeUtgifter);
     return {
-        inkluderingstilskuddTotal,
-        inkluderingstilskuddsutgiftListe,
-        ledigeInkluderingstilskuddstyperInngåttAvtale,
-        ledigeInkluderingstilskuddstyper,
-        leggTilInkluderingstilskuddsutgift,
-        endreInkluderingstilskuddsutgift,
-        sletteInkluderingstilskuddsutgift,
-        resettListe,
+        alleInkluderingstilskuddstyper,
+        utgifter,
+        total: summerUtgifter(utgifter),
+        leggTil: (beløp: number, type: InkluderingstilskuddsutgiftType) =>
+            setUtgifter((forrige) => leggTilUtgift(forrige, beløp, type)),
+        slett: (utgift: Inkluderingstilskuddsutgift) => setUtgifter((forrige) => slettUtgift(forrige, utgift)),
+        tilbakestill: setUtgifter,
     };
-};
-
-const finnLedigeInkluderingstilskuddstyperInngåttAvtale = (
-    brukteTyper: Inkluderingstilskuddsutgift[],
-): InkluderingstilskuddsutgiftType[] => {
-    // Typer som er lagt til i tidligere versjoner kan brukes på nytt 1 gang.
-    const alleTyper = [
-        'TILRETTELEGGINGSBEHOV',
-        'TILTAKSPLASS',
-        'UTSTYR',
-        'ARBEIDSHJELPEMIDLER',
-        'PROGRAMVARE',
-        'OPPLÆRING',
-        'FORSIKRING_LISENS_SERTIFISERING',
-    ];
-    brukteTyper.forEach((bruktType) => {
-        if (bruktType.id === undefined) {
-            // typen er ikke i backend og skal brukes opp
-            const index = alleTyper.findIndex((type) => type === bruktType.type);
-            alleTyper.splice(index, 1);
-        }
-    });
-    return alleTyper as InkluderingstilskuddsutgiftType[];
-};
-
-const finnLedigeInkluderingstilskuddstyper = (
-    brukteTyper: Inkluderingstilskuddsutgift[],
-): InkluderingstilskuddsutgiftType[] => {
-    // Typer kan kun brukes 1 gang.
-    const valgteTyper = (): InkluderingstilskuddsutgiftType[] => {
-        return brukteTyper.map((inkluderingstilskuddsutgift) => inkluderingstilskuddsutgift.type);
-    };
-    const typer = [
-        'TILRETTELEGGINGSBEHOV',
-        'TILTAKSPLASS',
-        'UTSTYR',
-        'ARBEIDSHJELPEMIDLER',
-        'PROGRAMVARE',
-        'OPPLÆRING',
-        'FORSIKRING_LISENS_SERTIFISERING',
-    ] as const;
-    return typer.filter((type) => !valgteTyper().includes(type));
 };
