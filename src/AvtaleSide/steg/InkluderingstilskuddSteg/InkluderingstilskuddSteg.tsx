@@ -53,7 +53,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <BodyShort size="small">I hvilken periode skal tilskuddet benyttes?</BodyShort>
                 <VerticalSpacer rem={1} />
                 <HGrid columns={{ xs: 1, md: 2 }} gap="space-16">
-                    <Datovelger datoFelt="startDato" label="StartDato" />
+                    <Datovelger datoFelt="startDato" label="Startdato" />
                     <Datovelger datoFelt="sluttDato" label="Forventet sluttdato" />
                 </HGrid>
 
