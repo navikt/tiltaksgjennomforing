@@ -1,17 +1,25 @@
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
+import LagreKnapp, { useLagreKnapp } from '@/komponenter/LagreKnapp/LagreKnappBase';
 import { inkluderingstilskuddtypeTekst } from '@/messages';
 import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { formaterPenger } from '@/utils';
-import { Button, Heading, Select } from '@navikt/ds-react';
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import { Button, Heading, Modal, Select, Textarea, TextField, VStack } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
 import KronerInput from '@/komponenter/form/KronerInput';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
+import * as z from 'zod';
+import style from './OpprettEnTilskuddsutgift.module.less';
 
 type Props = {
     setIRedigeringsmodus: (iModus: boolean) => void;
     iRegideringsmodus: boolean;
     tilskuddsutgift: Inkluderingstilskuddsutgift[];
-    leggTilTilskuddsutgift: (beløp: number, type: InkluderingstilskuddsutgiftType) => void;
+    leggTilTilskuddsutgift: (
+        navn: string,
+        beløp: number,
+        beskrivelse: string,
+        type: InkluderingstilskuddsutgiftType,
+    ) => void;
     ledigeInkluderingstilskuddtyper: InkluderingstilskuddsutgiftType[];
     totalBeløp: number;
     inkluderingstilskuddSats: number;
@@ -29,104 +37,127 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
 
     const [leggertilTilskuddsutgift, setLeggertilTilskuddsutgift] = useState(false);
 
-    const [beløp, setBeløp] = useState<number | undefined>();
-    const [type, setType] = useState<InkluderingstilskuddsutgiftType>();
-    const [beløpFeil, setBeløpFeil] = useState<string | undefined>();
-    const [typeFeil, setTypeFeil] = useState<string | undefined>();
-
-    const gjenståendeMaxBeløp = inkluderingstilskuddSats - totalBeløp;
-
-    const leggTil = async () => {
-        if (!type) {
-            setTypeFeil('Vennligst velg en type utgift');
-            return;
-        } else {
-            setTypeFeil(undefined);
-        }
-        if (!beløp) {
-            // set en feil - noe mangler
-            setBeløpFeil('Vennligst oppgi et kostnadsoverslag');
-            return;
-        }
-        if (beløp > gjenståendeMaxBeløp) {
-            setBeløpFeil(
+    const schema = z.object({
+        navn: z
+            .string()
+            .trim()
+            .min(1, 'Vennligst oppgi et navn på utgiften')
+            .max(100, 'Navnet kan ikke være lengre enn 100 tegn'),
+        type: z.custom<InkluderingstilskuddsutgiftType>(
+            (verdi) => ledigeInkluderingstilskuddtyper.some((type) => type === verdi),
+            'Vennligst velg en type utgift',
+        ),
+        beskrivelse: z
+            .string()
+            .trim()
+            .min(1, 'Vennligst oppgi en beskrivelse')
+            .max(1000, 'Beskrivelsen kan ikke være lengre enn 1000 tegn'),
+        beløp: z
+            .number({ required_error: 'Vennligst oppgi et kostnadsoverslag' })
+            .max(
+                inkluderingstilskuddSats - totalBeløp,
                 `Det totale beløpet overskrider det maksimale beløpet på ${formaterPenger(inkluderingstilskuddSats)}`,
-            );
-            return;
-        } else {
-            setBeløp(undefined);
-        }
-        leggTilTilskuddsutgift(beløp, type);
+            ),
+    });
+    const { register, control, handleSubmit, formState, getValues, reset } = useForm<z.infer<typeof schema>>({
+        resolver: zodResolver(schema),
+        defaultValues: { navn: '', beskrivelse: '' },
+    });
+
+    const lukkModal = () => {
         setLeggertilTilskuddsutgift(false);
         setIRedigeringsmodus(false);
-        setBeløp(undefined);
-        setType(undefined);
+        reset();
     };
 
+    const [onSubmit, lagreKnappProps] = useLagreKnapp(async () => {
+        const { navn, beløp, beskrivelse, type } = getValues();
+        await leggTilTilskuddsutgift(navn, beløp, beskrivelse, type);
+        lukkModal();
+    });
+
     return (
-        <div>
+        <VStack gap="space-32" align="start">
             <Heading level="2" size="medium">
                 Legg til utgift
             </Heading>
-            <VerticalSpacer rem={2} />
 
-            {leggertilTilskuddsutgift ? (
-                <div>
-                    <Select
-                        error={typeFeil}
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                            setType(e.currentTarget.value as InkluderingstilskuddsutgiftType);
-                            setTypeFeil(undefined);
-                        }}
-                        label="Hva skal tilskuddet dekke?"
-                    >
-                        <option value="">Velg type utgift</option>
-                        {ledigeInkluderingstilskuddtyper.map((currentType: InkluderingstilskuddsutgiftType) => (
-                            <option key={currentType} value={currentType}>
-                                {inkluderingstilskuddtypeTekst[currentType]}
-                            </option>
-                        ))}
-                    </Select>
-                    <VerticalSpacer rem={1} />
-                    <KronerInput
-                        error={beløpFeil}
-                        name="beløp"
-                        width="M"
-                        label="Kostnadsoverslag"
-                        verdi={beløp}
-                        settVerdi={(verdi) => {
-                            setBeløp(verdi);
-                            setBeløpFeil(undefined);
-                        }}
-                    />
-                    <VerticalSpacer rem={1} />
-                    <div style={{ display: 'flex' }}>
-                        <LagreKnapp lagre={leggTil}>Legg til utgift</LagreKnapp>
-                        <Button
-                            variant="tertiary"
-                            style={{ marginLeft: '1rem' }}
-                            onClick={() => {
-                                setIRedigeringsmodus(false);
-                                setLeggertilTilskuddsutgift(false);
-                            }}
-                        >
-                            Avbryt
-                        </Button>
-                    </div>
-                </div>
-            ) : (
-                <Button
-                    variant="secondary"
-                    disabled={iRegideringsmodus}
-                    onClick={() => {
-                        setIRedigeringsmodus(true);
-                        setLeggertilTilskuddsutgift(true);
-                    }}
-                >
-                    + Legg til ny utgift
-                </Button>
-            )}
-        </div>
+            <Button
+                type="button"
+                variant="secondary"
+                disabled={iRegideringsmodus}
+                onClick={() => {
+                    setIRedigeringsmodus(true);
+                    setLeggertilTilskuddsutgift(true);
+                }}
+            >
+                Legg til ny utgift
+            </Button>
+            <Modal open={leggertilTilskuddsutgift} onClose={lukkModal} header={{ heading: 'Ny utgift' }} width="medium">
+                {leggertilTilskuddsutgift && (
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Modal.Body>
+                            <VStack gap="space-16">
+                                <TextField
+                                    {...register('navn')}
+                                    label="Navn på utgift"
+                                    description="En kort beskrivelse av utgiften"
+                                    error={formState.errors.navn?.message}
+                                    htmlSize={37}
+                                />
+                                <Select
+                                    {...register('type')}
+                                    error={formState.errors.type?.message}
+                                    label="Kategori"
+                                    className={style.halvBredde}
+                                >
+                                    <option value="">Velg type utgift</option>
+                                    {ledigeInkluderingstilskuddtyper.map(
+                                        (currentType: InkluderingstilskuddsutgiftType) => (
+                                            <option key={currentType} value={currentType}>
+                                                {inkluderingstilskuddtypeTekst[currentType]}
+                                            </option>
+                                        ),
+                                    )}
+                                </Select>
+                                <Textarea
+                                    {...register('beskrivelse')}
+                                    label="Begrunnelse"
+                                    className={style.begrunnelse}
+                                    description="Beskriv kort hvorfor denne utgiften er nødvendig"
+                                    maxLength={1000}
+                                    error={formState.errors.beskrivelse?.message}
+                                />
+                                <Controller
+                                    name="beløp"
+                                    control={control}
+                                    render={({ field, fieldState }) => (
+                                        <KronerInput
+                                            error={fieldState.error?.message}
+                                            name={field.name}
+                                            label="Beløp inntil"
+                                            description={'Inkludert moms'}
+                                            verdi={field.value}
+                                            settVerdi={field.onChange}
+                                            onBlur={field.onBlur}
+                                            htmlSize={21}
+                                        />
+                                    )}
+                                />
+                            </VStack>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <LagreKnapp type="submit" size="small" {...lagreKnappProps}>
+                                Lagre
+                            </LagreKnapp>
+                            <Button type="button" size="small" variant="secondary" onClick={lukkModal}>
+                                Avbryt
+                            </Button>
+                        </Modal.Footer>
+                    </form>
+                )}
+            </Modal>
+        </VStack>
     );
 };
 
