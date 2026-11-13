@@ -7,9 +7,8 @@ const InkluderingstilskuddIngress: FunctionComponent = () => {
         <>
             <BodyShort size="small">
                 Tilskuddet skal dekke tilleggskostnader som arbeidsgiveren har i forbindelse med tilrettelegging. Det
-                dekker dokumenterte utgifter opp til en
+                dekker dokumenterte utgifter opp til en{' '}
                 <Link href="https://www.nav.no/inkluderingstilskudd#hvor-mye" target="_blank">
-                    {' '}
                     maksimal sats.
                 </Link>{' '}
             </BodyShort>
