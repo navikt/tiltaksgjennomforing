@@ -1,5 +1,4 @@
 import KalkulatorIkon from '@/assets/ikoner/kalkulator.svg?react';
-import EnTilskuddsutgiftOppsummering from '@/AvtaleSide/steg/InkluderingstilskuddSteg/EnTilskuddsutgiftOppsummering';
 import '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddSteg.less';
 import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftTabell';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
@@ -24,11 +23,7 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
             <VerticalSpacer rem={2} />
             {props.inkluderingstilskuddsutgift.length > 0 ? (
                 <div>
-                    <TilskuddsutgiftTabell redigerbar={false}>
-                        {props.inkluderingstilskuddsutgift.map((tilskuddsutgift, index) => (
-                            <EnTilskuddsutgiftOppsummering tilskuddsutgift={tilskuddsutgift} key={index} />
-                        ))}
-                    </TilskuddsutgiftTabell>
+                    <TilskuddsutgiftTabell utgifter={props.inkluderingstilskuddsutgift} redigerbar={false} />
                     <div className={cls.element('kostnadsoverslag-container')}>
                         <VisueltDisabledInputFelt
                             label="Totalt kostnadsoverslag"
