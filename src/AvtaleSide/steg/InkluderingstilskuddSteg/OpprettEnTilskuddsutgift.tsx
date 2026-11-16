@@ -72,6 +72,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
 
     const [onSubmit, lagreKnappProps] = useLagreKnapp(async () => {
         const { navn, beløp, beskrivelse, type } = getValues();
+        console.log('Legger til tilskuddsutgift:', { navn, beløp, beskrivelse, type });
         await leggTilTilskuddsutgift(navn, beløp, beskrivelse, type);
         lukkModal();
     });
