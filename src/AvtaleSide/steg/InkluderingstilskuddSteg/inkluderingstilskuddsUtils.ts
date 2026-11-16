@@ -28,10 +28,8 @@ export const useUlagredeUtgifter = (lagredeUtgifter: Inkluderingstilskuddsutgift
         alleInkluderingstilskuddstyper,
         utgifter,
         total: summerUtgifter(utgifter),
-        leggTil: (navn: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) => {
-            console.log('Legger til utgift:', { navn, beløp, beskrivelse, type });
-            setUtgifter((forrige) => leggTilUtgift(forrige, navn, beløp, beskrivelse, type));
-        },
+        leggTil: (navn: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) =>
+            setUtgifter((forrige) => leggTilUtgift(forrige, navn, beløp, beskrivelse, type)),
         slett: (utgift: Inkluderingstilskuddsutgift) => setUtgifter((forrige) => slettUtgift(forrige, utgift)),
         tilbakestill: setUtgifter,
     };
