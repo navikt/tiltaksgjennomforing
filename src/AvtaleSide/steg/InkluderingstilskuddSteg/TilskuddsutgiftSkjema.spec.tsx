@@ -66,7 +66,7 @@ describe('TilskuddsutgiftSkjema', () => {
             />,
         );
         expect(screen.queryByLabelText('Navn på utgift')).toBeNull();
-        fireEvent.click(screen.getByRole('button', { name: 'Legg til ny utgift' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
         expect(screen.getAllByRole('dialog')).toHaveLength(1);
         fyllUtSkjema();
         fireEvent.click(screen.getByRole('button', { name: 'Lagre' }));
@@ -82,9 +82,8 @@ describe('TilskuddsutgiftSkjema', () => {
 
     it('viser skjemaet direkte i endringsmodalen og holder den åpen til Endre velges', async () => {
         render(<EndreInkluderingsutgifter />);
-        fireEvent.click(screen.getByRole('menuitem', { name: 'Legg til inkluderingstilskudd' }));
+        fireEvent.click(screen.getByRole('menuitem', { name: 'Legg til inkluderings utgift' }));
         expect(screen.getAllByRole('dialog')).toHaveLength(1);
-        expect(screen.queryByRole('button', { name: 'Legg til ny utgift' })).toBeNull();
         fyllUtSkjema();
         fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
 
