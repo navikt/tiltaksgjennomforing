@@ -24,9 +24,13 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
         <Table size="small">
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell scope="col">Tilskudd</Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
+                    <Table.HeaderCell scope="col">Navn</Table.HeaderCell>
                     <Table.HeaderCell align="right" scope="col">
-                        Utgifter
+                        Pris inntil
+                    </Table.HeaderCell>
+                    <Table.HeaderCell align="center" scope="col">
+                        Type kostnad
                     </Table.HeaderCell>
                     {props.redigerbar && (
                         <Table.HeaderCell align="center" scope="col">
@@ -37,9 +41,13 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
             </Table.Header>
             <Table.Body>
                 {props.utgifter.map((utgift) => (
-                    <Table.Row key={utgift.id ?? utgift.type + ' ' + utgift.beløp}>
-                        <Table.DataCell>{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
+                    <Table.ExpandableRow
+                        key={utgift.id ?? utgift.type + ' ' + utgift.beløp}
+                        content={utgift.beskrivelse}
+                    >
+                        <Table.DataCell>{utgift.navn}</Table.DataCell>
                         <Table.DataCell align="right">{formaterPenger(utgift.beløp)}</Table.DataCell>
+                        <Table.DataCell align="center">{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
                         {props.redigerbar && (
                             <Table.DataCell align="center">
                                 {kanUtgiftSlettes(utgift) && (
@@ -53,7 +61,7 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
                                 )}
                             </Table.DataCell>
                         )}
-                    </Table.Row>
+                    </Table.ExpandableRow>
                 ))}
             </Table.Body>
         </Table>
