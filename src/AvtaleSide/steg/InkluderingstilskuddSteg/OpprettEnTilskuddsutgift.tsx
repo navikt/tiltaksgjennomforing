@@ -39,7 +39,7 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = ({
                     setLeggertilTilskuddsutgift(true);
                 }}
             >
-                Legg til ny utgift
+                Legg til utgift
             </Button>
             <Modal open={leggertilTilskuddsutgift} onClose={lukkModal} header={{ heading: 'Ny utgift' }} width="medium">
                 {leggertilTilskuddsutgift && (
