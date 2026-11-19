@@ -1,5 +1,5 @@
 import KalkulatorIkon from '@/assets/ikoner/kalkulator.svg?react';
-import '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddSteg.less';
+import '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddSteg.module.less';
 import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftTabell';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InkluderingsInnhold } from '@/types/avtale';

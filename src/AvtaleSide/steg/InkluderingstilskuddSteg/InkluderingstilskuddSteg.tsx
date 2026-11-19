@@ -8,9 +8,8 @@ import BEMHelper from '@/utils/bem';
 import { formaterPenger } from '@/utils';
 import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
-import EnTilskuddsutgift from './EnTilskuddsutgift';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
-import './inkluderingstilskuddSteg.less';
+import './inkluderingstilskuddSteg.module.less';
 import {
     alleInkluderingstilskuddstyper,
     leggTilUtgift,
@@ -82,8 +81,8 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                     ledigeInkluderingstilskuddtyper={alleInkluderingstilskuddstyper}
                     setIRedigeringsmodus={setIRedigermodus}
                     iRegideringsmodus={iRedigermodus}
-                    tilskuddsutgift={avtale.gjeldendeInnhold.inkluderingstilskuddsutgift}
-                    totalBeløp={avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp}
+                    tilskuddsutgift={utgifter}
+                    totalBeløp={totalBeløp}
                     inkluderingstilskuddSats={avtale.gjeldendeInnhold.inkluderingstilskuddSats}
                 />
 
