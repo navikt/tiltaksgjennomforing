@@ -42,7 +42,7 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
             <Table.Body>
                 {props.utgifter.map((utgift) => (
                     <Table.ExpandableRow
-                        key={utgift.id ?? utgift.type + ' ' + utgift.beløp}
+                        key={utgift.id ?? utgift.navn + ' ' + utgift.beløp + ' ' + utgift.type}
                         content={utgift.beskrivelse}
                     >
                         <Table.DataCell>{utgift.navn}</Table.DataCell>

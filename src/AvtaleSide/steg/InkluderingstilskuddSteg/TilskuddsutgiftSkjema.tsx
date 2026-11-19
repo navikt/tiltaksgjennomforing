@@ -61,7 +61,7 @@ const TilskuddsutgiftSkjema = ({
     });
 
     const [onSubmit, lagreKnappProps] = useLagreKnapp(async () => {
-        const { navn, beløp, beskrivelse, type } = getValues();
+        const { navn, beløp, beskrivelse, type } = schema.parse(getValues());
         await leggTilTilskuddsutgift(navn, beløp, beskrivelse, type);
         reset();
         onLagret?.();

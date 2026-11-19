@@ -596,7 +596,6 @@ export const endreInkluderingstilskudd = async (
     avtale: Avtale,
     inkluderingstilskuddutgifter: Inkluderingstilskuddsutgift[],
 ): Promise<void> => {
-    console.log('Endrer inkluderingstilskudd:', inkluderingstilskuddutgifter);
     await api.post(
         `/avtaler/${avtale.id}/endre-inkluderingstilskudd`,
         {
