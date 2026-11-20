@@ -51,7 +51,8 @@ function KronerInput(props: Props) {
     };
 
     const onBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
-        const belop = formaterPenger(e.target.value) ?? '';
+        const resultat = zodSchema.safeParse({ [name]: e.target.value });
+        const belop = resultat.success ? (formaterPenger(resultat.data[name]) ?? '') : e.target.value;
         field.onChange(belop);
         reset({ [name]: belop });
         field.onBlur();

@@ -11,9 +11,11 @@ export const summerUtgifter = (utgifter: Inkluderingstilskuddsutgift[]): number 
 
 export const leggTilUtgift = (
     utgifter: Inkluderingstilskuddsutgift[],
+    navn: string,
     beløp: number,
+    beskrivelse: string,
     type: InkluderingstilskuddsutgiftType,
-): Inkluderingstilskuddsutgift[] => [...utgifter, { beløp, type }];
+): Inkluderingstilskuddsutgift[] => [...utgifter, { navn, beløp, beskrivelse, type }];
 
 export const slettUtgift = (
     utgifter: Inkluderingstilskuddsutgift[],
@@ -26,8 +28,8 @@ export const useUlagredeUtgifter = (lagredeUtgifter: Inkluderingstilskuddsutgift
         alleInkluderingstilskuddstyper,
         utgifter,
         total: summerUtgifter(utgifter),
-        leggTil: (beløp: number, type: InkluderingstilskuddsutgiftType) =>
-            setUtgifter((forrige) => leggTilUtgift(forrige, beløp, type)),
+        leggTil: (navn: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) =>
+            setUtgifter((forrige) => leggTilUtgift(forrige, navn, beløp, beskrivelse, type)),
         slett: (utgift: Inkluderingstilskuddsutgift) => setUtgifter((forrige) => slettUtgift(forrige, utgift)),
         tilbakestill: setUtgifter,
     };

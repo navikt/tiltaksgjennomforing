@@ -9,7 +9,7 @@ import { formaterPenger } from '@/utils';
 import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
-import './inkluderingstilskuddSteg.less';
+import './inkluderingstilskuddSteg.module.less';
 import {
     alleInkluderingstilskuddstyper,
     leggTilUtgift,
@@ -35,8 +35,11 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
         settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: slettUtgift(utgifter, utgift) }, true);
     };
 
-    const nyUtgift = (beløp: number, type: InkluderingstilskuddsutgiftType) =>
-        settAvtaleInnholdVerdier({ inkluderingstilskuddsutgift: leggTilUtgift(utgifter, beløp, type) }, true);
+    const nyUtgift = (navn: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) =>
+        settAvtaleInnholdVerdier(
+            { inkluderingstilskuddsutgift: leggTilUtgift(utgifter, navn, beløp, beskrivelse, type) },
+            true,
+        );
 
     return (
         <>
