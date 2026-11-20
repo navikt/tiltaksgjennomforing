@@ -14,7 +14,7 @@ jobs:
       NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Sett opp pnpm
         uses: pnpm/action-setup@v5
       - name: Sett opp node.js
