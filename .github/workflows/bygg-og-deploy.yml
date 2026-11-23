@@ -19,7 +19,7 @@ jobs:
       NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Sett opp pnpm
         uses: pnpm/action-setup@v5
       - name: Sett opp node.js
@@ -74,7 +74,7 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Deploy til dev-gcp intern
         uses: nais/deploy/actions/deploy@v2
         env:
@@ -92,7 +92,7 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Deploy til dev-gcp ekstern
         uses: nais/deploy/actions/deploy@v2
         env:
@@ -110,7 +110,7 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Deploy til dev-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
@@ -128,7 +128,7 @@ jobs:
       id-token: write
     steps:
       - name: Sjekk ut kode
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Deploy til prod-gcp intern
         uses: nais/deploy/actions/deploy@v2
         env:
@@ -147,7 +147,7 @@ jobs:
       id-token: write
     steps:
       -   name: Sjekk ut kode
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
       -   name: Deploy til prod-gcp ekstern
           uses: nais/deploy/actions/deploy@v2
           env:
