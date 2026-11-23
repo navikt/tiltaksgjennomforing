@@ -38,7 +38,7 @@ jobs:
       - name: Frontend - test, lint og build
         run: pnpm run build-storybook
       - name: Push docker image to GAR
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@v1
         id: docker-build-push
         with:
           team: arbeidsgiver
