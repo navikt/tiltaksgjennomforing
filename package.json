@@ -23,7 +23,11 @@
         "build-storybook": "storybook build",
         "ts": "tsc -b",
         "up": "docker-compose up -d --remove-orphans --build",
-        "clean": "rm -rf node_modules dist .storybook/node_modules .storybook/dist"
+        "clean": "rm -rf node_modules dist storybook-static server/node_modules .storybook/node_modules .storybook/dist",
+        "install:all": "pnpm install --frozen-lockfile && pnpm install --frozen-lockfile --dir server",
+        "build:all": "pnpm run build && pnpm --dir server run build && pnpm run build-storybook",
+        "check": "pnpm run ts && pnpm run prettier && pnpm run test && pnpm run build:all",
+        "verify": "pnpm run clean && pnpm run install:all && pnpm run check"
     },
     "dependencies": {
         "@hookform/resolvers": "3.10.0",
