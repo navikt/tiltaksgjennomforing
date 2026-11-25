@@ -9,7 +9,7 @@ import { formaterPenger } from '@/utils';
 import { BodyShort, Heading, HGrid, Ingress } from '@navikt/ds-react';
 import React, { FunctionComponent, useContext, useState } from 'react';
 import InkluderingstilskuddIngress from './InkluderingstilskuddIngress';
-import './inkluderingstilskuddSteg.module.less';
+import style from './inkluderingstilskuddSteg.module.less';
 import {
     alleInkluderingstilskuddstyper,
     leggTilUtgift,
@@ -89,7 +89,7 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
                 <VerticalSpacer rem={2} />
 
                 <TilskuddsutgiftTabell utgifter={utgifter} redigerbar={true} skalKunneSlette={true} slett={slett} />
-                <div className={cls.element('kostnadsoverslag-container')}>
+                <div className={style.kostnadsoverslagContainer}>
                     <VisueltDisabledInputFelt
                         label="Totalt kostnadsoverslag"
                         tekst={formaterPenger(avtale.gjeldendeInnhold.inkluderingstilskuddTotalBeløp)}
