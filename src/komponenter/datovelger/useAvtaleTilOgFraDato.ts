@@ -1,4 +1,4 @@
-import { Duration, sub, max, parse } from 'date-fns';
+import { Duration, sub, max, parse, endOfYear } from 'date-fns';
 import { useCallback, useMemo } from 'react';
 
 import useInnlogget from '@/InnloggingBoundary/useInnlogget';
@@ -6,6 +6,7 @@ import { datoFraDagensDato, datoMinus, datoPluss } from '@/utils/datoUtils';
 import { useAvtale } from '@/AvtaleProvider';
 import { Innsatsgruppe } from '@/types/innsatsgruppe';
 import { DatePickerProps } from '@navikt/ds-react';
+import { useFeatureToggles } from '@/FeatureToggles';
 
 type TilOgFraDato = Pick<DatePickerProps, 'fromDate' | 'toDate'>;
 
@@ -46,6 +47,7 @@ export const useAvtaleTilOgFraDato = (erStartdatoDatepicker: boolean): TilOgFraD
     const { avtale } = useAvtale();
     const { tiltakstype, innsatsgruppe, gjeldendeInnhold } = avtale;
     const { startDato, stillingstype, sluttDato } = gjeldendeInnhold;
+    const { inkluderingstilskuddAvtale } = useFeatureToggles();
 
     const sjekkFraDato = useSjekkFraDato(erStartdatoDatepicker);
 
@@ -122,9 +124,10 @@ export const useAvtaleTilOgFraDato = (erStartdatoDatepicker: boolean): TilOgFraD
             case 'INKLUDERINGSTILSKUDD': {
                 const maksVarighet: Duration = { years: 1 };
                 if (!erStartdatoDatepicker && startDato) {
+                    const fromDate = parse(startDato, 'yyyy-MM-dd', new Date());
                     return {
-                        fromDate: parse(startDato, 'yyyy-MM-dd', new Date()),
-                        toDate: datoPluss(startDato, maksVarighet),
+                        fromDate,
+                        toDate: inkluderingstilskuddAvtale ? endOfYear(fromDate) : datoPluss(startDato, maksVarighet),
                     };
                 } else {
                     return {
@@ -147,5 +150,14 @@ export const useAvtaleTilOgFraDato = (erStartdatoDatepicker: boolean): TilOgFraD
                 };
             }
         }
-    }, [sjekkFraDato, erStartdatoDatepicker, tiltakstype, innsatsgruppe, startDato, sluttDato, stillingstype]);
+    }, [
+        sjekkFraDato,
+        erStartdatoDatepicker,
+        tiltakstype,
+        innsatsgruppe,
+        startDato,
+        sluttDato,
+        stillingstype,
+        inkluderingstilskuddAvtale,
+    ]);
 };
