@@ -47,6 +47,14 @@ export type Feilkode =
     | 'IKKE_TILGANG_TIL_DELTAKER_STRENGT_FORTROLIG'
     | 'IKKE_VALGT_PART'
     | 'INKLUDERINGSTILSKUDD_SUM_FOR_HØY'
+    | 'INKLUDERINGSTILSKUDD_PERIODE_AVTALE_MANGLER_DATO'
+    | 'INKLUDERINGSTILSKUDD_PERIODE_START_ETTER_SLUTT'
+    | 'INKLUDERINGSTILSKUDD_PERIODE_FOR_LANG'
+    | 'INKLUDERINGSTILSKUDD_PERIODE_FOR_SEN_SLUTTDATO'
+    | 'INKLUDERINGSTILSKUDD_PERIODE_FOR_TIDLIG_STARTDATO'
+    | 'INKLUDERINGSTILSKUDD_PERIODE_PAA_TVERS_AV_AAR'
+    | 'INKLUDERINGSTILSKUDD_PERIODE_UTGIFT_MANGLER_DATO'
+    | 'INKLUDERINGSTILSKUDD_UTGIFT_MANGLER_TILSKUDDSPERIODE'
     | 'KAN_IKKE_ENDRE'
     | 'KAN_IKKE_ENDRE_ANNULLERT_AVTALE'
     | 'KAN_IKKE_ENDRE_ARENA_MIGRERINGSDATO_INNGAATT_AVTALE'
@@ -203,6 +211,16 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
         'Dette er en avtale med strengt fortrolige opplysninger. Du har ikke tilgang til denne avtalen.',
     IKKE_VALGT_PART: 'Ikke valgt part',
     INKLUDERINGSTILSKUDD_SUM_FOR_HØY: 'Totalbeløpet for tilskudd overstiger det maksimale beløpet',
+    INKLUDERINGSTILSKUDD_PERIODE_AVTALE_MANGLER_DATO:
+        'Kan ikke legge til utgift. Avtalen mangler start- og/eller sluttdato.',
+    INKLUDERINGSTILSKUDD_PERIODE_START_ETTER_SLUTT: 'Startdato for utgiften kan ikke være etter sluttdato',
+    INKLUDERINGSTILSKUDD_PERIODE_FOR_LANG: 'En utgiftsperiode kan maks vare i 3 måneder',
+    INKLUDERINGSTILSKUDD_PERIODE_FOR_SEN_SLUTTDATO: 'En utgiftsperiode kan ikke slutte etter avtalens sluttdato',
+    INKLUDERINGSTILSKUDD_PERIODE_FOR_TIDLIG_STARTDATO: 'En utgiftsperiode kan ikke starte før avtalens startdato',
+    INKLUDERINGSTILSKUDD_PERIODE_PAA_TVERS_AV_AAR: 'En utgiftsperiode kan ikke gå på tvers av kalenderår',
+    INKLUDERINGSTILSKUDD_PERIODE_UTGIFT_MANGLER_DATO: 'Utgiften mangler start- og/eller sluttdato',
+    INKLUDERINGSTILSKUDD_UTGIFT_MANGLER_TILSKUDDSPERIODE:
+        'Kan ikke godkjenne avtalen. Noen utgifter mangler tilskuddsperiode.',
     KAN_IKKE_ENDRE: 'Kan ikke endre avtale.',
     KAN_IKKE_ENDRE_ANNULLERT_AVTALE: 'Kan ikke endre en annullert avtale',
     KAN_IKKE_ENDRE_ARENA_MIGRERINGSDATO_INNGAATT_AVTALE:
