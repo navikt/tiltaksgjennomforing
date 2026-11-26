@@ -25,7 +25,7 @@ const schema = (min: Date, max: Date) =>
         .object({
             grunn: grunnSchema,
             sluttDato: z.preprocess(
-                (value) => (!value || value === '' ? undefined : value),
+                (value: string) => (!value || value === '' ? undefined : value),
                 z.coerce
                     .date({ error: 'Sluttdato må ha formatet dd.mm.åååå' })
                     .max(max, { message: `Sluttdato kan senest være ${formaterDato(max, NORSK_DATO_FORMAT)}` })
@@ -38,8 +38,6 @@ const schema = (min: Date, max: Date) =>
             path: ['annetGrunn'],
         });
 
-type Schema = { grunn: z.infer<typeof grunnSchema>; sluttDato: string; annetGrunn?: string };
-
 const ForkortAvtale = () => {
     const avtaleContext = useContext(AvtaleContext);
     const cls = BEMHelper('forkortAvtale');
@@ -51,7 +49,7 @@ const ForkortAvtale = () => {
     const minDate = new Date(avtaleContext.avtale.gjeldendeInnhold.startDato!);
     const maxDate = addDays(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, -1);
 
-    const { formState, register, control, watch, trigger, getValues, subscribe } = useForm<Schema>({
+    const { formState, register, control, watch, trigger, getValues, subscribe } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(schema(minDate, maxDate)),
         defaultValues: {

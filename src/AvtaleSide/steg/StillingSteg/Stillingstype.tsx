@@ -27,12 +27,17 @@ const lagSchema = (tiltakstype?: TiltaksType, startDato?: string, sluttDato?: st
     });
 
     if (tiltakstype !== 'FIREARIG_LONNSTILSKUDD') {
-        return z.object({ stillingstype: z.preprocess((val) => val ?? undefined, stillingstypeEnum) });
+        return z.object({
+            stillingstype: z.preprocess(
+                (val: z.input<typeof stillingstypeEnum> | undefined) => val ?? undefined,
+                stillingstypeEnum,
+            ),
+        });
     }
 
     return z.object({
         stillingstype: z.preprocess(
-            (val) => val ?? undefined,
+            (val: z.input<typeof stillingstypeEnum> | undefined) => val ?? undefined,
             stillingstypeEnum
                 .refine(
                     refineStillingstype(startDato, sluttDato),
@@ -46,15 +51,13 @@ const lagSchema = (tiltakstype?: TiltaksType, startDato?: string, sluttDato?: st
     });
 };
 
-type Schema = z.infer<ReturnType<typeof lagSchema>>;
-
 const Stillingstype = (props: Props) => {
     const { tiltakstype, avtaleInnhold, settVerdi } = props;
 
     const { startDato, sluttDato } = avtaleInnhold || {};
     const schema = useMemo(() => lagSchema(tiltakstype, startDato, sluttDato), [tiltakstype, startDato, sluttDato]);
 
-    const { control, formState } = useForm<Schema>({
+    const { control, formState } = useForm({
         defaultValues: {
             stillingstype: avtaleInnhold?.stillingstype,
         },

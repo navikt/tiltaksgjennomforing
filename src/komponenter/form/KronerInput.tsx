@@ -14,7 +14,7 @@ interface Props extends TextFieldProps {
 const schema = (name: string, label: string) =>
     z.object({
         [name]: z.preprocess(
-            parsePenger,
+            (verdi: string) => parsePenger(verdi),
             z
                 .number({
                     error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} må være et tall`),
@@ -24,8 +24,6 @@ const schema = (name: string, label: string) =>
         ),
     });
 
-type Schema = Record<string, string>;
-
 function KronerInput(props: Props) {
     const { settVerdi, verdi, ...restProps } = props;
     const name = restProps.name;
@@ -33,7 +31,7 @@ function KronerInput(props: Props) {
 
     const zodSchema = React.useMemo(() => schema(name, label), [name, label]);
 
-    const { formState, control, reset } = useForm<Schema>({
+    const { formState, control, reset } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(zodSchema),
         values: { [name]: formaterPenger(verdi) ?? '' },

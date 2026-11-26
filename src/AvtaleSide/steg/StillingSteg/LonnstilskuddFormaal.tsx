@@ -20,12 +20,17 @@ const lagSchema = (tiltakstype?: TiltaksType) => {
     });
 
     if (tiltakstype !== 'FIREARIG_LONNSTILSKUDD') {
-        return z.object({ lonnstilskuddFormaal: z.preprocess((val) => val ?? undefined, stillingstypeEnum) });
+        return z.object({
+            lonnstilskuddFormaal: z.preprocess(
+                (val: z.input<typeof stillingstypeEnum> | undefined) => val ?? undefined,
+                stillingstypeEnum,
+            ),
+        });
     }
 
     return z.object({
         lonnstilskuddFormaal: z.preprocess(
-            (val) => val ?? undefined,
+            (val: z.input<typeof stillingstypeEnum> | undefined) => val ?? undefined,
             stillingstypeEnum.refine(
                 (val) => val === 'SKAFFE_ARBEID',
                 'Fireårig lønnstilskudd for unge kan ikke brukes til å beholde arbeid',
@@ -34,14 +39,12 @@ const lagSchema = (tiltakstype?: TiltaksType) => {
     });
 };
 
-type Schema = z.infer<ReturnType<typeof lagSchema>>;
-
 const LonnstilskuddFormaal = (props: Props) => {
     const { tiltakstype, settVerdi, className, verdi } = props;
 
     const schema = useMemo(() => lagSchema(tiltakstype), [tiltakstype]);
 
-    const { control, formState } = useForm<Schema>({
+    const { control, formState } = useForm({
         defaultValues: {
             lonnstilskuddFormaal: verdi,
         },

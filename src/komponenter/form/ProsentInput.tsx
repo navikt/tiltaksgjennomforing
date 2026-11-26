@@ -26,15 +26,13 @@ const schema = (name: string, label: string, min: number, maks: number, desimale
 
     return z.object({
         [name]: z.preprocess(
-            (v) => parseProsent(v),
+            (v: string) => parseProsent(v),
             desimaler
                 ? validering.multipleOf(0.01, `${label} kan maks ha 2 desimaler`)
                 : validering.int(`${label} må være et heltall`),
         ),
     });
 };
-
-type Schema = Record<string, string>;
 
 function ProsentInput(props: Props) {
     const {
@@ -54,7 +52,7 @@ function ProsentInput(props: Props) {
         [name, label, min, maks, desimaler],
     );
 
-    const { formState, control, reset } = useForm<Schema>({
+    const { formState, control, reset } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(zodSchema),
         values: { [name]: formaterProsent(verdi, prosentType === 'desimalbrøk') ?? '' },
