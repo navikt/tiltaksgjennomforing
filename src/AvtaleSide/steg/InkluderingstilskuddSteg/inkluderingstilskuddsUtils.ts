@@ -25,7 +25,6 @@ export const slettUtgift = (
 export const useUlagredeUtgifter = (lagredeUtgifter: Inkluderingstilskuddsutgift[]) => {
     const [utgifter, setUtgifter] = useState<Inkluderingstilskuddsutgift[]>(lagredeUtgifter);
     return {
-        alleInkluderingstilskuddstyper,
         utgifter,
         total: summerUtgifter(utgifter),
         leggTil: (navn: string, beløp: number, beskrivelse: string, type: InkluderingstilskuddsutgiftType) =>

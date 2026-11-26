@@ -13,12 +13,28 @@ type Props = {
     slett?: (utgift: Inkluderingstilskuddsutgift) => void;
 };
 
+// Ulagrede utgifter har ingen id, så de får en stabil klientnøkkel knyttet til objektet.
+const klientnøkler = new WeakMap<Inkluderingstilskuddsutgift, string>();
+let nesteKlientnøkkel = 0;
+
+const radnøkkel = (utgift: Inkluderingstilskuddsutgift): string => {
+    if (utgift.id) {
+        return utgift.id;
+    }
+    let nøkkel = klientnøkler.get(utgift);
+    if (!nøkkel) {
+        nøkkel = `ny-${nesteKlientnøkkel++}`;
+        klientnøkler.set(utgift, nøkkel);
+    }
+    return nøkkel;
+};
+
 const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
+    const { inkluderingstilskuddAvtale } = useFeatureToggles();
+
     if (props.utgifter.length === 0) {
         return null;
     }
-
-    const { inkluderingstilskuddAvtale } = useFeatureToggles();
 
     const kanUtgiftSlettes = (utgift: Inkluderingstilskuddsutgift) =>
         props.redigerbar && (props.skalKunneSlette || utgift.id === undefined);
@@ -47,49 +63,35 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-                {props.utgifter.map((utgift) =>
-                    inkluderingstilskuddAvtale ? (
-                        <Table.ExpandableRow
-                            key={utgift.id ?? utgift.navn + ' ' + utgift.beløp + ' ' + utgift.type}
-                            content={utgift.beskrivelse}
-                        >
-                            <Table.DataCell>{utgift.navn}</Table.DataCell>
+                {props.utgifter.map((utgift) => {
+                    const sletteCelle = props.redigerbar && (
+                        <Table.DataCell align="center">
+                            {kanUtgiftSlettes(utgift) && (
+                                <HStack justify="center">
+                                    <KnappMedIkon
+                                        onClick={() => props.slett?.(utgift)}
+                                        label="Slett"
+                                        ikonType="soppelkasse"
+                                    />
+                                </HStack>
+                            )}
+                        </Table.DataCell>
+                    );
+                    return inkluderingstilskuddAvtale ? (
+                        <Table.ExpandableRow key={radnøkkel(utgift)} content={utgift.beskrivelse}>
+                            <Table.DataCell>{utgift.navn || inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
                             <Table.DataCell align="right">{formaterPenger(utgift.beløp)}</Table.DataCell>
                             <Table.DataCell align="center">{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
-                            {props.redigerbar && (
-                                <Table.DataCell align="center">
-                                    {kanUtgiftSlettes(utgift) && (
-                                        <HStack justify="center">
-                                            <KnappMedIkon
-                                                onClick={() => props.slett?.(utgift)}
-                                                label="Slett"
-                                                ikonType="soppelkasse"
-                                            />
-                                        </HStack>
-                                    )}
-                                </Table.DataCell>
-                            )}
+                            {sletteCelle}
                         </Table.ExpandableRow>
                     ) : (
-                        <Table.Row key={utgift.id ?? +utgift.beløp + ' ' + utgift.type}>
+                        <Table.Row key={radnøkkel(utgift)}>
                             <Table.DataCell align="right">{formaterPenger(utgift.beløp)}</Table.DataCell>
                             <Table.DataCell align="center">{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
-                            {props.redigerbar && (
-                                <Table.DataCell align="center">
-                                    {kanUtgiftSlettes(utgift) && (
-                                        <HStack justify="center">
-                                            <KnappMedIkon
-                                                onClick={() => props.slett?.(utgift)}
-                                                label="Slett"
-                                                ikonType="soppelkasse"
-                                            />
-                                        </HStack>
-                                    )}
-                                </Table.DataCell>
-                            )}
+                            {sletteCelle}
                         </Table.Row>
-                    ),
-                )}
+                    );
+                })}
             </Table.Body>
         </Table>
     );

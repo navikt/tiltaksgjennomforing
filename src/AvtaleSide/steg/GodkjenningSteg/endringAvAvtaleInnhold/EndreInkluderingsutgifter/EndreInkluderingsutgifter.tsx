@@ -46,7 +46,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 <div style={{ marginRight: '0.5rem' }} aria-hidden={true}>
                     <TasklistIcon />
                 </div>
-                Legg til inkluderings utgift
+                Legg til utgift
             </Link>
             <BekreftelseModal
                 style={{ maxWidth: '40rem' }}

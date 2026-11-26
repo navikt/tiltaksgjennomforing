@@ -1,9 +1,8 @@
 import KalkulatorIkon from '@/assets/ikoner/kalkulator.svg?react';
-import '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddSteg.module.less';
+import style from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddSteg.module.less';
 import TilskuddsutgiftTabell from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftTabell';
 import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
 import { InkluderingsInnhold } from '@/types/avtale';
-import BEMHelper from '@/utils/bem';
 import { formaterPenger } from '@/utils';
 import { FunctionComponent } from 'react';
 import SjekkOmVerdiEksisterer from '../SjekkOmVerdiEksisterer/SjekkOmVerdiEksisterer';
@@ -12,8 +11,6 @@ import { Tag, Label } from '@navikt/ds-react';
 import VisueltDisabledInputFelt from '@/komponenter/VisueltDisabledInputFelt/VisueltDisabledInputFelt';
 
 const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> = (props) => {
-    const cls = BEMHelper('inkluderingstilskudd');
-
     return (
         <Stegoppsummering tittel="Inkluderingstilskudd" ikon={<KalkulatorIkon height={40} />}>
             <Label>Hvorfor er det behov for inkluderingstilskudd?</Label>
@@ -24,7 +21,7 @@ const InkluderingstilskuddOppsummering: FunctionComponent<InkluderingsInnhold> =
             {props.inkluderingstilskuddsutgift.length > 0 ? (
                 <div>
                     <TilskuddsutgiftTabell utgifter={props.inkluderingstilskuddsutgift} redigerbar={false} />
-                    <div className={cls.element('kostnadsoverslag-container')}>
+                    <div className={style.kostnadsoverslagContainer}>
                         <VisueltDisabledInputFelt
                             label="Totalt kostnadsoverslag"
                             tekst={formaterPenger(props.inkluderingstilskuddTotalBeløp)}

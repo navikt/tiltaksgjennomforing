@@ -89,12 +89,7 @@ describe('TilskuddsutgiftSkjema', () => {
 
     it('åpner skjemaet i en modal fra steg og lukker etter lagring', async () => {
         renderMedFeatureToggle(
-            <OpprettEnTilskuddsutgift
-                {...skjemaProps}
-                setIRedigeringsmodus={vi.fn()}
-                iRegideringsmodus={false}
-                tilskuddsutgift={[]}
-            />,
+            <OpprettEnTilskuddsutgift {...skjemaProps} setIRedigeringsmodus={vi.fn()} iRegideringsmodus={false} />,
         );
         expect(screen.queryByLabelText('Navn på utgift')).toBeNull();
         fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
@@ -113,7 +108,7 @@ describe('TilskuddsutgiftSkjema', () => {
 
     it('viser skjemaet direkte i endringsmodalen og holder den åpen til Endre velges', async () => {
         renderMedFeatureToggle(<EndreInkluderingsutgifter />);
-        fireEvent.click(screen.getByRole('menuitem', { name: 'Legg til inkluderings utgift' }));
+        fireEvent.click(screen.getByRole('menuitem', { name: 'Legg til utgift' }));
         expect(screen.getAllByRole('dialog')).toHaveLength(1);
         fyllUtSkjema();
         fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));

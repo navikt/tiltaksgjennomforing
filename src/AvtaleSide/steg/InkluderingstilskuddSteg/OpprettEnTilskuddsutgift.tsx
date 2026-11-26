@@ -1,12 +1,19 @@
-import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
+import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { Button, Heading, Modal, VStack } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
-import TilskuddsutgiftSkjema, { TilskuddsutgiftSkjemaProps } from './TilskuddsutgiftSkjema';
+import TilskuddsutgiftSkjema from './TilskuddsutgiftSkjema';
 
-type Props = TilskuddsutgiftSkjemaProps & {
+type Props = {
     setIRedigeringsmodus: (iModus: boolean) => void;
     iRegideringsmodus: boolean;
-    tilskuddsutgift: Inkluderingstilskuddsutgift[];
+    leggTilTilskuddsutgift: (
+        navn: string,
+        beløp: number,
+        beskrivelse: string,
+        type: InkluderingstilskuddsutgiftType,
+    ) => void;
+    totalBeløp: number;
+    inkluderingstilskuddSats: number;
 };
 
 const OpprettEnTilskuddsutgift: FunctionComponent<Props> = ({
