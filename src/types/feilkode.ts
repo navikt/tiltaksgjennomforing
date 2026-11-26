@@ -133,6 +133,7 @@ export type Feilkode =
     | 'VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_2_AAR'
     | 'VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_4_AAR'
     | 'VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD'
+    | 'VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD_PAA_TVERS_AV_AAR'
     | 'VARIGHET_FOR_LANG_MENTOR_36_MND'
     | 'VARIGHET_FOR_LANG_MENTOR_6_MND'
     | 'VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_12_MND'
@@ -313,6 +314,8 @@ export const Feilmeldinger: { [key in Feilkode]: string } = {
     VARIGHET_FOR_LANG_FIREARIG_LONNSTILSKUDD_4_AAR:
         'Fireårig lønnstilskudd for unge kan ikke vare lenger enn 4 år ved fast stilling',
     VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD: 'Avtalens varighet kan maksimalt være 12 måneder',
+    VARIGHET_FOR_LANG_INKLUDERINGSTILSKUDD_PAA_TVERS_AV_AAR:
+        'Avtalen kan ikke gå på tvers av kalenderår - sluttdato kan derfor ikke overskride 31.12',
     VARIGHET_FOR_LANG_MENTOR_36_MND: 'Avtalens varighet kan maksimalt være 36 måneder',
     VARIGHET_FOR_LANG_MENTOR_6_MND: 'Avtalens varighet kan maksimalt være 6 måneder',
     VARIGHET_FOR_LANG_MIDLERTIDIG_LONNSTILSKUDD_12_MND: 'Avtalens varighet kan maksimalt være 12 måneder',
