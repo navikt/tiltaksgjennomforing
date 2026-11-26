@@ -8,6 +8,9 @@ import { Button, HStack, Select, Textarea, TextField, VStack } from '@navikt/ds-
 import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import style from './TilskuddsutgiftSkjema.module.less';
+import { alleInkluderingstilskuddstyper } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
+
+import { useFeatureToggles } from '@/FeatureToggles';
 
 export type TilskuddsutgiftSkjemaProps = {
     leggTilTilskuddsutgift: (
@@ -16,7 +19,6 @@ export type TilskuddsutgiftSkjemaProps = {
         beskrivelse: string,
         type: InkluderingstilskuddsutgiftType,
     ) => void;
-    ledigeInkluderingstilskuddtyper: InkluderingstilskuddsutgiftType[];
     totalBeløp: number;
     inkluderingstilskuddSats: number;
     onLagret?: () => void;
@@ -26,27 +28,28 @@ export type TilskuddsutgiftSkjemaProps = {
 
 const TilskuddsutgiftSkjema = ({
     leggTilTilskuddsutgift,
-    ledigeInkluderingstilskuddtyper,
     totalBeløp,
     inkluderingstilskuddSats,
     onLagret,
     onAvbryt,
     lagretekst = 'Legg til utgift',
 }: TilskuddsutgiftSkjemaProps) => {
+    const { inkluderingstilskuddAvtale } = useFeatureToggles();
+
     const schema = z.object({
         navn: z
             .string()
             .trim()
-            .min(1, 'Vennligst oppgi et navn på utgiften')
+            .min(inkluderingstilskuddAvtale ? 1 : 0, 'Vennligst oppgi et navn på utgiften')
             .max(100, 'Navnet kan ikke være lengre enn 100 tegn'),
         type: z.custom<InkluderingstilskuddsutgiftType>(
-            (verdi) => ledigeInkluderingstilskuddtyper.some((type) => type === verdi),
+            (verdi) => alleInkluderingstilskuddstyper.some((type) => type === verdi),
             'Vennligst velg en type utgift',
         ),
         beskrivelse: z
             .string()
             .trim()
-            .min(1, 'Vennligst oppgi en beskrivelse')
+            .min(inkluderingstilskuddAvtale ? 1 : 0, 'Vennligst oppgi en beskrivelse')
             .max(1000, 'Beskrivelsen kan ikke være lengre enn 1000 tegn'),
         beløp: z
             .number({ required_error: 'Vennligst oppgi et kostnadsoverslag' })
@@ -71,13 +74,15 @@ const TilskuddsutgiftSkjema = ({
         <form onSubmit={handleSubmit(onSubmit)}>
             <VStack gap="space-32">
                 <VStack gap="space-16">
-                    <TextField
-                        {...register('navn')}
-                        label="Navn på utgift"
-                        description="En kort beskrivelse av utgiften"
-                        error={formState.errors.navn?.message}
-                        htmlSize={37}
-                    />
+                    {inkluderingstilskuddAvtale && (
+                        <TextField
+                            {...register('navn')}
+                            label="Navn på utgift"
+                            description="En kort beskrivelse av utgiften"
+                            error={formState.errors.navn?.message}
+                            htmlSize={37}
+                        />
+                    )}
                     <Select
                         {...register('type')}
                         error={formState.errors.type?.message}
@@ -85,20 +90,22 @@ const TilskuddsutgiftSkjema = ({
                         className={style.halvBredde}
                     >
                         <option value="">Velg type utgift</option>
-                        {ledigeInkluderingstilskuddtyper.map((currentType) => (
+                        {alleInkluderingstilskuddstyper.map((currentType) => (
                             <option key={currentType} value={currentType}>
                                 {inkluderingstilskuddtypeTekst[currentType]}
                             </option>
                         ))}
                     </Select>
-                    <Textarea
-                        {...register('beskrivelse')}
-                        label="Begrunnelse"
-                        className={style.begrunnelse}
-                        description="Beskriv kort hvorfor denne utgiften er nødvendig"
-                        maxLength={1000}
-                        error={formState.errors.beskrivelse?.message}
-                    />
+                    {inkluderingstilskuddAvtale && (
+                        <Textarea
+                            {...register('beskrivelse')}
+                            label="Begrunnelse"
+                            className={style.begrunnelse}
+                            description="Beskriv kort hvorfor denne utgiften er nødvendig"
+                            maxLength={1000}
+                            error={formState.errors.beskrivelse?.message}
+                        />
+                    )}
                     <Controller
                         name="beløp"
                         control={control}

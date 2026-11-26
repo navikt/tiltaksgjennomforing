@@ -1,12 +1,9 @@
-import { Inkluderingstilskuddsutgift } from '@/types/avtale';
+import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
 import { Button, Heading, Modal, VStack } from '@navikt/ds-react';
 import { FunctionComponent, useState } from 'react';
 import TilskuddsutgiftSkjema, { TilskuddsutgiftSkjemaProps } from './TilskuddsutgiftSkjema';
 
-type Props = Pick<
-    TilskuddsutgiftSkjemaProps,
-    'leggTilTilskuddsutgift' | 'ledigeInkluderingstilskuddtyper' | 'totalBeløp' | 'inkluderingstilskuddSats'
-> & {
+type Props = TilskuddsutgiftSkjemaProps & {
     setIRedigeringsmodus: (iModus: boolean) => void;
     iRegideringsmodus: boolean;
     tilskuddsutgift: Inkluderingstilskuddsutgift[];
@@ -15,8 +12,9 @@ type Props = Pick<
 const OpprettEnTilskuddsutgift: FunctionComponent<Props> = ({
     iRegideringsmodus,
     setIRedigeringsmodus,
-    tilskuddsutgift,
-    ...skjemaProps
+    leggTilTilskuddsutgift,
+    totalBeløp,
+    inkluderingstilskuddSats,
 }) => {
     const [leggertilTilskuddsutgift, setLeggertilTilskuddsutgift] = useState(false);
 
@@ -45,7 +43,9 @@ const OpprettEnTilskuddsutgift: FunctionComponent<Props> = ({
                 {leggertilTilskuddsutgift && (
                     <Modal.Body>
                         <TilskuddsutgiftSkjema
-                            {...skjemaProps}
+                            leggTilTilskuddsutgift={leggTilTilskuddsutgift}
+                            totalBeløp={totalBeløp}
+                            inkluderingstilskuddSats={inkluderingstilskuddSats}
                             lagretekst="Lagre"
                             onLagret={lukkModal}
                             onAvbryt={lukkModal}

@@ -1,6 +1,8 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { ReactElement } from 'react';
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { endreInkluderingstilskudd } from '@/services/rest-service';
+import { FeatureToggleContext, FeatureToggleProviderInitialState } from '@/FeatureToggles/FeatureToggleProvider';
 import EndreInkluderingsutgifter from '../GodkjenningSteg/endringAvAvtaleInnhold/EndreInkluderingsutgifter/EndreInkluderingsutgifter';
 import OpprettEnTilskuddsutgift from './OpprettEnTilskuddsutgift';
 import TilskuddsutgiftSkjema, { TilskuddsutgiftSkjemaProps } from './TilskuddsutgiftSkjema';
@@ -46,6 +48,13 @@ const skjemaProps: TilskuddsutgiftSkjemaProps = {
     inkluderingstilskuddSats: 1000,
 };
 
+const renderMedFeatureToggle = (ui: ReactElement, inkluderingstilskuddAvtale = true) =>
+    render(
+        <FeatureToggleContext.Provider value={{ ...FeatureToggleProviderInitialState, inkluderingstilskuddAvtale }}>
+            {ui}
+        </FeatureToggleContext.Provider>,
+    );
+
 const fyllUtSkjema = (beløp = '100') => {
     fireEvent.change(screen.getByLabelText('Navn på utgift'), { target: { value: 'Arbeidssko' } });
     fireEvent.change(screen.getByLabelText('Kategori'), { target: { value: 'UTSTYR' } });
@@ -56,8 +65,31 @@ const fyllUtSkjema = (beløp = '100') => {
 };
 
 describe('TilskuddsutgiftSkjema', () => {
+    it('lagrer med bare kategori og beløp når inkluderingstilskuddAvtale er av', async () => {
+        renderMedFeatureToggle(<TilskuddsutgiftSkjema {...skjemaProps} />, false);
+
+        expect(screen.queryByLabelText('Navn på utgift')).toBeNull();
+        expect(screen.queryByLabelText('Begrunnelse')).toBeNull();
+        fireEvent.change(screen.getByLabelText('Kategori'), { target: { value: 'UTSTYR' } });
+        const input = screen.getByLabelText('Beløp inntil');
+        fireEvent.change(input, { target: { value: '100' } });
+        fireEvent.blur(input);
+        fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
+
+        await waitFor(() => expect(skjemaProps.leggTilTilskuddsutgift).toHaveBeenCalledWith('', 100, '', 'UTSTYR'));
+    });
+
+    it('krever kategori og beløp når inkluderingstilskuddAvtale er av', async () => {
+        renderMedFeatureToggle(<TilskuddsutgiftSkjema {...skjemaProps} />, false);
+        fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
+
+        expect(await screen.findByText('Vennligst velg en type utgift')).toBeTruthy();
+        expect(screen.getByText('Vennligst oppgi et kostnadsoverslag')).toBeTruthy();
+        expect(skjemaProps.leggTilTilskuddsutgift).not.toHaveBeenCalled();
+    });
+
     it('åpner skjemaet i en modal fra steg og lukker etter lagring', async () => {
-        render(
+        renderMedFeatureToggle(
             <OpprettEnTilskuddsutgift
                 {...skjemaProps}
                 setIRedigeringsmodus={vi.fn()}
@@ -81,7 +113,7 @@ describe('TilskuddsutgiftSkjema', () => {
     });
 
     it('viser skjemaet direkte i endringsmodalen og holder den åpen til Endre velges', async () => {
-        render(<EndreInkluderingsutgifter />);
+        renderMedFeatureToggle(<EndreInkluderingsutgifter />);
         fireEvent.click(screen.getByRole('menuitem', { name: 'Legg til inkluderings utgift' }));
         expect(screen.getAllByRole('dialog')).toHaveLength(1);
         fyllUtSkjema();
@@ -102,7 +134,7 @@ describe('TilskuddsutgiftSkjema', () => {
     });
 
     it('viser påkrevde felt og avbryter uten å legge til en utgift', async () => {
-        render(<TilskuddsutgiftSkjema {...skjemaProps} />);
+        renderMedFeatureToggle(<TilskuddsutgiftSkjema {...skjemaProps} />);
         fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
 
         expect(await screen.findByText('Vennligst oppgi et navn på utgiften')).toBeTruthy();
@@ -119,7 +151,7 @@ describe('TilskuddsutgiftSkjema', () => {
     });
 
     it.each(['100,50', '100.50'])('avviser desimalbeløpet %s med heltallsfeil', async (beløp) => {
-        render(<TilskuddsutgiftSkjema {...skjemaProps} />);
+        renderMedFeatureToggle(<TilskuddsutgiftSkjema {...skjemaProps} />);
         fyllUtSkjema(beløp);
         fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
 
@@ -128,7 +160,7 @@ describe('TilskuddsutgiftSkjema', () => {
     });
 
     it('avviser beløp over gjenværende sats og godtar den nøyaktige grensen', async () => {
-        render(<TilskuddsutgiftSkjema {...skjemaProps} totalBeløp={900} />);
+        renderMedFeatureToggle(<TilskuddsutgiftSkjema {...skjemaProps} totalBeløp={900} />);
         fyllUtSkjema('101');
         fireEvent.click(screen.getByRole('button', { name: 'Legg til utgift' }));
 
