@@ -78,7 +78,6 @@ const InkluderingstilskuddSteg: FunctionComponent = () => {
 
                 <OpprettEnTilskuddsutgift
                     leggTilTilskuddsutgift={nyUtgift}
-                    ledigeInkluderingstilskuddtyper={alleInkluderingstilskuddstyper}
                     setIRedigeringsmodus={setIRedigermodus}
                     iRegideringsmodus={iRedigermodus}
                     tilskuddsutgift={utgifter}

@@ -21,7 +21,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
         setModalApen(false);
     };
 
-    const { alleInkluderingstilskuddstyper, utgifter, total, leggTil, slett, tilbakestill } = useUlagredeUtgifter(
+    const { utgifter, total, leggTil, slett, tilbakestill } = useUlagredeUtgifter(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
     );
 
@@ -66,7 +66,6 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                     {modalApen && (
                         <TilskuddsutgiftSkjema
                             leggTilTilskuddsutgift={leggTil}
-                            ledigeInkluderingstilskuddtyper={alleInkluderingstilskuddstyper}
                             totalBeløp={total}
                             inkluderingstilskuddSats={avtale.gjeldendeInnhold.inkluderingstilskuddSats}
                         />

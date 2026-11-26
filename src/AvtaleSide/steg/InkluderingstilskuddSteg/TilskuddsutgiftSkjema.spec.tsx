@@ -43,7 +43,6 @@ afterEach(() => {
 
 const skjemaProps: TilskuddsutgiftSkjemaProps = {
     leggTilTilskuddsutgift: vi.fn(),
-    ledigeInkluderingstilskuddtyper: ['UTSTYR'],
     totalBeløp: 0,
     inkluderingstilskuddSats: 1000,
 };
