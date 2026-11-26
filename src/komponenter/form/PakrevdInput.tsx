@@ -14,8 +14,7 @@ const schema = (name: string, label: string) =>
     z.object({
         [name]: z
             .string({
-                invalid_type_error: `${label} må være gyldig`,
-                required_error: `${label} er påkrevd`,
+                error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} må være gyldig`),
             })
             .trim()
             .min(1, { message: `${label} er påkrevd` }),

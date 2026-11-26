@@ -15,7 +15,9 @@ interface Props {
 }
 
 const lagSchema = (tiltakstype?: TiltaksType) => {
-    const stillingstypeEnum = z.enum(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'], { required_error: 'Feltet er påkrevd' });
+    const stillingstypeEnum = z.enum(['SKAFFE_ARBEID', 'BEHOLDE_ARBEID'], {
+        error: (issue) => (issue.input === undefined ? 'Feltet er påkrevd' : undefined),
+    });
 
     if (tiltakstype !== 'FIREARIG_LONNSTILSKUDD') {
         return z.object({ lonnstilskuddFormaal: z.preprocess((val) => val ?? undefined, stillingstypeEnum) });

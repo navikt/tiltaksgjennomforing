@@ -17,8 +17,7 @@ const schema = (name: string, label: string) =>
             parsePenger,
             z
                 .number({
-                    invalid_type_error: `${label} må være et tall`,
-                    required_error: `${label} er påkrevd`,
+                    error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} må være et tall`),
                 })
                 .int(`${label} må være et heltall`)
                 .min(1, `${label} må være minst 1 kr`),

@@ -22,7 +22,9 @@ const refineStillingstype = (startDato?: string, sluttDato?: string) => (val: St
 };
 
 const lagSchema = (tiltakstype?: TiltaksType, startDato?: string, sluttDato?: string) => {
-    const stillingstypeEnum = z.enum(['FAST', 'MIDLERTIDIG'], { required_error: 'Feltet er påkrevd' });
+    const stillingstypeEnum = z.enum(['FAST', 'MIDLERTIDIG'], {
+        error: (issue) => (issue.input === undefined ? 'Feltet er påkrevd' : undefined),
+    });
 
     if (tiltakstype !== 'FIREARIG_LONNSTILSKUDD') {
         return z.object({ stillingstype: z.preprocess((val) => val ?? undefined, stillingstypeEnum) });

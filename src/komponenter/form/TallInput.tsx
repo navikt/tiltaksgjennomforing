@@ -18,8 +18,7 @@ export interface Props extends TextFieldProps {
 const schema = (name: string, label: string, min: number, maks: number, desimaler: boolean) => {
     const validering = z
         .number({
-            invalid_type_error: `${label} må være et tall`,
-            required_error: `${label} er påkrevd`,
+            error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} må være et tall`),
         })
         .min(min, `${label} kan ikke være mindre enn ${min}`)
         .max(maks, `${label} kan ikke være større enn ${maks}`);

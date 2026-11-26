@@ -23,8 +23,7 @@ const schema = (name: string, label: string) =>
             parseNorskeTelefonnummer,
             z
                 .string({
-                    invalid_type_error: `${label} er ugyldig`,
-                    required_error: `${label} er påkrevd`,
+                    error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} er ugyldig`),
                 })
                 .refine(
                     (val) => NORSK_TELEFONNUMMER_REGEX.test(val) || UTENLANDSK_TELEFONNUMMER_REGEX.test(val),
