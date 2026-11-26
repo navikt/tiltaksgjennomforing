@@ -31,9 +31,11 @@ pnpm prettier:fix   # Fix formatting
 pnpm test           # Run tests
 pnpm build          # Build
 pnpm storybook      # Run Storybook
+pnpm run check      # ts, prettier, test and build of frontend, server and Storybook
+pnpm run verify     # clean, reinstall in root and server/, then check
 ```
 
-CI (`.github/workflows/bygg-branch.yml`) runs `pnpm ts`, `pnpm prettier` and `pnpm test`. Run all three before committing.
+CI (`.github/workflows/bygg-branch.yml`) runs `pnpm ts`, `pnpm prettier` and `pnpm test`. Run `pnpm run check` after changes; it covers all three. Use `pnpm run verify` only for a full reset: it deletes `node_modules`, needs access to GitHub Packages and breaks running dev servers.
 
 ## Project Structure
 
@@ -104,7 +106,7 @@ Keep diffs small and focused so they are easy to review.
 
 ### ✅ Always
 
-- Run `pnpm ts`, `pnpm prettier:fix` and `pnpm test` after changes
+- Run `pnpm prettier:fix` and then `pnpm run check` after changes
 - Follow existing code patterns in the project
 - Preserve existing code structure — do not reorganize or refactor beyond the task
 - Validate all external input

@@ -20,7 +20,7 @@ The same codebase runs as an internal app for Nav employees and an external app 
 
 ## Before Committing
 
-Run `pnpm ts`, `pnpm prettier` and `pnpm test`. CI runs the same checks.
+Run `pnpm run check`. It runs `pnpm ts`, `pnpm prettier` and `pnpm test` (the same checks as CI), and builds the frontend, the server and Storybook. Use `pnpm run verify` only for a full reset: it also deletes `node_modules` and reinstalls in the root and `server/`.
 
 ## Reviews
 
