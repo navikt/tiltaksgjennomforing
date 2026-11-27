@@ -31,6 +31,7 @@ import { ApiError, AutentiseringError, FeilkodeError, IkkeFunnetError, IkkeTilga
 import { Hendelse } from '@/types/hendelse';
 import { InnloggetBruker, Rolle } from '@/types/innlogget-bruker';
 import { Varsel } from '@/types/varsel';
+import { Feilkode } from '@/types/feilkode';
 
 const api = axios.create({
     baseURL: '/tiltaksgjennomforing/api',
@@ -393,10 +394,10 @@ export const hentBeOmRettighetUrler = async (orgNr: string): Promise<BeOmRettigh
     return response.data;
 };
 
-export const godkjennTilskuddsperiode = async (avtale: Avtale, enhet: string) => {
+export const godkjennTilskuddsperiode = async (avtale: Avtale, enhet: string, bekreftetFeilkode?: Feilkode) => {
     await api.post(
         `/avtaler/${avtale.id}/godkjenn-tilskuddsperiode`,
-        { enhet },
+        { enhet, bekreftetFeilkode },
         {
             headers: {
                 'If-Unmodified-Since': avtale.sistEndret,

@@ -16,6 +16,7 @@ import { useAsyncError } from './komponenter/useError';
 import * as RestService from './services/rest-service';
 import { Avtaleinnhold } from './types/avtale';
 import { handterFeil } from './utils/apiFeilUtils';
+import { Feilkode } from '@/types/feilkode';
 
 export const noenHarGodkjentMenIkkeInngått = (avtale: Avtale) => {
     const noenHarGodkjent = Boolean(
@@ -44,7 +45,7 @@ export interface Context {
     annullerAvtale: (annullerGrunn: string) => Promise<void>;
     endretSteg: () => void;
     godkjenn: () => Promise<void>;
-    godkjennTilskudd: (enhet: string) => Promise<void>;
+    godkjennTilskudd: (enhet: string, bekreftetFeilkode?: Feilkode) => Promise<void>;
     returnerTilskuddsperiode: (returårsaker: Set<Returårsaker>, returforklaring: string) => Promise<void>;
     godkjennPaVegneAvDeltaker: (paVegneGrunn: GodkjentPaVegneAvDeltakerGrunner) => Promise<void>;
     godkjennPaVegneAvArbeidsgiver: (paVegneGrunn: GodkjentPaVegneAvArbeidsgiverGrunner) => Promise<void>;
@@ -221,8 +222,8 @@ const AvtaleProvider: FunctionComponent<PropsWithChildren> = (props) => {
         await hentAvtale(avtale.id);
     };
 
-    const godkjennTilskudd = async (enhet: string): Promise<void> => {
-        await RestService.godkjennTilskuddsperiode(avtale, enhet);
+    const godkjennTilskudd = async (enhet: string, bekreftetFeilkode?: Feilkode): Promise<void> => {
+        await RestService.godkjennTilskuddsperiode(avtale, enhet, bekreftetFeilkode);
         await hentAvtale(avtale.id);
     };
 
