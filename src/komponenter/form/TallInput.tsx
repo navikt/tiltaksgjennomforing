@@ -1,7 +1,7 @@
 import React from 'react';
 import * as z from 'zod';
 import { TextField, TextFieldProps } from '@navikt/ds-react';
-import { Resolver, useController, useForm } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { formaterNorskeTall, parseNorskeTall } from '@/utils';
@@ -18,23 +18,20 @@ export interface Props extends TextFieldProps {
 const schema = (name: string, label: string, min: number, maks: number, desimaler: boolean) => {
     const validering = z
         .number({
-            invalid_type_error: `${label} må være et tall`,
-            required_error: `${label} er påkrevd`,
+            error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} må være et tall`),
         })
         .min(min, `${label} kan ikke være mindre enn ${min}`)
         .max(maks, `${label} kan ikke være større enn ${maks}`);
 
     return z.object({
         [name]: z.preprocess(
-            parseNorskeTall,
+            (verdi: string) => parseNorskeTall(verdi),
             desimaler
                 ? validering.multipleOf(0.01, `${label} kan maks ha 2 desimaler`)
                 : validering.int(`${label} må være et heltall`),
         ),
     });
 };
-
-type Schema = Record<string, string>;
 
 function TallInput(props: Props) {
     const { settVerdi, verdi, min = 0, maks = 100, desimaler = false, ...restProps } = props;
@@ -46,9 +43,9 @@ function TallInput(props: Props) {
         [name, label, min, maks, desimaler],
     );
 
-    const { formState, control, reset } = useForm<Schema>({
+    const { formState, control, reset } = useForm({
         mode: 'onBlur',
-        resolver: zodResolver(zodSchema) as Resolver<Schema>,
+        resolver: zodResolver(zodSchema),
         values: { [name]: formaterNorskeTall(verdi) ?? '' },
         resetOptions: { keepDirtyValues: true },
     });

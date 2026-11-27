@@ -20,11 +20,10 @@ export interface Props extends TextFieldProps {
 const schema = (name: string, label: string) =>
     z.object({
         [name]: z.preprocess(
-            parseNorskeTelefonnummer,
+            (verdi: string) => parseNorskeTelefonnummer(verdi),
             z
                 .string({
-                    invalid_type_error: `${label} er ugyldig`,
-                    required_error: `${label} er påkrevd`,
+                    error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} er ugyldig`),
                 })
                 .refine(
                     (val) => NORSK_TELEFONNUMMER_REGEX.test(val) || UTENLANDSK_TELEFONNUMMER_REGEX.test(val),
@@ -33,8 +32,6 @@ const schema = (name: string, label: string) =>
         ),
     });
 
-type Schema = z.infer<ReturnType<typeof schema>>;
-
 function TelefonnummerInput(props: Props) {
     const { settVerdi, verdi, ...restProps } = props;
     const name = restProps.name;
@@ -42,7 +39,7 @@ function TelefonnummerInput(props: Props) {
 
     const zodSchema = React.useMemo(() => schema(name, label), [name, label]);
 
-    const { formState, control, reset } = useForm<Schema>({
+    const { formState, control, reset } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(zodSchema),
         values: { [name]: formaterNorskeTelefonnummer(verdi) ?? '' },

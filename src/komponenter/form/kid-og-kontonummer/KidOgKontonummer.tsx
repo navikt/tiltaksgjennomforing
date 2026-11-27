@@ -30,12 +30,10 @@ const schema = z.object({
         .or(z.literal('')),
 });
 
-type Schema = { kid: string };
-
 const KidOgKontonummer = (props: Props) => {
     const { avtaleId, kid, kontonummer, onChange, visOverskrift } = props;
 
-    const { control, formState } = useForm<Schema>({
+    const { control, formState } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(schema),
     });

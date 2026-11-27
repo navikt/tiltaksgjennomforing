@@ -19,23 +19,20 @@ export interface Props extends TextFieldProps {
 const schema = (name: string, label: string, min: number, maks: number, desimaler: boolean) => {
     const validering = z
         .number({
-            invalid_type_error: `${label} må være et tall`,
-            required_error: `${label} er påkrevd`,
+            error: (issue) => (issue.input === undefined ? `${label} er påkrevd` : `${label} må være et tall`),
         })
         .min(min, `${label} kan ikke være mindre enn ${min}\u00A0%`)
         .max(maks, `${label} kan ikke være større enn ${maks}\u00A0%`);
 
     return z.object({
         [name]: z.preprocess(
-            (v) => parseProsent(v),
+            (v: string) => parseProsent(v),
             desimaler
                 ? validering.multipleOf(0.01, `${label} kan maks ha 2 desimaler`)
                 : validering.int(`${label} må være et heltall`),
         ),
     });
 };
-
-type Schema = Record<string, string>;
 
 function ProsentInput(props: Props) {
     const {
@@ -55,7 +52,7 @@ function ProsentInput(props: Props) {
         [name, label, min, maks, desimaler],
     );
 
-    const { formState, control, reset } = useForm<Schema>({
+    const { formState, control, reset } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(zodSchema),
         values: { [name]: formaterProsent(verdi, prosentType === 'desimalbrøk') ?? '' },
