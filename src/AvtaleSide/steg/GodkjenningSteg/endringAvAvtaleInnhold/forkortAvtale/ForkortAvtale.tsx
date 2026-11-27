@@ -18,16 +18,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { NotePencilIcon } from '@navikt/aksel-icons';
 
 const grunn = ['Begynt i arbeid', 'Fått tilbud om annet tiltak', 'Syk', 'Ikke møtt', 'Fullført', 'Annet'] as const;
-const grunnSchema = z.enum(grunn, { errorMap: () => ({ message: 'Grunn må velges' }) });
+const grunnSchema = z.enum(grunn, { error: 'Grunn må velges' });
 
 const schema = (min: Date, max: Date) =>
     z
         .object({
             grunn: grunnSchema,
             sluttDato: z.preprocess(
-                (value) => (!value || value === '' ? undefined : value),
+                (value: string) => (!value || value === '' ? undefined : value),
                 z.coerce
-                    .date({ errorMap: () => ({ message: 'Sluttdato må ha formatet dd.mm.åååå' }) })
+                    .date({ error: 'Sluttdato må ha formatet dd.mm.åååå' })
                     .max(max, { message: `Sluttdato kan senest være ${formaterDato(max, NORSK_DATO_FORMAT)}` })
                     .min(min, { message: `Sluttdato kan tidligst være ${formaterDato(min, NORSK_DATO_FORMAT)}` }),
             ),
@@ -37,8 +37,6 @@ const schema = (min: Date, max: Date) =>
             message: 'Begrunnelse må fylles ut når "Annet" er valgt',
             path: ['annetGrunn'],
         });
-
-type Schema = { grunn: z.infer<typeof grunnSchema>; sluttDato: string; annetGrunn?: string };
 
 const ForkortAvtale = () => {
     const avtaleContext = useContext(AvtaleContext);
@@ -51,7 +49,7 @@ const ForkortAvtale = () => {
     const minDate = new Date(avtaleContext.avtale.gjeldendeInnhold.startDato!);
     const maxDate = addDays(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, -1);
 
-    const { formState, register, control, watch, trigger, getValues, subscribe } = useForm<Schema>({
+    const { formState, register, control, watch, trigger, getValues, subscribe } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(schema(minDate, maxDate)),
         defaultValues: {

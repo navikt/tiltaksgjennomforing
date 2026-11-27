@@ -17,11 +17,11 @@ const NORMAL_ARBEIDSTID_PER_MND = (ANTALL_TIMER_NORMAL_ARBEIDSUKE * 52) / 12;
 
 const schema = z.object({
     mentorAntallTimerPerMnd: z.preprocess(
-        parseNorskeTall,
+        (verdi: string) => parseNorskeTall(verdi),
         z
             .number({
-                invalid_type_error: 'Antall timer må være et tall',
-                required_error: 'Antall timer er påkrevd',
+                error: (issue) =>
+                    issue.input === undefined ? 'Antall timer er påkrevd' : 'Antall timer må være et tall',
             })
             .int('Antall timer må være et heltall')
             .min(0, 'Antall timer kan ikke være negativt')
@@ -29,12 +29,10 @@ const schema = z.object({
     ),
 });
 
-type Schema = { mentorAntallTimerPerMnd: string };
-
 function MentorAntallTimerPerMnd(props: Props) {
     const { settVerdi, verdi } = props;
 
-    const { formState, control } = useForm<Schema>({
+    const { formState, control } = useForm({
         mode: 'onBlur',
         resolver: zodResolver(schema),
     });

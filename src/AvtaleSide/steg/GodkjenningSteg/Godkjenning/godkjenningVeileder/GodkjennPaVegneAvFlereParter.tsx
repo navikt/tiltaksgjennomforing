@@ -19,17 +19,15 @@ import { useInnloggetBruker } from '@/InnloggingBoundary/InnloggingBoundary';
 const schema = z.discriminatedUnion('isSkalGodkjennesPaVegne', [
     z.object({
         isSkalGodkjennesPaVegne: z.literal(false),
-        isInformert: z.coerce.boolean(),
+        isInformert: z.coerce.boolean<boolean>(),
     }),
     z.object({
         isSkalGodkjennesPaVegne: z.literal(true),
-        isInformert: z.coerce.boolean().refine((val) => val, {
+        isInformert: z.coerce.boolean<boolean>().refine((val) => val, {
             message: 'Deltaker må være informert om kravene og godkjenne innholdet i avtalen',
         }),
     }),
 ]);
-
-type Schema = z.infer<typeof schema>;
 
 function GodkjennPaVegneAvFlereParter() {
     const cls = BEMHelper('godkjenning');
@@ -50,7 +48,7 @@ function GodkjennPaVegneAvFlereParter() {
     const isIkkeGodkjentAvNoen = !godkjentAvDeltaker && !godkjentAvArbeidsgiver;
     const isKanGodkjennesPaVegneAv = !godkjentAvDeltaker || !godkjentAvArbeidsgiver;
 
-    const { register, handleSubmit, formState, watch, getValues, reset } = useForm<Schema>({
+    const { register, handleSubmit, formState, watch, getValues, reset } = useForm({
         defaultValues: {
             isInformert: false,
             isSkalGodkjennesPaVegne: false,
