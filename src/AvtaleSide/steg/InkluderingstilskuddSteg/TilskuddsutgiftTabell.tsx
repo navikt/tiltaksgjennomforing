@@ -79,7 +79,7 @@ const TilskuddsutgiftTabell: FunctionComponent<Props> = (props) => {
                     );
                     return inkluderingstilskuddAvtale ? (
                         <Table.ExpandableRow key={radnøkkel(utgift)} content={utgift.beskrivelse}>
-                            <Table.DataCell>{utgift.navn || inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
+                            <Table.DataCell>{utgift.navn}</Table.DataCell>
                             <Table.DataCell align="right">{formaterPenger(utgift.beløp)}</Table.DataCell>
                             <Table.DataCell align="center">{inkluderingstilskuddtypeTekst[utgift.type]}</Table.DataCell>
                             {sletteCelle}

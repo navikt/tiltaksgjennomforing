@@ -52,7 +52,7 @@ const TilskuddsutgiftSkjema = ({
             .min(inkluderingstilskuddAvtale ? 1 : 0, 'Vennligst oppgi en beskrivelse')
             .max(1000, 'Beskrivelsen kan ikke være lengre enn 1000 tegn'),
         beløp: z
-            .number({ required_error: 'Vennligst oppgi et kostnadsoverslag' })
+            .number({ error: 'Vennligst oppgi et kostnadsoverslag' })
             .max(
                 inkluderingstilskuddSats - totalBeløp,
                 `Det totale beløpet overskrider det maksimale beløpet på ${formaterPenger(inkluderingstilskuddSats)}`,
