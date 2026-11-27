@@ -53,7 +53,7 @@ const ForkortAvtale = () => {
         mode: 'onBlur',
         resolver: zodResolver(schema(minDate, maxDate)),
         defaultValues: {
-            grunn: grunn[0],
+            grunn: undefined,
             sluttDato: formaterDato(avtaleContext.avtale.gjeldendeInnhold.sluttDato!, 'yyyy-MM-dd'),
             annetGrunn: '',
         },
