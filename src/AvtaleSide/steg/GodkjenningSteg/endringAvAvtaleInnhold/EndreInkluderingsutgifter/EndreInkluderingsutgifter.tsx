@@ -11,18 +11,17 @@ import type { FunctionComponent } from 'react';
 import { useContext, useState } from 'react';
 import { TasklistIcon } from '@navikt/aksel-icons';
 import { useUlagredeUtgifter } from '@/AvtaleSide/steg/InkluderingstilskuddSteg/inkluderingstilskuddsUtils';
-import OpprettEnTilskuddsutgift from '@/AvtaleSide/steg/InkluderingstilskuddSteg/OpprettEnTilskuddsutgift';
+import TilskuddsutgiftSkjema from '@/AvtaleSide/steg/InkluderingstilskuddSteg/TilskuddsutgiftSkjema';
 
 const EndreInkluderingsutgifter: FunctionComponent = () => {
     const [modalApen, setModalApen] = useState(false);
     const { avtale, hentAvtale } = useContext(AvtaleContext);
-    const [iRedigermodus, setIRedigermodus] = useState(false);
 
     const lukkModal = () => {
         setModalApen(false);
     };
 
-    const { alleInkluderingstilskuddstyper, utgifter, total, leggTil, slett, tilbakestill } = useUlagredeUtgifter(
+    const { utgifter, total, leggTil, slett, tilbakestill } = useUlagredeUtgifter(
         avtale.gjeldendeInnhold.inkluderingstilskuddsutgift,
     );
 
@@ -47,7 +46,7 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                 <div style={{ marginRight: '0.5rem' }} aria-hidden={true}>
                     <TasklistIcon />
                 </div>
-                Legg til inkluderingstilskudd
+                Legg til utgift
             </Link>
             <BekreftelseModal
                 style={{ maxWidth: '40rem' }}
@@ -64,15 +63,13 @@ const EndreInkluderingsutgifter: FunctionComponent = () => {
                     <Tilskuddsbeskrivelse åpen={false} />
                     <VerticalSpacer rem={2} />
 
-                    <OpprettEnTilskuddsutgift
-                        leggTilTilskuddsutgift={leggTil}
-                        ledigeInkluderingstilskuddtyper={alleInkluderingstilskuddstyper}
-                        setIRedigeringsmodus={setIRedigermodus}
-                        iRegideringsmodus={iRedigermodus}
-                        tilskuddsutgift={utgifter}
-                        totalBeløp={total}
-                        inkluderingstilskuddSats={avtale.gjeldendeInnhold.inkluderingstilskuddSats}
-                    />
+                    {modalApen && (
+                        <TilskuddsutgiftSkjema
+                            leggTilTilskuddsutgift={leggTil}
+                            totalBeløp={total}
+                            inkluderingstilskuddSats={avtale.gjeldendeInnhold.inkluderingstilskuddSats}
+                        />
+                    )}
                     <VerticalSpacer rem={2} />
 
                     <div>

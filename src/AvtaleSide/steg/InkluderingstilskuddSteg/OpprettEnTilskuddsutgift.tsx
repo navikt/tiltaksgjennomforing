@@ -1,132 +1,66 @@
-import LagreKnapp from '@/komponenter/LagreKnapp/LagreKnapp';
-import VerticalSpacer from '@/komponenter/layout/VerticalSpacer';
-import { inkluderingstilskuddtypeTekst } from '@/messages';
-import { Inkluderingstilskuddsutgift, InkluderingstilskuddsutgiftType } from '@/types/avtale';
-import { formaterPenger } from '@/utils';
-import { Button, Heading, Select } from '@navikt/ds-react';
-import { ChangeEvent, FunctionComponent, useState } from 'react';
-import KronerInput from '@/komponenter/form/KronerInput';
+import { InkluderingstilskuddsutgiftType } from '@/types/avtale';
+import { Button, Heading, Modal, VStack } from '@navikt/ds-react';
+import { FunctionComponent, useState } from 'react';
+import TilskuddsutgiftSkjema from './TilskuddsutgiftSkjema';
 
 type Props = {
     setIRedigeringsmodus: (iModus: boolean) => void;
     iRegideringsmodus: boolean;
-    tilskuddsutgift: Inkluderingstilskuddsutgift[];
-    leggTilTilskuddsutgift: (beløp: number, type: InkluderingstilskuddsutgiftType) => void;
-    ledigeInkluderingstilskuddtyper: InkluderingstilskuddsutgiftType[];
+    leggTilTilskuddsutgift: (
+        navn: string,
+        beløp: number,
+        beskrivelse: string,
+        type: InkluderingstilskuddsutgiftType,
+    ) => void;
     totalBeløp: number;
     inkluderingstilskuddSats: number;
 };
 
-const OpprettEnTilskuddsutgift: FunctionComponent<Props> = (props) => {
-    const {
-        iRegideringsmodus,
-        inkluderingstilskuddSats,
-        ledigeInkluderingstilskuddtyper,
-        leggTilTilskuddsutgift,
-        setIRedigeringsmodus,
-        totalBeløp,
-    } = props;
-
+const OpprettEnTilskuddsutgift: FunctionComponent<Props> = ({
+    iRegideringsmodus,
+    setIRedigeringsmodus,
+    leggTilTilskuddsutgift,
+    totalBeløp,
+    inkluderingstilskuddSats,
+}) => {
     const [leggertilTilskuddsutgift, setLeggertilTilskuddsutgift] = useState(false);
 
-    const [beløp, setBeløp] = useState<number | undefined>();
-    const [type, setType] = useState<InkluderingstilskuddsutgiftType>();
-    const [beløpFeil, setBeløpFeil] = useState<string | undefined>();
-    const [typeFeil, setTypeFeil] = useState<string | undefined>();
-
-    const gjenståendeMaxBeløp = inkluderingstilskuddSats - totalBeløp;
-
-    const leggTil = async () => {
-        if (!type) {
-            setTypeFeil('Vennligst velg en type utgift');
-            return;
-        } else {
-            setTypeFeil(undefined);
-        }
-        if (!beløp) {
-            // set en feil - noe mangler
-            setBeløpFeil('Vennligst oppgi et kostnadsoverslag');
-            return;
-        }
-        if (beløp > gjenståendeMaxBeløp) {
-            setBeløpFeil(
-                `Det totale beløpet overskrider det maksimale beløpet på ${formaterPenger(inkluderingstilskuddSats)}`,
-            );
-            return;
-        } else {
-            setBeløp(undefined);
-        }
-        leggTilTilskuddsutgift(beløp, type);
+    const lukkModal = () => {
         setLeggertilTilskuddsutgift(false);
         setIRedigeringsmodus(false);
-        setBeløp(undefined);
-        setType(undefined);
     };
 
     return (
-        <div>
+        <VStack gap="space-32" align="start">
             <Heading level="2" size="medium">
                 Legg til utgift
             </Heading>
-            <VerticalSpacer rem={2} />
-
-            {leggertilTilskuddsutgift ? (
-                <div>
-                    <Select
-                        error={typeFeil}
-                        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                            setType(e.currentTarget.value as InkluderingstilskuddsutgiftType);
-                            setTypeFeil(undefined);
-                        }}
-                        label="Hva skal tilskuddet dekke?"
-                    >
-                        <option value="">Velg type utgift</option>
-                        {ledigeInkluderingstilskuddtyper.map((currentType: InkluderingstilskuddsutgiftType) => (
-                            <option key={currentType} value={currentType}>
-                                {inkluderingstilskuddtypeTekst[currentType]}
-                            </option>
-                        ))}
-                    </Select>
-                    <VerticalSpacer rem={1} />
-                    <KronerInput
-                        error={beløpFeil}
-                        name="beløp"
-                        width="M"
-                        label="Kostnadsoverslag"
-                        verdi={beløp}
-                        settVerdi={(verdi) => {
-                            setBeløp(verdi);
-                            setBeløpFeil(undefined);
-                        }}
-                    />
-                    <VerticalSpacer rem={1} />
-                    <div style={{ display: 'flex' }}>
-                        <LagreKnapp lagre={leggTil}>Legg til utgift</LagreKnapp>
-                        <Button
-                            variant="tertiary"
-                            style={{ marginLeft: '1rem' }}
-                            onClick={() => {
-                                setIRedigeringsmodus(false);
-                                setLeggertilTilskuddsutgift(false);
-                            }}
-                        >
-                            Avbryt
-                        </Button>
-                    </div>
-                </div>
-            ) : (
-                <Button
-                    variant="secondary"
-                    disabled={iRegideringsmodus}
-                    onClick={() => {
-                        setIRedigeringsmodus(true);
-                        setLeggertilTilskuddsutgift(true);
-                    }}
-                >
-                    + Legg til ny utgift
-                </Button>
-            )}
-        </div>
+            <Button
+                type="button"
+                variant="secondary"
+                disabled={iRegideringsmodus}
+                onClick={() => {
+                    setIRedigeringsmodus(true);
+                    setLeggertilTilskuddsutgift(true);
+                }}
+            >
+                Legg til utgift
+            </Button>
+            <Modal open={leggertilTilskuddsutgift} onClose={lukkModal} header={{ heading: 'Ny utgift' }} width="medium">
+                {leggertilTilskuddsutgift && (
+                    <Modal.Body>
+                        <TilskuddsutgiftSkjema
+                            leggTilTilskuddsutgift={leggTilTilskuddsutgift}
+                            totalBeløp={totalBeløp}
+                            inkluderingstilskuddSats={inkluderingstilskuddSats}
+                            lagretekst="Lagre"
+                            onLagret={lukkModal}
+                            onAvbryt={lukkModal}
+                        />
+                    </Modal.Body>
+                )}
+            </Modal>
+        </VStack>
     );
 };
 
