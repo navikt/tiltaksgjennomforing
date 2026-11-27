@@ -11,7 +11,7 @@ import { Alert, List, VStack } from '@navikt/ds-react';
 import styles from './BeslutterTilskuddsperiodeBekreftelseModal.module.less';
 import GodkjenningsPanel from '@/AvtaleSide/steg/GodkjenningSteg/Godkjenning/GodkjenningsPanel/GodkjenningsPanel';
 import { isPast } from 'date-fns';
-import { formaterPeriode } from '@/utils/datoUtils';
+import { datoVedMidnatt, formaterPeriode } from '@/utils/datoUtils';
 
 interface Props {
     enhet?: string;
@@ -25,7 +25,6 @@ const FEILKODER_SOM_KAN_BEKREFTES: Feilkode[] = [
     'INNSATSGRUPPE_VARIG_LONNTILSKUDD_FEIL',
     'INNSATSGRUPPE_VTAO_FEIL',
     'INNSATSGRUPPE_FIREARIG_LONNTILSKUDD_FOR_UNGE_FEIL',
-    'INNSATSGRUPPE_MANGLER',
 ];
 
 const parseFeilmelding = (avtale: Avtale, feilkode: Feilkode) => {
@@ -58,6 +57,7 @@ function BeslutterTilskuddsperiodeBekreftelseModal(props: Props) {
     const { godkjennTilskudd, avtale } = useAvtale();
     const [feil, setfeil] = useState<{ melding: string; kode: Feilkode }>();
     const [bekreftFeilkode, setBekreftFeilkode] = useState<boolean>(false);
+    const startdatoVedMidnatt = datoVedMidnatt(avtale.gjeldendeTilskuddsperiode?.sluttDato);
 
     return (
         <BekreftelseModal
@@ -97,7 +97,8 @@ function BeslutterTilskuddsperiodeBekreftelseModal(props: Props) {
                         </Alert>
                         {FEILKODER_SOM_KAN_BEKREFTES.includes(feil.kode) &&
                             avtale.gjeldendeTilskuddsperiode &&
-                            isPast(avtale.gjeldendeTilskuddsperiode?.sluttDato) && (
+                            startdatoVedMidnatt &&
+                            isPast(startdatoVedMidnatt) && (
                                 <GodkjenningsPanel
                                     setChecked={() => setBekreftFeilkode(!bekreftFeilkode)}
                                     isChecked={bekreftFeilkode}

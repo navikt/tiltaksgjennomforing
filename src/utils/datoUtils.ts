@@ -11,6 +11,7 @@ import {
     add,
     sub,
     subDays,
+    parse,
 } from 'date-fns';
 import { nb } from 'date-fns/locale';
 
@@ -137,11 +138,11 @@ export const datoMinus = (dato: string | Date, duration: Duration) => sub(addDay
 
 export const datoFraDagensDato = (duration: Duration) => datoPluss(new Date(), duration);
 
-export const datoVedMidnatt = (dato?: Date) => {
+export const datoVedMidnatt = (dato?: Date | string) => {
     if (!dato) {
         return undefined;
     }
-    const d = new Date(dato);
+    const d = typeof dato === 'string' ? parse(dato, 'yyyy-MM-dd', new Date()) : new Date(dato);
     d.setHours(0, 0, 0, 0);
     return d;
 };
